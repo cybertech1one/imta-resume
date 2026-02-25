@@ -1,3 +1,19 @@
+/**
+ * @fileoverview Resume Router
+ *
+ * This module provides all ORPC endpoints for resume management including:
+ * - CRUD operations for resumes
+ * - Resume statistics (views, downloads)
+ * - Tag management
+ * - Password protection for public resumes
+ * - Resume duplication and import
+ *
+ * All resume operations are scoped to the authenticated user's resumes,
+ * except for public resume access via username/slug.
+ *
+ * @module integrations/orpc/router/resume
+ */
+
 import z from "zod";
 import { resumeDataSchema } from "@/schema/resume/data";
 import { sampleResumeData } from "@/schema/resume/sample";
@@ -5,6 +21,10 @@ import { generateRandomName, slugify } from "@/utils/string";
 import { protectedProcedure, publicProcedure, serverOnlyProcedure } from "../context";
 import { resumeService } from "../services/resume";
 
+/**
+ * Tags sub-router for managing resume tags.
+ * Tags are used for filtering and organizing resumes in the dashboard.
+ */
 const tagsRouter = {
 	list: protectedProcedure
 		.route({
@@ -20,6 +40,10 @@ const tagsRouter = {
 		}),
 };
 
+/**
+ * Statistics sub-router for resume analytics.
+ * Tracks views and downloads for public resumes.
+ */
 const statisticsRouter = {
 	getById: protectedProcedure
 		.route({
@@ -51,6 +75,52 @@ const statisticsRouter = {
 		}),
 };
 
+/**
+ * Resume Router - Main router for all resume-related operations.
+ *
+ * This router provides comprehensive resume management capabilities:
+ *
+ * **Sub-routers:**
+ * - `tags`: Tag listing for dashboard filtering
+ * - `statistics`: View and download tracking
+ *
+ * **Resume Operations:**
+ * - `list`: List all user's resumes with filtering and sorting
+ * - `getById`: Get a specific resume by ID (protected)
+ * - `getBySlug`: Get a public resume by username/slug
+ * - `getBusinessCardBySlug`: Get business card data from public resume
+ * - `getByIdForPrinter`: Internal endpoint for PDF generation
+ * - `create`: Create a new resume (optionally with sample data)
+ * - `import`: Import a resume from JSON data
+ * - `update`: Update resume metadata and content
+ * - `duplicate`: Create a copy of an existing resume
+ * - `delete`: Permanently delete a resume
+ *
+ * **Security:**
+ * - `setLocked`: Lock a resume from editing
+ * - `setPassword`: Add password protection to public resumes
+ * - `removePassword`: Remove password protection
+ *
+ * @example
+ * ```typescript
+ * // List all resumes for the current user
+ * const resumes = await orpc.resume.list({ sort: "lastUpdatedAt" });
+ *
+ * // Create a new resume with sample data
+ * const id = await orpc.resume.create({
+ *   name: "My Resume",
+ *   slug: "my-resume",
+ *   tags: ["job-hunt"],
+ *   withSampleData: true
+ * });
+ *
+ * // Get a public resume
+ * const resume = await orpc.resume.getBySlug({
+ *   username: "john-doe",
+ *   slug: "software-engineer"
+ * });
+ * ```
+ */
 export const resumeRouter = {
 	tags: tagsRouter,
 	statistics: statisticsRouter,
@@ -144,10 +214,35 @@ export const resumeRouter = {
 				data: resumeDataSchema,
 				isPublic: z.boolean(),
 				isLocked: z.boolean(),
+				hasPassword: z.boolean(),
 			}),
 		)
 		.handler(async ({ input, context }) => {
 			return await resumeService.getBySlug({ ...input, currentUserId: context.user?.id });
+		}),
+
+	getBusinessCardBySlug: publicProcedure
+		.route({
+			method: "GET",
+			path: "/resume/{username}/{slug}/business-card",
+			tags: ["Resume"],
+			summary: "Get business card by username and slug",
+			description: "Get only business card related data for a resume by its username and slug.",
+		})
+		.input(z.object({ username: z.string(), slug: z.string() }))
+		.output(
+			z.object({
+				id: z.string(),
+				name: z.string(),
+				slug: z.string(),
+				data: resumeDataSchema,
+				isPublic: z.boolean(),
+				isLocked: z.boolean(),
+				hasPassword: z.boolean(),
+			}),
+		)
+		.handler(async ({ input, context }) => {
+			return await resumeService.getBusinessCardBySlug({ ...input, currentUserId: context.user?.id });
 		}),
 
 	create: protectedProcedure
