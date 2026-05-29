@@ -109,8 +109,10 @@ const getAuthConfig = () => {
 			minPasswordLength: 12,
 			maxPasswordLength: 64,
 			// Security: Require email verification in production to prevent account abuse
-			// and ensure valid contact information for password recovery
-			requireEmailVerification: process.env.NODE_ENV === "production",
+			// and ensure valid contact information for password recovery.
+			// Can be temporarily disabled via DISABLE_EMAIL_VERIFICATION (e.g. initial deploy
+			// before SMTP is configured) so users can sign up without a verification email.
+			requireEmailVerification: process.env.NODE_ENV === "production" && !env.DISABLE_EMAIL_VERIFICATION,
 			disableSignUp: env.FLAG_DISABLE_SIGNUPS || env.FLAG_DISABLE_EMAIL_AUTH,
 			sendResetPassword: async ({ user, url }) => {
 				await sendEmail({

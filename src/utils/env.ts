@@ -55,6 +55,12 @@ export const env = createEnv({
 			.string()
 			.default("false")
 			.transform((val) => val === "true"),
+		// Set to "true" to allow sign-up without email verification (e.g. initial deploy before SMTP is wired).
+		// Leave false/unset in normal production once email works.
+		DISABLE_EMAIL_VERIFICATION: z
+			.string()
+			.default("false")
+			.transform((val) => val === "true"),
 
 		// Storage (Optional)
 		S3_ACCESS_KEY_ID: z.string().min(1).optional(),
