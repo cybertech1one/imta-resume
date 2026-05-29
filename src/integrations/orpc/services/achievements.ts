@@ -742,6 +742,10 @@ export const achievementsService = {
 		const { userId, ...updates } = input;
 		await achievementsService.getNotificationPreferences(userId); // Ensure exists
 
+		// Guard: Drizzle's .set({}) produces invalid SQL ("UPDATE ... SET WHERE ...") and
+		// throws a 500 when no preference fields are supplied. Nothing to update -> return.
+		if (Object.keys(updates).length === 0) return;
+
 		await db
 			.update(schema.achievementNotificationPreferences)
 			.set(updates)
