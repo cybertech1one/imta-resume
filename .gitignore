@@ -55,3 +55,4 @@ PERFORMANCE_OPTIMIZATIONS.md
 *.tmp
 # upstream CI workflows (not needed for Railway; needs gh 'workflow' scope to push)
 .github/workflows/
+tmp-*.mjs
