@@ -5,10 +5,12 @@ import {
 	CheckIcon,
 	EnvelopeSimpleIcon,
 	FileTextIcon,
+	GraduationCapIcon,
 	LinkedinLogoIcon,
 	MagnifyingGlassIcon,
 } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
+import { trafficLandingPages } from "./traffic-landing";
 
 const objectives = [
 	{
@@ -76,12 +78,12 @@ const studentPaths = [
 ];
 
 const cities = [
-	{ name: "Casablanca", count: "1 250+ offres", image: "/templates/jpg/casablanca.jpg", href: "/stage-casablanca" },
-	{ name: "Rabat", count: "980+ offres", image: "/templates/jpg/rabat.jpg", href: "/stage-rabat" },
-	{ name: "Marrakech", count: "870+ offres", image: "/templates/jpg/marrakech.jpg", href: "/stage-marrakech" },
-	{ name: "Fès", count: "760+ offres", image: "/templates/jpg/fes.jpg", href: "/stage-fes" },
-	{ name: "Tanger", count: "650+ offres", image: "/templates/jpg/tangier.jpg", href: "/stage-tanger" },
-	{ name: "Agadir", count: "540+ offres", image: "/templates/jpg/agadir.jpg", href: "/stage-agadir" },
+	{ name: "Casablanca", count: "1 250+ offres", image: "/home/city-casablanca.webp", href: "/stage-casablanca" },
+	{ name: "Rabat", count: "980+ offres", image: "/home/city-rabat.webp", href: "/stage-rabat" },
+	{ name: "Marrakech", count: "870+ offres", image: "/home/city-marrakech.webp", href: "/stage-marrakech" },
+	{ name: "Fès", count: "760+ offres", image: "/home/city-fes.webp", href: "/stage-fes" },
+	{ name: "Tanger", count: "650+ offres", image: "/home/city-tanger.webp", href: "/stage-tanger" },
+	{ name: "Agadir", count: "540+ offres", image: "/home/city-agadir.webp", href: "/stage-agadir" },
 ];
 
 const questions = [
@@ -109,6 +111,56 @@ const guides = [
 		title: "Booster son profil LinkedIn étudiant",
 		image: "/home/tool-career-coaching.webp",
 		href: "/linkedin-etudiant",
+	},
+];
+
+const publicPageHighlights = [
+	{ title: "CV sans expérience", href: "/cv-sans-experience", image: "/home/tool-cv-intelligent.webp" },
+	{ title: "Stage à Casablanca", href: "/stage-casablanca", image: "/home/city-casablanca.webp" },
+	{ title: "Orientation après bac", href: "/orientation-apres-bac", image: "/home/student-career-workshop.webp" },
+	{ title: "Parents IMTA", href: "/parents-etudiants-imta", image: "/home/home-hero-students-career.webp" },
+];
+
+const popularSearchClusters = [
+	{
+		title: "Orientation",
+		text: "Pour les futurs étudiants qui comparent les formations.",
+		icon: GraduationCapIcon,
+		links: [
+			{ label: "Orientation après bac", href: "/orientation-apres-bac" },
+			{ label: "Formation professionnelle", href: "/formation-professionnelle-maroc" },
+			{ label: "Choisir un métier technique", href: "/choisir-metier-technique" },
+		],
+	},
+	{
+		title: "Premier CV",
+		text: "Pour transformer une formation en candidature claire.",
+		icon: FileTextIcon,
+		links: [
+			{ label: "CV sans expérience", href: "/cv-sans-experience" },
+			{ label: "CV BTS / DUT", href: "/cv-bts-dut" },
+			{ label: "CV formation professionnelle", href: "/cv-formation-professionnelle" },
+		],
+	},
+	{
+		title: "Stage local",
+		text: "Pour chercher par ville, niveau ou domaine.",
+		icon: BriefcaseIcon,
+		links: [
+			{ label: "Stage Casablanca", href: "/stage-casablanca" },
+			{ label: "Stage fin d'études", href: "/stage-fin-etudes" },
+			{ label: "Stage HSE Casablanca", href: "/stage-hse-casablanca" },
+		],
+	},
+	{
+		title: "Confiance",
+		text: "Pour préparer l'appel et l'entretien.",
+		icon: ChatsCircleIcon,
+		links: [
+			{ label: "Questions entretien", href: "/questions-entretien-stage" },
+			{ label: "Pitch entretien", href: "/pitch-entretien" },
+			{ label: "Questions pièges", href: "/questions-piege-entretien" },
+		],
 	},
 ];
 
@@ -202,6 +254,77 @@ export function StudentLanding() {
 				</div>
 			</section>
 
+			<section id="recherches-populaires" className="bg-zinc-50 py-16 md:py-20">
+				<div className="mx-auto max-w-7xl px-6 lg:px-10">
+					<div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
+						<a
+							href="/orientation-apres-bac"
+							className="group relative min-h-[420px] overflow-hidden rounded-lg bg-emerald-950 text-white"
+						>
+							<img
+								src="/home/student-career-workshop.webp"
+								alt=""
+								aria-hidden="true"
+								loading="eager"
+								decoding="async"
+								width={1440}
+								height={810}
+								className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+							/>
+							<div
+								aria-hidden="true"
+								className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,26,19,0.08)_0%,rgba(5,26,19,0.92)_100%)]"
+							/>
+							<div className="relative flex min-h-[420px] flex-col justify-end p-6 md:p-8">
+								<p className="font-semibold text-emerald-100 text-sm">{trafficLandingPages.length}+ pages publiques</p>
+								<h2 className="mt-3 max-w-xl font-display text-4xl leading-tight md:text-5xl">
+									Des recherches étudiantes transformées en parcours clairs.
+								</h2>
+								<p className="mt-4 max-w-lg text-white/74 leading-7">
+									Orientation, CV, stage et entretien: chaque porte d'entrée mène vers une action utile.
+								</p>
+								<span className="mt-7 inline-flex items-center gap-2 font-semibold text-emerald-100">
+									Voir l'orientation après bac
+									<ArrowRightIcon aria-hidden="true" className="size-4" />
+								</span>
+							</div>
+						</a>
+
+						<div className="grid gap-4 sm:grid-cols-2">
+							{popularSearchClusters.map((cluster) => {
+								const Icon = cluster.icon;
+
+								return (
+									<article key={cluster.title} className="rounded-lg border border-zinc-200 bg-white p-5">
+										<div className="mb-4 flex items-start gap-3">
+											<div className="flex size-11 shrink-0 items-center justify-center rounded-md bg-emerald-50 text-emerald-800">
+												<Icon aria-hidden="true" className="size-6" weight="duotone" />
+											</div>
+											<div>
+												<h3 className="font-semibold text-lg text-zinc-950">{cluster.title}</h3>
+												<p className="mt-1 text-sm text-zinc-500 leading-6">{cluster.text}</p>
+											</div>
+										</div>
+										<div className="grid gap-2">
+											{cluster.links.map((link) => (
+												<a
+													key={link.href}
+													href={link.href}
+													className="flex min-h-11 items-center justify-between gap-3 rounded-md border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-700 transition-colors hover:border-emerald-800/35 hover:bg-emerald-50 hover:text-emerald-900"
+												>
+													<span className="line-clamp-1">{link.label}</span>
+													<ArrowRightIcon aria-hidden="true" className="size-3.5 shrink-0 text-emerald-800" />
+												</a>
+											))}
+										</div>
+									</article>
+								);
+							})}
+						</div>
+					</div>
+				</div>
+			</section>
+
 			<section id="parcours" className="bg-white py-12 md:py-16">
 				<div className="mx-auto max-w-7xl px-6 lg:px-10">
 					<div className="mx-auto max-w-3xl text-center">
@@ -273,7 +396,7 @@ export function StudentLanding() {
 									src={city.image}
 									alt=""
 									aria-hidden="true"
-									loading="lazy"
+									loading="eager"
 									decoding="async"
 									width={360}
 									height={220}
@@ -364,6 +487,71 @@ export function StudentLanding() {
 				</div>
 			</section>
 
+			<section id="ressources-publiques" className="bg-zinc-950 py-16 text-white md:py-20">
+				<div className="mx-auto max-w-7xl px-6 lg:px-10">
+					<div className="grid gap-8 lg:grid-cols-[0.84fr_1.16fr] lg:items-end">
+						<div>
+							<p className="font-semibold text-emerald-300 text-sm">Ressources publiques</p>
+							<h2 className="mt-4 font-display text-4xl leading-tight md:text-5xl">
+								{trafficLandingPages.length}+ pages pour répondre aux recherches des étudiants.
+							</h2>
+							<p className="mt-5 text-white/70 leading-7">
+								Des pages par objectif, ville, métier et entretien pour attirer les étudiants puis les guider vers un CV
+								ou une candidature prête à envoyer.
+							</p>
+							<a
+								href="/ressources-etudiants-maroc"
+								className="mt-8 inline-flex h-13 items-center gap-3 rounded-md bg-white px-6 font-semibold text-emerald-950"
+							>
+								Explorer les ressources
+								<ArrowRightIcon aria-hidden="true" className="size-4" />
+							</a>
+							<a
+								href="/campagnes-etudiants"
+								className="mt-3 inline-flex h-13 items-center gap-3 rounded-md border border-white/15 px-6 font-semibold text-white transition-colors hover:bg-white/8"
+							>
+								Voir les campagnes
+								<ArrowRightIcon aria-hidden="true" className="size-4" />
+							</a>
+							<a
+								href="/plan-marketing-etudiants"
+								className="mt-3 inline-flex h-13 items-center gap-3 rounded-md border border-white/15 px-6 font-semibold text-white transition-colors hover:bg-white/8"
+							>
+								Plan 30 jours
+								<ArrowRightIcon aria-hidden="true" className="size-4" />
+							</a>
+						</div>
+						<div className="grid gap-3 sm:grid-cols-2">
+							{publicPageHighlights.map((page) => (
+								<a
+									key={page.href}
+									href={page.href}
+									className="group grid grid-cols-[5.8rem_1fr] overflow-hidden rounded-lg border border-white/12 bg-white/[0.06] transition-colors hover:bg-white/[0.1]"
+								>
+									<img
+										src={page.image}
+										alt=""
+										aria-hidden="true"
+										loading="lazy"
+										decoding="async"
+										width={180}
+										height={140}
+										className="h-full min-h-24 w-full object-cover"
+									/>
+									<div className="flex items-center justify-between gap-3 p-4">
+										<p className="font-semibold text-white">{page.title}</p>
+										<ArrowRightIcon
+											aria-hidden="true"
+											className="size-4 shrink-0 text-emerald-300 transition-transform group-hover:translate-x-1"
+										/>
+									</div>
+								</a>
+							))}
+						</div>
+					</div>
+				</div>
+			</section>
+
 			<section className="grid overflow-hidden bg-emerald-950 text-white lg:grid-cols-[0.95fr_1.05fr]">
 				<div className="flex items-center px-6 py-14 md:px-10 lg:px-14">
 					<div className="max-w-xl">
@@ -431,25 +619,46 @@ function StudentFooter() {
 				</div>
 				<FooterLinks
 					title="Produit"
-					links={["Fonctionnalités", "Modèles CV", "Stages & Emplois", "Préparation entretien"]}
+					links={[
+						{ label: "Fonctionnalités", href: "/#objectifs" },
+						{ label: "Modèles CV", href: "/cv-etudiant" },
+						{ label: "Orientation", href: "/orientation-apres-bac" },
+						{ label: "Stages & Emplois", href: "/stage-maroc" },
+						{ label: "Préparation entretien", href: "/preparation-entretien" },
+					]}
 				/>
-				<FooterLinks title="Ressources" links={["Guides", "Conseils carrière", "Blog", "FAQ"]} />
-				<FooterLinks title="À propos" links={["À propos d'IMTA", "Contact", "Presse"]} />
+				<FooterLinks
+					title="Ressources"
+					links={[
+						{ label: "Guides", href: "/wiki" },
+						{ label: "Ressources étudiants", href: "/ressources-etudiants-maroc" },
+						{ label: "Campagnes étudiants", href: "/campagnes-etudiants" },
+						{ label: "FAQ", href: "/questions-entretien-stage" },
+					]}
+				/>
+				<FooterLinks
+					title="À propos"
+					links={[
+						{ label: "À propos d'IMTA", href: "https://imta.ma" },
+						{ label: "Contact", href: "https://imta.ma/contact" },
+						{ label: "Presse", href: "https://imta.ma" },
+					]}
+				/>
 			</div>
 			<p className="mt-8 text-center text-sm text-zinc-500">© 2024 IMTA Resume. Tous droits réservés.</p>
 		</footer>
 	);
 }
 
-function FooterLinks({ title, links }: { title: string; links: string[] }) {
+function FooterLinks({ title, links }: { title: string; links: Array<{ label: string; href: string }> }) {
 	return (
 		<div>
 			<h3 className="font-semibold text-emerald-900 text-sm">{title}</h3>
 			<ul className="mt-3 space-y-2">
 				{links.map((link) => (
-					<li key={link}>
-						<a href="/" className="text-sm text-zinc-600 hover:text-emerald-800">
-							{link}
+					<li key={link.label}>
+						<a href={link.href} className="text-sm text-zinc-600 hover:text-emerald-800">
+							{link.label}
 						</a>
 					</li>
 				))}

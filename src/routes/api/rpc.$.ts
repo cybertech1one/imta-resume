@@ -57,7 +57,13 @@ async function handler({ request }: { request: Request }) {
 	try {
 		const { response } = await rpcHandler.handle(request, {
 			prefix: "/api/rpc",
-			context: { locale: await getLocale() },
+			// SECURITY: `reqHeaders` MUST be passed into the ORPC context so that
+			// auth/role/server-only middleware in context.ts can read the request's
+			// session cookie, x-api-key, and x-server-only-token at runtime. Without
+			// it, `serverOnlyProcedure` and `protectedProcedure` see an empty Headers
+			// object and cannot validate the caller — which previously allowed
+			// unauthenticated access to internal endpoints. Mirrors openapi.$.ts.
+			context: { locale: await getLocale(), reqHeaders: request.headers },
 		});
 
 		if (!response) {

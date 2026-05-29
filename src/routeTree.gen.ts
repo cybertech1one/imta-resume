@@ -28,12 +28,15 @@ import { Route as AuthLoginRouteImport } from "./routes/auth/login";
 import { Route as AuthForgotPasswordRouteImport } from "./routes/auth/forgot-password";
 import { Route as ApiHealthRouteImport } from "./routes/api/health";
 import { Route as HomeStageMarocRouteImport } from "./routes/_home/stage-maroc";
+import { Route as HomeRessourcesEtudiantsMarocRouteImport } from "./routes/_home/ressources-etudiants-maroc";
 import { Route as HomePreparationEntretienRouteImport } from "./routes/_home/preparation-entretien";
+import { Route as HomePlanMarketingEtudiantsRouteImport } from "./routes/_home/plan-marketing-etudiants";
 import { Route as HomeMetiersTechniquesRouteImport } from "./routes/_home/metiers-techniques";
 import { Route as HomeImtaEtudiantsRouteImport } from "./routes/_home/imta-etudiants";
 import { Route as HomeHelpRouteImport } from "./routes/_home/help";
 import { Route as HomeEcolesFormateursRouteImport } from "./routes/_home/ecoles-formateurs";
 import { Route as HomeCvEtudiantRouteImport } from "./routes/_home/cv-etudiant";
+import { Route as HomeCampagnesEtudiantsRouteImport } from "./routes/_home/campagnes-etudiants";
 import { Route as HomeLandingSlugRouteImport } from "./routes/_home/$landingSlug";
 import { Route as UsernameSlugRouteImport } from "./routes/$username/$slug";
 import { Route as DashboardAdminRouteRouteImport } from "./routes/dashboard/admin/route";
@@ -283,10 +286,22 @@ const HomeStageMarocRoute = HomeStageMarocRouteImport.update({
   path: "/stage-maroc",
   getParentRoute: () => HomeRouteRoute,
 } as any);
+const HomeRessourcesEtudiantsMarocRoute =
+  HomeRessourcesEtudiantsMarocRouteImport.update({
+    id: "/ressources-etudiants-maroc",
+    path: "/ressources-etudiants-maroc",
+    getParentRoute: () => HomeRouteRoute,
+  } as any);
 const HomePreparationEntretienRoute =
   HomePreparationEntretienRouteImport.update({
     id: "/preparation-entretien",
     path: "/preparation-entretien",
+    getParentRoute: () => HomeRouteRoute,
+  } as any);
+const HomePlanMarketingEtudiantsRoute =
+  HomePlanMarketingEtudiantsRouteImport.update({
+    id: "/plan-marketing-etudiants",
+    path: "/plan-marketing-etudiants",
     getParentRoute: () => HomeRouteRoute,
   } as any);
 const HomeMetiersTechniquesRoute = HomeMetiersTechniquesRouteImport.update({
@@ -312,6 +327,11 @@ const HomeEcolesFormateursRoute = HomeEcolesFormateursRouteImport.update({
 const HomeCvEtudiantRoute = HomeCvEtudiantRouteImport.update({
   id: "/cv-etudiant",
   path: "/cv-etudiant",
+  getParentRoute: () => HomeRouteRoute,
+} as any);
+const HomeCampagnesEtudiantsRoute = HomeCampagnesEtudiantsRouteImport.update({
+  id: "/campagnes-etudiants",
+  path: "/campagnes-etudiants",
   getParentRoute: () => HomeRouteRoute,
 } as any);
 const HomeLandingSlugRoute = HomeLandingSlugRouteImport.update({
@@ -1189,12 +1209,15 @@ export interface FileRoutesByFullPath {
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRouteWithChildren;
   "/$landingSlug": typeof HomeLandingSlugRoute;
+  "/campagnes-etudiants": typeof HomeCampagnesEtudiantsRoute;
   "/cv-etudiant": typeof HomeCvEtudiantRoute;
   "/ecoles-formateurs": typeof HomeEcolesFormateursRoute;
   "/help": typeof HomeHelpRoute;
   "/imta-etudiants": typeof HomeImtaEtudiantsRoute;
   "/metiers-techniques": typeof HomeMetiersTechniquesRoute;
+  "/plan-marketing-etudiants": typeof HomePlanMarketingEtudiantsRoute;
   "/preparation-entretien": typeof HomePreparationEntretienRoute;
+  "/ressources-etudiants-maroc": typeof HomeRessourcesEtudiantsMarocRoute;
   "/stage-maroc": typeof HomeStageMarocRoute;
   "/api/health": typeof ApiHealthRoute;
   "/auth/forgot-password": typeof AuthForgotPasswordRoute;
@@ -1363,12 +1386,15 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   "/schema.json": typeof SchemaDotjsonRoute;
   "/$landingSlug": typeof HomeLandingSlugRoute;
+  "/campagnes-etudiants": typeof HomeCampagnesEtudiantsRoute;
   "/cv-etudiant": typeof HomeCvEtudiantRoute;
   "/ecoles-formateurs": typeof HomeEcolesFormateursRoute;
   "/help": typeof HomeHelpRoute;
   "/imta-etudiants": typeof HomeImtaEtudiantsRoute;
   "/metiers-techniques": typeof HomeMetiersTechniquesRoute;
+  "/plan-marketing-etudiants": typeof HomePlanMarketingEtudiantsRoute;
   "/preparation-entretien": typeof HomePreparationEntretienRoute;
+  "/ressources-etudiants-maroc": typeof HomeRessourcesEtudiantsMarocRoute;
   "/stage-maroc": typeof HomeStageMarocRoute;
   "/api/health": typeof ApiHealthRoute;
   "/auth/forgot-password": typeof AuthForgotPasswordRoute;
@@ -1545,12 +1571,15 @@ export interface FileRoutesById {
   "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
   "/$username/$slug": typeof UsernameSlugRouteWithChildren;
   "/_home/$landingSlug": typeof HomeLandingSlugRoute;
+  "/_home/campagnes-etudiants": typeof HomeCampagnesEtudiantsRoute;
   "/_home/cv-etudiant": typeof HomeCvEtudiantRoute;
   "/_home/ecoles-formateurs": typeof HomeEcolesFormateursRoute;
   "/_home/help": typeof HomeHelpRoute;
   "/_home/imta-etudiants": typeof HomeImtaEtudiantsRoute;
   "/_home/metiers-techniques": typeof HomeMetiersTechniquesRoute;
+  "/_home/plan-marketing-etudiants": typeof HomePlanMarketingEtudiantsRoute;
   "/_home/preparation-entretien": typeof HomePreparationEntretienRoute;
+  "/_home/ressources-etudiants-maroc": typeof HomeRessourcesEtudiantsMarocRoute;
   "/_home/stage-maroc": typeof HomeStageMarocRoute;
   "/api/health": typeof ApiHealthRoute;
   "/auth/forgot-password": typeof AuthForgotPasswordRoute;
@@ -1728,12 +1757,15 @@ export interface FileRouteTypes {
     | "/dashboard/admin"
     | "/$username/$slug"
     | "/$landingSlug"
+    | "/campagnes-etudiants"
     | "/cv-etudiant"
     | "/ecoles-formateurs"
     | "/help"
     | "/imta-etudiants"
     | "/metiers-techniques"
+    | "/plan-marketing-etudiants"
     | "/preparation-entretien"
+    | "/ressources-etudiants-maroc"
     | "/stage-maroc"
     | "/api/health"
     | "/auth/forgot-password"
@@ -1902,12 +1934,15 @@ export interface FileRouteTypes {
   to:
     | "/schema.json"
     | "/$landingSlug"
+    | "/campagnes-etudiants"
     | "/cv-etudiant"
     | "/ecoles-formateurs"
     | "/help"
     | "/imta-etudiants"
     | "/metiers-techniques"
+    | "/plan-marketing-etudiants"
     | "/preparation-entretien"
+    | "/ressources-etudiants-maroc"
     | "/stage-maroc"
     | "/api/health"
     | "/auth/forgot-password"
@@ -2083,12 +2118,15 @@ export interface FileRouteTypes {
     | "/dashboard/admin"
     | "/$username/$slug"
     | "/_home/$landingSlug"
+    | "/_home/campagnes-etudiants"
     | "/_home/cv-etudiant"
     | "/_home/ecoles-formateurs"
     | "/_home/help"
     | "/_home/imta-etudiants"
     | "/_home/metiers-techniques"
+    | "/_home/plan-marketing-etudiants"
     | "/_home/preparation-entretien"
+    | "/_home/ressources-etudiants-maroc"
     | "/_home/stage-maroc"
     | "/api/health"
     | "/auth/forgot-password"
@@ -2406,11 +2444,25 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof HomeStageMarocRouteImport;
       parentRoute: typeof HomeRouteRoute;
     };
+    "/_home/ressources-etudiants-maroc": {
+      id: "/_home/ressources-etudiants-maroc";
+      path: "/ressources-etudiants-maroc";
+      fullPath: "/ressources-etudiants-maroc";
+      preLoaderRoute: typeof HomeRessourcesEtudiantsMarocRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
     "/_home/preparation-entretien": {
       id: "/_home/preparation-entretien";
       path: "/preparation-entretien";
       fullPath: "/preparation-entretien";
       preLoaderRoute: typeof HomePreparationEntretienRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
+    "/_home/plan-marketing-etudiants": {
+      id: "/_home/plan-marketing-etudiants";
+      path: "/plan-marketing-etudiants";
+      fullPath: "/plan-marketing-etudiants";
+      preLoaderRoute: typeof HomePlanMarketingEtudiantsRouteImport;
       parentRoute: typeof HomeRouteRoute;
     };
     "/_home/metiers-techniques": {
@@ -2446,6 +2498,13 @@ declare module "@tanstack/react-router" {
       path: "/cv-etudiant";
       fullPath: "/cv-etudiant";
       preLoaderRoute: typeof HomeCvEtudiantRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
+    "/_home/campagnes-etudiants": {
+      id: "/_home/campagnes-etudiants";
+      path: "/campagnes-etudiants";
+      fullPath: "/campagnes-etudiants";
+      preLoaderRoute: typeof HomeCampagnesEtudiantsRouteImport;
       parentRoute: typeof HomeRouteRoute;
     };
     "/_home/$landingSlug": {
@@ -3531,12 +3590,15 @@ declare module "@tanstack/react-router" {
 
 interface HomeRouteRouteChildren {
   HomeLandingSlugRoute: typeof HomeLandingSlugRoute;
+  HomeCampagnesEtudiantsRoute: typeof HomeCampagnesEtudiantsRoute;
   HomeCvEtudiantRoute: typeof HomeCvEtudiantRoute;
   HomeEcolesFormateursRoute: typeof HomeEcolesFormateursRoute;
   HomeHelpRoute: typeof HomeHelpRoute;
   HomeImtaEtudiantsRoute: typeof HomeImtaEtudiantsRoute;
   HomeMetiersTechniquesRoute: typeof HomeMetiersTechniquesRoute;
+  HomePlanMarketingEtudiantsRoute: typeof HomePlanMarketingEtudiantsRoute;
   HomePreparationEntretienRoute: typeof HomePreparationEntretienRoute;
+  HomeRessourcesEtudiantsMarocRoute: typeof HomeRessourcesEtudiantsMarocRoute;
   HomeStageMarocRoute: typeof HomeStageMarocRoute;
   HomeIndexRoute: typeof HomeIndexRoute;
   HomeWikiIndexRoute: typeof HomeWikiIndexRoute;
@@ -3546,12 +3608,15 @@ interface HomeRouteRouteChildren {
 
 const HomeRouteRouteChildren: HomeRouteRouteChildren = {
   HomeLandingSlugRoute: HomeLandingSlugRoute,
+  HomeCampagnesEtudiantsRoute: HomeCampagnesEtudiantsRoute,
   HomeCvEtudiantRoute: HomeCvEtudiantRoute,
   HomeEcolesFormateursRoute: HomeEcolesFormateursRoute,
   HomeHelpRoute: HomeHelpRoute,
   HomeImtaEtudiantsRoute: HomeImtaEtudiantsRoute,
   HomeMetiersTechniquesRoute: HomeMetiersTechniquesRoute,
+  HomePlanMarketingEtudiantsRoute: HomePlanMarketingEtudiantsRoute,
   HomePreparationEntretienRoute: HomePreparationEntretienRoute,
+  HomeRessourcesEtudiantsMarocRoute: HomeRessourcesEtudiantsMarocRoute,
   HomeStageMarocRoute: HomeStageMarocRoute,
   HomeIndexRoute: HomeIndexRoute,
   HomeWikiIndexRoute: HomeWikiIndexRoute,

@@ -8,8 +8,8 @@ import { ErrorComponent } from "@/components/error-component";
 import { authClient } from "@/integrations/auth/client";
 import { orpc } from "@/integrations/orpc/client";
 import type { ImtaProgram } from "@/schema/interview";
-
 import { DashboardHeader } from "../-components/header";
+import { getProgramField } from "../-components/program-features";
 import {
 	FieldSelectionSection,
 	HeroSection,
@@ -38,14 +38,22 @@ function InterviewHub() {
 	const [selectedDifficulty, setSelectedDifficulty] = useState<InterviewDifficulty>("intermediate");
 	const [currentTipIndex, setCurrentTipIndex] = useState(0);
 
+	// Derive the user's IMTA field to pre-filter reference data
+	const userProgram = (session?.user as Record<string, unknown> | undefined)?.imtaProgram as string | null | undefined;
+	const userField = getProgramField(userProgram);
+
 	const { data: dbPrograms } = useQuery({
 		...orpc.imtaPrograms.list.queryOptions({ input: { activeOnly: true } }),
 		staleTime: 60 * 60 * 1000, // Reference data - cache 1 hour
 		enabled: !!session?.user,
 	});
 
+	// Filter tips by the user's field (falls back to "general" when unknown).
+	// Tips with no field assigned are not returned when a field filter is active,
+	// so use "general" (no field filter) as the safe fallback for unknown programs.
+	const tipsField = userField !== "general" ? userField : undefined;
 	const { data: dbTips } = useQuery({
-		...orpc.interviewTips.list.queryOptions({ input: { activeOnly: true } }),
+		...orpc.interviewTips.list.queryOptions({ input: { activeOnly: true, field: tipsField } }),
 		staleTime: 30 * 60 * 1000, // Tips rarely change - cache 30 min
 		enabled: !!session?.user,
 	});

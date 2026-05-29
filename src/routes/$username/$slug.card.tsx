@@ -65,7 +65,7 @@ export const Route = createFileRoute("/$username/$slug/card")({
 		}
 
 		const { resume, username, slug } = loaderData;
-		const appUrl = (typeof process !== "undefined" ? process.env.APP_URL : undefined) ?? "https://rxresu.me/";
+		const appUrl = (typeof process !== "undefined" ? process.env.APP_URL : undefined) ?? "https://imta.ma/";
 		const cardUrl = `${appUrl}${username}/${slug}/card`;
 
 		// Extract data for SEO

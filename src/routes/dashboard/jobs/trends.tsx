@@ -57,27 +57,31 @@ function MarketTrendsPage() {
 
 	// --- Transform DB data to component prop types ---
 
+	const knownFields: Field[] = ["healthcare", "industrial", "hse"];
+
 	const salaryTrends = useMemo<SalaryTrend[]>(() => {
 		if (!rawSalaries) return [];
-		return rawSalaries.map((s) => ({
-			position: s.roleFr || s.role,
-			field: (s.field || "industrial") as Field,
-			salaryMin: s.salaryMin ?? 0,
-			salaryMax: s.salaryMax ?? 0,
-			salaryMedian: s.salaryMedian ?? 0,
-			changeFromLastYear: 0,
-		}));
+		return rawSalaries
+			.filter((s) => knownFields.includes((s.field ?? "") as Field))
+			.map((s) => ({
+				position: s.roleFr || s.role,
+				field: (s.field as Field) ?? "industrial",
+				salaryMin: s.salaryMin ?? 0,
+				salaryMax: s.salaryMax ?? 0,
+				salaryMedian: s.salaryMedian ?? 0,
+				changeFromLastYear: 0,
+			}));
 	}, [rawSalaries]);
 
 	const skillsDemand = useMemo<SkillDemand[]>(() => {
 		if (!rawSkills) return [];
 		return rawSkills
-			.filter((s) => s.field !== null)
+			.filter((s) => s.field !== null && knownFields.includes(s.field as Field))
 			.map((s) => ({
 				skill: s.skill,
 				demand: s.demandScore ?? 0,
 				growth: s.growthPercent ?? 0,
-				field: (s.field || "industrial") as Field,
+				field: (s.field as Field) ?? "industrial",
 			}));
 	}, [rawSkills]);
 

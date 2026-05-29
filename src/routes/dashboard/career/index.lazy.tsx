@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { authClient } from "@/integrations/auth/client";
 import { orpc } from "@/integrations/orpc/client";
 import { DashboardHeader } from "../-components/header";
+import { getProgramField } from "../-components/program-features";
 import {
 	AiCareerToolsSection,
 	AllMatchesCard,
@@ -66,6 +67,12 @@ export const Route = createLazyFileRoute("/dashboard/career/" as any)({
 function CareerGuidance() {
 	const { data: session } = authClient.useSession();
 	const queryClient = useQueryClient();
+
+	// Derive the user's IMTA field for pre-filtering reference data
+	const userProgram = (session?.user as Record<string, unknown> | undefined)?.imtaProgram as string | null | undefined;
+	const userField = getProgramField(userProgram);
+	// "general" means unknown program — don't restrict by field in that case
+	const referenceField = userField !== "general" ? userField : undefined;
 	const [activeTab, setActiveTab] = useState("assessment");
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [answers, setAnswers] = useState<QuizAnswer[]>([]);
@@ -137,15 +144,17 @@ function CareerGuidance() {
 		}));
 	}, [dbPrograms]);
 
-	// Fetch market insights from database
+	// Fetch market insights filtered by user's field (all fields when program unknown)
 	const { data: dbMarketInsights } = useQuery({
-		...orpc.marketInsights.list.queryOptions({ input: { activeOnly: true } }),
+		...orpc.marketInsights.list.queryOptions({ input: { activeOnly: true, field: referenceField } }),
+		staleTime: 60 * 60 * 1000, // Reference data - cache 1 hour
 		enabled: !!session?.user,
 	});
 
-	// Fetch employers from database
+	// Fetch employers filtered by user's field (all fields when program unknown)
 	const { data: dbEmployers } = useQuery({
-		...orpc.employers.list.queryOptions({ input: { activeOnly: true } }),
+		...orpc.employers.list.queryOptions({ input: { activeOnly: true, field: referenceField } }),
+		staleTime: 60 * 60 * 1000, // Reference data - cache 1 hour
 		enabled: !!session?.user,
 	});
 

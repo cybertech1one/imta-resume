@@ -33,7 +33,10 @@ export function Header() {
 					<a href="#stages" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
 						Stages & Emplois
 					</a>
-					<a href="#questions" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
+					<a
+						href="/ressources-etudiants-maroc"
+						className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800"
+					>
 						Ressources
 					</a>
 					<a
@@ -74,7 +77,7 @@ export function Header() {
 								<a href="#stages" className="py-2 font-medium text-sm text-zinc-700">
 									Stages & Emplois
 								</a>
-								<a href="#questions" className="py-2 font-medium text-sm text-zinc-700">
+								<a href="/ressources-etudiants-maroc" className="py-2 font-medium text-sm text-zinc-700">
 									Ressources
 								</a>
 								<a

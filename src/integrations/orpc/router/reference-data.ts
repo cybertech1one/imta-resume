@@ -164,6 +164,7 @@ export const interviewTipsRouter = {
 					category: z.string().optional(),
 					field: z.string().optional(),
 					activeOnly: z.boolean().optional(),
+					limit: z.number().int().positive().max(500).optional(),
 				})
 				.optional(),
 		)
@@ -303,6 +304,7 @@ export const employersRouter = {
 				.object({
 					field: z.string().optional(),
 					activeOnly: z.boolean().optional(),
+					limit: z.number().int().positive().max(500).optional(),
 				})
 				.optional(),
 		)
@@ -348,6 +350,7 @@ export const skillsRouter = {
 					category: z.string().optional(),
 					recommendedOnly: z.boolean().optional(),
 					activeOnly: z.boolean().optional(),
+					limit: z.number().int().positive().max(500).optional(),
 				})
 				.optional(),
 		)

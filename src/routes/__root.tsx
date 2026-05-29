@@ -41,13 +41,14 @@ type RouterContext = {
 
 // Use SEO defaults from utility
 const { appName, title, description } = defaultSEO;
+const showBreakpointIndicator = import.meta.env.DEV && import.meta.env.VITE_SHOW_BREAKPOINT_INDICATOR === "true";
 
 await loadLocale(await getLocale());
 
 export const Route = createRootRouteWithContext<RouterContext>()({
 	shellComponent: RootDocument,
 	head: () => {
-		const appUrl = (typeof process !== "undefined" ? process.env.APP_URL : undefined) ?? "https://rxresu.me/";
+		const appUrl = (typeof process !== "undefined" ? process.env.APP_URL : undefined) ?? "https://imta.ma/";
 
 		return {
 			links: [
@@ -186,7 +187,7 @@ function RootDocument({ children }: Props) {
 										<CommandPalette />
 										<Toaster richColors position="bottom-right" />
 
-										{import.meta.env.DEV && <BreakpointIndicator />}
+										{showBreakpointIndicator && <BreakpointIndicator />}
 									</PromptDialogProvider>
 								</ConfirmDialogProvider>
 							</ThemeProvider>

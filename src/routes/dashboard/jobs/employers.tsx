@@ -35,6 +35,7 @@ import { authClient } from "@/integrations/auth/client";
 import { orpc } from "@/integrations/orpc/client";
 import { cn } from "@/utils/style";
 import { DashboardHeader } from "../-components/header";
+import { getProgramField } from "../-components/program-features";
 
 // biome-ignore lint/suspicious/noExplicitAny: Route path not in generated route tree
 export const Route = createFileRoute("/dashboard/jobs/employers" as any)({
@@ -167,9 +168,17 @@ function EmployersDirectoryPage() {
 	const defaultIndustryInfo = getDefaultIndustryInfo();
 	const regions = getRegions();
 
-	// Fetch employers from database
+	// Derive the user's IMTA field for server-side pre-filtering.
+	// "general" (unknown program) → no field filter → show all employers.
+	const userProgram = (session?.user as Record<string, unknown> | undefined)?.imtaProgram as string | null | undefined;
+	const userField = getProgramField(userProgram);
+	const serverField = userField !== "general" ? userField : undefined;
+
+	// Fetch employers pre-filtered by user's field; the UI field selector
+	// can still narrow down further within this set.
 	const { data: dbEmployers } = useQuery({
-		...orpc.employers.list.queryOptions({ input: { activeOnly: true } }),
+		...orpc.employers.list.queryOptions({ input: { activeOnly: true, field: serverField } }),
+		staleTime: 60 * 60 * 1000, // Reference data - cache 1 hour
 		enabled: !!session?.user,
 	});
 

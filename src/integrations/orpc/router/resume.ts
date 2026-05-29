@@ -207,7 +207,11 @@ export const resumeRouter = {
 		.route({ tags: ["Internal"], summary: "Get resume by ID for printer" })
 		.input(z.object({ id: z.string().uuid() }))
 		.handler(async ({ input }) => {
-			return await resumeService.getByIdForPrinter({ id: input.id });
+			// This endpoint is `serverOnlyProcedure`: it is only reachable via the
+			// in-process server router client (which sets the SERVER_ONLY_TOKEN
+			// header). HTTP/browser callers are rejected by the middleware before
+			// reaching here, so the call is trusted.
+			return await resumeService.getByIdForPrinter({ id: input.id, auth: { trusted: true } });
 		}),
 
 	getBySlug: publicProcedure

@@ -15,7 +15,14 @@ export const printerRouter = {
 		.input(z.object({ id: z.string().uuid() }))
 		.output(z.object({ url: z.string() }))
 		.handler(async ({ input, context }) => {
-			const { id, data, userId } = await resumeService.getByIdForPrinter({ id: input.id });
+			// Authorize against ownership / isPublic. A logged-in user may export
+			// their own resume; anyone may export a PUBLIC resume. Private resumes
+			// belonging to another user are rejected (NOT_FOUND) by the service —
+			// this closes the unauthenticated PII-exposure hole.
+			const { id, data, userId } = await resumeService.getByIdForPrinter({
+				id: input.id,
+				auth: { requesterUserId: context.user?.id },
+			});
 			const url = await printerService.printResumeAsPDF({ id, data, userId });
 
 			if (!context.user) {
@@ -35,9 +42,15 @@ export const printerRouter = {
 		})
 		.input(z.object({ id: z.string().uuid() }))
 		.output(z.object({ url: z.string().nullable() }))
-		.handler(async ({ input }) => {
+		.handler(async ({ input, context }) => {
 			try {
-				const { id, data, userId, updatedAt } = await resumeService.getByIdForPrinter({ id: input.id });
+				// `protectedProcedure` guarantees an authenticated user. Authorize the
+				// screenshot against ownership / isPublic so one user cannot fetch a
+				// screenshot of another user's private resume.
+				const { id, data, userId, updatedAt } = await resumeService.getByIdForPrinter({
+					id: input.id,
+					auth: { requesterUserId: context.user.id },
+				});
 				const url = await printerService.getResumeScreenshot({ id, data, userId, updatedAt });
 
 				return { url };

@@ -9,6 +9,7 @@ import { defaultResumeData } from "@/schema/resume/data";
 import { env } from "@/utils/env";
 import type { Locale } from "@/utils/locale";
 import { hashPassword } from "@/utils/password";
+import { verifyPrinterToken } from "@/utils/printer-token";
 import { generateId } from "@/utils/string";
 import { hasResumeAccess } from "../helpers/resume-access";
 import { getStorageService } from "./storage";
@@ -213,7 +214,58 @@ export const resumeService = {
 		return resume;
 	},
 
-	getByIdForPrinter: async (input: { id: string }) => {
+	/**
+	 * Returns a resume's FULL data (including PII: name, email, phone, location,
+	 * national ID, etc.) for PDF/screenshot rendering. Because this bypasses the
+	 * normal owner-scoped `getById` access check, the caller MUST prove it is an
+	 * authorized printer caller. Authorization (`input.auth`) is one of:
+	 *
+	 * - `{ trusted: true }` — the in-process server-only render path. The only
+	 *   router using this is `getByIdForPrinter` (a `serverOnlyProcedure` gated by
+	 *   the SERVER_ONLY_TOKEN header), which is unreachable from browser/public
+	 *   HTTP clients. This is what the Chromium printer route loader resolves to.
+	 *
+	 * - `{ printerToken }` — a short-lived HMAC printer token (see
+	 *   `generatePrinterToken`/`verifyPrinterToken`, which uses `timingSafeEqual`).
+	 *   The token's embedded resume id MUST match the requested id.
+	 *
+	 * - `{ requesterUserId? }` — the public PDF / protected screenshot router. The
+	 *   resume is only returned when the requester OWNS it, or the resume is
+	 *   PUBLIC. Private resumes are NEVER returned to a non-owner. An anonymous
+	 *   requester (`requesterUserId` undefined) may only render PUBLIC resumes.
+	 *
+	 * Any caller failing all of the above is rejected — this is the
+	 * defense-in-depth layer that prevents unauthenticated/cross-user PII leakage
+	 * even if a calling router is misconfigured.
+	 */
+	getByIdForPrinter: async (input: {
+		id: string;
+		auth: { trusted: true } | { printerToken: string } | { requesterUserId?: string };
+	}) => {
+		// Printer-token authorization can be validated before the DB read since the
+		// token is cryptographically bound to the resume id.
+		if ("printerToken" in input.auth) {
+			// `verifyPrinterToken` is a server-only isomorphic fn; its type includes
+			// `undefined` for the (unreachable) client branch. This service only runs
+			// server-side, so a falsy result here means verification did not produce a
+			// valid resume id and the request must be rejected.
+			let tokenResumeId: string | undefined;
+			try {
+				tokenResumeId = verifyPrinterToken(input.auth.printerToken);
+			} catch {
+				throw new ORPCError("UNAUTHORIZED", {
+					message: "A valid printer token is required to render this resume.",
+				});
+			}
+			// Token must be bound to exactly this resume id (prevents replaying a
+			// token against a different, enumerable resume id).
+			if (!tokenResumeId || tokenResumeId !== input.id) {
+				throw new ORPCError("UNAUTHORIZED", {
+					message: "Printer token does not match the requested resume.",
+				});
+			}
+		}
+
 		const [resume] = await db
 			.select({
 				id: schema.resume.id,
@@ -222,6 +274,7 @@ export const resumeService = {
 				tags: schema.resume.tags,
 				data: schema.resume.data,
 				userId: schema.resume.userId,
+				isPublic: schema.resume.isPublic,
 				isLocked: schema.resume.isLocked,
 				updatedAt: schema.resume.updatedAt,
 			})
@@ -229,6 +282,17 @@ export const resumeService = {
 			.where(eq(schema.resume.id, input.id));
 
 		if (!resume) throw new ORPCError("NOT_FOUND");
+
+		// Ownership / isPublic authorization for the public-router path. The
+		// trusted and printerToken paths were already authorized above.
+		if (!("trusted" in input.auth) && !("printerToken" in input.auth)) {
+			const requesterUserId = input.auth.requesterUserId;
+			const isOwner = !!requesterUserId && requesterUserId === resume.userId;
+			if (!isOwner && !resume.isPublic) {
+				// Do not reveal existence of private resumes to non-owners.
+				throw new ORPCError("NOT_FOUND");
+			}
+		}
 
 		try {
 			if (!resume.data.picture.url) throw new Error("Picture is not available");

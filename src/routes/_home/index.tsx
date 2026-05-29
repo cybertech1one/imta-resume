@@ -74,7 +74,7 @@ const howToSteps = [
 export const Route = createFileRoute("/_home/")({
 	component: RouteComponent,
 	head: () => {
-		const appUrl = (typeof process !== "undefined" ? process.env.APP_URL : undefined) ?? "https://rxresu.me/";
+		const appUrl = (typeof process !== "undefined" ? process.env.APP_URL : undefined) ?? "https://imta.ma/";
 
 		return {
 			links: [

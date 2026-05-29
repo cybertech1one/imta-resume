@@ -61,7 +61,7 @@ export const referenceDataService = {
 	// ============================================================================
 
 	interviewTips: {
-		list: async (options?: { category?: string; field?: string; activeOnly?: boolean }) => {
+		list: async (options?: { category?: string; field?: string; activeOnly?: boolean; limit?: number }) => {
 			const conditions = [];
 			if (options?.activeOnly !== false) {
 				conditions.push(eq(schema.interviewTip.isActive, true));
@@ -77,7 +77,8 @@ export const referenceDataService = {
 				.select()
 				.from(schema.interviewTip)
 				.where(conditions.length > 0 ? and(...conditions) : undefined)
-				.orderBy(asc(schema.interviewTip.sortOrder), asc(schema.interviewTip.title));
+				.orderBy(asc(schema.interviewTip.sortOrder), asc(schema.interviewTip.title))
+				.limit(options?.limit ?? 100);
 		},
 
 		getById: async (id: string) => {
@@ -230,7 +231,7 @@ export const referenceDataService = {
 	// ============================================================================
 
 	employers: {
-		list: async (options?: { field?: string; activeOnly?: boolean }) => {
+		list: async (options?: { field?: string; activeOnly?: boolean; limit?: number }) => {
 			const conditions = [];
 			if (options?.activeOnly !== false) {
 				conditions.push(eq(schema.careerEmployer.isActive, true));
@@ -242,7 +243,8 @@ export const referenceDataService = {
 				.select()
 				.from(schema.careerEmployer)
 				.where(conditions.length > 0 ? and(...conditions) : undefined)
-				.orderBy(asc(schema.careerEmployer.sortOrder), desc(schema.careerEmployer.openPositions));
+				.orderBy(asc(schema.careerEmployer.sortOrder), desc(schema.careerEmployer.openPositions))
+				.limit(options?.limit ?? 100);
 
 			if (options?.field) {
 				// Filter by field using JSONB @> operator
@@ -255,7 +257,8 @@ export const referenceDataService = {
 							sql`${schema.careerEmployer.fields} @> ${JSON.stringify([options.field])}::jsonb`,
 						),
 					)
-					.orderBy(asc(schema.careerEmployer.sortOrder), desc(schema.careerEmployer.openPositions));
+					.orderBy(asc(schema.careerEmployer.sortOrder), desc(schema.careerEmployer.openPositions))
+					.limit(options?.limit ?? 100);
 			}
 
 			return query;
@@ -290,7 +293,13 @@ export const referenceDataService = {
 	// ============================================================================
 
 	skills: {
-		list: async (options?: { field?: string; category?: string; recommendedOnly?: boolean; activeOnly?: boolean }) => {
+		list: async (options?: {
+			field?: string;
+			category?: string;
+			recommendedOnly?: boolean;
+			activeOnly?: boolean;
+			limit?: number;
+		}) => {
 			const conditions = [];
 			if (options?.activeOnly !== false) {
 				conditions.push(eq(schema.skillLibrary.isActive, true));
@@ -309,7 +318,8 @@ export const referenceDataService = {
 				.select()
 				.from(schema.skillLibrary)
 				.where(conditions.length > 0 ? and(...conditions) : undefined)
-				.orderBy(asc(schema.skillLibrary.category), asc(schema.skillLibrary.sortOrder), asc(schema.skillLibrary.name));
+				.orderBy(asc(schema.skillLibrary.category), asc(schema.skillLibrary.sortOrder), asc(schema.skillLibrary.name))
+				.limit(options?.limit ?? 100);
 		},
 
 		getById: async (id: string) => {

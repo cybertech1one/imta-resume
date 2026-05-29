@@ -428,10 +428,13 @@ export function findTrafficLandingPage(path: string) {
 }
 
 export const featuredTrafficLandingPages = [
+	"/orientation-apres-bac",
+	"/formation-professionnelle-maroc",
 	"/cv-sans-experience",
 	"/lettre-motivation-stage",
 	"/email-candidature-stage",
 	"/linkedin-etudiant",
+	"/stage-fin-etudes",
 	"/questions-entretien-stage",
 	"/stage-casablanca",
 	"/stage-tanger",
@@ -440,12 +443,14 @@ export const featuredTrafficLandingPages = [
 	"/entretien-sante",
 	"/stage-hse-casablanca",
 	"/stage-logistique-tanger",
+	"/parents-etudiants-imta",
+	"/atelier-cv-etudiants",
 ]
 	.map((path) => findTrafficLandingPage(path))
 	.filter(Boolean) as TrafficLandingPageConfig[];
 
 function canonicalUrl(path: string) {
-	const appUrl = (typeof process !== "undefined" ? process.env.APP_URL : undefined) ?? "https://rxresu.me/";
+	const appUrl = (typeof process !== "undefined" ? process.env.APP_URL : undefined) ?? "https://imta.ma/";
 	return new URL(path, appUrl).toString();
 }
 
@@ -503,9 +508,17 @@ const campaignHooks = [
 		href: "/preparation-entretien",
 		icon: ChatsCircleIcon,
 	},
+	{
+		title: `Je choisis mon orientation apres le bac`,
+		text: `Compare les formations, les metiers et les stages avant de t'engager.`,
+		image: "/home/student-career-workshop.webp",
+		href: "/orientation-apres-bac",
+		icon: GraduationCapIcon,
+	},
 ];
 
 const studentObjectives = [
+	{ title: `Orientation apres bac`, href: "/orientation-apres-bac", image: "/home/student-career-workshop.webp" },
 	{ title: `CV étudiant`, href: "/cv-etudiant", image: "/home/tool-cv-intelligent.webp" },
 	{ title: `Trouver un stage`, href: "/stage-maroc", image: "/home/tool-job-offers.webp" },
 	{ title: `Préparer l'entretien`, href: "/preparation-entretien", image: "/home/tool-interview-prep.webp" },
@@ -840,10 +853,8 @@ export function PublicPageDiscovery() {
 				</div>
 
 				<div className="mt-9 rounded-lg border border-emerald-300/20 bg-emerald-300/8 p-5 text-sm text-white/74 leading-6">
-					<Trans>
-						Le système peut générer plus de 250 pages utiles sans copier-coller : pages par objectif, ville, métier,
-						entretien et stage local.
-					</Trans>
+					Le systeme regroupe {trafficLandingPages.length}+ pages utiles sans copier-coller: pages par objectif, ville,
+					metier, orientation, entretien et stage local.
 				</div>
 			</div>
 		</section>

@@ -330,11 +330,54 @@ const config = defineConfig({
 		reflectPolyfillPlugin(),
 		lingui(),
 		tailwindcss(),
-		nitro({ plugins: ["plugins/1.migrate.ts"] }),
+		nitro({
+			plugins: ["plugins/1.migrate.ts", "plugins/2.security-headers.ts"],
+			// Pre-compress public/static assets at build time so the server can serve
+			// gzip/brotli variants (.gz/.br) without compressing on every request.
+			// Cuts first-load transfer size substantially (responses were ~2.4MB uncompressed).
+			compressPublicAssets: { gzip: true, brotli: true },
+			// Long-lived Cache-Control for static assets served from /public and the
+			// hashed client build output. Hashed bundles are immutable (filename changes
+			// on content change); media dirs use a shorter max-age so updates propagate.
+			routeRules: {
+				// Content-hashed client bundles (JS/CSS) — safe to cache forever + immutable.
+				"/_build/**": { headers: { "cache-control": "public, max-age=31536000, immutable" } },
+				"/assets/**": { headers: { "cache-control": "public, max-age=31536000, immutable" } },
+				// Public media/static dirs (not content-hashed) — cache for a week.
+				"/templates/**": { headers: { "cache-control": "public, max-age=604800" } },
+				"/home/**": { headers: { "cache-control": "public, max-age=604800" } },
+				"/photos/**": { headers: { "cache-control": "public, max-age=604800" } },
+				"/icon/**": { headers: { "cache-control": "public, max-age=604800" } },
+				"/logo/**": { headers: { "cache-control": "public, max-age=604800" } },
+				"/opengraph/**": { headers: { "cache-control": "public, max-age=604800" } },
+				"/sounds/**": { headers: { "cache-control": "public, max-age=604800" } },
+				"/videos/**": { headers: { "cache-control": "public, max-age=604800" } },
+				"/screenshots/**": { headers: { "cache-control": "public, max-age=604800" } },
+				// Favicons / fonts — cache for a day.
+				"/favicon.ico": { headers: { "cache-control": "public, max-age=86400" } },
+				"/favicon.svg": { headers: { "cache-control": "public, max-age=86400" } },
+				"/apple-touch-icon-180x180.png": { headers: { "cache-control": "public, max-age=86400" } },
+				"/fonts/**": { headers: { "cache-control": "public, max-age=31536000, immutable" } },
+			},
+		}),
 		// Must come AFTER nitro() so the error handler is registered after Nitro's middleware
 		suppressNitroDevBodyError(),
 		tanstackStart({ router: { semicolons: true, quoteStyle: "double" } }),
-		viteReact({ babel: { plugins: ["@lingui/babel-plugin-lingui-macro"] } }),
+		viteReact({
+			babel: {
+				plugins: [
+					// stripMessageField: false keeps the source `message` field in the
+					// PRODUCTION bundle. By default Lingui v5 strips it in production, so a
+					// message whose generated id is missing from the compiled catalog (e.g.
+					// an untranslated string, or one whose source text changed without
+					// re-running `lingui extract`) renders its hash id instead of text.
+					// Keeping the source message lets <Trans>/t fall back to the source
+					// text (French, since this app is French-first) in prod too, matching
+					// dev behavior. Fixes hash-id leakage globally.
+					["@lingui/babel-plugin-lingui-macro", { stripMessageField: false }],
+				],
+			},
+		}),
 		// Bundle analyzer - generates bundle-stats.html on build
 		visualizer({
 			open: false,

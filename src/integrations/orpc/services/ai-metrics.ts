@@ -502,7 +502,6 @@ export const aiMetricsService = {
 				provider: schema.aiErrorLog.provider,
 				model: schema.aiErrorLog.model,
 				totalErrors: count(),
-				byCategory: sql<string>`json_agg(json_build_object('category', ${schema.aiErrorLog.errorCategory}, 'count', 1))`,
 			})
 			.from(schema.aiErrorLog)
 			.where(gte(schema.aiErrorLog.createdAt, startDate))
@@ -514,7 +513,6 @@ export const aiMetricsService = {
 			.select({
 				category: schema.aiErrorLog.errorCategory,
 				totalErrors: count(),
-				bySeverity: sql<string>`json_object_agg(${schema.aiErrorLog.severity}, count(*))`,
 			})
 			.from(schema.aiErrorLog)
 			.where(gte(schema.aiErrorLog.createdAt, startDate))
