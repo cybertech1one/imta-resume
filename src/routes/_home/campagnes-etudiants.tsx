@@ -194,19 +194,19 @@ function RouteComponent() {
 								to="/dashboard"
 								className="inline-flex h-14 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#006b53,#00a88a)] px-7 font-semibold text-white shadow-[0_22px_44px_-26px_rgba(0,107,83,0.95)] transition-transform hover:-translate-y-0.5"
 							>
-								Créer mon CV gratuitement
+								Créer mon CV
 							</Link>
 							<a
 								href="/ressources-etudiants-maroc"
 								className="inline-flex h-14 items-center justify-center rounded-xl border border-emerald-950/15 bg-white px-7 font-semibold text-zinc-900 shadow-sm transition-colors hover:border-emerald-800 hover:text-emerald-800"
 							>
-								Voir les ressources
+								Ressources
 							</a>
 							<a
 								href="/plan-marketing-etudiants"
 								className="inline-flex h-14 items-center justify-center rounded-xl border border-emerald-950/15 bg-white px-7 font-semibold text-zinc-900 shadow-sm transition-colors hover:border-emerald-800 hover:text-emerald-800"
 							>
-								Plan 30 jours
+								Plan marketing
 							</a>
 						</div>
 					</div>

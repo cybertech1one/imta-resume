@@ -167,7 +167,7 @@ function RouteComponent() {
 							CV sans expérience, stage par ville, entretien par métier, lettre de motivation, email de candidature et
 							LinkedIn étudiant: chaque page répond à une recherche concrète.
 						</p>
-						<div className="mt-9 flex flex-col gap-4 sm:flex-row">
+						<div className="mt-9 grid gap-4 sm:grid-cols-2">
 							<Link
 								to="/dashboard"
 								className="inline-flex h-14 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#006b53,#00a88a)] px-7 font-semibold text-white shadow-[0_22px_44px_-26px_rgba(0,107,83,0.95)] transition-transform hover:-translate-y-0.5"

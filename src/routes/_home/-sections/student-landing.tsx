@@ -256,8 +256,7 @@ export function StudentLanding() {
 								La plateforme carrière nouvelle génération pour les étudiants
 							</div>
 							<h1 className="font-display text-5xl text-zinc-950 leading-[0.98] md:text-6xl lg:text-[5.5rem]">
-								Ton CV ouvre
-								<span className="block text-emerald-800">les bonnes portes.</span>
+								Ton CV ouvre <span className="block text-emerald-800">les bonnes portes.</span>
 							</h1>
 							<p className="mt-7 max-w-2xl text-lg text-zinc-600 leading-8">
 								IMTA Resume aide les étudiants et jeunes diplômés au Maroc à créer un CV professionnel, préparer leurs
