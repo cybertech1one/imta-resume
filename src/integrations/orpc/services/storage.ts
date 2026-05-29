@@ -253,7 +253,11 @@ class S3StorageService implements StorageService {
 				lastModified: response.LastModified,
 				contentType: response.ContentType ?? inferContentType(key),
 			};
-		} catch {
+		} catch (error) {
+			if (error instanceof Error && error.message.includes("NoSuchKey")) {
+				return null; // File not found is expected
+			}
+			console.error("[Storage] Failed to read file:", error);
 			return null;
 		}
 	}
@@ -286,7 +290,7 @@ class S3StorageService implements StorageService {
 				message: "S3 storage is accessible and credentials are valid.",
 			};
 		} catch (error: unknown) {
-			console.error(error);
+			console.error("[Storage] Health check failed:", error instanceof Error ? error.message : "Unknown error");
 
 			return {
 				type: "s3",

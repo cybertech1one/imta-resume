@@ -64,7 +64,7 @@ const localeSchema = z.union([
 export type Locale = z.infer<typeof localeSchema>;
 
 const storageKey = "locale";
-const defaultLocale: Locale = "en-US";
+const defaultLocale: Locale = "fr-FR";
 
 export const localeMap = {
 	"af-ZA": msg`Afrikaans`,
@@ -159,7 +159,7 @@ export const getLocale = createIsomorphicFn()
 export const setLocaleServerFn = createServerFn({ method: "POST" })
 	.inputValidator(localeSchema)
 	.handler(async ({ data }) => {
-		setCookie(storageKey, data);
+		setCookie(storageKey, data, { path: "/", maxAge: 60 * 60 * 24 * 365 });
 	});
 
 export const loadLocale = async (locale: string) => {

@@ -5,6 +5,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { toast } from "sonner";
+import { ErrorComponent } from "@/components/error-component";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useDialogStore } from "@/dialogs/store";
@@ -14,9 +15,11 @@ import { DashboardHeader } from "../-components/header";
 
 export const Route = createFileRoute("/dashboard/settings/api-keys")({
 	component: RouteComponent,
+	errorComponent: ErrorComponent,
 });
 
 function RouteComponent() {
+	const { data: session } = authClient.useSession();
 	const confirm = useConfirm();
 	const queryClient = useQueryClient();
 	const openDialog = useDialogStore((state) => state.openDialog);
@@ -31,6 +34,7 @@ function RouteComponent() {
 				.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
 				.filter((key) => !!key.expiresAt && key.expiresAt.getTime() > Date.now());
 		},
+		enabled: !!session?.user,
 	});
 
 	const onDelete = async (id: string) => {
@@ -62,7 +66,7 @@ function RouteComponent() {
 			<Separator />
 
 			<motion.div
-				initial={{ opacity: 0, y: -20 }}
+				initial={false}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.3 }}
 				className="grid max-w-xl gap-6"
@@ -79,7 +83,7 @@ function RouteComponent() {
 
 						<p className="text-muted-foreground leading-relaxed">
 							<Trans>
-								Explore the API documentation to learn how to integrate Reactive Resume with your applications. Find
+								Explore the API documentation to learn how to integrate IMTA Resume with your applications. Find
 								detailed endpoints, request examples, and authentication methods.
 							</Trans>
 						</p>
@@ -124,7 +128,7 @@ function RouteComponent() {
 									</div>
 								</div>
 
-								<Button size="icon" variant="ghost" onClick={() => onDelete(key.id)}>
+								<Button size="icon" variant="ghost" onClick={() => onDelete(key.id)} aria-label={t`Delete API key`}>
 									<TrashSimpleIcon />
 								</Button>
 							</motion.div>

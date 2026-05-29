@@ -12,7 +12,7 @@ export const printerRouter = {
 			summary: "Export resume as PDF",
 			description: "Export a resume as a PDF. Returns a URL to download the PDF.",
 		})
-		.input(z.object({ id: z.string() }))
+		.input(z.object({ id: z.string().uuid() }))
 		.output(z.object({ url: z.string() }))
 		.handler(async ({ input, context }) => {
 			const { id, data, userId } = await resumeService.getByIdForPrinter({ id: input.id });
@@ -33,7 +33,7 @@ export const printerRouter = {
 			summary: "Get resume screenshot",
 			description: "Get a screenshot of a resume. Returns a URL to the screenshot image.",
 		})
-		.input(z.object({ id: z.string() }))
+		.input(z.object({ id: z.string().uuid() }))
 		.output(z.object({ url: z.string().nullable() }))
 		.handler(async ({ input }) => {
 			try {

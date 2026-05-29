@@ -15,7 +15,11 @@ import { authClient } from "@/integrations/auth/client";
 import { type DialogProps, useDialogStore } from "../store";
 
 const formSchema = z.object({
-	password: z.string().min(6).max(64),
+	password: z
+		.string()
+		.min(1, { message: "Password is required" })
+		.min(6, { message: "Password must be at least 6 characters" })
+		.max(64, { message: "Password cannot exceed 64 characters" }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -30,6 +34,7 @@ export function DisableTwoFactorDialog(_: DialogProps<"auth.two-factor.disable">
 		defaultValues: {
 			password: "",
 		},
+		mode: "onBlur",
 	});
 
 	const onSubmit = async (data: FormValues) => {
@@ -84,7 +89,14 @@ export function DisableTwoFactorDialog(_: DialogProps<"auth.two-factor.disable">
 										/>
 									</FormControl>
 
-									<Button size="icon" variant="ghost" type="button" onClick={toggleShowPassword}>
+									<Button
+										size="icon"
+										variant="ghost"
+										type="button"
+										aria-label={showPassword ? t`Hide password` : t`Show password`}
+										aria-pressed={showPassword}
+										onClick={toggleShowPassword}
+									>
 										{showPassword ? <EyeIcon /> : <EyeSlashIcon />}
 									</Button>
 								</div>

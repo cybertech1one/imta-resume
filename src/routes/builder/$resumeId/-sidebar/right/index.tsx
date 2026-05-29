@@ -12,6 +12,8 @@ import {
 } from "@/utils/resume/section";
 import { BuilderSidebarEdge } from "../../-components/edge";
 import { useBuilderSidebar } from "../../-store/sidebar";
+import { AIAnalysisSectionBuilder } from "./sections/ai-analysis";
+import { BusinessCardSectionBuilder } from "./sections/business-card";
 import { CSSSectionBuilder } from "./sections/css";
 import { DesignSectionBuilder } from "./sections/design";
 import { ExportSectionBuilder } from "./sections/export";
@@ -34,7 +36,9 @@ function getSectionComponent(type: RightSidebarSection) {
 		.with("css", () => <CSSSectionBuilder />)
 		.with("notes", () => <NotesSectionBuilder />)
 		.with("sharing", () => <SharingSectionBuilder />)
+		.with("business-card", () => <BusinessCardSectionBuilder />)
 		.with("statistics", () => <StatisticsSectionBuilder />)
+		.with("ai-analysis", () => <AIAnalysisSectionBuilder />)
 		.with("export", () => <ExportSectionBuilder />)
 		.with("information", () => <InformationSectionBuilder />)
 		.exhaustive();

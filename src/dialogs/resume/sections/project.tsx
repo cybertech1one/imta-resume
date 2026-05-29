@@ -198,7 +198,12 @@ function ProjectForm() {
 							<Trans>Description</Trans>
 						</FormLabel>
 						<FormControl>
-							<RichInput {...field} value={field.value} onChange={field.onChange} />
+							<RichInput
+								{...field}
+								value={field.value}
+								onChange={field.onChange}
+								aiContext="Project description for a resume. Focus on technologies used, your role, key achievements, and measurable outcomes."
+							/>
 						</FormControl>
 						<FormMessage />
 					</FormItem>

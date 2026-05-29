@@ -2,12 +2,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { ArrowRightIcon, EyeIcon, EyeSlashIcon } from "@phosphor-icons/react";
-import { createFileRoute, Link, redirect, useNavigate, useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
 import type { BetterFetchOption } from "better-auth/client";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useToggle } from "usehooks-ts";
 import z from "zod";
+import { ErrorComponent } from "@/components/error-component";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -16,6 +17,7 @@ import { SocialAuth } from "./-components/social-auth";
 
 export const Route = createFileRoute("/auth/login")({
 	component: RouteComponent,
+	errorComponent: ErrorComponent,
 	beforeLoad: async ({ context }) => {
 		if (context.session) throw redirect({ to: "/dashboard", replace: true });
 		return { session: null };
@@ -23,24 +25,35 @@ export const Route = createFileRoute("/auth/login")({
 });
 
 const formSchema = z.object({
-	identifier: z.string().trim().toLowerCase(),
+	identifier: z.string().trim().toLowerCase().min(1),
 	password: z.string().trim().min(6).max(64),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
+function getFormSchema() {
+	return z.object({
+		identifier: z.string().trim().toLowerCase().min(1, { message: t`Email or username is required` }),
+		password: z
+			.string()
+			.trim()
+			.min(6, { message: t`Password must be at least 6 characters` })
+			.max(64, { message: t`Password cannot exceed 64 characters` }),
+	});
+}
+
 function RouteComponent() {
-	const router = useRouter();
 	const navigate = useNavigate();
 	const [showPassword, toggleShowPassword] = useToggle(false);
 	const { flags } = Route.useRouteContext();
 
 	const form = useForm<FormValues>({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(getFormSchema()),
 		defaultValues: {
 			identifier: "",
 			password: "",
 		},
+		mode: "onBlur",
 	});
 
 	const onSubmit = async (data: FormValues) => {
@@ -55,10 +68,8 @@ function RouteComponent() {
 					return;
 				}
 
-				// Normal login success
-				router.invalidate();
 				toast.dismiss(toastId);
-				navigate({ to: "/dashboard", replace: true });
+				window.location.href = "/dashboard";
 			},
 			onError: ({ error }) => {
 				toast.error(error.message, { id: toastId });
@@ -103,7 +114,7 @@ function RouteComponent() {
 
 			{!flags.disableEmailAuth && (
 				<Form {...form}>
-					<form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+					<form method="POST" className="space-y-6" onSubmit={form.handleSubmit(onSubmit)} aria-label={t`Sign in form`}>
 						<FormField
 							control={form.control}
 							name="identifier"
@@ -113,7 +124,13 @@ function RouteComponent() {
 										<Trans>Email Address</Trans>
 									</FormLabel>
 									<FormControl>
-										<Input autoComplete="email" placeholder="john.doe@example.com" className="lowercase" {...field} />
+										<Input
+											autoComplete="email"
+											placeholder="mohammed.elalami@exemple.ma"
+											className="lowercase"
+											aria-required="true"
+											{...field}
+										/>
 									</FormControl>
 									<FormMessage />
 									<FormDescription>
@@ -146,11 +163,19 @@ function RouteComponent() {
 												max={64}
 												type={showPassword ? "text" : "password"}
 												autoComplete="current-password"
+												aria-required="true"
 												{...field}
 											/>
 										</FormControl>
 
-										<Button size="icon" variant="ghost" onClick={toggleShowPassword}>
+										<Button
+											type="button"
+											size="icon"
+											variant="ghost"
+											aria-label={showPassword ? t`Hide password` : t`Show password`}
+											aria-pressed={showPassword}
+											onClick={toggleShowPassword}
+										>
 											{showPassword ? <EyeIcon /> : <EyeSlashIcon />}
 										</Button>
 									</div>

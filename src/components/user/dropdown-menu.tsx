@@ -2,7 +2,7 @@ import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { PaletteIcon, SignOutIcon, TranslateIcon } from "@phosphor-icons/react";
-import { useRouter } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTheme } from "@/components/theme/provider";
 import {
@@ -28,7 +28,7 @@ type Props = {
 };
 
 export function UserDropdownMenu({ children }: Props) {
-	const router = useRouter();
+	const queryClient = useQueryClient();
 	const { i18n } = useLingui();
 	const { theme, setTheme } = useTheme();
 	const { data: session } = authClient.useSession();
@@ -50,8 +50,9 @@ export function UserDropdownMenu({ children }: Props) {
 		authClient.signOut({
 			fetchOptions: {
 				onSuccess: () => {
-					toast.dismiss(toastId);
-					router.invalidate();
+					toast.success(t`Signed out successfully`, { id: toastId });
+					queryClient.clear();
+					window.location.href = "/auth/login";
 				},
 				onError: ({ error }) => {
 					toast.error(error.message, { id: toastId });

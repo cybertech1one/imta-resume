@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { SlideshowIcon } from "@phosphor-icons/react";
@@ -78,14 +79,16 @@ function TemplateCard({ id, metadata, isActive, collisionBoundary, onSelect }: T
 			<CometCard translateDepth={3} rotateDepth={6} glareOpacity={0}>
 				<HoverCardTrigger asChild>
 					<button
-						tabIndex={-1}
+						tabIndex={0}
+						aria-label={t`Select ${metadata.name} template`}
+						aria-pressed={isActive}
 						onClick={() => onSelect(id)}
 						className={cn(
-							"relative block aspect-page size-full cursor-pointer overflow-hidden rounded-md bg-popover outline-none",
+							"relative block aspect-page size-full cursor-pointer overflow-hidden rounded-md bg-popover outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
 							isActive && "ring-2 ring-ring ring-offset-4 ring-offset-background",
 						)}
 					>
-						<img src={metadata.imageUrl} alt={metadata.name} className="size-full object-cover" />
+						<img src={metadata.imageUrl} alt={metadata.name} loading="lazy" className="size-full object-cover" />
 					</button>
 				</HoverCardTrigger>
 

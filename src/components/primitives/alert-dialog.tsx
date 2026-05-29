@@ -56,7 +56,7 @@ function AlertDialogOverlay({ transition = { duration: 0.2, ease: "easeInOut" },
 		<AlertDialogPrimitive.Overlay data-slot="alert-dialog-overlay" asChild forceMount>
 			<motion.div
 				key="alert-dialog-overlay"
-				initial={{ opacity: 0, filter: "blur(4px)" }}
+				initial={false}
 				animate={{ opacity: 1, filter: "blur(0px)" }}
 				exit={{ opacity: 0, filter: "blur(4px)" }}
 				transition={transition}

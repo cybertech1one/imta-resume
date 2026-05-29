@@ -34,7 +34,7 @@ function TemplateSectionForm() {
 				className="group/preview relative h-auto w-40 shrink-0 cursor-pointer p-0"
 			>
 				<div className="relative z-10 aspect-page size-full overflow-hidden rounded-md opacity-100 transition-opacity group-hover/preview:opacity-50">
-					<img src={metadata.imageUrl} alt={metadata.name} className="size-full object-cover" />
+					<img src={metadata.imageUrl} alt={metadata.name} loading="lazy" className="size-full object-cover" />
 				</div>
 
 				<div className="absolute inset-0 flex items-center justify-center">

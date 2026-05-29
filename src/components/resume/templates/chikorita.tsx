@@ -1,4 +1,5 @@
 import { EnvelopeIcon, GlobeIcon, MapPinIcon, PhoneIcon } from "@phosphor-icons/react";
+import { memo } from "react";
 import { cn } from "@/utils/style";
 import { getSectionComponent } from "../shared/get-section-component";
 import { PageIcon } from "../shared/page-icon";
@@ -30,7 +31,7 @@ const sectionClassName = cn(
 /**
  * Template: Chikorita
  */
-export function ChikoritaTemplate({ pageIndex, pageLayout }: TemplateProps) {
+export const ChikoritaTemplate = memo(function ChikoritaTemplate({ pageIndex, pageLayout }: TemplateProps) {
 	const isFirstPage = pageIndex === 0;
 	const { main, sidebar, fullWidth } = pageLayout;
 
@@ -68,7 +69,7 @@ export function ChikoritaTemplate({ pageIndex, pageLayout }: TemplateProps) {
 			</div>
 		</div>
 	);
-}
+});
 
 function Header() {
 	const basics = useResumeStore((state) => state.resume.data.basics);

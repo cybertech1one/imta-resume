@@ -2,11 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { ArrowLeftIcon, CheckIcon } from "@phosphor-icons/react";
-import { createFileRoute, Link, redirect, useNavigate, useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
+import { ErrorComponent } from "@/components/error-component";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
@@ -14,23 +15,30 @@ import { authClient } from "@/integrations/auth/client";
 
 export const Route = createFileRoute("/auth/verify-2fa")({
 	component: RouteComponent,
+	errorComponent: ErrorComponent,
 	beforeLoad: async ({ context }) => {
 		if (context.session) throw redirect({ to: "/dashboard", replace: true });
 	},
 });
 
 const formSchema = z.object({
-	code: z.string().length(6, "Code must be 6 digits"),
+	code: z.string().length(6).regex(/^\d+$/),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
-function RouteComponent() {
-	const router = useRouter();
-	const navigate = useNavigate();
+function getFormSchema() {
+	return z.object({
+		code: z
+			.string()
+			.length(6, { message: t`Verification code must be exactly 6 digits` })
+			.regex(/^\d+$/, { message: t`Code must contain only numbers` }),
+	});
+}
 
+function RouteComponent() {
 	const form = useForm<FormValues>({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(getFormSchema()),
 		defaultValues: {
 			code: "",
 		},
@@ -48,9 +56,8 @@ function RouteComponent() {
 			return;
 		}
 
-		router.invalidate();
 		toast.dismiss(toastId);
-		navigate({ to: "/dashboard", replace: true });
+		window.location.href = "/dashboard";
 	};
 
 	return (
@@ -65,7 +72,7 @@ function RouteComponent() {
 			</div>
 
 			<Form {...form}>
-				<form className="grid gap-6" onSubmit={form.handleSubmit(onSubmit)}>
+				<form method="POST" className="grid gap-6" onSubmit={form.handleSubmit(onSubmit)}>
 					<FormField
 						control={form.control}
 						name="code"

@@ -2,6 +2,7 @@ import { t } from "@lingui/core/macro";
 import { ShieldCheckIcon } from "@phosphor-icons/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
+import { ErrorComponent } from "@/components/error-component";
 import { Separator } from "@/components/ui/separator";
 import { DashboardHeader } from "../../-components/header";
 import { useEnabledProviders } from "./-components/hooks";
@@ -12,6 +13,7 @@ import { TwoFactorSection } from "./-components/two-factor";
 
 export const Route = createFileRoute("/dashboard/settings/authentication/")({
 	component: RouteComponent,
+	errorComponent: ErrorComponent,
 });
 
 function RouteComponent() {
@@ -24,7 +26,7 @@ function RouteComponent() {
 			<Separator />
 
 			<motion.div
-				initial={{ opacity: 0, y: -20 }}
+				initial={false}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.3 }}
 				className="grid max-w-xl gap-4"

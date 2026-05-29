@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useToggle } from "usehooks-ts";
 import z from "zod";
+import { ErrorComponent } from "@/components/error-component";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -17,6 +18,7 @@ const searchSchema = z.object({ token: z.string().min(1) });
 
 export const Route = createFileRoute("/auth/reset-password")({
 	component: RouteComponent,
+	errorComponent: ErrorComponent,
 	validateSearch: zodValidator(searchSchema),
 	beforeLoad: async ({ context }) => {
 		if (context.flags.disableEmailAuth) throw redirect({ to: "/auth/login", replace: true });
@@ -34,16 +36,26 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+function getFormSchema() {
+	return z.object({
+		password: z
+			.string()
+			.min(6, { message: t`Password must be at least 6 characters` })
+			.max(64, { message: t`Password cannot exceed 64 characters` }),
+	});
+}
+
 function RouteComponent() {
 	const navigate = useNavigate();
 	const { token } = Route.useSearch();
 	const [showPassword, toggleShowPassword] = useToggle(false);
 
 	const form = useForm<FormValues>({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(getFormSchema()),
 		defaultValues: {
 			password: "",
 		},
+		mode: "onBlur",
 	});
 
 	const onSubmit = async (data: FormValues) => {
@@ -75,7 +87,7 @@ function RouteComponent() {
 			</div>
 
 			<Form {...form}>
-				<form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+				<form method="POST" className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
 					<FormField
 						control={form.control}
 						name="password"
@@ -95,7 +107,12 @@ function RouteComponent() {
 										/>
 									</FormControl>
 
-									<Button size="icon" variant="ghost" onClick={toggleShowPassword}>
+									<Button
+										size="icon"
+										variant="ghost"
+										onClick={toggleShowPassword}
+										aria-label={showPassword ? t`Hide password` : t`Show password`}
+									>
 										{showPassword ? <EyeIcon /> : <EyeSlashIcon />}
 									</Button>
 								</div>

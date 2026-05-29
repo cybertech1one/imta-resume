@@ -19,26 +19,175 @@ import { Route as HomeIndexRouteImport } from "./routes/_home/index";
 import { Route as PrinterResumeIdRouteImport } from "./routes/printer/$resumeId";
 import { Route as AuthVerify2faBackupRouteImport } from "./routes/auth/verify-2fa-backup";
 import { Route as AuthVerify2faRouteImport } from "./routes/auth/verify-2fa";
+import { Route as AuthSignUpRouteImport } from "./routes/auth/sign-up";
+import { Route as AuthSignInRouteImport } from "./routes/auth/sign-in";
 import { Route as AuthResumePasswordRouteImport } from "./routes/auth/resume-password";
 import { Route as AuthResetPasswordRouteImport } from "./routes/auth/reset-password";
 import { Route as AuthRegisterRouteImport } from "./routes/auth/register";
 import { Route as AuthLoginRouteImport } from "./routes/auth/login";
 import { Route as AuthForgotPasswordRouteImport } from "./routes/auth/forgot-password";
 import { Route as ApiHealthRouteImport } from "./routes/api/health";
+import { Route as HomeStageMarocRouteImport } from "./routes/_home/stage-maroc";
+import { Route as HomePreparationEntretienRouteImport } from "./routes/_home/preparation-entretien";
+import { Route as HomeMetiersTechniquesRouteImport } from "./routes/_home/metiers-techniques";
+import { Route as HomeImtaEtudiantsRouteImport } from "./routes/_home/imta-etudiants";
+import { Route as HomeHelpRouteImport } from "./routes/_home/help";
+import { Route as HomeEcolesFormateursRouteImport } from "./routes/_home/ecoles-formateurs";
+import { Route as HomeCvEtudiantRouteImport } from "./routes/_home/cv-etudiant";
+import { Route as HomeLandingSlugRouteImport } from "./routes/_home/$landingSlug";
 import { Route as UsernameSlugRouteImport } from "./routes/$username/$slug";
+import { Route as DashboardAdminRouteRouteImport } from "./routes/dashboard/admin/route";
 import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resumeId/route";
+import { Route as DashboardWikiIndexRouteImport } from "./routes/dashboard/wiki/index";
+import { Route as DashboardToolsIndexRouteImport } from "./routes/dashboard/tools/index";
+import { Route as DashboardTemplatesIndexRouteImport } from "./routes/dashboard/templates/index";
+import { Route as DashboardSettingsIndexRouteImport } from "./routes/dashboard/settings/index";
 import { Route as DashboardResumesIndexRouteImport } from "./routes/dashboard/resumes/index";
+import { Route as DashboardResourcesIndexRouteImport } from "./routes/dashboard/resources/index";
+import { Route as DashboardProgressIndexRouteImport } from "./routes/dashboard/progress/index";
+import { Route as DashboardProfileIndexRouteImport } from "./routes/dashboard/profile/index";
+import { Route as DashboardPortfolioIndexRouteImport } from "./routes/dashboard/portfolio/index";
+import { Route as DashboardPartnerIndexRouteImport } from "./routes/dashboard/partner/index";
+import { Route as DashboardNetworkingIndexRouteImport } from "./routes/dashboard/networking/index";
+import { Route as DashboardLinkedinIndexRouteImport } from "./routes/dashboard/linkedin/index";
+import { Route as DashboardLearnIndexRouteImport } from "./routes/dashboard/learn/index";
+import { Route as DashboardJobsIndexRouteImport } from "./routes/dashboard/jobs/index";
+import { Route as DashboardInterviewIndexRouteImport } from "./routes/dashboard/interview/index";
+import { Route as DashboardHelpIndexRouteImport } from "./routes/dashboard/help/index";
+import { Route as DashboardCareerIndexRouteImport } from "./routes/dashboard/career/index";
+import { Route as DashboardAnalyticsIndexRouteImport } from "./routes/dashboard/analytics/index";
+import { Route as DashboardAiMentorIndexRouteImport } from "./routes/dashboard/ai-mentor/index";
+import { Route as DashboardAdminIndexRouteImport } from "./routes/dashboard/admin/index";
 import { Route as BuilderResumeIdIndexRouteImport } from "./routes/builder/$resumeId/index";
+import { Route as HomeWikiIndexRouteImport } from "./routes/_home/wiki/index";
+import { Route as UsernameSlugIndexRouteImport } from "./routes/$username/$slug.index";
 import { Route as UploadsUserIdSplatRouteImport } from "./routes/uploads/$userId.$";
+import { Route as DashboardToolsThankYouRouteImport } from "./routes/dashboard/tools/thank-you";
+import { Route as DashboardToolsSalaryCalculatorRouteImport } from "./routes/dashboard/tools/salary-calculator";
+import { Route as DashboardToolsResumeGalleryRouteImport } from "./routes/dashboard/tools/resume-gallery";
+import { Route as DashboardToolsRemoteReadinessRouteImport } from "./routes/dashboard/tools/remote-readiness";
+import { Route as DashboardToolsQrCodeRouteImport } from "./routes/dashboard/tools/qr-code";
+import { Route as DashboardToolsNegotiationRouteImport } from "./routes/dashboard/tools/negotiation";
+import { Route as DashboardToolsLinkedinRouteImport } from "./routes/dashboard/tools/linkedin";
+import { Route as DashboardToolsKeywordsRouteImport } from "./routes/dashboard/tools/keywords";
+import { Route as DashboardToolsJobResourcesRouteImport } from "./routes/dashboard/tools/job-resources";
+import { Route as DashboardToolsJobMatchRouteImport } from "./routes/dashboard/tools/job-match";
+import { Route as DashboardToolsElevatorPitchRouteImport } from "./routes/dashboard/tools/elevator-pitch";
+import { Route as DashboardToolsCoverLetterRouteImport } from "./routes/dashboard/tools/cover-letter";
+import { Route as DashboardToolsAtsCheckerRouteImport } from "./routes/dashboard/tools/ats-checker";
+import { Route as DashboardToolsAiWriterRouteImport } from "./routes/dashboard/tools/ai-writer";
+import { Route as DashboardToolsAiHistoryRouteImport } from "./routes/dashboard/tools/ai-history";
+import { Route as DashboardTemplatesGalleryRouteImport } from "./routes/dashboard/templates/gallery";
+import { Route as DashboardTemplatesCoverLettersRouteImport } from "./routes/dashboard/templates/cover-letters";
 import { Route as DashboardSettingsProfileRouteImport } from "./routes/dashboard/settings/profile";
 import { Route as DashboardSettingsPreferencesRouteImport } from "./routes/dashboard/settings/preferences";
+import { Route as DashboardSettingsDataRouteImport } from "./routes/dashboard/settings/data";
 import { Route as DashboardSettingsDangerZoneRouteImport } from "./routes/dashboard/settings/danger-zone";
 import { Route as DashboardSettingsApiKeysRouteImport } from "./routes/dashboard/settings/api-keys";
 import { Route as DashboardSettingsAiRouteImport } from "./routes/dashboard/settings/ai";
+import { Route as DashboardResumesScoringRouteImport } from "./routes/dashboard/resumes/scoring";
+import { Route as DashboardResumesHistoryRouteImport } from "./routes/dashboard/resumes/history";
+import { Route as DashboardResumesExperienceOptimizerRouteImport } from "./routes/dashboard/resumes/experience-optimizer";
+import { Route as DashboardResumesCompareRouteImport } from "./routes/dashboard/resumes/compare";
+import { Route as DashboardResumesAiWizardRouteImport } from "./routes/dashboard/resumes/ai-wizard";
+import { Route as DashboardResourcesSuccessStoriesRouteImport } from "./routes/dashboard/resources/success-stories";
+import { Route as DashboardResourcesProgramsRouteImport } from "./routes/dashboard/resources/programs";
+import { Route as DashboardResourcesMyProgramsRouteImport } from "./routes/dashboard/resources/my-programs";
+import { Route as DashboardResourcesCompareRouteImport } from "./routes/dashboard/resources/compare";
+import { Route as DashboardProfileAchievementsRouteImport } from "./routes/dashboard/profile/achievements";
+import { Route as DashboardPortfolioSamplesRouteImport } from "./routes/dashboard/portfolio/samples";
+import { Route as DashboardPortfolioFreelanceRouteImport } from "./routes/dashboard/portfolio/freelance";
+import { Route as DashboardPartnerPostJobRouteImport } from "./routes/dashboard/partner/post-job";
+import { Route as DashboardPartnerJobsRouteImport } from "./routes/dashboard/partner/jobs";
+import { Route as DashboardPartnerApplicationsRouteImport } from "./routes/dashboard/partner/applications";
+import { Route as DashboardNetworkingReferencesRouteImport } from "./routes/dashboard/networking/references";
+import { Route as DashboardNetworkingRecommendationRequestRouteImport } from "./routes/dashboard/networking/recommendation-request";
+import { Route as DashboardNetworkingNetworkMapRouteImport } from "./routes/dashboard/networking/network-map";
+import { Route as DashboardNetworkingMessageTemplatesRouteImport } from "./routes/dashboard/networking/message-templates";
+import { Route as DashboardNetworkingMentorsRouteImport } from "./routes/dashboard/networking/mentors";
+import { Route as DashboardNetworkingEventsRouteImport } from "./routes/dashboard/networking/events";
+import { Route as DashboardLinkedinStrategiesRouteImport } from "./routes/dashboard/linkedin/strategies";
+import { Route as DashboardLinkedinMessagesRouteImport } from "./routes/dashboard/linkedin/messages";
+import { Route as DashboardLinkedinContentRouteImport } from "./routes/dashboard/linkedin/content";
+import { Route as DashboardLearnRecommendationsRouteImport } from "./routes/dashboard/learn/recommendations";
+import { Route as DashboardLearnPathsRouteImport } from "./routes/dashboard/learn/paths";
+import { Route as DashboardLearnAssessmentsRouteImport } from "./routes/dashboard/learn/assessments";
+import { Route as DashboardJobsTrendsRouteImport } from "./routes/dashboard/jobs/trends";
+import { Route as DashboardJobsSearchRouteImport } from "./routes/dashboard/jobs/search";
+import { Route as DashboardJobsResearchRouteImport } from "./routes/dashboard/jobs/research";
+import { Route as DashboardJobsRecommendationsRouteImport } from "./routes/dashboard/jobs/recommendations";
+import { Route as DashboardJobsInsightsRouteImport } from "./routes/dashboard/jobs/insights";
+import { Route as DashboardJobsFollowUpRouteImport } from "./routes/dashboard/jobs/follow-up";
+import { Route as DashboardJobsEmployersRouteImport } from "./routes/dashboard/jobs/employers";
+import { Route as DashboardJobsDeadlinesRouteImport } from "./routes/dashboard/jobs/deadlines";
+import { Route as DashboardJobsCultureMatchRouteImport } from "./routes/dashboard/jobs/culture-match";
+import { Route as DashboardJobsBoardRouteImport } from "./routes/dashboard/jobs/board";
+import { Route as DashboardJobsApplicationsRouteImport } from "./routes/dashboard/jobs/applications";
+import { Route as DashboardJobsAlertsRouteImport } from "./routes/dashboard/jobs/alerts";
+import { Route as DashboardJobsAggregatorRouteImport } from "./routes/dashboard/jobs/aggregator";
+import { Route as DashboardInterviewVoiceInterviewRouteImport } from "./routes/dashboard/interview/voice-interview";
+import { Route as DashboardInterviewVideoAnalysisRouteImport } from "./routes/dashboard/interview/video-analysis";
+import { Route as DashboardInterviewTipsRouteImport } from "./routes/dashboard/interview/tips";
+import { Route as DashboardInterviewStarMethodRouteImport } from "./routes/dashboard/interview/star-method";
+import { Route as DashboardInterviewSchedulerRouteImport } from "./routes/dashboard/interview/scheduler";
+import { Route as DashboardInterviewReviewRouteImport } from "./routes/dashboard/interview/review";
+import { Route as DashboardInterviewQuestionsRouteImport } from "./routes/dashboard/interview/questions";
+import { Route as DashboardInterviewQuestionBankRouteImport } from "./routes/dashboard/interview/question-bank";
+import { Route as DashboardInterviewPracticeRouteImport } from "./routes/dashboard/interview/practice";
+import { Route as DashboardInterviewPerformanceRouteImport } from "./routes/dashboard/interview/performance";
+import { Route as DashboardInterviewOutfitRouteImport } from "./routes/dashboard/interview/outfit";
+import { Route as DashboardInterviewNotesRouteImport } from "./routes/dashboard/interview/notes";
+import { Route as DashboardInterviewMockAiRouteImport } from "./routes/dashboard/interview/mock-ai";
+import { Route as DashboardInterviewFeedbackRouteImport } from "./routes/dashboard/interview/feedback";
+import { Route as DashboardInterviewConfidenceRouteImport } from "./routes/dashboard/interview/confidence";
+import { Route as DashboardInterviewChecklistRouteImport } from "./routes/dashboard/interview/checklist";
+import { Route as DashboardInterviewChatbotRouteImport } from "./routes/dashboard/interview/chatbot";
+import { Route as DashboardInterviewAnalyticsRouteImport } from "./routes/dashboard/interview/analytics";
+import { Route as DashboardCareerTransitionRouteImport } from "./routes/dashboard/career/transition";
+import { Route as DashboardCareerTimelineRouteImport } from "./routes/dashboard/career/timeline";
+import { Route as DashboardCareerStudyPlanRouteImport } from "./routes/dashboard/career/study-plan";
+import { Route as DashboardCareerSkillsQuizRouteImport } from "./routes/dashboard/career/skills-quiz";
+import { Route as DashboardCareerSkillsRouteImport } from "./routes/dashboard/career/skills";
+import { Route as DashboardCareerSkillGapRouteImport } from "./routes/dashboard/career/skill-gap";
+import { Route as DashboardCareerRoadmapRouteImport } from "./routes/dashboard/career/roadmap";
+import { Route as DashboardCareerReviewPrepRouteImport } from "./routes/dashboard/career/review-prep";
+import { Route as DashboardCareerQuizRouteImport } from "./routes/dashboard/career/quiz";
+import { Route as DashboardCareerPredictionsRouteImport } from "./routes/dashboard/career/predictions";
+import { Route as DashboardCareerInsightsRouteImport } from "./routes/dashboard/career/insights";
+import { Route as DashboardCareerGapAnalysisRouteImport } from "./routes/dashboard/career/gap-analysis";
+import { Route as DashboardCareerCoachingRouteImport } from "./routes/dashboard/career/coaching";
+import { Route as DashboardCareerCertificationsRouteImport } from "./routes/dashboard/career/certifications";
+import { Route as DashboardCareerBrandingRouteImport } from "./routes/dashboard/career/branding";
+import { Route as DashboardCareerAssessmentRouteImport } from "./routes/dashboard/career/assessment";
+import { Route as DashboardAnalyticsReportsRouteImport } from "./routes/dashboard/analytics/reports";
+import { Route as DashboardAnalyticsProgressRouteImport } from "./routes/dashboard/analytics/progress";
+import { Route as DashboardAnalyticsAiUsageRouteImport } from "./routes/dashboard/analytics/ai-usage";
+import { Route as DashboardAnalyticsAiMatrixRouteImport } from "./routes/dashboard/analytics/ai-matrix";
+import { Route as DashboardAnalyticsActivityRouteImport } from "./routes/dashboard/analytics/activity";
+import { Route as DashboardAiMentorMarketRouteImport } from "./routes/dashboard/ai-mentor/market";
+import { Route as DashboardAiMentorConversationsRouteImport } from "./routes/dashboard/ai-mentor/conversations";
+import { Route as DashboardAdminSystemRouteImport } from "./routes/dashboard/admin/system";
+import { Route as DashboardAdminAuditLogRouteImport } from "./routes/dashboard/admin/audit-log";
 import { Route as ApiRpcSplatRouteImport } from "./routes/api/rpc.$";
 import { Route as ApiOpenapiSplatRouteImport } from "./routes/api/openapi.$";
 import { Route as ApiAuthSplatRouteImport } from "./routes/api/auth.$";
+import { Route as UsernameSlugCardRouteImport } from "./routes/$username/$slug.card";
+import { Route as DashboardWikiCategorySlugIndexRouteImport } from "./routes/dashboard/wiki/$categorySlug/index";
 import { Route as DashboardSettingsAuthenticationIndexRouteImport } from "./routes/dashboard/settings/authentication/index";
+import { Route as DashboardAdminUsersIndexRouteImport } from "./routes/dashboard/admin/users/index";
+import { Route as DashboardAdminResumesIndexRouteImport } from "./routes/dashboard/admin/resumes/index";
+import { Route as DashboardAdminReferenceDataIndexRouteImport } from "./routes/dashboard/admin/reference-data/index";
+import { Route as DashboardAdminCohortsIndexRouteImport } from "./routes/dashboard/admin/cohorts/index";
+import { Route as DashboardAdminAiSettingsIndexRouteImport } from "./routes/dashboard/admin/ai-settings/index";
+import { Route as DashboardAdminAiQuotasIndexRouteImport } from "./routes/dashboard/admin/ai-quotas/index";
+import { Route as DashboardAdminAiProvidersIndexRouteImport } from "./routes/dashboard/admin/ai-providers/index";
+import { Route as HomeWikiCategorySlugIndexRouteImport } from "./routes/_home/wiki/$categorySlug/index";
+import { Route as DashboardWikiCategorySlugArticleSlugRouteImport } from "./routes/dashboard/wiki/$categorySlug/$articleSlug";
+import { Route as DashboardResourcesProgramsProgramIdRouteImport } from "./routes/dashboard/resources/programs/$programId";
+import { Route as DashboardInterviewSessionSessionIdRouteImport } from "./routes/dashboard/interview/session.$sessionId";
+import { Route as DashboardInterviewResultsSessionIdRouteImport } from "./routes/dashboard/interview/results.$sessionId";
+import { Route as DashboardAdminUsersUserIdRouteImport } from "./routes/dashboard/admin/users/$userId";
+import { Route as HomeWikiCategorySlugArticleSlugRouteImport } from "./routes/_home/wiki/$categorySlug/$articleSlug";
 
 const SchemaDotjsonRoute = SchemaDotjsonRouteImport.update({
   id: "/schema.json",
@@ -89,6 +238,16 @@ const AuthVerify2faRoute = AuthVerify2faRouteImport.update({
   path: "/verify-2fa",
   getParentRoute: () => AuthRouteRoute,
 } as any);
+const AuthSignUpRoute = AuthSignUpRouteImport.update({
+  id: "/sign-up",
+  path: "/sign-up",
+  getParentRoute: () => AuthRouteRoute,
+} as any);
+const AuthSignInRoute = AuthSignInRouteImport.update({
+  id: "/sign-in",
+  path: "/sign-in",
+  getParentRoute: () => AuthRouteRoute,
+} as any);
 const AuthResumePasswordRoute = AuthResumePasswordRouteImport.update({
   id: "/resume-password",
   path: "/resume-password",
@@ -119,31 +278,288 @@ const ApiHealthRoute = ApiHealthRouteImport.update({
   path: "/api/health",
   getParentRoute: () => rootRouteImport,
 } as any);
+const HomeStageMarocRoute = HomeStageMarocRouteImport.update({
+  id: "/stage-maroc",
+  path: "/stage-maroc",
+  getParentRoute: () => HomeRouteRoute,
+} as any);
+const HomePreparationEntretienRoute =
+  HomePreparationEntretienRouteImport.update({
+    id: "/preparation-entretien",
+    path: "/preparation-entretien",
+    getParentRoute: () => HomeRouteRoute,
+  } as any);
+const HomeMetiersTechniquesRoute = HomeMetiersTechniquesRouteImport.update({
+  id: "/metiers-techniques",
+  path: "/metiers-techniques",
+  getParentRoute: () => HomeRouteRoute,
+} as any);
+const HomeImtaEtudiantsRoute = HomeImtaEtudiantsRouteImport.update({
+  id: "/imta-etudiants",
+  path: "/imta-etudiants",
+  getParentRoute: () => HomeRouteRoute,
+} as any);
+const HomeHelpRoute = HomeHelpRouteImport.update({
+  id: "/help",
+  path: "/help",
+  getParentRoute: () => HomeRouteRoute,
+} as any);
+const HomeEcolesFormateursRoute = HomeEcolesFormateursRouteImport.update({
+  id: "/ecoles-formateurs",
+  path: "/ecoles-formateurs",
+  getParentRoute: () => HomeRouteRoute,
+} as any);
+const HomeCvEtudiantRoute = HomeCvEtudiantRouteImport.update({
+  id: "/cv-etudiant",
+  path: "/cv-etudiant",
+  getParentRoute: () => HomeRouteRoute,
+} as any);
+const HomeLandingSlugRoute = HomeLandingSlugRouteImport.update({
+  id: "/$landingSlug",
+  path: "/$landingSlug",
+  getParentRoute: () => HomeRouteRoute,
+} as any);
 const UsernameSlugRoute = UsernameSlugRouteImport.update({
   id: "/$username/$slug",
   path: "/$username/$slug",
   getParentRoute: () => rootRouteImport,
+} as any);
+const DashboardAdminRouteRoute = DashboardAdminRouteRouteImport.update({
+  id: "/admin",
+  path: "/admin",
+  getParentRoute: () => DashboardRouteRoute,
 } as any);
 const BuilderResumeIdRouteRoute = BuilderResumeIdRouteRouteImport.update({
   id: "/builder/$resumeId",
   path: "/builder/$resumeId",
   getParentRoute: () => rootRouteImport,
 } as any);
+const DashboardWikiIndexRoute = DashboardWikiIndexRouteImport.update({
+  id: "/wiki/",
+  path: "/wiki/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardToolsIndexRoute = DashboardToolsIndexRouteImport.update({
+  id: "/tools/",
+  path: "/tools/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardTemplatesIndexRoute = DashboardTemplatesIndexRouteImport.update({
+  id: "/templates/",
+  path: "/templates/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardSettingsIndexRoute = DashboardSettingsIndexRouteImport.update({
+  id: "/settings/",
+  path: "/settings/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
 const DashboardResumesIndexRoute = DashboardResumesIndexRouteImport.update({
   id: "/resumes/",
   path: "/resumes/",
   getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardResourcesIndexRoute = DashboardResourcesIndexRouteImport.update({
+  id: "/resources/",
+  path: "/resources/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardProgressIndexRoute = DashboardProgressIndexRouteImport.update({
+  id: "/progress/",
+  path: "/progress/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardProfileIndexRoute = DashboardProfileIndexRouteImport.update({
+  id: "/profile/",
+  path: "/profile/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardPortfolioIndexRoute = DashboardPortfolioIndexRouteImport.update({
+  id: "/portfolio/",
+  path: "/portfolio/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardPartnerIndexRoute = DashboardPartnerIndexRouteImport.update({
+  id: "/partner/",
+  path: "/partner/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardNetworkingIndexRoute =
+  DashboardNetworkingIndexRouteImport.update({
+    id: "/networking/",
+    path: "/networking/",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any).lazy(() =>
+    import("./routes/dashboard/networking/index.lazy").then((d) => d.Route),
+  );
+const DashboardLinkedinIndexRoute = DashboardLinkedinIndexRouteImport.update({
+  id: "/linkedin/",
+  path: "/linkedin/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardLearnIndexRoute = DashboardLearnIndexRouteImport.update({
+  id: "/learn/",
+  path: "/learn/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardJobsIndexRoute = DashboardJobsIndexRouteImport.update({
+  id: "/jobs/",
+  path: "/jobs/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any).lazy(() =>
+  import("./routes/dashboard/jobs/index.lazy").then((d) => d.Route),
+);
+const DashboardInterviewIndexRoute = DashboardInterviewIndexRouteImport.update({
+  id: "/interview/",
+  path: "/interview/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any).lazy(() =>
+  import("./routes/dashboard/interview/index.lazy").then((d) => d.Route),
+);
+const DashboardHelpIndexRoute = DashboardHelpIndexRouteImport.update({
+  id: "/help/",
+  path: "/help/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardCareerIndexRoute = DashboardCareerIndexRouteImport.update({
+  id: "/career/",
+  path: "/career/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any).lazy(() =>
+  import("./routes/dashboard/career/index.lazy").then((d) => d.Route),
+);
+const DashboardAnalyticsIndexRoute = DashboardAnalyticsIndexRouteImport.update({
+  id: "/analytics/",
+  path: "/analytics/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any).lazy(() =>
+  import("./routes/dashboard/analytics/index.lazy").then((d) => d.Route),
+);
+const DashboardAiMentorIndexRoute = DashboardAiMentorIndexRouteImport.update({
+  id: "/ai-mentor/",
+  path: "/ai-mentor/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardAdminIndexRoute = DashboardAdminIndexRouteImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => DashboardAdminRouteRoute,
 } as any);
 const BuilderResumeIdIndexRoute = BuilderResumeIdIndexRouteImport.update({
   id: "/",
   path: "/",
   getParentRoute: () => BuilderResumeIdRouteRoute,
 } as any);
+const HomeWikiIndexRoute = HomeWikiIndexRouteImport.update({
+  id: "/wiki/",
+  path: "/wiki/",
+  getParentRoute: () => HomeRouteRoute,
+} as any);
+const UsernameSlugIndexRoute = UsernameSlugIndexRouteImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => UsernameSlugRoute,
+} as any);
 const UploadsUserIdSplatRoute = UploadsUserIdSplatRouteImport.update({
   id: "/uploads/$userId/$",
   path: "/uploads/$userId/$",
   getParentRoute: () => rootRouteImport,
 } as any);
+const DashboardToolsThankYouRoute = DashboardToolsThankYouRouteImport.update({
+  id: "/tools/thank-you",
+  path: "/tools/thank-you",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardToolsSalaryCalculatorRoute =
+  DashboardToolsSalaryCalculatorRouteImport.update({
+    id: "/tools/salary-calculator",
+    path: "/tools/salary-calculator",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardToolsResumeGalleryRoute =
+  DashboardToolsResumeGalleryRouteImport.update({
+    id: "/tools/resume-gallery",
+    path: "/tools/resume-gallery",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardToolsRemoteReadinessRoute =
+  DashboardToolsRemoteReadinessRouteImport.update({
+    id: "/tools/remote-readiness",
+    path: "/tools/remote-readiness",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardToolsQrCodeRoute = DashboardToolsQrCodeRouteImport.update({
+  id: "/tools/qr-code",
+  path: "/tools/qr-code",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardToolsNegotiationRoute =
+  DashboardToolsNegotiationRouteImport.update({
+    id: "/tools/negotiation",
+    path: "/tools/negotiation",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardToolsLinkedinRoute = DashboardToolsLinkedinRouteImport.update({
+  id: "/tools/linkedin",
+  path: "/tools/linkedin",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardToolsKeywordsRoute = DashboardToolsKeywordsRouteImport.update({
+  id: "/tools/keywords",
+  path: "/tools/keywords",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardToolsJobResourcesRoute =
+  DashboardToolsJobResourcesRouteImport.update({
+    id: "/tools/job-resources",
+    path: "/tools/job-resources",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardToolsJobMatchRoute = DashboardToolsJobMatchRouteImport.update({
+  id: "/tools/job-match",
+  path: "/tools/job-match",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardToolsElevatorPitchRoute =
+  DashboardToolsElevatorPitchRouteImport.update({
+    id: "/tools/elevator-pitch",
+    path: "/tools/elevator-pitch",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardToolsCoverLetterRoute =
+  DashboardToolsCoverLetterRouteImport.update({
+    id: "/tools/cover-letter",
+    path: "/tools/cover-letter",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardToolsAtsCheckerRoute =
+  DashboardToolsAtsCheckerRouteImport.update({
+    id: "/tools/ats-checker",
+    path: "/tools/ats-checker",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardToolsAiWriterRoute = DashboardToolsAiWriterRouteImport.update({
+  id: "/tools/ai-writer",
+  path: "/tools/ai-writer",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardToolsAiHistoryRoute = DashboardToolsAiHistoryRouteImport.update({
+  id: "/tools/ai-history",
+  path: "/tools/ai-history",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardTemplatesGalleryRoute =
+  DashboardTemplatesGalleryRouteImport.update({
+    id: "/templates/gallery",
+    path: "/templates/gallery",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardTemplatesCoverLettersRoute =
+  DashboardTemplatesCoverLettersRouteImport.update({
+    id: "/templates/cover-letters",
+    path: "/templates/cover-letters",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
 const DashboardSettingsProfileRoute =
   DashboardSettingsProfileRouteImport.update({
     id: "/settings/profile",
@@ -156,6 +572,11 @@ const DashboardSettingsPreferencesRoute =
     path: "/settings/preferences",
     getParentRoute: () => DashboardRouteRoute,
   } as any);
+const DashboardSettingsDataRoute = DashboardSettingsDataRouteImport.update({
+  id: "/settings/data",
+  path: "/settings/data",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
 const DashboardSettingsDangerZoneRoute =
   DashboardSettingsDangerZoneRouteImport.update({
     id: "/settings/danger-zone",
@@ -173,6 +594,475 @@ const DashboardSettingsAiRoute = DashboardSettingsAiRouteImport.update({
   path: "/settings/ai",
   getParentRoute: () => DashboardRouteRoute,
 } as any);
+const DashboardResumesScoringRoute = DashboardResumesScoringRouteImport.update({
+  id: "/resumes/scoring",
+  path: "/resumes/scoring",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardResumesHistoryRoute = DashboardResumesHistoryRouteImport.update({
+  id: "/resumes/history",
+  path: "/resumes/history",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardResumesExperienceOptimizerRoute =
+  DashboardResumesExperienceOptimizerRouteImport.update({
+    id: "/resumes/experience-optimizer",
+    path: "/resumes/experience-optimizer",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardResumesCompareRoute = DashboardResumesCompareRouteImport.update({
+  id: "/resumes/compare",
+  path: "/resumes/compare",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardResumesAiWizardRoute =
+  DashboardResumesAiWizardRouteImport.update({
+    id: "/resumes/ai-wizard",
+    path: "/resumes/ai-wizard",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardResourcesSuccessStoriesRoute =
+  DashboardResourcesSuccessStoriesRouteImport.update({
+    id: "/resources/success-stories",
+    path: "/resources/success-stories",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardResourcesProgramsRoute =
+  DashboardResourcesProgramsRouteImport.update({
+    id: "/resources/programs",
+    path: "/resources/programs",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardResourcesMyProgramsRoute =
+  DashboardResourcesMyProgramsRouteImport.update({
+    id: "/resources/my-programs",
+    path: "/resources/my-programs",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardResourcesCompareRoute =
+  DashboardResourcesCompareRouteImport.update({
+    id: "/resources/compare",
+    path: "/resources/compare",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardProfileAchievementsRoute =
+  DashboardProfileAchievementsRouteImport.update({
+    id: "/profile/achievements",
+    path: "/profile/achievements",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardPortfolioSamplesRoute =
+  DashboardPortfolioSamplesRouteImport.update({
+    id: "/portfolio/samples",
+    path: "/portfolio/samples",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardPortfolioFreelanceRoute =
+  DashboardPortfolioFreelanceRouteImport.update({
+    id: "/portfolio/freelance",
+    path: "/portfolio/freelance",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardPartnerPostJobRoute = DashboardPartnerPostJobRouteImport.update({
+  id: "/partner/post-job",
+  path: "/partner/post-job",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardPartnerJobsRoute = DashboardPartnerJobsRouteImport.update({
+  id: "/partner/jobs",
+  path: "/partner/jobs",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardPartnerApplicationsRoute =
+  DashboardPartnerApplicationsRouteImport.update({
+    id: "/partner/applications",
+    path: "/partner/applications",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardNetworkingReferencesRoute =
+  DashboardNetworkingReferencesRouteImport.update({
+    id: "/networking/references",
+    path: "/networking/references",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardNetworkingRecommendationRequestRoute =
+  DashboardNetworkingRecommendationRequestRouteImport.update({
+    id: "/networking/recommendation-request",
+    path: "/networking/recommendation-request",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardNetworkingNetworkMapRoute =
+  DashboardNetworkingNetworkMapRouteImport.update({
+    id: "/networking/network-map",
+    path: "/networking/network-map",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardNetworkingMessageTemplatesRoute =
+  DashboardNetworkingMessageTemplatesRouteImport.update({
+    id: "/networking/message-templates",
+    path: "/networking/message-templates",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardNetworkingMentorsRoute =
+  DashboardNetworkingMentorsRouteImport.update({
+    id: "/networking/mentors",
+    path: "/networking/mentors",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardNetworkingEventsRoute =
+  DashboardNetworkingEventsRouteImport.update({
+    id: "/networking/events",
+    path: "/networking/events",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardLinkedinStrategiesRoute =
+  DashboardLinkedinStrategiesRouteImport.update({
+    id: "/linkedin/strategies",
+    path: "/linkedin/strategies",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardLinkedinMessagesRoute =
+  DashboardLinkedinMessagesRouteImport.update({
+    id: "/linkedin/messages",
+    path: "/linkedin/messages",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardLinkedinContentRoute =
+  DashboardLinkedinContentRouteImport.update({
+    id: "/linkedin/content",
+    path: "/linkedin/content",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardLearnRecommendationsRoute =
+  DashboardLearnRecommendationsRouteImport.update({
+    id: "/learn/recommendations",
+    path: "/learn/recommendations",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardLearnPathsRoute = DashboardLearnPathsRouteImport.update({
+  id: "/learn/paths",
+  path: "/learn/paths",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardLearnAssessmentsRoute =
+  DashboardLearnAssessmentsRouteImport.update({
+    id: "/learn/assessments",
+    path: "/learn/assessments",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardJobsTrendsRoute = DashboardJobsTrendsRouteImport.update({
+  id: "/jobs/trends",
+  path: "/jobs/trends",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardJobsSearchRoute = DashboardJobsSearchRouteImport.update({
+  id: "/jobs/search",
+  path: "/jobs/search",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardJobsResearchRoute = DashboardJobsResearchRouteImport.update({
+  id: "/jobs/research",
+  path: "/jobs/research",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardJobsRecommendationsRoute =
+  DashboardJobsRecommendationsRouteImport.update({
+    id: "/jobs/recommendations",
+    path: "/jobs/recommendations",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardJobsInsightsRoute = DashboardJobsInsightsRouteImport.update({
+  id: "/jobs/insights",
+  path: "/jobs/insights",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardJobsFollowUpRoute = DashboardJobsFollowUpRouteImport.update({
+  id: "/jobs/follow-up",
+  path: "/jobs/follow-up",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardJobsEmployersRoute = DashboardJobsEmployersRouteImport.update({
+  id: "/jobs/employers",
+  path: "/jobs/employers",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardJobsDeadlinesRoute = DashboardJobsDeadlinesRouteImport.update({
+  id: "/jobs/deadlines",
+  path: "/jobs/deadlines",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardJobsCultureMatchRoute =
+  DashboardJobsCultureMatchRouteImport.update({
+    id: "/jobs/culture-match",
+    path: "/jobs/culture-match",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardJobsBoardRoute = DashboardJobsBoardRouteImport.update({
+  id: "/jobs/board",
+  path: "/jobs/board",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardJobsApplicationsRoute =
+  DashboardJobsApplicationsRouteImport.update({
+    id: "/jobs/applications",
+    path: "/jobs/applications",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardJobsAlertsRoute = DashboardJobsAlertsRouteImport.update({
+  id: "/jobs/alerts",
+  path: "/jobs/alerts",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardJobsAggregatorRoute = DashboardJobsAggregatorRouteImport.update({
+  id: "/jobs/aggregator",
+  path: "/jobs/aggregator",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardInterviewVoiceInterviewRoute =
+  DashboardInterviewVoiceInterviewRouteImport.update({
+    id: "/interview/voice-interview",
+    path: "/interview/voice-interview",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewVideoAnalysisRoute =
+  DashboardInterviewVideoAnalysisRouteImport.update({
+    id: "/interview/video-analysis",
+    path: "/interview/video-analysis",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewTipsRoute = DashboardInterviewTipsRouteImport.update({
+  id: "/interview/tips",
+  path: "/interview/tips",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardInterviewStarMethodRoute =
+  DashboardInterviewStarMethodRouteImport.update({
+    id: "/interview/star-method",
+    path: "/interview/star-method",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewSchedulerRoute =
+  DashboardInterviewSchedulerRouteImport.update({
+    id: "/interview/scheduler",
+    path: "/interview/scheduler",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewReviewRoute =
+  DashboardInterviewReviewRouteImport.update({
+    id: "/interview/review",
+    path: "/interview/review",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewQuestionsRoute =
+  DashboardInterviewQuestionsRouteImport.update({
+    id: "/interview/questions",
+    path: "/interview/questions",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewQuestionBankRoute =
+  DashboardInterviewQuestionBankRouteImport.update({
+    id: "/interview/question-bank",
+    path: "/interview/question-bank",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewPracticeRoute =
+  DashboardInterviewPracticeRouteImport.update({
+    id: "/interview/practice",
+    path: "/interview/practice",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewPerformanceRoute =
+  DashboardInterviewPerformanceRouteImport.update({
+    id: "/interview/performance",
+    path: "/interview/performance",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewOutfitRoute =
+  DashboardInterviewOutfitRouteImport.update({
+    id: "/interview/outfit",
+    path: "/interview/outfit",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewNotesRoute = DashboardInterviewNotesRouteImport.update({
+  id: "/interview/notes",
+  path: "/interview/notes",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardInterviewMockAiRoute =
+  DashboardInterviewMockAiRouteImport.update({
+    id: "/interview/mock-ai",
+    path: "/interview/mock-ai",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewFeedbackRoute =
+  DashboardInterviewFeedbackRouteImport.update({
+    id: "/interview/feedback",
+    path: "/interview/feedback",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewConfidenceRoute =
+  DashboardInterviewConfidenceRouteImport.update({
+    id: "/interview/confidence",
+    path: "/interview/confidence",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewChecklistRoute =
+  DashboardInterviewChecklistRouteImport.update({
+    id: "/interview/checklist",
+    path: "/interview/checklist",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewChatbotRoute =
+  DashboardInterviewChatbotRouteImport.update({
+    id: "/interview/chatbot",
+    path: "/interview/chatbot",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewAnalyticsRoute =
+  DashboardInterviewAnalyticsRouteImport.update({
+    id: "/interview/analytics",
+    path: "/interview/analytics",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardCareerTransitionRoute =
+  DashboardCareerTransitionRouteImport.update({
+    id: "/career/transition",
+    path: "/career/transition",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardCareerTimelineRoute = DashboardCareerTimelineRouteImport.update({
+  id: "/career/timeline",
+  path: "/career/timeline",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardCareerStudyPlanRoute =
+  DashboardCareerStudyPlanRouteImport.update({
+    id: "/career/study-plan",
+    path: "/career/study-plan",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardCareerSkillsQuizRoute =
+  DashboardCareerSkillsQuizRouteImport.update({
+    id: "/career/skills-quiz",
+    path: "/career/skills-quiz",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardCareerSkillsRoute = DashboardCareerSkillsRouteImport.update({
+  id: "/career/skills",
+  path: "/career/skills",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardCareerSkillGapRoute = DashboardCareerSkillGapRouteImport.update({
+  id: "/career/skill-gap",
+  path: "/career/skill-gap",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardCareerRoadmapRoute = DashboardCareerRoadmapRouteImport.update({
+  id: "/career/roadmap",
+  path: "/career/roadmap",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardCareerReviewPrepRoute =
+  DashboardCareerReviewPrepRouteImport.update({
+    id: "/career/review-prep",
+    path: "/career/review-prep",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardCareerQuizRoute = DashboardCareerQuizRouteImport.update({
+  id: "/career/quiz",
+  path: "/career/quiz",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardCareerPredictionsRoute =
+  DashboardCareerPredictionsRouteImport.update({
+    id: "/career/predictions",
+    path: "/career/predictions",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardCareerInsightsRoute = DashboardCareerInsightsRouteImport.update({
+  id: "/career/insights",
+  path: "/career/insights",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardCareerGapAnalysisRoute =
+  DashboardCareerGapAnalysisRouteImport.update({
+    id: "/career/gap-analysis",
+    path: "/career/gap-analysis",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardCareerCoachingRoute = DashboardCareerCoachingRouteImport.update({
+  id: "/career/coaching",
+  path: "/career/coaching",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardCareerCertificationsRoute =
+  DashboardCareerCertificationsRouteImport.update({
+    id: "/career/certifications",
+    path: "/career/certifications",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardCareerBrandingRoute = DashboardCareerBrandingRouteImport.update({
+  id: "/career/branding",
+  path: "/career/branding",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardCareerAssessmentRoute =
+  DashboardCareerAssessmentRouteImport.update({
+    id: "/career/assessment",
+    path: "/career/assessment",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardAnalyticsReportsRoute =
+  DashboardAnalyticsReportsRouteImport.update({
+    id: "/analytics/reports",
+    path: "/analytics/reports",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardAnalyticsProgressRoute =
+  DashboardAnalyticsProgressRouteImport.update({
+    id: "/analytics/progress",
+    path: "/analytics/progress",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardAnalyticsAiUsageRoute =
+  DashboardAnalyticsAiUsageRouteImport.update({
+    id: "/analytics/ai-usage",
+    path: "/analytics/ai-usage",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardAnalyticsAiMatrixRoute =
+  DashboardAnalyticsAiMatrixRouteImport.update({
+    id: "/analytics/ai-matrix",
+    path: "/analytics/ai-matrix",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardAnalyticsActivityRoute =
+  DashboardAnalyticsActivityRouteImport.update({
+    id: "/analytics/activity",
+    path: "/analytics/activity",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardAiMentorMarketRoute = DashboardAiMentorMarketRouteImport.update({
+  id: "/ai-mentor/market",
+  path: "/ai-mentor/market",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
+const DashboardAiMentorConversationsRoute =
+  DashboardAiMentorConversationsRouteImport.update({
+    id: "/ai-mentor/conversations",
+    path: "/ai-mentor/conversations",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardAdminSystemRoute = DashboardAdminSystemRouteImport.update({
+  id: "/system",
+  path: "/system",
+  getParentRoute: () => DashboardAdminRouteRoute,
+} as any);
+const DashboardAdminAuditLogRoute = DashboardAdminAuditLogRouteImport.update({
+  id: "/audit-log",
+  path: "/audit-log",
+  getParentRoute: () => DashboardAdminRouteRoute,
+} as any);
 const ApiRpcSplatRoute = ApiRpcSplatRouteImport.update({
   id: "/api/rpc/$",
   path: "/api/rpc/$",
@@ -188,11 +1078,106 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: "/api/auth/$",
   getParentRoute: () => rootRouteImport,
 } as any);
+const UsernameSlugCardRoute = UsernameSlugCardRouteImport.update({
+  id: "/card",
+  path: "/card",
+  getParentRoute: () => UsernameSlugRoute,
+} as any);
+const DashboardWikiCategorySlugIndexRoute =
+  DashboardWikiCategorySlugIndexRouteImport.update({
+    id: "/wiki/$categorySlug/",
+    path: "/wiki/$categorySlug/",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
 const DashboardSettingsAuthenticationIndexRoute =
   DashboardSettingsAuthenticationIndexRouteImport.update({
     id: "/settings/authentication/",
     path: "/settings/authentication/",
     getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardAdminUsersIndexRoute =
+  DashboardAdminUsersIndexRouteImport.update({
+    id: "/users/",
+    path: "/users/",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
+const DashboardAdminResumesIndexRoute =
+  DashboardAdminResumesIndexRouteImport.update({
+    id: "/resumes/",
+    path: "/resumes/",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
+const DashboardAdminReferenceDataIndexRoute =
+  DashboardAdminReferenceDataIndexRouteImport.update({
+    id: "/reference-data/",
+    path: "/reference-data/",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
+const DashboardAdminCohortsIndexRoute =
+  DashboardAdminCohortsIndexRouteImport.update({
+    id: "/cohorts/",
+    path: "/cohorts/",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
+const DashboardAdminAiSettingsIndexRoute =
+  DashboardAdminAiSettingsIndexRouteImport.update({
+    id: "/ai-settings/",
+    path: "/ai-settings/",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
+const DashboardAdminAiQuotasIndexRoute =
+  DashboardAdminAiQuotasIndexRouteImport.update({
+    id: "/ai-quotas/",
+    path: "/ai-quotas/",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
+const DashboardAdminAiProvidersIndexRoute =
+  DashboardAdminAiProvidersIndexRouteImport.update({
+    id: "/ai-providers/",
+    path: "/ai-providers/",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
+const HomeWikiCategorySlugIndexRoute =
+  HomeWikiCategorySlugIndexRouteImport.update({
+    id: "/wiki/$categorySlug/",
+    path: "/wiki/$categorySlug/",
+    getParentRoute: () => HomeRouteRoute,
+  } as any);
+const DashboardWikiCategorySlugArticleSlugRoute =
+  DashboardWikiCategorySlugArticleSlugRouteImport.update({
+    id: "/wiki/$categorySlug/$articleSlug",
+    path: "/wiki/$categorySlug/$articleSlug",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardResourcesProgramsProgramIdRoute =
+  DashboardResourcesProgramsProgramIdRouteImport.update({
+    id: "/$programId",
+    path: "/$programId",
+    getParentRoute: () => DashboardResourcesProgramsRoute,
+  } as any);
+const DashboardInterviewSessionSessionIdRoute =
+  DashboardInterviewSessionSessionIdRouteImport.update({
+    id: "/interview/session/$sessionId",
+    path: "/interview/session/$sessionId",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardInterviewResultsSessionIdRoute =
+  DashboardInterviewResultsSessionIdRouteImport.update({
+    id: "/interview/results/$sessionId",
+    path: "/interview/results/$sessionId",
+    getParentRoute: () => DashboardRouteRoute,
+  } as any);
+const DashboardAdminUsersUserIdRoute =
+  DashboardAdminUsersUserIdRouteImport.update({
+    id: "/users/$userId",
+    path: "/users/$userId",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
+const HomeWikiCategorySlugArticleSlugRoute =
+  HomeWikiCategorySlugArticleSlugRouteImport.update({
+    id: "/wiki/$categorySlug/$articleSlug",
+    path: "/wiki/$categorySlug/$articleSlug",
+    getParentRoute: () => HomeRouteRoute,
   } as any);
 
 export interface FileRoutesByFullPath {
@@ -201,58 +1186,354 @@ export interface FileRoutesByFullPath {
   "/dashboard": typeof DashboardRouteRouteWithChildren;
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
-  "/$username/$slug": typeof UsernameSlugRoute;
+  "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/$username/$slug": typeof UsernameSlugRouteWithChildren;
+  "/$landingSlug": typeof HomeLandingSlugRoute;
+  "/cv-etudiant": typeof HomeCvEtudiantRoute;
+  "/ecoles-formateurs": typeof HomeEcolesFormateursRoute;
+  "/help": typeof HomeHelpRoute;
+  "/imta-etudiants": typeof HomeImtaEtudiantsRoute;
+  "/metiers-techniques": typeof HomeMetiersTechniquesRoute;
+  "/preparation-entretien": typeof HomePreparationEntretienRoute;
+  "/stage-maroc": typeof HomeStageMarocRoute;
   "/api/health": typeof ApiHealthRoute;
   "/auth/forgot-password": typeof AuthForgotPasswordRoute;
   "/auth/login": typeof AuthLoginRoute;
   "/auth/register": typeof AuthRegisterRoute;
   "/auth/reset-password": typeof AuthResetPasswordRoute;
   "/auth/resume-password": typeof AuthResumePasswordRoute;
+  "/auth/sign-in": typeof AuthSignInRoute;
+  "/auth/sign-up": typeof AuthSignUpRoute;
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/printer/$resumeId": typeof PrinterResumeIdRoute;
   "/auth/": typeof AuthIndexRoute;
   "/dashboard/": typeof DashboardIndexRoute;
+  "/$username/$slug/card": typeof UsernameSlugCardRoute;
   "/api/auth/$": typeof ApiAuthSplatRoute;
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
+  "/dashboard/admin/audit-log": typeof DashboardAdminAuditLogRoute;
+  "/dashboard/admin/system": typeof DashboardAdminSystemRoute;
+  "/dashboard/ai-mentor/conversations": typeof DashboardAiMentorConversationsRoute;
+  "/dashboard/ai-mentor/market": typeof DashboardAiMentorMarketRoute;
+  "/dashboard/analytics/activity": typeof DashboardAnalyticsActivityRoute;
+  "/dashboard/analytics/ai-matrix": typeof DashboardAnalyticsAiMatrixRoute;
+  "/dashboard/analytics/ai-usage": typeof DashboardAnalyticsAiUsageRoute;
+  "/dashboard/analytics/progress": typeof DashboardAnalyticsProgressRoute;
+  "/dashboard/analytics/reports": typeof DashboardAnalyticsReportsRoute;
+  "/dashboard/career/assessment": typeof DashboardCareerAssessmentRoute;
+  "/dashboard/career/branding": typeof DashboardCareerBrandingRoute;
+  "/dashboard/career/certifications": typeof DashboardCareerCertificationsRoute;
+  "/dashboard/career/coaching": typeof DashboardCareerCoachingRoute;
+  "/dashboard/career/gap-analysis": typeof DashboardCareerGapAnalysisRoute;
+  "/dashboard/career/insights": typeof DashboardCareerInsightsRoute;
+  "/dashboard/career/predictions": typeof DashboardCareerPredictionsRoute;
+  "/dashboard/career/quiz": typeof DashboardCareerQuizRoute;
+  "/dashboard/career/review-prep": typeof DashboardCareerReviewPrepRoute;
+  "/dashboard/career/roadmap": typeof DashboardCareerRoadmapRoute;
+  "/dashboard/career/skill-gap": typeof DashboardCareerSkillGapRoute;
+  "/dashboard/career/skills": typeof DashboardCareerSkillsRoute;
+  "/dashboard/career/skills-quiz": typeof DashboardCareerSkillsQuizRoute;
+  "/dashboard/career/study-plan": typeof DashboardCareerStudyPlanRoute;
+  "/dashboard/career/timeline": typeof DashboardCareerTimelineRoute;
+  "/dashboard/career/transition": typeof DashboardCareerTransitionRoute;
+  "/dashboard/interview/analytics": typeof DashboardInterviewAnalyticsRoute;
+  "/dashboard/interview/chatbot": typeof DashboardInterviewChatbotRoute;
+  "/dashboard/interview/checklist": typeof DashboardInterviewChecklistRoute;
+  "/dashboard/interview/confidence": typeof DashboardInterviewConfidenceRoute;
+  "/dashboard/interview/feedback": typeof DashboardInterviewFeedbackRoute;
+  "/dashboard/interview/mock-ai": typeof DashboardInterviewMockAiRoute;
+  "/dashboard/interview/notes": typeof DashboardInterviewNotesRoute;
+  "/dashboard/interview/outfit": typeof DashboardInterviewOutfitRoute;
+  "/dashboard/interview/performance": typeof DashboardInterviewPerformanceRoute;
+  "/dashboard/interview/practice": typeof DashboardInterviewPracticeRoute;
+  "/dashboard/interview/question-bank": typeof DashboardInterviewQuestionBankRoute;
+  "/dashboard/interview/questions": typeof DashboardInterviewQuestionsRoute;
+  "/dashboard/interview/review": typeof DashboardInterviewReviewRoute;
+  "/dashboard/interview/scheduler": typeof DashboardInterviewSchedulerRoute;
+  "/dashboard/interview/star-method": typeof DashboardInterviewStarMethodRoute;
+  "/dashboard/interview/tips": typeof DashboardInterviewTipsRoute;
+  "/dashboard/interview/video-analysis": typeof DashboardInterviewVideoAnalysisRoute;
+  "/dashboard/interview/voice-interview": typeof DashboardInterviewVoiceInterviewRoute;
+  "/dashboard/jobs/aggregator": typeof DashboardJobsAggregatorRoute;
+  "/dashboard/jobs/alerts": typeof DashboardJobsAlertsRoute;
+  "/dashboard/jobs/applications": typeof DashboardJobsApplicationsRoute;
+  "/dashboard/jobs/board": typeof DashboardJobsBoardRoute;
+  "/dashboard/jobs/culture-match": typeof DashboardJobsCultureMatchRoute;
+  "/dashboard/jobs/deadlines": typeof DashboardJobsDeadlinesRoute;
+  "/dashboard/jobs/employers": typeof DashboardJobsEmployersRoute;
+  "/dashboard/jobs/follow-up": typeof DashboardJobsFollowUpRoute;
+  "/dashboard/jobs/insights": typeof DashboardJobsInsightsRoute;
+  "/dashboard/jobs/recommendations": typeof DashboardJobsRecommendationsRoute;
+  "/dashboard/jobs/research": typeof DashboardJobsResearchRoute;
+  "/dashboard/jobs/search": typeof DashboardJobsSearchRoute;
+  "/dashboard/jobs/trends": typeof DashboardJobsTrendsRoute;
+  "/dashboard/learn/assessments": typeof DashboardLearnAssessmentsRoute;
+  "/dashboard/learn/paths": typeof DashboardLearnPathsRoute;
+  "/dashboard/learn/recommendations": typeof DashboardLearnRecommendationsRoute;
+  "/dashboard/linkedin/content": typeof DashboardLinkedinContentRoute;
+  "/dashboard/linkedin/messages": typeof DashboardLinkedinMessagesRoute;
+  "/dashboard/linkedin/strategies": typeof DashboardLinkedinStrategiesRoute;
+  "/dashboard/networking/events": typeof DashboardNetworkingEventsRoute;
+  "/dashboard/networking/mentors": typeof DashboardNetworkingMentorsRoute;
+  "/dashboard/networking/message-templates": typeof DashboardNetworkingMessageTemplatesRoute;
+  "/dashboard/networking/network-map": typeof DashboardNetworkingNetworkMapRoute;
+  "/dashboard/networking/recommendation-request": typeof DashboardNetworkingRecommendationRequestRoute;
+  "/dashboard/networking/references": typeof DashboardNetworkingReferencesRoute;
+  "/dashboard/partner/applications": typeof DashboardPartnerApplicationsRoute;
+  "/dashboard/partner/jobs": typeof DashboardPartnerJobsRoute;
+  "/dashboard/partner/post-job": typeof DashboardPartnerPostJobRoute;
+  "/dashboard/portfolio/freelance": typeof DashboardPortfolioFreelanceRoute;
+  "/dashboard/portfolio/samples": typeof DashboardPortfolioSamplesRoute;
+  "/dashboard/profile/achievements": typeof DashboardProfileAchievementsRoute;
+  "/dashboard/resources/compare": typeof DashboardResourcesCompareRoute;
+  "/dashboard/resources/my-programs": typeof DashboardResourcesMyProgramsRoute;
+  "/dashboard/resources/programs": typeof DashboardResourcesProgramsRouteWithChildren;
+  "/dashboard/resources/success-stories": typeof DashboardResourcesSuccessStoriesRoute;
+  "/dashboard/resumes/ai-wizard": typeof DashboardResumesAiWizardRoute;
+  "/dashboard/resumes/compare": typeof DashboardResumesCompareRoute;
+  "/dashboard/resumes/experience-optimizer": typeof DashboardResumesExperienceOptimizerRoute;
+  "/dashboard/resumes/history": typeof DashboardResumesHistoryRoute;
+  "/dashboard/resumes/scoring": typeof DashboardResumesScoringRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
+  "/dashboard/settings/data": typeof DashboardSettingsDataRoute;
   "/dashboard/settings/preferences": typeof DashboardSettingsPreferencesRoute;
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
+  "/dashboard/templates/cover-letters": typeof DashboardTemplatesCoverLettersRoute;
+  "/dashboard/templates/gallery": typeof DashboardTemplatesGalleryRoute;
+  "/dashboard/tools/ai-history": typeof DashboardToolsAiHistoryRoute;
+  "/dashboard/tools/ai-writer": typeof DashboardToolsAiWriterRoute;
+  "/dashboard/tools/ats-checker": typeof DashboardToolsAtsCheckerRoute;
+  "/dashboard/tools/cover-letter": typeof DashboardToolsCoverLetterRoute;
+  "/dashboard/tools/elevator-pitch": typeof DashboardToolsElevatorPitchRoute;
+  "/dashboard/tools/job-match": typeof DashboardToolsJobMatchRoute;
+  "/dashboard/tools/job-resources": typeof DashboardToolsJobResourcesRoute;
+  "/dashboard/tools/keywords": typeof DashboardToolsKeywordsRoute;
+  "/dashboard/tools/linkedin": typeof DashboardToolsLinkedinRoute;
+  "/dashboard/tools/negotiation": typeof DashboardToolsNegotiationRoute;
+  "/dashboard/tools/qr-code": typeof DashboardToolsQrCodeRoute;
+  "/dashboard/tools/remote-readiness": typeof DashboardToolsRemoteReadinessRoute;
+  "/dashboard/tools/resume-gallery": typeof DashboardToolsResumeGalleryRoute;
+  "/dashboard/tools/salary-calculator": typeof DashboardToolsSalaryCalculatorRoute;
+  "/dashboard/tools/thank-you": typeof DashboardToolsThankYouRoute;
   "/uploads/$userId/$": typeof UploadsUserIdSplatRoute;
+  "/$username/$slug/": typeof UsernameSlugIndexRoute;
+  "/wiki/": typeof HomeWikiIndexRoute;
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
+  "/dashboard/admin/": typeof DashboardAdminIndexRoute;
+  "/dashboard/ai-mentor/": typeof DashboardAiMentorIndexRoute;
+  "/dashboard/analytics/": typeof DashboardAnalyticsIndexRoute;
+  "/dashboard/career/": typeof DashboardCareerIndexRoute;
+  "/dashboard/help/": typeof DashboardHelpIndexRoute;
+  "/dashboard/interview/": typeof DashboardInterviewIndexRoute;
+  "/dashboard/jobs/": typeof DashboardJobsIndexRoute;
+  "/dashboard/learn/": typeof DashboardLearnIndexRoute;
+  "/dashboard/linkedin/": typeof DashboardLinkedinIndexRoute;
+  "/dashboard/networking/": typeof DashboardNetworkingIndexRoute;
+  "/dashboard/partner/": typeof DashboardPartnerIndexRoute;
+  "/dashboard/portfolio/": typeof DashboardPortfolioIndexRoute;
+  "/dashboard/profile/": typeof DashboardProfileIndexRoute;
+  "/dashboard/progress/": typeof DashboardProgressIndexRoute;
+  "/dashboard/resources/": typeof DashboardResourcesIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
+  "/dashboard/settings/": typeof DashboardSettingsIndexRoute;
+  "/dashboard/templates/": typeof DashboardTemplatesIndexRoute;
+  "/dashboard/tools/": typeof DashboardToolsIndexRoute;
+  "/dashboard/wiki/": typeof DashboardWikiIndexRoute;
+  "/wiki/$categorySlug/$articleSlug": typeof HomeWikiCategorySlugArticleSlugRoute;
+  "/dashboard/admin/users/$userId": typeof DashboardAdminUsersUserIdRoute;
+  "/dashboard/interview/results/$sessionId": typeof DashboardInterviewResultsSessionIdRoute;
+  "/dashboard/interview/session/$sessionId": typeof DashboardInterviewSessionSessionIdRoute;
+  "/dashboard/resources/programs/$programId": typeof DashboardResourcesProgramsProgramIdRoute;
+  "/dashboard/wiki/$categorySlug/$articleSlug": typeof DashboardWikiCategorySlugArticleSlugRoute;
+  "/wiki/$categorySlug/": typeof HomeWikiCategorySlugIndexRoute;
+  "/dashboard/admin/ai-providers/": typeof DashboardAdminAiProvidersIndexRoute;
+  "/dashboard/admin/ai-quotas/": typeof DashboardAdminAiQuotasIndexRoute;
+  "/dashboard/admin/ai-settings/": typeof DashboardAdminAiSettingsIndexRoute;
+  "/dashboard/admin/cohorts/": typeof DashboardAdminCohortsIndexRoute;
+  "/dashboard/admin/reference-data/": typeof DashboardAdminReferenceDataIndexRoute;
+  "/dashboard/admin/resumes/": typeof DashboardAdminResumesIndexRoute;
+  "/dashboard/admin/users/": typeof DashboardAdminUsersIndexRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/dashboard/wiki/$categorySlug/": typeof DashboardWikiCategorySlugIndexRoute;
 }
 export interface FileRoutesByTo {
   "/schema.json": typeof SchemaDotjsonRoute;
-  "/$username/$slug": typeof UsernameSlugRoute;
+  "/$landingSlug": typeof HomeLandingSlugRoute;
+  "/cv-etudiant": typeof HomeCvEtudiantRoute;
+  "/ecoles-formateurs": typeof HomeEcolesFormateursRoute;
+  "/help": typeof HomeHelpRoute;
+  "/imta-etudiants": typeof HomeImtaEtudiantsRoute;
+  "/metiers-techniques": typeof HomeMetiersTechniquesRoute;
+  "/preparation-entretien": typeof HomePreparationEntretienRoute;
+  "/stage-maroc": typeof HomeStageMarocRoute;
   "/api/health": typeof ApiHealthRoute;
   "/auth/forgot-password": typeof AuthForgotPasswordRoute;
   "/auth/login": typeof AuthLoginRoute;
   "/auth/register": typeof AuthRegisterRoute;
   "/auth/reset-password": typeof AuthResetPasswordRoute;
   "/auth/resume-password": typeof AuthResumePasswordRoute;
+  "/auth/sign-in": typeof AuthSignInRoute;
+  "/auth/sign-up": typeof AuthSignUpRoute;
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/printer/$resumeId": typeof PrinterResumeIdRoute;
   "/": typeof HomeIndexRoute;
   "/auth": typeof AuthIndexRoute;
   "/dashboard": typeof DashboardIndexRoute;
+  "/$username/$slug/card": typeof UsernameSlugCardRoute;
   "/api/auth/$": typeof ApiAuthSplatRoute;
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
+  "/dashboard/admin/audit-log": typeof DashboardAdminAuditLogRoute;
+  "/dashboard/admin/system": typeof DashboardAdminSystemRoute;
+  "/dashboard/ai-mentor/conversations": typeof DashboardAiMentorConversationsRoute;
+  "/dashboard/ai-mentor/market": typeof DashboardAiMentorMarketRoute;
+  "/dashboard/analytics/activity": typeof DashboardAnalyticsActivityRoute;
+  "/dashboard/analytics/ai-matrix": typeof DashboardAnalyticsAiMatrixRoute;
+  "/dashboard/analytics/ai-usage": typeof DashboardAnalyticsAiUsageRoute;
+  "/dashboard/analytics/progress": typeof DashboardAnalyticsProgressRoute;
+  "/dashboard/analytics/reports": typeof DashboardAnalyticsReportsRoute;
+  "/dashboard/career/assessment": typeof DashboardCareerAssessmentRoute;
+  "/dashboard/career/branding": typeof DashboardCareerBrandingRoute;
+  "/dashboard/career/certifications": typeof DashboardCareerCertificationsRoute;
+  "/dashboard/career/coaching": typeof DashboardCareerCoachingRoute;
+  "/dashboard/career/gap-analysis": typeof DashboardCareerGapAnalysisRoute;
+  "/dashboard/career/insights": typeof DashboardCareerInsightsRoute;
+  "/dashboard/career/predictions": typeof DashboardCareerPredictionsRoute;
+  "/dashboard/career/quiz": typeof DashboardCareerQuizRoute;
+  "/dashboard/career/review-prep": typeof DashboardCareerReviewPrepRoute;
+  "/dashboard/career/roadmap": typeof DashboardCareerRoadmapRoute;
+  "/dashboard/career/skill-gap": typeof DashboardCareerSkillGapRoute;
+  "/dashboard/career/skills": typeof DashboardCareerSkillsRoute;
+  "/dashboard/career/skills-quiz": typeof DashboardCareerSkillsQuizRoute;
+  "/dashboard/career/study-plan": typeof DashboardCareerStudyPlanRoute;
+  "/dashboard/career/timeline": typeof DashboardCareerTimelineRoute;
+  "/dashboard/career/transition": typeof DashboardCareerTransitionRoute;
+  "/dashboard/interview/analytics": typeof DashboardInterviewAnalyticsRoute;
+  "/dashboard/interview/chatbot": typeof DashboardInterviewChatbotRoute;
+  "/dashboard/interview/checklist": typeof DashboardInterviewChecklistRoute;
+  "/dashboard/interview/confidence": typeof DashboardInterviewConfidenceRoute;
+  "/dashboard/interview/feedback": typeof DashboardInterviewFeedbackRoute;
+  "/dashboard/interview/mock-ai": typeof DashboardInterviewMockAiRoute;
+  "/dashboard/interview/notes": typeof DashboardInterviewNotesRoute;
+  "/dashboard/interview/outfit": typeof DashboardInterviewOutfitRoute;
+  "/dashboard/interview/performance": typeof DashboardInterviewPerformanceRoute;
+  "/dashboard/interview/practice": typeof DashboardInterviewPracticeRoute;
+  "/dashboard/interview/question-bank": typeof DashboardInterviewQuestionBankRoute;
+  "/dashboard/interview/questions": typeof DashboardInterviewQuestionsRoute;
+  "/dashboard/interview/review": typeof DashboardInterviewReviewRoute;
+  "/dashboard/interview/scheduler": typeof DashboardInterviewSchedulerRoute;
+  "/dashboard/interview/star-method": typeof DashboardInterviewStarMethodRoute;
+  "/dashboard/interview/tips": typeof DashboardInterviewTipsRoute;
+  "/dashboard/interview/video-analysis": typeof DashboardInterviewVideoAnalysisRoute;
+  "/dashboard/interview/voice-interview": typeof DashboardInterviewVoiceInterviewRoute;
+  "/dashboard/jobs/aggregator": typeof DashboardJobsAggregatorRoute;
+  "/dashboard/jobs/alerts": typeof DashboardJobsAlertsRoute;
+  "/dashboard/jobs/applications": typeof DashboardJobsApplicationsRoute;
+  "/dashboard/jobs/board": typeof DashboardJobsBoardRoute;
+  "/dashboard/jobs/culture-match": typeof DashboardJobsCultureMatchRoute;
+  "/dashboard/jobs/deadlines": typeof DashboardJobsDeadlinesRoute;
+  "/dashboard/jobs/employers": typeof DashboardJobsEmployersRoute;
+  "/dashboard/jobs/follow-up": typeof DashboardJobsFollowUpRoute;
+  "/dashboard/jobs/insights": typeof DashboardJobsInsightsRoute;
+  "/dashboard/jobs/recommendations": typeof DashboardJobsRecommendationsRoute;
+  "/dashboard/jobs/research": typeof DashboardJobsResearchRoute;
+  "/dashboard/jobs/search": typeof DashboardJobsSearchRoute;
+  "/dashboard/jobs/trends": typeof DashboardJobsTrendsRoute;
+  "/dashboard/learn/assessments": typeof DashboardLearnAssessmentsRoute;
+  "/dashboard/learn/paths": typeof DashboardLearnPathsRoute;
+  "/dashboard/learn/recommendations": typeof DashboardLearnRecommendationsRoute;
+  "/dashboard/linkedin/content": typeof DashboardLinkedinContentRoute;
+  "/dashboard/linkedin/messages": typeof DashboardLinkedinMessagesRoute;
+  "/dashboard/linkedin/strategies": typeof DashboardLinkedinStrategiesRoute;
+  "/dashboard/networking/events": typeof DashboardNetworkingEventsRoute;
+  "/dashboard/networking/mentors": typeof DashboardNetworkingMentorsRoute;
+  "/dashboard/networking/message-templates": typeof DashboardNetworkingMessageTemplatesRoute;
+  "/dashboard/networking/network-map": typeof DashboardNetworkingNetworkMapRoute;
+  "/dashboard/networking/recommendation-request": typeof DashboardNetworkingRecommendationRequestRoute;
+  "/dashboard/networking/references": typeof DashboardNetworkingReferencesRoute;
+  "/dashboard/partner/applications": typeof DashboardPartnerApplicationsRoute;
+  "/dashboard/partner/jobs": typeof DashboardPartnerJobsRoute;
+  "/dashboard/partner/post-job": typeof DashboardPartnerPostJobRoute;
+  "/dashboard/portfolio/freelance": typeof DashboardPortfolioFreelanceRoute;
+  "/dashboard/portfolio/samples": typeof DashboardPortfolioSamplesRoute;
+  "/dashboard/profile/achievements": typeof DashboardProfileAchievementsRoute;
+  "/dashboard/resources/compare": typeof DashboardResourcesCompareRoute;
+  "/dashboard/resources/my-programs": typeof DashboardResourcesMyProgramsRoute;
+  "/dashboard/resources/programs": typeof DashboardResourcesProgramsRouteWithChildren;
+  "/dashboard/resources/success-stories": typeof DashboardResourcesSuccessStoriesRoute;
+  "/dashboard/resumes/ai-wizard": typeof DashboardResumesAiWizardRoute;
+  "/dashboard/resumes/compare": typeof DashboardResumesCompareRoute;
+  "/dashboard/resumes/experience-optimizer": typeof DashboardResumesExperienceOptimizerRoute;
+  "/dashboard/resumes/history": typeof DashboardResumesHistoryRoute;
+  "/dashboard/resumes/scoring": typeof DashboardResumesScoringRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
+  "/dashboard/settings/data": typeof DashboardSettingsDataRoute;
   "/dashboard/settings/preferences": typeof DashboardSettingsPreferencesRoute;
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
+  "/dashboard/templates/cover-letters": typeof DashboardTemplatesCoverLettersRoute;
+  "/dashboard/templates/gallery": typeof DashboardTemplatesGalleryRoute;
+  "/dashboard/tools/ai-history": typeof DashboardToolsAiHistoryRoute;
+  "/dashboard/tools/ai-writer": typeof DashboardToolsAiWriterRoute;
+  "/dashboard/tools/ats-checker": typeof DashboardToolsAtsCheckerRoute;
+  "/dashboard/tools/cover-letter": typeof DashboardToolsCoverLetterRoute;
+  "/dashboard/tools/elevator-pitch": typeof DashboardToolsElevatorPitchRoute;
+  "/dashboard/tools/job-match": typeof DashboardToolsJobMatchRoute;
+  "/dashboard/tools/job-resources": typeof DashboardToolsJobResourcesRoute;
+  "/dashboard/tools/keywords": typeof DashboardToolsKeywordsRoute;
+  "/dashboard/tools/linkedin": typeof DashboardToolsLinkedinRoute;
+  "/dashboard/tools/negotiation": typeof DashboardToolsNegotiationRoute;
+  "/dashboard/tools/qr-code": typeof DashboardToolsQrCodeRoute;
+  "/dashboard/tools/remote-readiness": typeof DashboardToolsRemoteReadinessRoute;
+  "/dashboard/tools/resume-gallery": typeof DashboardToolsResumeGalleryRoute;
+  "/dashboard/tools/salary-calculator": typeof DashboardToolsSalaryCalculatorRoute;
+  "/dashboard/tools/thank-you": typeof DashboardToolsThankYouRoute;
   "/uploads/$userId/$": typeof UploadsUserIdSplatRoute;
+  "/$username/$slug": typeof UsernameSlugIndexRoute;
+  "/wiki": typeof HomeWikiIndexRoute;
   "/builder/$resumeId": typeof BuilderResumeIdIndexRoute;
+  "/dashboard/admin": typeof DashboardAdminIndexRoute;
+  "/dashboard/ai-mentor": typeof DashboardAiMentorIndexRoute;
+  "/dashboard/analytics": typeof DashboardAnalyticsIndexRoute;
+  "/dashboard/career": typeof DashboardCareerIndexRoute;
+  "/dashboard/help": typeof DashboardHelpIndexRoute;
+  "/dashboard/interview": typeof DashboardInterviewIndexRoute;
+  "/dashboard/jobs": typeof DashboardJobsIndexRoute;
+  "/dashboard/learn": typeof DashboardLearnIndexRoute;
+  "/dashboard/linkedin": typeof DashboardLinkedinIndexRoute;
+  "/dashboard/networking": typeof DashboardNetworkingIndexRoute;
+  "/dashboard/partner": typeof DashboardPartnerIndexRoute;
+  "/dashboard/portfolio": typeof DashboardPortfolioIndexRoute;
+  "/dashboard/profile": typeof DashboardProfileIndexRoute;
+  "/dashboard/progress": typeof DashboardProgressIndexRoute;
+  "/dashboard/resources": typeof DashboardResourcesIndexRoute;
   "/dashboard/resumes": typeof DashboardResumesIndexRoute;
+  "/dashboard/settings": typeof DashboardSettingsIndexRoute;
+  "/dashboard/templates": typeof DashboardTemplatesIndexRoute;
+  "/dashboard/tools": typeof DashboardToolsIndexRoute;
+  "/dashboard/wiki": typeof DashboardWikiIndexRoute;
+  "/wiki/$categorySlug/$articleSlug": typeof HomeWikiCategorySlugArticleSlugRoute;
+  "/dashboard/admin/users/$userId": typeof DashboardAdminUsersUserIdRoute;
+  "/dashboard/interview/results/$sessionId": typeof DashboardInterviewResultsSessionIdRoute;
+  "/dashboard/interview/session/$sessionId": typeof DashboardInterviewSessionSessionIdRoute;
+  "/dashboard/resources/programs/$programId": typeof DashboardResourcesProgramsProgramIdRoute;
+  "/dashboard/wiki/$categorySlug/$articleSlug": typeof DashboardWikiCategorySlugArticleSlugRoute;
+  "/wiki/$categorySlug": typeof HomeWikiCategorySlugIndexRoute;
+  "/dashboard/admin/ai-providers": typeof DashboardAdminAiProvidersIndexRoute;
+  "/dashboard/admin/ai-quotas": typeof DashboardAdminAiQuotasIndexRoute;
+  "/dashboard/admin/ai-settings": typeof DashboardAdminAiSettingsIndexRoute;
+  "/dashboard/admin/cohorts": typeof DashboardAdminCohortsIndexRoute;
+  "/dashboard/admin/reference-data": typeof DashboardAdminReferenceDataIndexRoute;
+  "/dashboard/admin/resumes": typeof DashboardAdminResumesIndexRoute;
+  "/dashboard/admin/users": typeof DashboardAdminUsersIndexRoute;
   "/dashboard/settings/authentication": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/dashboard/wiki/$categorySlug": typeof DashboardWikiCategorySlugIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
@@ -261,31 +1542,180 @@ export interface FileRoutesById {
   "/dashboard": typeof DashboardRouteRouteWithChildren;
   "/schema.json": typeof SchemaDotjsonRoute;
   "/builder/$resumeId": typeof BuilderResumeIdRouteRouteWithChildren;
-  "/$username/$slug": typeof UsernameSlugRoute;
+  "/dashboard/admin": typeof DashboardAdminRouteRouteWithChildren;
+  "/$username/$slug": typeof UsernameSlugRouteWithChildren;
+  "/_home/$landingSlug": typeof HomeLandingSlugRoute;
+  "/_home/cv-etudiant": typeof HomeCvEtudiantRoute;
+  "/_home/ecoles-formateurs": typeof HomeEcolesFormateursRoute;
+  "/_home/help": typeof HomeHelpRoute;
+  "/_home/imta-etudiants": typeof HomeImtaEtudiantsRoute;
+  "/_home/metiers-techniques": typeof HomeMetiersTechniquesRoute;
+  "/_home/preparation-entretien": typeof HomePreparationEntretienRoute;
+  "/_home/stage-maroc": typeof HomeStageMarocRoute;
   "/api/health": typeof ApiHealthRoute;
   "/auth/forgot-password": typeof AuthForgotPasswordRoute;
   "/auth/login": typeof AuthLoginRoute;
   "/auth/register": typeof AuthRegisterRoute;
   "/auth/reset-password": typeof AuthResetPasswordRoute;
   "/auth/resume-password": typeof AuthResumePasswordRoute;
+  "/auth/sign-in": typeof AuthSignInRoute;
+  "/auth/sign-up": typeof AuthSignUpRoute;
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/printer/$resumeId": typeof PrinterResumeIdRoute;
   "/_home/": typeof HomeIndexRoute;
   "/auth/": typeof AuthIndexRoute;
   "/dashboard/": typeof DashboardIndexRoute;
+  "/$username/$slug/card": typeof UsernameSlugCardRoute;
   "/api/auth/$": typeof ApiAuthSplatRoute;
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
+  "/dashboard/admin/audit-log": typeof DashboardAdminAuditLogRoute;
+  "/dashboard/admin/system": typeof DashboardAdminSystemRoute;
+  "/dashboard/ai-mentor/conversations": typeof DashboardAiMentorConversationsRoute;
+  "/dashboard/ai-mentor/market": typeof DashboardAiMentorMarketRoute;
+  "/dashboard/analytics/activity": typeof DashboardAnalyticsActivityRoute;
+  "/dashboard/analytics/ai-matrix": typeof DashboardAnalyticsAiMatrixRoute;
+  "/dashboard/analytics/ai-usage": typeof DashboardAnalyticsAiUsageRoute;
+  "/dashboard/analytics/progress": typeof DashboardAnalyticsProgressRoute;
+  "/dashboard/analytics/reports": typeof DashboardAnalyticsReportsRoute;
+  "/dashboard/career/assessment": typeof DashboardCareerAssessmentRoute;
+  "/dashboard/career/branding": typeof DashboardCareerBrandingRoute;
+  "/dashboard/career/certifications": typeof DashboardCareerCertificationsRoute;
+  "/dashboard/career/coaching": typeof DashboardCareerCoachingRoute;
+  "/dashboard/career/gap-analysis": typeof DashboardCareerGapAnalysisRoute;
+  "/dashboard/career/insights": typeof DashboardCareerInsightsRoute;
+  "/dashboard/career/predictions": typeof DashboardCareerPredictionsRoute;
+  "/dashboard/career/quiz": typeof DashboardCareerQuizRoute;
+  "/dashboard/career/review-prep": typeof DashboardCareerReviewPrepRoute;
+  "/dashboard/career/roadmap": typeof DashboardCareerRoadmapRoute;
+  "/dashboard/career/skill-gap": typeof DashboardCareerSkillGapRoute;
+  "/dashboard/career/skills": typeof DashboardCareerSkillsRoute;
+  "/dashboard/career/skills-quiz": typeof DashboardCareerSkillsQuizRoute;
+  "/dashboard/career/study-plan": typeof DashboardCareerStudyPlanRoute;
+  "/dashboard/career/timeline": typeof DashboardCareerTimelineRoute;
+  "/dashboard/career/transition": typeof DashboardCareerTransitionRoute;
+  "/dashboard/interview/analytics": typeof DashboardInterviewAnalyticsRoute;
+  "/dashboard/interview/chatbot": typeof DashboardInterviewChatbotRoute;
+  "/dashboard/interview/checklist": typeof DashboardInterviewChecklistRoute;
+  "/dashboard/interview/confidence": typeof DashboardInterviewConfidenceRoute;
+  "/dashboard/interview/feedback": typeof DashboardInterviewFeedbackRoute;
+  "/dashboard/interview/mock-ai": typeof DashboardInterviewMockAiRoute;
+  "/dashboard/interview/notes": typeof DashboardInterviewNotesRoute;
+  "/dashboard/interview/outfit": typeof DashboardInterviewOutfitRoute;
+  "/dashboard/interview/performance": typeof DashboardInterviewPerformanceRoute;
+  "/dashboard/interview/practice": typeof DashboardInterviewPracticeRoute;
+  "/dashboard/interview/question-bank": typeof DashboardInterviewQuestionBankRoute;
+  "/dashboard/interview/questions": typeof DashboardInterviewQuestionsRoute;
+  "/dashboard/interview/review": typeof DashboardInterviewReviewRoute;
+  "/dashboard/interview/scheduler": typeof DashboardInterviewSchedulerRoute;
+  "/dashboard/interview/star-method": typeof DashboardInterviewStarMethodRoute;
+  "/dashboard/interview/tips": typeof DashboardInterviewTipsRoute;
+  "/dashboard/interview/video-analysis": typeof DashboardInterviewVideoAnalysisRoute;
+  "/dashboard/interview/voice-interview": typeof DashboardInterviewVoiceInterviewRoute;
+  "/dashboard/jobs/aggregator": typeof DashboardJobsAggregatorRoute;
+  "/dashboard/jobs/alerts": typeof DashboardJobsAlertsRoute;
+  "/dashboard/jobs/applications": typeof DashboardJobsApplicationsRoute;
+  "/dashboard/jobs/board": typeof DashboardJobsBoardRoute;
+  "/dashboard/jobs/culture-match": typeof DashboardJobsCultureMatchRoute;
+  "/dashboard/jobs/deadlines": typeof DashboardJobsDeadlinesRoute;
+  "/dashboard/jobs/employers": typeof DashboardJobsEmployersRoute;
+  "/dashboard/jobs/follow-up": typeof DashboardJobsFollowUpRoute;
+  "/dashboard/jobs/insights": typeof DashboardJobsInsightsRoute;
+  "/dashboard/jobs/recommendations": typeof DashboardJobsRecommendationsRoute;
+  "/dashboard/jobs/research": typeof DashboardJobsResearchRoute;
+  "/dashboard/jobs/search": typeof DashboardJobsSearchRoute;
+  "/dashboard/jobs/trends": typeof DashboardJobsTrendsRoute;
+  "/dashboard/learn/assessments": typeof DashboardLearnAssessmentsRoute;
+  "/dashboard/learn/paths": typeof DashboardLearnPathsRoute;
+  "/dashboard/learn/recommendations": typeof DashboardLearnRecommendationsRoute;
+  "/dashboard/linkedin/content": typeof DashboardLinkedinContentRoute;
+  "/dashboard/linkedin/messages": typeof DashboardLinkedinMessagesRoute;
+  "/dashboard/linkedin/strategies": typeof DashboardLinkedinStrategiesRoute;
+  "/dashboard/networking/events": typeof DashboardNetworkingEventsRoute;
+  "/dashboard/networking/mentors": typeof DashboardNetworkingMentorsRoute;
+  "/dashboard/networking/message-templates": typeof DashboardNetworkingMessageTemplatesRoute;
+  "/dashboard/networking/network-map": typeof DashboardNetworkingNetworkMapRoute;
+  "/dashboard/networking/recommendation-request": typeof DashboardNetworkingRecommendationRequestRoute;
+  "/dashboard/networking/references": typeof DashboardNetworkingReferencesRoute;
+  "/dashboard/partner/applications": typeof DashboardPartnerApplicationsRoute;
+  "/dashboard/partner/jobs": typeof DashboardPartnerJobsRoute;
+  "/dashboard/partner/post-job": typeof DashboardPartnerPostJobRoute;
+  "/dashboard/portfolio/freelance": typeof DashboardPortfolioFreelanceRoute;
+  "/dashboard/portfolio/samples": typeof DashboardPortfolioSamplesRoute;
+  "/dashboard/profile/achievements": typeof DashboardProfileAchievementsRoute;
+  "/dashboard/resources/compare": typeof DashboardResourcesCompareRoute;
+  "/dashboard/resources/my-programs": typeof DashboardResourcesMyProgramsRoute;
+  "/dashboard/resources/programs": typeof DashboardResourcesProgramsRouteWithChildren;
+  "/dashboard/resources/success-stories": typeof DashboardResourcesSuccessStoriesRoute;
+  "/dashboard/resumes/ai-wizard": typeof DashboardResumesAiWizardRoute;
+  "/dashboard/resumes/compare": typeof DashboardResumesCompareRoute;
+  "/dashboard/resumes/experience-optimizer": typeof DashboardResumesExperienceOptimizerRoute;
+  "/dashboard/resumes/history": typeof DashboardResumesHistoryRoute;
+  "/dashboard/resumes/scoring": typeof DashboardResumesScoringRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
   "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
   "/dashboard/settings/danger-zone": typeof DashboardSettingsDangerZoneRoute;
+  "/dashboard/settings/data": typeof DashboardSettingsDataRoute;
   "/dashboard/settings/preferences": typeof DashboardSettingsPreferencesRoute;
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
+  "/dashboard/templates/cover-letters": typeof DashboardTemplatesCoverLettersRoute;
+  "/dashboard/templates/gallery": typeof DashboardTemplatesGalleryRoute;
+  "/dashboard/tools/ai-history": typeof DashboardToolsAiHistoryRoute;
+  "/dashboard/tools/ai-writer": typeof DashboardToolsAiWriterRoute;
+  "/dashboard/tools/ats-checker": typeof DashboardToolsAtsCheckerRoute;
+  "/dashboard/tools/cover-letter": typeof DashboardToolsCoverLetterRoute;
+  "/dashboard/tools/elevator-pitch": typeof DashboardToolsElevatorPitchRoute;
+  "/dashboard/tools/job-match": typeof DashboardToolsJobMatchRoute;
+  "/dashboard/tools/job-resources": typeof DashboardToolsJobResourcesRoute;
+  "/dashboard/tools/keywords": typeof DashboardToolsKeywordsRoute;
+  "/dashboard/tools/linkedin": typeof DashboardToolsLinkedinRoute;
+  "/dashboard/tools/negotiation": typeof DashboardToolsNegotiationRoute;
+  "/dashboard/tools/qr-code": typeof DashboardToolsQrCodeRoute;
+  "/dashboard/tools/remote-readiness": typeof DashboardToolsRemoteReadinessRoute;
+  "/dashboard/tools/resume-gallery": typeof DashboardToolsResumeGalleryRoute;
+  "/dashboard/tools/salary-calculator": typeof DashboardToolsSalaryCalculatorRoute;
+  "/dashboard/tools/thank-you": typeof DashboardToolsThankYouRoute;
   "/uploads/$userId/$": typeof UploadsUserIdSplatRoute;
+  "/$username/$slug/": typeof UsernameSlugIndexRoute;
+  "/_home/wiki/": typeof HomeWikiIndexRoute;
   "/builder/$resumeId/": typeof BuilderResumeIdIndexRoute;
+  "/dashboard/admin/": typeof DashboardAdminIndexRoute;
+  "/dashboard/ai-mentor/": typeof DashboardAiMentorIndexRoute;
+  "/dashboard/analytics/": typeof DashboardAnalyticsIndexRoute;
+  "/dashboard/career/": typeof DashboardCareerIndexRoute;
+  "/dashboard/help/": typeof DashboardHelpIndexRoute;
+  "/dashboard/interview/": typeof DashboardInterviewIndexRoute;
+  "/dashboard/jobs/": typeof DashboardJobsIndexRoute;
+  "/dashboard/learn/": typeof DashboardLearnIndexRoute;
+  "/dashboard/linkedin/": typeof DashboardLinkedinIndexRoute;
+  "/dashboard/networking/": typeof DashboardNetworkingIndexRoute;
+  "/dashboard/partner/": typeof DashboardPartnerIndexRoute;
+  "/dashboard/portfolio/": typeof DashboardPortfolioIndexRoute;
+  "/dashboard/profile/": typeof DashboardProfileIndexRoute;
+  "/dashboard/progress/": typeof DashboardProgressIndexRoute;
+  "/dashboard/resources/": typeof DashboardResourcesIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
+  "/dashboard/settings/": typeof DashboardSettingsIndexRoute;
+  "/dashboard/templates/": typeof DashboardTemplatesIndexRoute;
+  "/dashboard/tools/": typeof DashboardToolsIndexRoute;
+  "/dashboard/wiki/": typeof DashboardWikiIndexRoute;
+  "/_home/wiki/$categorySlug/$articleSlug": typeof HomeWikiCategorySlugArticleSlugRoute;
+  "/dashboard/admin/users/$userId": typeof DashboardAdminUsersUserIdRoute;
+  "/dashboard/interview/results/$sessionId": typeof DashboardInterviewResultsSessionIdRoute;
+  "/dashboard/interview/session/$sessionId": typeof DashboardInterviewSessionSessionIdRoute;
+  "/dashboard/resources/programs/$programId": typeof DashboardResourcesProgramsProgramIdRoute;
+  "/dashboard/wiki/$categorySlug/$articleSlug": typeof DashboardWikiCategorySlugArticleSlugRoute;
+  "/_home/wiki/$categorySlug/": typeof HomeWikiCategorySlugIndexRoute;
+  "/dashboard/admin/ai-providers/": typeof DashboardAdminAiProvidersIndexRoute;
+  "/dashboard/admin/ai-quotas/": typeof DashboardAdminAiQuotasIndexRoute;
+  "/dashboard/admin/ai-settings/": typeof DashboardAdminAiSettingsIndexRoute;
+  "/dashboard/admin/cohorts/": typeof DashboardAdminCohortsIndexRoute;
+  "/dashboard/admin/reference-data/": typeof DashboardAdminReferenceDataIndexRoute;
+  "/dashboard/admin/resumes/": typeof DashboardAdminResumesIndexRoute;
+  "/dashboard/admin/users/": typeof DashboardAdminUsersIndexRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
+  "/dashboard/wiki/$categorySlug/": typeof DashboardWikiCategorySlugIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
@@ -295,58 +1725,354 @@ export interface FileRouteTypes {
     | "/dashboard"
     | "/schema.json"
     | "/builder/$resumeId"
+    | "/dashboard/admin"
     | "/$username/$slug"
+    | "/$landingSlug"
+    | "/cv-etudiant"
+    | "/ecoles-formateurs"
+    | "/help"
+    | "/imta-etudiants"
+    | "/metiers-techniques"
+    | "/preparation-entretien"
+    | "/stage-maroc"
     | "/api/health"
     | "/auth/forgot-password"
     | "/auth/login"
     | "/auth/register"
     | "/auth/reset-password"
     | "/auth/resume-password"
+    | "/auth/sign-in"
+    | "/auth/sign-up"
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
     | "/printer/$resumeId"
     | "/auth/"
     | "/dashboard/"
+    | "/$username/$slug/card"
     | "/api/auth/$"
     | "/api/openapi/$"
     | "/api/rpc/$"
+    | "/dashboard/admin/audit-log"
+    | "/dashboard/admin/system"
+    | "/dashboard/ai-mentor/conversations"
+    | "/dashboard/ai-mentor/market"
+    | "/dashboard/analytics/activity"
+    | "/dashboard/analytics/ai-matrix"
+    | "/dashboard/analytics/ai-usage"
+    | "/dashboard/analytics/progress"
+    | "/dashboard/analytics/reports"
+    | "/dashboard/career/assessment"
+    | "/dashboard/career/branding"
+    | "/dashboard/career/certifications"
+    | "/dashboard/career/coaching"
+    | "/dashboard/career/gap-analysis"
+    | "/dashboard/career/insights"
+    | "/dashboard/career/predictions"
+    | "/dashboard/career/quiz"
+    | "/dashboard/career/review-prep"
+    | "/dashboard/career/roadmap"
+    | "/dashboard/career/skill-gap"
+    | "/dashboard/career/skills"
+    | "/dashboard/career/skills-quiz"
+    | "/dashboard/career/study-plan"
+    | "/dashboard/career/timeline"
+    | "/dashboard/career/transition"
+    | "/dashboard/interview/analytics"
+    | "/dashboard/interview/chatbot"
+    | "/dashboard/interview/checklist"
+    | "/dashboard/interview/confidence"
+    | "/dashboard/interview/feedback"
+    | "/dashboard/interview/mock-ai"
+    | "/dashboard/interview/notes"
+    | "/dashboard/interview/outfit"
+    | "/dashboard/interview/performance"
+    | "/dashboard/interview/practice"
+    | "/dashboard/interview/question-bank"
+    | "/dashboard/interview/questions"
+    | "/dashboard/interview/review"
+    | "/dashboard/interview/scheduler"
+    | "/dashboard/interview/star-method"
+    | "/dashboard/interview/tips"
+    | "/dashboard/interview/video-analysis"
+    | "/dashboard/interview/voice-interview"
+    | "/dashboard/jobs/aggregator"
+    | "/dashboard/jobs/alerts"
+    | "/dashboard/jobs/applications"
+    | "/dashboard/jobs/board"
+    | "/dashboard/jobs/culture-match"
+    | "/dashboard/jobs/deadlines"
+    | "/dashboard/jobs/employers"
+    | "/dashboard/jobs/follow-up"
+    | "/dashboard/jobs/insights"
+    | "/dashboard/jobs/recommendations"
+    | "/dashboard/jobs/research"
+    | "/dashboard/jobs/search"
+    | "/dashboard/jobs/trends"
+    | "/dashboard/learn/assessments"
+    | "/dashboard/learn/paths"
+    | "/dashboard/learn/recommendations"
+    | "/dashboard/linkedin/content"
+    | "/dashboard/linkedin/messages"
+    | "/dashboard/linkedin/strategies"
+    | "/dashboard/networking/events"
+    | "/dashboard/networking/mentors"
+    | "/dashboard/networking/message-templates"
+    | "/dashboard/networking/network-map"
+    | "/dashboard/networking/recommendation-request"
+    | "/dashboard/networking/references"
+    | "/dashboard/partner/applications"
+    | "/dashboard/partner/jobs"
+    | "/dashboard/partner/post-job"
+    | "/dashboard/portfolio/freelance"
+    | "/dashboard/portfolio/samples"
+    | "/dashboard/profile/achievements"
+    | "/dashboard/resources/compare"
+    | "/dashboard/resources/my-programs"
+    | "/dashboard/resources/programs"
+    | "/dashboard/resources/success-stories"
+    | "/dashboard/resumes/ai-wizard"
+    | "/dashboard/resumes/compare"
+    | "/dashboard/resumes/experience-optimizer"
+    | "/dashboard/resumes/history"
+    | "/dashboard/resumes/scoring"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
+    | "/dashboard/settings/data"
     | "/dashboard/settings/preferences"
     | "/dashboard/settings/profile"
+    | "/dashboard/templates/cover-letters"
+    | "/dashboard/templates/gallery"
+    | "/dashboard/tools/ai-history"
+    | "/dashboard/tools/ai-writer"
+    | "/dashboard/tools/ats-checker"
+    | "/dashboard/tools/cover-letter"
+    | "/dashboard/tools/elevator-pitch"
+    | "/dashboard/tools/job-match"
+    | "/dashboard/tools/job-resources"
+    | "/dashboard/tools/keywords"
+    | "/dashboard/tools/linkedin"
+    | "/dashboard/tools/negotiation"
+    | "/dashboard/tools/qr-code"
+    | "/dashboard/tools/remote-readiness"
+    | "/dashboard/tools/resume-gallery"
+    | "/dashboard/tools/salary-calculator"
+    | "/dashboard/tools/thank-you"
     | "/uploads/$userId/$"
+    | "/$username/$slug/"
+    | "/wiki/"
     | "/builder/$resumeId/"
+    | "/dashboard/admin/"
+    | "/dashboard/ai-mentor/"
+    | "/dashboard/analytics/"
+    | "/dashboard/career/"
+    | "/dashboard/help/"
+    | "/dashboard/interview/"
+    | "/dashboard/jobs/"
+    | "/dashboard/learn/"
+    | "/dashboard/linkedin/"
+    | "/dashboard/networking/"
+    | "/dashboard/partner/"
+    | "/dashboard/portfolio/"
+    | "/dashboard/profile/"
+    | "/dashboard/progress/"
+    | "/dashboard/resources/"
     | "/dashboard/resumes/"
-    | "/dashboard/settings/authentication/";
+    | "/dashboard/settings/"
+    | "/dashboard/templates/"
+    | "/dashboard/tools/"
+    | "/dashboard/wiki/"
+    | "/wiki/$categorySlug/$articleSlug"
+    | "/dashboard/admin/users/$userId"
+    | "/dashboard/interview/results/$sessionId"
+    | "/dashboard/interview/session/$sessionId"
+    | "/dashboard/resources/programs/$programId"
+    | "/dashboard/wiki/$categorySlug/$articleSlug"
+    | "/wiki/$categorySlug/"
+    | "/dashboard/admin/ai-providers/"
+    | "/dashboard/admin/ai-quotas/"
+    | "/dashboard/admin/ai-settings/"
+    | "/dashboard/admin/cohorts/"
+    | "/dashboard/admin/reference-data/"
+    | "/dashboard/admin/resumes/"
+    | "/dashboard/admin/users/"
+    | "/dashboard/settings/authentication/"
+    | "/dashboard/wiki/$categorySlug/";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/schema.json"
-    | "/$username/$slug"
+    | "/$landingSlug"
+    | "/cv-etudiant"
+    | "/ecoles-formateurs"
+    | "/help"
+    | "/imta-etudiants"
+    | "/metiers-techniques"
+    | "/preparation-entretien"
+    | "/stage-maroc"
     | "/api/health"
     | "/auth/forgot-password"
     | "/auth/login"
     | "/auth/register"
     | "/auth/reset-password"
     | "/auth/resume-password"
+    | "/auth/sign-in"
+    | "/auth/sign-up"
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
     | "/printer/$resumeId"
     | "/"
     | "/auth"
     | "/dashboard"
+    | "/$username/$slug/card"
     | "/api/auth/$"
     | "/api/openapi/$"
     | "/api/rpc/$"
+    | "/dashboard/admin/audit-log"
+    | "/dashboard/admin/system"
+    | "/dashboard/ai-mentor/conversations"
+    | "/dashboard/ai-mentor/market"
+    | "/dashboard/analytics/activity"
+    | "/dashboard/analytics/ai-matrix"
+    | "/dashboard/analytics/ai-usage"
+    | "/dashboard/analytics/progress"
+    | "/dashboard/analytics/reports"
+    | "/dashboard/career/assessment"
+    | "/dashboard/career/branding"
+    | "/dashboard/career/certifications"
+    | "/dashboard/career/coaching"
+    | "/dashboard/career/gap-analysis"
+    | "/dashboard/career/insights"
+    | "/dashboard/career/predictions"
+    | "/dashboard/career/quiz"
+    | "/dashboard/career/review-prep"
+    | "/dashboard/career/roadmap"
+    | "/dashboard/career/skill-gap"
+    | "/dashboard/career/skills"
+    | "/dashboard/career/skills-quiz"
+    | "/dashboard/career/study-plan"
+    | "/dashboard/career/timeline"
+    | "/dashboard/career/transition"
+    | "/dashboard/interview/analytics"
+    | "/dashboard/interview/chatbot"
+    | "/dashboard/interview/checklist"
+    | "/dashboard/interview/confidence"
+    | "/dashboard/interview/feedback"
+    | "/dashboard/interview/mock-ai"
+    | "/dashboard/interview/notes"
+    | "/dashboard/interview/outfit"
+    | "/dashboard/interview/performance"
+    | "/dashboard/interview/practice"
+    | "/dashboard/interview/question-bank"
+    | "/dashboard/interview/questions"
+    | "/dashboard/interview/review"
+    | "/dashboard/interview/scheduler"
+    | "/dashboard/interview/star-method"
+    | "/dashboard/interview/tips"
+    | "/dashboard/interview/video-analysis"
+    | "/dashboard/interview/voice-interview"
+    | "/dashboard/jobs/aggregator"
+    | "/dashboard/jobs/alerts"
+    | "/dashboard/jobs/applications"
+    | "/dashboard/jobs/board"
+    | "/dashboard/jobs/culture-match"
+    | "/dashboard/jobs/deadlines"
+    | "/dashboard/jobs/employers"
+    | "/dashboard/jobs/follow-up"
+    | "/dashboard/jobs/insights"
+    | "/dashboard/jobs/recommendations"
+    | "/dashboard/jobs/research"
+    | "/dashboard/jobs/search"
+    | "/dashboard/jobs/trends"
+    | "/dashboard/learn/assessments"
+    | "/dashboard/learn/paths"
+    | "/dashboard/learn/recommendations"
+    | "/dashboard/linkedin/content"
+    | "/dashboard/linkedin/messages"
+    | "/dashboard/linkedin/strategies"
+    | "/dashboard/networking/events"
+    | "/dashboard/networking/mentors"
+    | "/dashboard/networking/message-templates"
+    | "/dashboard/networking/network-map"
+    | "/dashboard/networking/recommendation-request"
+    | "/dashboard/networking/references"
+    | "/dashboard/partner/applications"
+    | "/dashboard/partner/jobs"
+    | "/dashboard/partner/post-job"
+    | "/dashboard/portfolio/freelance"
+    | "/dashboard/portfolio/samples"
+    | "/dashboard/profile/achievements"
+    | "/dashboard/resources/compare"
+    | "/dashboard/resources/my-programs"
+    | "/dashboard/resources/programs"
+    | "/dashboard/resources/success-stories"
+    | "/dashboard/resumes/ai-wizard"
+    | "/dashboard/resumes/compare"
+    | "/dashboard/resumes/experience-optimizer"
+    | "/dashboard/resumes/history"
+    | "/dashboard/resumes/scoring"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
+    | "/dashboard/settings/data"
     | "/dashboard/settings/preferences"
     | "/dashboard/settings/profile"
+    | "/dashboard/templates/cover-letters"
+    | "/dashboard/templates/gallery"
+    | "/dashboard/tools/ai-history"
+    | "/dashboard/tools/ai-writer"
+    | "/dashboard/tools/ats-checker"
+    | "/dashboard/tools/cover-letter"
+    | "/dashboard/tools/elevator-pitch"
+    | "/dashboard/tools/job-match"
+    | "/dashboard/tools/job-resources"
+    | "/dashboard/tools/keywords"
+    | "/dashboard/tools/linkedin"
+    | "/dashboard/tools/negotiation"
+    | "/dashboard/tools/qr-code"
+    | "/dashboard/tools/remote-readiness"
+    | "/dashboard/tools/resume-gallery"
+    | "/dashboard/tools/salary-calculator"
+    | "/dashboard/tools/thank-you"
     | "/uploads/$userId/$"
+    | "/$username/$slug"
+    | "/wiki"
     | "/builder/$resumeId"
+    | "/dashboard/admin"
+    | "/dashboard/ai-mentor"
+    | "/dashboard/analytics"
+    | "/dashboard/career"
+    | "/dashboard/help"
+    | "/dashboard/interview"
+    | "/dashboard/jobs"
+    | "/dashboard/learn"
+    | "/dashboard/linkedin"
+    | "/dashboard/networking"
+    | "/dashboard/partner"
+    | "/dashboard/portfolio"
+    | "/dashboard/profile"
+    | "/dashboard/progress"
+    | "/dashboard/resources"
     | "/dashboard/resumes"
-    | "/dashboard/settings/authentication";
+    | "/dashboard/settings"
+    | "/dashboard/templates"
+    | "/dashboard/tools"
+    | "/dashboard/wiki"
+    | "/wiki/$categorySlug/$articleSlug"
+    | "/dashboard/admin/users/$userId"
+    | "/dashboard/interview/results/$sessionId"
+    | "/dashboard/interview/session/$sessionId"
+    | "/dashboard/resources/programs/$programId"
+    | "/dashboard/wiki/$categorySlug/$articleSlug"
+    | "/wiki/$categorySlug"
+    | "/dashboard/admin/ai-providers"
+    | "/dashboard/admin/ai-quotas"
+    | "/dashboard/admin/ai-settings"
+    | "/dashboard/admin/cohorts"
+    | "/dashboard/admin/reference-data"
+    | "/dashboard/admin/resumes"
+    | "/dashboard/admin/users"
+    | "/dashboard/settings/authentication"
+    | "/dashboard/wiki/$categorySlug";
   id:
     | "__root__"
     | "/_home"
@@ -354,31 +2080,180 @@ export interface FileRouteTypes {
     | "/dashboard"
     | "/schema.json"
     | "/builder/$resumeId"
+    | "/dashboard/admin"
     | "/$username/$slug"
+    | "/_home/$landingSlug"
+    | "/_home/cv-etudiant"
+    | "/_home/ecoles-formateurs"
+    | "/_home/help"
+    | "/_home/imta-etudiants"
+    | "/_home/metiers-techniques"
+    | "/_home/preparation-entretien"
+    | "/_home/stage-maroc"
     | "/api/health"
     | "/auth/forgot-password"
     | "/auth/login"
     | "/auth/register"
     | "/auth/reset-password"
     | "/auth/resume-password"
+    | "/auth/sign-in"
+    | "/auth/sign-up"
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
     | "/printer/$resumeId"
     | "/_home/"
     | "/auth/"
     | "/dashboard/"
+    | "/$username/$slug/card"
     | "/api/auth/$"
     | "/api/openapi/$"
     | "/api/rpc/$"
+    | "/dashboard/admin/audit-log"
+    | "/dashboard/admin/system"
+    | "/dashboard/ai-mentor/conversations"
+    | "/dashboard/ai-mentor/market"
+    | "/dashboard/analytics/activity"
+    | "/dashboard/analytics/ai-matrix"
+    | "/dashboard/analytics/ai-usage"
+    | "/dashboard/analytics/progress"
+    | "/dashboard/analytics/reports"
+    | "/dashboard/career/assessment"
+    | "/dashboard/career/branding"
+    | "/dashboard/career/certifications"
+    | "/dashboard/career/coaching"
+    | "/dashboard/career/gap-analysis"
+    | "/dashboard/career/insights"
+    | "/dashboard/career/predictions"
+    | "/dashboard/career/quiz"
+    | "/dashboard/career/review-prep"
+    | "/dashboard/career/roadmap"
+    | "/dashboard/career/skill-gap"
+    | "/dashboard/career/skills"
+    | "/dashboard/career/skills-quiz"
+    | "/dashboard/career/study-plan"
+    | "/dashboard/career/timeline"
+    | "/dashboard/career/transition"
+    | "/dashboard/interview/analytics"
+    | "/dashboard/interview/chatbot"
+    | "/dashboard/interview/checklist"
+    | "/dashboard/interview/confidence"
+    | "/dashboard/interview/feedback"
+    | "/dashboard/interview/mock-ai"
+    | "/dashboard/interview/notes"
+    | "/dashboard/interview/outfit"
+    | "/dashboard/interview/performance"
+    | "/dashboard/interview/practice"
+    | "/dashboard/interview/question-bank"
+    | "/dashboard/interview/questions"
+    | "/dashboard/interview/review"
+    | "/dashboard/interview/scheduler"
+    | "/dashboard/interview/star-method"
+    | "/dashboard/interview/tips"
+    | "/dashboard/interview/video-analysis"
+    | "/dashboard/interview/voice-interview"
+    | "/dashboard/jobs/aggregator"
+    | "/dashboard/jobs/alerts"
+    | "/dashboard/jobs/applications"
+    | "/dashboard/jobs/board"
+    | "/dashboard/jobs/culture-match"
+    | "/dashboard/jobs/deadlines"
+    | "/dashboard/jobs/employers"
+    | "/dashboard/jobs/follow-up"
+    | "/dashboard/jobs/insights"
+    | "/dashboard/jobs/recommendations"
+    | "/dashboard/jobs/research"
+    | "/dashboard/jobs/search"
+    | "/dashboard/jobs/trends"
+    | "/dashboard/learn/assessments"
+    | "/dashboard/learn/paths"
+    | "/dashboard/learn/recommendations"
+    | "/dashboard/linkedin/content"
+    | "/dashboard/linkedin/messages"
+    | "/dashboard/linkedin/strategies"
+    | "/dashboard/networking/events"
+    | "/dashboard/networking/mentors"
+    | "/dashboard/networking/message-templates"
+    | "/dashboard/networking/network-map"
+    | "/dashboard/networking/recommendation-request"
+    | "/dashboard/networking/references"
+    | "/dashboard/partner/applications"
+    | "/dashboard/partner/jobs"
+    | "/dashboard/partner/post-job"
+    | "/dashboard/portfolio/freelance"
+    | "/dashboard/portfolio/samples"
+    | "/dashboard/profile/achievements"
+    | "/dashboard/resources/compare"
+    | "/dashboard/resources/my-programs"
+    | "/dashboard/resources/programs"
+    | "/dashboard/resources/success-stories"
+    | "/dashboard/resumes/ai-wizard"
+    | "/dashboard/resumes/compare"
+    | "/dashboard/resumes/experience-optimizer"
+    | "/dashboard/resumes/history"
+    | "/dashboard/resumes/scoring"
     | "/dashboard/settings/ai"
     | "/dashboard/settings/api-keys"
     | "/dashboard/settings/danger-zone"
+    | "/dashboard/settings/data"
     | "/dashboard/settings/preferences"
     | "/dashboard/settings/profile"
+    | "/dashboard/templates/cover-letters"
+    | "/dashboard/templates/gallery"
+    | "/dashboard/tools/ai-history"
+    | "/dashboard/tools/ai-writer"
+    | "/dashboard/tools/ats-checker"
+    | "/dashboard/tools/cover-letter"
+    | "/dashboard/tools/elevator-pitch"
+    | "/dashboard/tools/job-match"
+    | "/dashboard/tools/job-resources"
+    | "/dashboard/tools/keywords"
+    | "/dashboard/tools/linkedin"
+    | "/dashboard/tools/negotiation"
+    | "/dashboard/tools/qr-code"
+    | "/dashboard/tools/remote-readiness"
+    | "/dashboard/tools/resume-gallery"
+    | "/dashboard/tools/salary-calculator"
+    | "/dashboard/tools/thank-you"
     | "/uploads/$userId/$"
+    | "/$username/$slug/"
+    | "/_home/wiki/"
     | "/builder/$resumeId/"
+    | "/dashboard/admin/"
+    | "/dashboard/ai-mentor/"
+    | "/dashboard/analytics/"
+    | "/dashboard/career/"
+    | "/dashboard/help/"
+    | "/dashboard/interview/"
+    | "/dashboard/jobs/"
+    | "/dashboard/learn/"
+    | "/dashboard/linkedin/"
+    | "/dashboard/networking/"
+    | "/dashboard/partner/"
+    | "/dashboard/portfolio/"
+    | "/dashboard/profile/"
+    | "/dashboard/progress/"
+    | "/dashboard/resources/"
     | "/dashboard/resumes/"
-    | "/dashboard/settings/authentication/";
+    | "/dashboard/settings/"
+    | "/dashboard/templates/"
+    | "/dashboard/tools/"
+    | "/dashboard/wiki/"
+    | "/_home/wiki/$categorySlug/$articleSlug"
+    | "/dashboard/admin/users/$userId"
+    | "/dashboard/interview/results/$sessionId"
+    | "/dashboard/interview/session/$sessionId"
+    | "/dashboard/resources/programs/$programId"
+    | "/dashboard/wiki/$categorySlug/$articleSlug"
+    | "/_home/wiki/$categorySlug/"
+    | "/dashboard/admin/ai-providers/"
+    | "/dashboard/admin/ai-quotas/"
+    | "/dashboard/admin/ai-settings/"
+    | "/dashboard/admin/cohorts/"
+    | "/dashboard/admin/reference-data/"
+    | "/dashboard/admin/resumes/"
+    | "/dashboard/admin/users/"
+    | "/dashboard/settings/authentication/"
+    | "/dashboard/wiki/$categorySlug/";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -387,7 +2262,7 @@ export interface RootRouteChildren {
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
   SchemaDotjsonRoute: typeof SchemaDotjsonRoute;
   BuilderResumeIdRouteRoute: typeof BuilderResumeIdRouteRouteWithChildren;
-  UsernameSlugRoute: typeof UsernameSlugRoute;
+  UsernameSlugRoute: typeof UsernameSlugRouteWithChildren;
   ApiHealthRoute: typeof ApiHealthRoute;
   PrinterResumeIdRoute: typeof PrinterResumeIdRoute;
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
@@ -468,6 +2343,20 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthVerify2faRouteImport;
       parentRoute: typeof AuthRouteRoute;
     };
+    "/auth/sign-up": {
+      id: "/auth/sign-up";
+      path: "/sign-up";
+      fullPath: "/auth/sign-up";
+      preLoaderRoute: typeof AuthSignUpRouteImport;
+      parentRoute: typeof AuthRouteRoute;
+    };
+    "/auth/sign-in": {
+      id: "/auth/sign-in";
+      path: "/sign-in";
+      fullPath: "/auth/sign-in";
+      preLoaderRoute: typeof AuthSignInRouteImport;
+      parentRoute: typeof AuthRouteRoute;
+    };
     "/auth/resume-password": {
       id: "/auth/resume-password";
       path: "/resume-password";
@@ -510,12 +2399,75 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ApiHealthRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/_home/stage-maroc": {
+      id: "/_home/stage-maroc";
+      path: "/stage-maroc";
+      fullPath: "/stage-maroc";
+      preLoaderRoute: typeof HomeStageMarocRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
+    "/_home/preparation-entretien": {
+      id: "/_home/preparation-entretien";
+      path: "/preparation-entretien";
+      fullPath: "/preparation-entretien";
+      preLoaderRoute: typeof HomePreparationEntretienRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
+    "/_home/metiers-techniques": {
+      id: "/_home/metiers-techniques";
+      path: "/metiers-techniques";
+      fullPath: "/metiers-techniques";
+      preLoaderRoute: typeof HomeMetiersTechniquesRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
+    "/_home/imta-etudiants": {
+      id: "/_home/imta-etudiants";
+      path: "/imta-etudiants";
+      fullPath: "/imta-etudiants";
+      preLoaderRoute: typeof HomeImtaEtudiantsRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
+    "/_home/help": {
+      id: "/_home/help";
+      path: "/help";
+      fullPath: "/help";
+      preLoaderRoute: typeof HomeHelpRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
+    "/_home/ecoles-formateurs": {
+      id: "/_home/ecoles-formateurs";
+      path: "/ecoles-formateurs";
+      fullPath: "/ecoles-formateurs";
+      preLoaderRoute: typeof HomeEcolesFormateursRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
+    "/_home/cv-etudiant": {
+      id: "/_home/cv-etudiant";
+      path: "/cv-etudiant";
+      fullPath: "/cv-etudiant";
+      preLoaderRoute: typeof HomeCvEtudiantRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
+    "/_home/$landingSlug": {
+      id: "/_home/$landingSlug";
+      path: "/$landingSlug";
+      fullPath: "/$landingSlug";
+      preLoaderRoute: typeof HomeLandingSlugRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
     "/$username/$slug": {
       id: "/$username/$slug";
       path: "/$username/$slug";
       fullPath: "/$username/$slug";
       preLoaderRoute: typeof UsernameSlugRouteImport;
       parentRoute: typeof rootRouteImport;
+    };
+    "/dashboard/admin": {
+      id: "/dashboard/admin";
+      path: "/admin";
+      fullPath: "/dashboard/admin";
+      preLoaderRoute: typeof DashboardAdminRouteRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
     };
     "/builder/$resumeId": {
       id: "/builder/$resumeId";
@@ -524,12 +2476,145 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof BuilderResumeIdRouteRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/dashboard/wiki/": {
+      id: "/dashboard/wiki/";
+      path: "/wiki";
+      fullPath: "/dashboard/wiki/";
+      preLoaderRoute: typeof DashboardWikiIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/": {
+      id: "/dashboard/tools/";
+      path: "/tools";
+      fullPath: "/dashboard/tools/";
+      preLoaderRoute: typeof DashboardToolsIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/templates/": {
+      id: "/dashboard/templates/";
+      path: "/templates";
+      fullPath: "/dashboard/templates/";
+      preLoaderRoute: typeof DashboardTemplatesIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/settings/": {
+      id: "/dashboard/settings/";
+      path: "/settings";
+      fullPath: "/dashboard/settings/";
+      preLoaderRoute: typeof DashboardSettingsIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
     "/dashboard/resumes/": {
       id: "/dashboard/resumes/";
       path: "/resumes";
       fullPath: "/dashboard/resumes/";
       preLoaderRoute: typeof DashboardResumesIndexRouteImport;
       parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/resources/": {
+      id: "/dashboard/resources/";
+      path: "/resources";
+      fullPath: "/dashboard/resources/";
+      preLoaderRoute: typeof DashboardResourcesIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/progress/": {
+      id: "/dashboard/progress/";
+      path: "/progress";
+      fullPath: "/dashboard/progress/";
+      preLoaderRoute: typeof DashboardProgressIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/profile/": {
+      id: "/dashboard/profile/";
+      path: "/profile";
+      fullPath: "/dashboard/profile/";
+      preLoaderRoute: typeof DashboardProfileIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/portfolio/": {
+      id: "/dashboard/portfolio/";
+      path: "/portfolio";
+      fullPath: "/dashboard/portfolio/";
+      preLoaderRoute: typeof DashboardPortfolioIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/partner/": {
+      id: "/dashboard/partner/";
+      path: "/partner";
+      fullPath: "/dashboard/partner/";
+      preLoaderRoute: typeof DashboardPartnerIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/networking/": {
+      id: "/dashboard/networking/";
+      path: "/networking";
+      fullPath: "/dashboard/networking/";
+      preLoaderRoute: typeof DashboardNetworkingIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/linkedin/": {
+      id: "/dashboard/linkedin/";
+      path: "/linkedin";
+      fullPath: "/dashboard/linkedin/";
+      preLoaderRoute: typeof DashboardLinkedinIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/learn/": {
+      id: "/dashboard/learn/";
+      path: "/learn";
+      fullPath: "/dashboard/learn/";
+      preLoaderRoute: typeof DashboardLearnIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/": {
+      id: "/dashboard/jobs/";
+      path: "/jobs";
+      fullPath: "/dashboard/jobs/";
+      preLoaderRoute: typeof DashboardJobsIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/": {
+      id: "/dashboard/interview/";
+      path: "/interview";
+      fullPath: "/dashboard/interview/";
+      preLoaderRoute: typeof DashboardInterviewIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/help/": {
+      id: "/dashboard/help/";
+      path: "/help";
+      fullPath: "/dashboard/help/";
+      preLoaderRoute: typeof DashboardHelpIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/": {
+      id: "/dashboard/career/";
+      path: "/career";
+      fullPath: "/dashboard/career/";
+      preLoaderRoute: typeof DashboardCareerIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/analytics/": {
+      id: "/dashboard/analytics/";
+      path: "/analytics";
+      fullPath: "/dashboard/analytics/";
+      preLoaderRoute: typeof DashboardAnalyticsIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/ai-mentor/": {
+      id: "/dashboard/ai-mentor/";
+      path: "/ai-mentor";
+      fullPath: "/dashboard/ai-mentor/";
+      preLoaderRoute: typeof DashboardAiMentorIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/admin/": {
+      id: "/dashboard/admin/";
+      path: "/";
+      fullPath: "/dashboard/admin/";
+      preLoaderRoute: typeof DashboardAdminIndexRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
     };
     "/builder/$resumeId/": {
       id: "/builder/$resumeId/";
@@ -538,12 +2623,145 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof BuilderResumeIdIndexRouteImport;
       parentRoute: typeof BuilderResumeIdRouteRoute;
     };
+    "/_home/wiki/": {
+      id: "/_home/wiki/";
+      path: "/wiki";
+      fullPath: "/wiki/";
+      preLoaderRoute: typeof HomeWikiIndexRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
+    "/$username/$slug/": {
+      id: "/$username/$slug/";
+      path: "/";
+      fullPath: "/$username/$slug/";
+      preLoaderRoute: typeof UsernameSlugIndexRouteImport;
+      parentRoute: typeof UsernameSlugRoute;
+    };
     "/uploads/$userId/$": {
       id: "/uploads/$userId/$";
       path: "/uploads/$userId/$";
       fullPath: "/uploads/$userId/$";
       preLoaderRoute: typeof UploadsUserIdSplatRouteImport;
       parentRoute: typeof rootRouteImport;
+    };
+    "/dashboard/tools/thank-you": {
+      id: "/dashboard/tools/thank-you";
+      path: "/tools/thank-you";
+      fullPath: "/dashboard/tools/thank-you";
+      preLoaderRoute: typeof DashboardToolsThankYouRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/salary-calculator": {
+      id: "/dashboard/tools/salary-calculator";
+      path: "/tools/salary-calculator";
+      fullPath: "/dashboard/tools/salary-calculator";
+      preLoaderRoute: typeof DashboardToolsSalaryCalculatorRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/resume-gallery": {
+      id: "/dashboard/tools/resume-gallery";
+      path: "/tools/resume-gallery";
+      fullPath: "/dashboard/tools/resume-gallery";
+      preLoaderRoute: typeof DashboardToolsResumeGalleryRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/remote-readiness": {
+      id: "/dashboard/tools/remote-readiness";
+      path: "/tools/remote-readiness";
+      fullPath: "/dashboard/tools/remote-readiness";
+      preLoaderRoute: typeof DashboardToolsRemoteReadinessRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/qr-code": {
+      id: "/dashboard/tools/qr-code";
+      path: "/tools/qr-code";
+      fullPath: "/dashboard/tools/qr-code";
+      preLoaderRoute: typeof DashboardToolsQrCodeRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/negotiation": {
+      id: "/dashboard/tools/negotiation";
+      path: "/tools/negotiation";
+      fullPath: "/dashboard/tools/negotiation";
+      preLoaderRoute: typeof DashboardToolsNegotiationRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/linkedin": {
+      id: "/dashboard/tools/linkedin";
+      path: "/tools/linkedin";
+      fullPath: "/dashboard/tools/linkedin";
+      preLoaderRoute: typeof DashboardToolsLinkedinRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/keywords": {
+      id: "/dashboard/tools/keywords";
+      path: "/tools/keywords";
+      fullPath: "/dashboard/tools/keywords";
+      preLoaderRoute: typeof DashboardToolsKeywordsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/job-resources": {
+      id: "/dashboard/tools/job-resources";
+      path: "/tools/job-resources";
+      fullPath: "/dashboard/tools/job-resources";
+      preLoaderRoute: typeof DashboardToolsJobResourcesRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/job-match": {
+      id: "/dashboard/tools/job-match";
+      path: "/tools/job-match";
+      fullPath: "/dashboard/tools/job-match";
+      preLoaderRoute: typeof DashboardToolsJobMatchRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/elevator-pitch": {
+      id: "/dashboard/tools/elevator-pitch";
+      path: "/tools/elevator-pitch";
+      fullPath: "/dashboard/tools/elevator-pitch";
+      preLoaderRoute: typeof DashboardToolsElevatorPitchRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/cover-letter": {
+      id: "/dashboard/tools/cover-letter";
+      path: "/tools/cover-letter";
+      fullPath: "/dashboard/tools/cover-letter";
+      preLoaderRoute: typeof DashboardToolsCoverLetterRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/ats-checker": {
+      id: "/dashboard/tools/ats-checker";
+      path: "/tools/ats-checker";
+      fullPath: "/dashboard/tools/ats-checker";
+      preLoaderRoute: typeof DashboardToolsAtsCheckerRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/ai-writer": {
+      id: "/dashboard/tools/ai-writer";
+      path: "/tools/ai-writer";
+      fullPath: "/dashboard/tools/ai-writer";
+      preLoaderRoute: typeof DashboardToolsAiWriterRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/tools/ai-history": {
+      id: "/dashboard/tools/ai-history";
+      path: "/tools/ai-history";
+      fullPath: "/dashboard/tools/ai-history";
+      preLoaderRoute: typeof DashboardToolsAiHistoryRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/templates/gallery": {
+      id: "/dashboard/templates/gallery";
+      path: "/templates/gallery";
+      fullPath: "/dashboard/templates/gallery";
+      preLoaderRoute: typeof DashboardTemplatesGalleryRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/templates/cover-letters": {
+      id: "/dashboard/templates/cover-letters";
+      path: "/templates/cover-letters";
+      fullPath: "/dashboard/templates/cover-letters";
+      preLoaderRoute: typeof DashboardTemplatesCoverLettersRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
     };
     "/dashboard/settings/profile": {
       id: "/dashboard/settings/profile";
@@ -557,6 +2775,13 @@ declare module "@tanstack/react-router" {
       path: "/settings/preferences";
       fullPath: "/dashboard/settings/preferences";
       preLoaderRoute: typeof DashboardSettingsPreferencesRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/settings/data": {
+      id: "/dashboard/settings/data";
+      path: "/settings/data";
+      fullPath: "/dashboard/settings/data";
+      preLoaderRoute: typeof DashboardSettingsDataRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
     "/dashboard/settings/danger-zone": {
@@ -580,6 +2805,587 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardSettingsAiRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
+    "/dashboard/resumes/scoring": {
+      id: "/dashboard/resumes/scoring";
+      path: "/resumes/scoring";
+      fullPath: "/dashboard/resumes/scoring";
+      preLoaderRoute: typeof DashboardResumesScoringRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/resumes/history": {
+      id: "/dashboard/resumes/history";
+      path: "/resumes/history";
+      fullPath: "/dashboard/resumes/history";
+      preLoaderRoute: typeof DashboardResumesHistoryRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/resumes/experience-optimizer": {
+      id: "/dashboard/resumes/experience-optimizer";
+      path: "/resumes/experience-optimizer";
+      fullPath: "/dashboard/resumes/experience-optimizer";
+      preLoaderRoute: typeof DashboardResumesExperienceOptimizerRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/resumes/compare": {
+      id: "/dashboard/resumes/compare";
+      path: "/resumes/compare";
+      fullPath: "/dashboard/resumes/compare";
+      preLoaderRoute: typeof DashboardResumesCompareRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/resumes/ai-wizard": {
+      id: "/dashboard/resumes/ai-wizard";
+      path: "/resumes/ai-wizard";
+      fullPath: "/dashboard/resumes/ai-wizard";
+      preLoaderRoute: typeof DashboardResumesAiWizardRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/resources/success-stories": {
+      id: "/dashboard/resources/success-stories";
+      path: "/resources/success-stories";
+      fullPath: "/dashboard/resources/success-stories";
+      preLoaderRoute: typeof DashboardResourcesSuccessStoriesRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/resources/programs": {
+      id: "/dashboard/resources/programs";
+      path: "/resources/programs";
+      fullPath: "/dashboard/resources/programs";
+      preLoaderRoute: typeof DashboardResourcesProgramsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/resources/my-programs": {
+      id: "/dashboard/resources/my-programs";
+      path: "/resources/my-programs";
+      fullPath: "/dashboard/resources/my-programs";
+      preLoaderRoute: typeof DashboardResourcesMyProgramsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/resources/compare": {
+      id: "/dashboard/resources/compare";
+      path: "/resources/compare";
+      fullPath: "/dashboard/resources/compare";
+      preLoaderRoute: typeof DashboardResourcesCompareRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/profile/achievements": {
+      id: "/dashboard/profile/achievements";
+      path: "/profile/achievements";
+      fullPath: "/dashboard/profile/achievements";
+      preLoaderRoute: typeof DashboardProfileAchievementsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/portfolio/samples": {
+      id: "/dashboard/portfolio/samples";
+      path: "/portfolio/samples";
+      fullPath: "/dashboard/portfolio/samples";
+      preLoaderRoute: typeof DashboardPortfolioSamplesRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/portfolio/freelance": {
+      id: "/dashboard/portfolio/freelance";
+      path: "/portfolio/freelance";
+      fullPath: "/dashboard/portfolio/freelance";
+      preLoaderRoute: typeof DashboardPortfolioFreelanceRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/partner/post-job": {
+      id: "/dashboard/partner/post-job";
+      path: "/partner/post-job";
+      fullPath: "/dashboard/partner/post-job";
+      preLoaderRoute: typeof DashboardPartnerPostJobRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/partner/jobs": {
+      id: "/dashboard/partner/jobs";
+      path: "/partner/jobs";
+      fullPath: "/dashboard/partner/jobs";
+      preLoaderRoute: typeof DashboardPartnerJobsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/partner/applications": {
+      id: "/dashboard/partner/applications";
+      path: "/partner/applications";
+      fullPath: "/dashboard/partner/applications";
+      preLoaderRoute: typeof DashboardPartnerApplicationsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/networking/references": {
+      id: "/dashboard/networking/references";
+      path: "/networking/references";
+      fullPath: "/dashboard/networking/references";
+      preLoaderRoute: typeof DashboardNetworkingReferencesRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/networking/recommendation-request": {
+      id: "/dashboard/networking/recommendation-request";
+      path: "/networking/recommendation-request";
+      fullPath: "/dashboard/networking/recommendation-request";
+      preLoaderRoute: typeof DashboardNetworkingRecommendationRequestRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/networking/network-map": {
+      id: "/dashboard/networking/network-map";
+      path: "/networking/network-map";
+      fullPath: "/dashboard/networking/network-map";
+      preLoaderRoute: typeof DashboardNetworkingNetworkMapRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/networking/message-templates": {
+      id: "/dashboard/networking/message-templates";
+      path: "/networking/message-templates";
+      fullPath: "/dashboard/networking/message-templates";
+      preLoaderRoute: typeof DashboardNetworkingMessageTemplatesRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/networking/mentors": {
+      id: "/dashboard/networking/mentors";
+      path: "/networking/mentors";
+      fullPath: "/dashboard/networking/mentors";
+      preLoaderRoute: typeof DashboardNetworkingMentorsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/networking/events": {
+      id: "/dashboard/networking/events";
+      path: "/networking/events";
+      fullPath: "/dashboard/networking/events";
+      preLoaderRoute: typeof DashboardNetworkingEventsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/linkedin/strategies": {
+      id: "/dashboard/linkedin/strategies";
+      path: "/linkedin/strategies";
+      fullPath: "/dashboard/linkedin/strategies";
+      preLoaderRoute: typeof DashboardLinkedinStrategiesRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/linkedin/messages": {
+      id: "/dashboard/linkedin/messages";
+      path: "/linkedin/messages";
+      fullPath: "/dashboard/linkedin/messages";
+      preLoaderRoute: typeof DashboardLinkedinMessagesRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/linkedin/content": {
+      id: "/dashboard/linkedin/content";
+      path: "/linkedin/content";
+      fullPath: "/dashboard/linkedin/content";
+      preLoaderRoute: typeof DashboardLinkedinContentRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/learn/recommendations": {
+      id: "/dashboard/learn/recommendations";
+      path: "/learn/recommendations";
+      fullPath: "/dashboard/learn/recommendations";
+      preLoaderRoute: typeof DashboardLearnRecommendationsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/learn/paths": {
+      id: "/dashboard/learn/paths";
+      path: "/learn/paths";
+      fullPath: "/dashboard/learn/paths";
+      preLoaderRoute: typeof DashboardLearnPathsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/learn/assessments": {
+      id: "/dashboard/learn/assessments";
+      path: "/learn/assessments";
+      fullPath: "/dashboard/learn/assessments";
+      preLoaderRoute: typeof DashboardLearnAssessmentsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/trends": {
+      id: "/dashboard/jobs/trends";
+      path: "/jobs/trends";
+      fullPath: "/dashboard/jobs/trends";
+      preLoaderRoute: typeof DashboardJobsTrendsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/search": {
+      id: "/dashboard/jobs/search";
+      path: "/jobs/search";
+      fullPath: "/dashboard/jobs/search";
+      preLoaderRoute: typeof DashboardJobsSearchRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/research": {
+      id: "/dashboard/jobs/research";
+      path: "/jobs/research";
+      fullPath: "/dashboard/jobs/research";
+      preLoaderRoute: typeof DashboardJobsResearchRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/recommendations": {
+      id: "/dashboard/jobs/recommendations";
+      path: "/jobs/recommendations";
+      fullPath: "/dashboard/jobs/recommendations";
+      preLoaderRoute: typeof DashboardJobsRecommendationsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/insights": {
+      id: "/dashboard/jobs/insights";
+      path: "/jobs/insights";
+      fullPath: "/dashboard/jobs/insights";
+      preLoaderRoute: typeof DashboardJobsInsightsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/follow-up": {
+      id: "/dashboard/jobs/follow-up";
+      path: "/jobs/follow-up";
+      fullPath: "/dashboard/jobs/follow-up";
+      preLoaderRoute: typeof DashboardJobsFollowUpRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/employers": {
+      id: "/dashboard/jobs/employers";
+      path: "/jobs/employers";
+      fullPath: "/dashboard/jobs/employers";
+      preLoaderRoute: typeof DashboardJobsEmployersRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/deadlines": {
+      id: "/dashboard/jobs/deadlines";
+      path: "/jobs/deadlines";
+      fullPath: "/dashboard/jobs/deadlines";
+      preLoaderRoute: typeof DashboardJobsDeadlinesRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/culture-match": {
+      id: "/dashboard/jobs/culture-match";
+      path: "/jobs/culture-match";
+      fullPath: "/dashboard/jobs/culture-match";
+      preLoaderRoute: typeof DashboardJobsCultureMatchRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/board": {
+      id: "/dashboard/jobs/board";
+      path: "/jobs/board";
+      fullPath: "/dashboard/jobs/board";
+      preLoaderRoute: typeof DashboardJobsBoardRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/applications": {
+      id: "/dashboard/jobs/applications";
+      path: "/jobs/applications";
+      fullPath: "/dashboard/jobs/applications";
+      preLoaderRoute: typeof DashboardJobsApplicationsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/alerts": {
+      id: "/dashboard/jobs/alerts";
+      path: "/jobs/alerts";
+      fullPath: "/dashboard/jobs/alerts";
+      preLoaderRoute: typeof DashboardJobsAlertsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/jobs/aggregator": {
+      id: "/dashboard/jobs/aggregator";
+      path: "/jobs/aggregator";
+      fullPath: "/dashboard/jobs/aggregator";
+      preLoaderRoute: typeof DashboardJobsAggregatorRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/voice-interview": {
+      id: "/dashboard/interview/voice-interview";
+      path: "/interview/voice-interview";
+      fullPath: "/dashboard/interview/voice-interview";
+      preLoaderRoute: typeof DashboardInterviewVoiceInterviewRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/video-analysis": {
+      id: "/dashboard/interview/video-analysis";
+      path: "/interview/video-analysis";
+      fullPath: "/dashboard/interview/video-analysis";
+      preLoaderRoute: typeof DashboardInterviewVideoAnalysisRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/tips": {
+      id: "/dashboard/interview/tips";
+      path: "/interview/tips";
+      fullPath: "/dashboard/interview/tips";
+      preLoaderRoute: typeof DashboardInterviewTipsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/star-method": {
+      id: "/dashboard/interview/star-method";
+      path: "/interview/star-method";
+      fullPath: "/dashboard/interview/star-method";
+      preLoaderRoute: typeof DashboardInterviewStarMethodRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/scheduler": {
+      id: "/dashboard/interview/scheduler";
+      path: "/interview/scheduler";
+      fullPath: "/dashboard/interview/scheduler";
+      preLoaderRoute: typeof DashboardInterviewSchedulerRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/review": {
+      id: "/dashboard/interview/review";
+      path: "/interview/review";
+      fullPath: "/dashboard/interview/review";
+      preLoaderRoute: typeof DashboardInterviewReviewRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/questions": {
+      id: "/dashboard/interview/questions";
+      path: "/interview/questions";
+      fullPath: "/dashboard/interview/questions";
+      preLoaderRoute: typeof DashboardInterviewQuestionsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/question-bank": {
+      id: "/dashboard/interview/question-bank";
+      path: "/interview/question-bank";
+      fullPath: "/dashboard/interview/question-bank";
+      preLoaderRoute: typeof DashboardInterviewQuestionBankRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/practice": {
+      id: "/dashboard/interview/practice";
+      path: "/interview/practice";
+      fullPath: "/dashboard/interview/practice";
+      preLoaderRoute: typeof DashboardInterviewPracticeRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/performance": {
+      id: "/dashboard/interview/performance";
+      path: "/interview/performance";
+      fullPath: "/dashboard/interview/performance";
+      preLoaderRoute: typeof DashboardInterviewPerformanceRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/outfit": {
+      id: "/dashboard/interview/outfit";
+      path: "/interview/outfit";
+      fullPath: "/dashboard/interview/outfit";
+      preLoaderRoute: typeof DashboardInterviewOutfitRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/notes": {
+      id: "/dashboard/interview/notes";
+      path: "/interview/notes";
+      fullPath: "/dashboard/interview/notes";
+      preLoaderRoute: typeof DashboardInterviewNotesRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/mock-ai": {
+      id: "/dashboard/interview/mock-ai";
+      path: "/interview/mock-ai";
+      fullPath: "/dashboard/interview/mock-ai";
+      preLoaderRoute: typeof DashboardInterviewMockAiRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/feedback": {
+      id: "/dashboard/interview/feedback";
+      path: "/interview/feedback";
+      fullPath: "/dashboard/interview/feedback";
+      preLoaderRoute: typeof DashboardInterviewFeedbackRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/confidence": {
+      id: "/dashboard/interview/confidence";
+      path: "/interview/confidence";
+      fullPath: "/dashboard/interview/confidence";
+      preLoaderRoute: typeof DashboardInterviewConfidenceRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/checklist": {
+      id: "/dashboard/interview/checklist";
+      path: "/interview/checklist";
+      fullPath: "/dashboard/interview/checklist";
+      preLoaderRoute: typeof DashboardInterviewChecklistRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/chatbot": {
+      id: "/dashboard/interview/chatbot";
+      path: "/interview/chatbot";
+      fullPath: "/dashboard/interview/chatbot";
+      preLoaderRoute: typeof DashboardInterviewChatbotRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/analytics": {
+      id: "/dashboard/interview/analytics";
+      path: "/interview/analytics";
+      fullPath: "/dashboard/interview/analytics";
+      preLoaderRoute: typeof DashboardInterviewAnalyticsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/transition": {
+      id: "/dashboard/career/transition";
+      path: "/career/transition";
+      fullPath: "/dashboard/career/transition";
+      preLoaderRoute: typeof DashboardCareerTransitionRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/timeline": {
+      id: "/dashboard/career/timeline";
+      path: "/career/timeline";
+      fullPath: "/dashboard/career/timeline";
+      preLoaderRoute: typeof DashboardCareerTimelineRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/study-plan": {
+      id: "/dashboard/career/study-plan";
+      path: "/career/study-plan";
+      fullPath: "/dashboard/career/study-plan";
+      preLoaderRoute: typeof DashboardCareerStudyPlanRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/skills-quiz": {
+      id: "/dashboard/career/skills-quiz";
+      path: "/career/skills-quiz";
+      fullPath: "/dashboard/career/skills-quiz";
+      preLoaderRoute: typeof DashboardCareerSkillsQuizRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/skills": {
+      id: "/dashboard/career/skills";
+      path: "/career/skills";
+      fullPath: "/dashboard/career/skills";
+      preLoaderRoute: typeof DashboardCareerSkillsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/skill-gap": {
+      id: "/dashboard/career/skill-gap";
+      path: "/career/skill-gap";
+      fullPath: "/dashboard/career/skill-gap";
+      preLoaderRoute: typeof DashboardCareerSkillGapRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/roadmap": {
+      id: "/dashboard/career/roadmap";
+      path: "/career/roadmap";
+      fullPath: "/dashboard/career/roadmap";
+      preLoaderRoute: typeof DashboardCareerRoadmapRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/review-prep": {
+      id: "/dashboard/career/review-prep";
+      path: "/career/review-prep";
+      fullPath: "/dashboard/career/review-prep";
+      preLoaderRoute: typeof DashboardCareerReviewPrepRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/quiz": {
+      id: "/dashboard/career/quiz";
+      path: "/career/quiz";
+      fullPath: "/dashboard/career/quiz";
+      preLoaderRoute: typeof DashboardCareerQuizRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/predictions": {
+      id: "/dashboard/career/predictions";
+      path: "/career/predictions";
+      fullPath: "/dashboard/career/predictions";
+      preLoaderRoute: typeof DashboardCareerPredictionsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/insights": {
+      id: "/dashboard/career/insights";
+      path: "/career/insights";
+      fullPath: "/dashboard/career/insights";
+      preLoaderRoute: typeof DashboardCareerInsightsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/gap-analysis": {
+      id: "/dashboard/career/gap-analysis";
+      path: "/career/gap-analysis";
+      fullPath: "/dashboard/career/gap-analysis";
+      preLoaderRoute: typeof DashboardCareerGapAnalysisRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/coaching": {
+      id: "/dashboard/career/coaching";
+      path: "/career/coaching";
+      fullPath: "/dashboard/career/coaching";
+      preLoaderRoute: typeof DashboardCareerCoachingRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/certifications": {
+      id: "/dashboard/career/certifications";
+      path: "/career/certifications";
+      fullPath: "/dashboard/career/certifications";
+      preLoaderRoute: typeof DashboardCareerCertificationsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/branding": {
+      id: "/dashboard/career/branding";
+      path: "/career/branding";
+      fullPath: "/dashboard/career/branding";
+      preLoaderRoute: typeof DashboardCareerBrandingRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/career/assessment": {
+      id: "/dashboard/career/assessment";
+      path: "/career/assessment";
+      fullPath: "/dashboard/career/assessment";
+      preLoaderRoute: typeof DashboardCareerAssessmentRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/analytics/reports": {
+      id: "/dashboard/analytics/reports";
+      path: "/analytics/reports";
+      fullPath: "/dashboard/analytics/reports";
+      preLoaderRoute: typeof DashboardAnalyticsReportsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/analytics/progress": {
+      id: "/dashboard/analytics/progress";
+      path: "/analytics/progress";
+      fullPath: "/dashboard/analytics/progress";
+      preLoaderRoute: typeof DashboardAnalyticsProgressRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/analytics/ai-usage": {
+      id: "/dashboard/analytics/ai-usage";
+      path: "/analytics/ai-usage";
+      fullPath: "/dashboard/analytics/ai-usage";
+      preLoaderRoute: typeof DashboardAnalyticsAiUsageRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/analytics/ai-matrix": {
+      id: "/dashboard/analytics/ai-matrix";
+      path: "/analytics/ai-matrix";
+      fullPath: "/dashboard/analytics/ai-matrix";
+      preLoaderRoute: typeof DashboardAnalyticsAiMatrixRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/analytics/activity": {
+      id: "/dashboard/analytics/activity";
+      path: "/analytics/activity";
+      fullPath: "/dashboard/analytics/activity";
+      preLoaderRoute: typeof DashboardAnalyticsActivityRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/ai-mentor/market": {
+      id: "/dashboard/ai-mentor/market";
+      path: "/ai-mentor/market";
+      fullPath: "/dashboard/ai-mentor/market";
+      preLoaderRoute: typeof DashboardAiMentorMarketRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/ai-mentor/conversations": {
+      id: "/dashboard/ai-mentor/conversations";
+      path: "/ai-mentor/conversations";
+      fullPath: "/dashboard/ai-mentor/conversations";
+      preLoaderRoute: typeof DashboardAiMentorConversationsRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/admin/system": {
+      id: "/dashboard/admin/system";
+      path: "/system";
+      fullPath: "/dashboard/admin/system";
+      preLoaderRoute: typeof DashboardAdminSystemRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/dashboard/admin/audit-log": {
+      id: "/dashboard/admin/audit-log";
+      path: "/audit-log";
+      fullPath: "/dashboard/admin/audit-log";
+      preLoaderRoute: typeof DashboardAdminAuditLogRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
     "/api/rpc/$": {
       id: "/api/rpc/$";
       path: "/api/rpc/$";
@@ -601,6 +3407,20 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ApiAuthSplatRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/$username/$slug/card": {
+      id: "/$username/$slug/card";
+      path: "/card";
+      fullPath: "/$username/$slug/card";
+      preLoaderRoute: typeof UsernameSlugCardRouteImport;
+      parentRoute: typeof UsernameSlugRoute;
+    };
+    "/dashboard/wiki/$categorySlug/": {
+      id: "/dashboard/wiki/$categorySlug/";
+      path: "/wiki/$categorySlug";
+      fullPath: "/dashboard/wiki/$categorySlug/";
+      preLoaderRoute: typeof DashboardWikiCategorySlugIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
     "/dashboard/settings/authentication/": {
       id: "/dashboard/settings/authentication/";
       path: "/settings/authentication";
@@ -608,15 +3428,135 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardSettingsAuthenticationIndexRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
+    "/dashboard/admin/users/": {
+      id: "/dashboard/admin/users/";
+      path: "/users";
+      fullPath: "/dashboard/admin/users/";
+      preLoaderRoute: typeof DashboardAdminUsersIndexRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/dashboard/admin/resumes/": {
+      id: "/dashboard/admin/resumes/";
+      path: "/resumes";
+      fullPath: "/dashboard/admin/resumes/";
+      preLoaderRoute: typeof DashboardAdminResumesIndexRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/dashboard/admin/reference-data/": {
+      id: "/dashboard/admin/reference-data/";
+      path: "/reference-data";
+      fullPath: "/dashboard/admin/reference-data/";
+      preLoaderRoute: typeof DashboardAdminReferenceDataIndexRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/dashboard/admin/cohorts/": {
+      id: "/dashboard/admin/cohorts/";
+      path: "/cohorts";
+      fullPath: "/dashboard/admin/cohorts/";
+      preLoaderRoute: typeof DashboardAdminCohortsIndexRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/dashboard/admin/ai-settings/": {
+      id: "/dashboard/admin/ai-settings/";
+      path: "/ai-settings";
+      fullPath: "/dashboard/admin/ai-settings/";
+      preLoaderRoute: typeof DashboardAdminAiSettingsIndexRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/dashboard/admin/ai-quotas/": {
+      id: "/dashboard/admin/ai-quotas/";
+      path: "/ai-quotas";
+      fullPath: "/dashboard/admin/ai-quotas/";
+      preLoaderRoute: typeof DashboardAdminAiQuotasIndexRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/dashboard/admin/ai-providers/": {
+      id: "/dashboard/admin/ai-providers/";
+      path: "/ai-providers";
+      fullPath: "/dashboard/admin/ai-providers/";
+      preLoaderRoute: typeof DashboardAdminAiProvidersIndexRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/_home/wiki/$categorySlug/": {
+      id: "/_home/wiki/$categorySlug/";
+      path: "/wiki/$categorySlug";
+      fullPath: "/wiki/$categorySlug/";
+      preLoaderRoute: typeof HomeWikiCategorySlugIndexRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
+    "/dashboard/wiki/$categorySlug/$articleSlug": {
+      id: "/dashboard/wiki/$categorySlug/$articleSlug";
+      path: "/wiki/$categorySlug/$articleSlug";
+      fullPath: "/dashboard/wiki/$categorySlug/$articleSlug";
+      preLoaderRoute: typeof DashboardWikiCategorySlugArticleSlugRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/resources/programs/$programId": {
+      id: "/dashboard/resources/programs/$programId";
+      path: "/$programId";
+      fullPath: "/dashboard/resources/programs/$programId";
+      preLoaderRoute: typeof DashboardResourcesProgramsProgramIdRouteImport;
+      parentRoute: typeof DashboardResourcesProgramsRoute;
+    };
+    "/dashboard/interview/session/$sessionId": {
+      id: "/dashboard/interview/session/$sessionId";
+      path: "/interview/session/$sessionId";
+      fullPath: "/dashboard/interview/session/$sessionId";
+      preLoaderRoute: typeof DashboardInterviewSessionSessionIdRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/interview/results/$sessionId": {
+      id: "/dashboard/interview/results/$sessionId";
+      path: "/interview/results/$sessionId";
+      fullPath: "/dashboard/interview/results/$sessionId";
+      preLoaderRoute: typeof DashboardInterviewResultsSessionIdRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/admin/users/$userId": {
+      id: "/dashboard/admin/users/$userId";
+      path: "/users/$userId";
+      fullPath: "/dashboard/admin/users/$userId";
+      preLoaderRoute: typeof DashboardAdminUsersUserIdRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
+    "/_home/wiki/$categorySlug/$articleSlug": {
+      id: "/_home/wiki/$categorySlug/$articleSlug";
+      path: "/wiki/$categorySlug/$articleSlug";
+      fullPath: "/wiki/$categorySlug/$articleSlug";
+      preLoaderRoute: typeof HomeWikiCategorySlugArticleSlugRouteImport;
+      parentRoute: typeof HomeRouteRoute;
+    };
   }
 }
 
 interface HomeRouteRouteChildren {
+  HomeLandingSlugRoute: typeof HomeLandingSlugRoute;
+  HomeCvEtudiantRoute: typeof HomeCvEtudiantRoute;
+  HomeEcolesFormateursRoute: typeof HomeEcolesFormateursRoute;
+  HomeHelpRoute: typeof HomeHelpRoute;
+  HomeImtaEtudiantsRoute: typeof HomeImtaEtudiantsRoute;
+  HomeMetiersTechniquesRoute: typeof HomeMetiersTechniquesRoute;
+  HomePreparationEntretienRoute: typeof HomePreparationEntretienRoute;
+  HomeStageMarocRoute: typeof HomeStageMarocRoute;
   HomeIndexRoute: typeof HomeIndexRoute;
+  HomeWikiIndexRoute: typeof HomeWikiIndexRoute;
+  HomeWikiCategorySlugArticleSlugRoute: typeof HomeWikiCategorySlugArticleSlugRoute;
+  HomeWikiCategorySlugIndexRoute: typeof HomeWikiCategorySlugIndexRoute;
 }
 
 const HomeRouteRouteChildren: HomeRouteRouteChildren = {
+  HomeLandingSlugRoute: HomeLandingSlugRoute,
+  HomeCvEtudiantRoute: HomeCvEtudiantRoute,
+  HomeEcolesFormateursRoute: HomeEcolesFormateursRoute,
+  HomeHelpRoute: HomeHelpRoute,
+  HomeImtaEtudiantsRoute: HomeImtaEtudiantsRoute,
+  HomeMetiersTechniquesRoute: HomeMetiersTechniquesRoute,
+  HomePreparationEntretienRoute: HomePreparationEntretienRoute,
+  HomeStageMarocRoute: HomeStageMarocRoute,
   HomeIndexRoute: HomeIndexRoute,
+  HomeWikiIndexRoute: HomeWikiIndexRoute,
+  HomeWikiCategorySlugArticleSlugRoute: HomeWikiCategorySlugArticleSlugRoute,
+  HomeWikiCategorySlugIndexRoute: HomeWikiCategorySlugIndexRoute,
 };
 
 const HomeRouteRouteWithChildren = HomeRouteRoute._addFileChildren(
@@ -629,6 +3569,8 @@ interface AuthRouteRouteChildren {
   AuthRegisterRoute: typeof AuthRegisterRoute;
   AuthResetPasswordRoute: typeof AuthResetPasswordRoute;
   AuthResumePasswordRoute: typeof AuthResumePasswordRoute;
+  AuthSignInRoute: typeof AuthSignInRoute;
+  AuthSignUpRoute: typeof AuthSignUpRoute;
   AuthVerify2faRoute: typeof AuthVerify2faRoute;
   AuthVerify2faBackupRoute: typeof AuthVerify2faBackupRoute;
   AuthIndexRoute: typeof AuthIndexRoute;
@@ -640,6 +3582,8 @@ const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthRegisterRoute: AuthRegisterRoute,
   AuthResetPasswordRoute: AuthResetPasswordRoute,
   AuthResumePasswordRoute: AuthResumePasswordRoute,
+  AuthSignInRoute: AuthSignInRoute,
+  AuthSignUpRoute: AuthSignUpRoute,
   AuthVerify2faRoute: AuthVerify2faRoute,
   AuthVerify2faBackupRoute: AuthVerify2faBackupRoute,
   AuthIndexRoute: AuthIndexRoute,
@@ -649,27 +3593,323 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 );
 
+interface DashboardAdminRouteRouteChildren {
+  DashboardAdminAuditLogRoute: typeof DashboardAdminAuditLogRoute;
+  DashboardAdminSystemRoute: typeof DashboardAdminSystemRoute;
+  DashboardAdminIndexRoute: typeof DashboardAdminIndexRoute;
+  DashboardAdminUsersUserIdRoute: typeof DashboardAdminUsersUserIdRoute;
+  DashboardAdminAiProvidersIndexRoute: typeof DashboardAdminAiProvidersIndexRoute;
+  DashboardAdminAiQuotasIndexRoute: typeof DashboardAdminAiQuotasIndexRoute;
+  DashboardAdminAiSettingsIndexRoute: typeof DashboardAdminAiSettingsIndexRoute;
+  DashboardAdminCohortsIndexRoute: typeof DashboardAdminCohortsIndexRoute;
+  DashboardAdminReferenceDataIndexRoute: typeof DashboardAdminReferenceDataIndexRoute;
+  DashboardAdminResumesIndexRoute: typeof DashboardAdminResumesIndexRoute;
+  DashboardAdminUsersIndexRoute: typeof DashboardAdminUsersIndexRoute;
+}
+
+const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
+  DashboardAdminAuditLogRoute: DashboardAdminAuditLogRoute,
+  DashboardAdminSystemRoute: DashboardAdminSystemRoute,
+  DashboardAdminIndexRoute: DashboardAdminIndexRoute,
+  DashboardAdminUsersUserIdRoute: DashboardAdminUsersUserIdRoute,
+  DashboardAdminAiProvidersIndexRoute: DashboardAdminAiProvidersIndexRoute,
+  DashboardAdminAiQuotasIndexRoute: DashboardAdminAiQuotasIndexRoute,
+  DashboardAdminAiSettingsIndexRoute: DashboardAdminAiSettingsIndexRoute,
+  DashboardAdminCohortsIndexRoute: DashboardAdminCohortsIndexRoute,
+  DashboardAdminReferenceDataIndexRoute: DashboardAdminReferenceDataIndexRoute,
+  DashboardAdminResumesIndexRoute: DashboardAdminResumesIndexRoute,
+  DashboardAdminUsersIndexRoute: DashboardAdminUsersIndexRoute,
+};
+
+const DashboardAdminRouteRouteWithChildren =
+  DashboardAdminRouteRoute._addFileChildren(DashboardAdminRouteRouteChildren);
+
+interface DashboardResourcesProgramsRouteChildren {
+  DashboardResourcesProgramsProgramIdRoute: typeof DashboardResourcesProgramsProgramIdRoute;
+}
+
+const DashboardResourcesProgramsRouteChildren: DashboardResourcesProgramsRouteChildren =
+  {
+    DashboardResourcesProgramsProgramIdRoute:
+      DashboardResourcesProgramsProgramIdRoute,
+  };
+
+const DashboardResourcesProgramsRouteWithChildren =
+  DashboardResourcesProgramsRoute._addFileChildren(
+    DashboardResourcesProgramsRouteChildren,
+  );
+
 interface DashboardRouteRouteChildren {
+  DashboardAdminRouteRoute: typeof DashboardAdminRouteRouteWithChildren;
   DashboardIndexRoute: typeof DashboardIndexRoute;
+  DashboardAiMentorConversationsRoute: typeof DashboardAiMentorConversationsRoute;
+  DashboardAiMentorMarketRoute: typeof DashboardAiMentorMarketRoute;
+  DashboardAnalyticsActivityRoute: typeof DashboardAnalyticsActivityRoute;
+  DashboardAnalyticsAiMatrixRoute: typeof DashboardAnalyticsAiMatrixRoute;
+  DashboardAnalyticsAiUsageRoute: typeof DashboardAnalyticsAiUsageRoute;
+  DashboardAnalyticsProgressRoute: typeof DashboardAnalyticsProgressRoute;
+  DashboardAnalyticsReportsRoute: typeof DashboardAnalyticsReportsRoute;
+  DashboardCareerAssessmentRoute: typeof DashboardCareerAssessmentRoute;
+  DashboardCareerBrandingRoute: typeof DashboardCareerBrandingRoute;
+  DashboardCareerCertificationsRoute: typeof DashboardCareerCertificationsRoute;
+  DashboardCareerCoachingRoute: typeof DashboardCareerCoachingRoute;
+  DashboardCareerGapAnalysisRoute: typeof DashboardCareerGapAnalysisRoute;
+  DashboardCareerInsightsRoute: typeof DashboardCareerInsightsRoute;
+  DashboardCareerPredictionsRoute: typeof DashboardCareerPredictionsRoute;
+  DashboardCareerQuizRoute: typeof DashboardCareerQuizRoute;
+  DashboardCareerReviewPrepRoute: typeof DashboardCareerReviewPrepRoute;
+  DashboardCareerRoadmapRoute: typeof DashboardCareerRoadmapRoute;
+  DashboardCareerSkillGapRoute: typeof DashboardCareerSkillGapRoute;
+  DashboardCareerSkillsRoute: typeof DashboardCareerSkillsRoute;
+  DashboardCareerSkillsQuizRoute: typeof DashboardCareerSkillsQuizRoute;
+  DashboardCareerStudyPlanRoute: typeof DashboardCareerStudyPlanRoute;
+  DashboardCareerTimelineRoute: typeof DashboardCareerTimelineRoute;
+  DashboardCareerTransitionRoute: typeof DashboardCareerTransitionRoute;
+  DashboardInterviewAnalyticsRoute: typeof DashboardInterviewAnalyticsRoute;
+  DashboardInterviewChatbotRoute: typeof DashboardInterviewChatbotRoute;
+  DashboardInterviewChecklistRoute: typeof DashboardInterviewChecklistRoute;
+  DashboardInterviewConfidenceRoute: typeof DashboardInterviewConfidenceRoute;
+  DashboardInterviewFeedbackRoute: typeof DashboardInterviewFeedbackRoute;
+  DashboardInterviewMockAiRoute: typeof DashboardInterviewMockAiRoute;
+  DashboardInterviewNotesRoute: typeof DashboardInterviewNotesRoute;
+  DashboardInterviewOutfitRoute: typeof DashboardInterviewOutfitRoute;
+  DashboardInterviewPerformanceRoute: typeof DashboardInterviewPerformanceRoute;
+  DashboardInterviewPracticeRoute: typeof DashboardInterviewPracticeRoute;
+  DashboardInterviewQuestionBankRoute: typeof DashboardInterviewQuestionBankRoute;
+  DashboardInterviewQuestionsRoute: typeof DashboardInterviewQuestionsRoute;
+  DashboardInterviewReviewRoute: typeof DashboardInterviewReviewRoute;
+  DashboardInterviewSchedulerRoute: typeof DashboardInterviewSchedulerRoute;
+  DashboardInterviewStarMethodRoute: typeof DashboardInterviewStarMethodRoute;
+  DashboardInterviewTipsRoute: typeof DashboardInterviewTipsRoute;
+  DashboardInterviewVideoAnalysisRoute: typeof DashboardInterviewVideoAnalysisRoute;
+  DashboardInterviewVoiceInterviewRoute: typeof DashboardInterviewVoiceInterviewRoute;
+  DashboardJobsAggregatorRoute: typeof DashboardJobsAggregatorRoute;
+  DashboardJobsAlertsRoute: typeof DashboardJobsAlertsRoute;
+  DashboardJobsApplicationsRoute: typeof DashboardJobsApplicationsRoute;
+  DashboardJobsBoardRoute: typeof DashboardJobsBoardRoute;
+  DashboardJobsCultureMatchRoute: typeof DashboardJobsCultureMatchRoute;
+  DashboardJobsDeadlinesRoute: typeof DashboardJobsDeadlinesRoute;
+  DashboardJobsEmployersRoute: typeof DashboardJobsEmployersRoute;
+  DashboardJobsFollowUpRoute: typeof DashboardJobsFollowUpRoute;
+  DashboardJobsInsightsRoute: typeof DashboardJobsInsightsRoute;
+  DashboardJobsRecommendationsRoute: typeof DashboardJobsRecommendationsRoute;
+  DashboardJobsResearchRoute: typeof DashboardJobsResearchRoute;
+  DashboardJobsSearchRoute: typeof DashboardJobsSearchRoute;
+  DashboardJobsTrendsRoute: typeof DashboardJobsTrendsRoute;
+  DashboardLearnAssessmentsRoute: typeof DashboardLearnAssessmentsRoute;
+  DashboardLearnPathsRoute: typeof DashboardLearnPathsRoute;
+  DashboardLearnRecommendationsRoute: typeof DashboardLearnRecommendationsRoute;
+  DashboardLinkedinContentRoute: typeof DashboardLinkedinContentRoute;
+  DashboardLinkedinMessagesRoute: typeof DashboardLinkedinMessagesRoute;
+  DashboardLinkedinStrategiesRoute: typeof DashboardLinkedinStrategiesRoute;
+  DashboardNetworkingEventsRoute: typeof DashboardNetworkingEventsRoute;
+  DashboardNetworkingMentorsRoute: typeof DashboardNetworkingMentorsRoute;
+  DashboardNetworkingMessageTemplatesRoute: typeof DashboardNetworkingMessageTemplatesRoute;
+  DashboardNetworkingNetworkMapRoute: typeof DashboardNetworkingNetworkMapRoute;
+  DashboardNetworkingRecommendationRequestRoute: typeof DashboardNetworkingRecommendationRequestRoute;
+  DashboardNetworkingReferencesRoute: typeof DashboardNetworkingReferencesRoute;
+  DashboardPartnerApplicationsRoute: typeof DashboardPartnerApplicationsRoute;
+  DashboardPartnerJobsRoute: typeof DashboardPartnerJobsRoute;
+  DashboardPartnerPostJobRoute: typeof DashboardPartnerPostJobRoute;
+  DashboardPortfolioFreelanceRoute: typeof DashboardPortfolioFreelanceRoute;
+  DashboardPortfolioSamplesRoute: typeof DashboardPortfolioSamplesRoute;
+  DashboardProfileAchievementsRoute: typeof DashboardProfileAchievementsRoute;
+  DashboardResourcesCompareRoute: typeof DashboardResourcesCompareRoute;
+  DashboardResourcesMyProgramsRoute: typeof DashboardResourcesMyProgramsRoute;
+  DashboardResourcesProgramsRoute: typeof DashboardResourcesProgramsRouteWithChildren;
+  DashboardResourcesSuccessStoriesRoute: typeof DashboardResourcesSuccessStoriesRoute;
+  DashboardResumesAiWizardRoute: typeof DashboardResumesAiWizardRoute;
+  DashboardResumesCompareRoute: typeof DashboardResumesCompareRoute;
+  DashboardResumesExperienceOptimizerRoute: typeof DashboardResumesExperienceOptimizerRoute;
+  DashboardResumesHistoryRoute: typeof DashboardResumesHistoryRoute;
+  DashboardResumesScoringRoute: typeof DashboardResumesScoringRoute;
   DashboardSettingsAiRoute: typeof DashboardSettingsAiRoute;
   DashboardSettingsApiKeysRoute: typeof DashboardSettingsApiKeysRoute;
   DashboardSettingsDangerZoneRoute: typeof DashboardSettingsDangerZoneRoute;
+  DashboardSettingsDataRoute: typeof DashboardSettingsDataRoute;
   DashboardSettingsPreferencesRoute: typeof DashboardSettingsPreferencesRoute;
   DashboardSettingsProfileRoute: typeof DashboardSettingsProfileRoute;
+  DashboardTemplatesCoverLettersRoute: typeof DashboardTemplatesCoverLettersRoute;
+  DashboardTemplatesGalleryRoute: typeof DashboardTemplatesGalleryRoute;
+  DashboardToolsAiHistoryRoute: typeof DashboardToolsAiHistoryRoute;
+  DashboardToolsAiWriterRoute: typeof DashboardToolsAiWriterRoute;
+  DashboardToolsAtsCheckerRoute: typeof DashboardToolsAtsCheckerRoute;
+  DashboardToolsCoverLetterRoute: typeof DashboardToolsCoverLetterRoute;
+  DashboardToolsElevatorPitchRoute: typeof DashboardToolsElevatorPitchRoute;
+  DashboardToolsJobMatchRoute: typeof DashboardToolsJobMatchRoute;
+  DashboardToolsJobResourcesRoute: typeof DashboardToolsJobResourcesRoute;
+  DashboardToolsKeywordsRoute: typeof DashboardToolsKeywordsRoute;
+  DashboardToolsLinkedinRoute: typeof DashboardToolsLinkedinRoute;
+  DashboardToolsNegotiationRoute: typeof DashboardToolsNegotiationRoute;
+  DashboardToolsQrCodeRoute: typeof DashboardToolsQrCodeRoute;
+  DashboardToolsRemoteReadinessRoute: typeof DashboardToolsRemoteReadinessRoute;
+  DashboardToolsResumeGalleryRoute: typeof DashboardToolsResumeGalleryRoute;
+  DashboardToolsSalaryCalculatorRoute: typeof DashboardToolsSalaryCalculatorRoute;
+  DashboardToolsThankYouRoute: typeof DashboardToolsThankYouRoute;
+  DashboardAiMentorIndexRoute: typeof DashboardAiMentorIndexRoute;
+  DashboardAnalyticsIndexRoute: typeof DashboardAnalyticsIndexRoute;
+  DashboardCareerIndexRoute: typeof DashboardCareerIndexRoute;
+  DashboardHelpIndexRoute: typeof DashboardHelpIndexRoute;
+  DashboardInterviewIndexRoute: typeof DashboardInterviewIndexRoute;
+  DashboardJobsIndexRoute: typeof DashboardJobsIndexRoute;
+  DashboardLearnIndexRoute: typeof DashboardLearnIndexRoute;
+  DashboardLinkedinIndexRoute: typeof DashboardLinkedinIndexRoute;
+  DashboardNetworkingIndexRoute: typeof DashboardNetworkingIndexRoute;
+  DashboardPartnerIndexRoute: typeof DashboardPartnerIndexRoute;
+  DashboardPortfolioIndexRoute: typeof DashboardPortfolioIndexRoute;
+  DashboardProfileIndexRoute: typeof DashboardProfileIndexRoute;
+  DashboardProgressIndexRoute: typeof DashboardProgressIndexRoute;
+  DashboardResourcesIndexRoute: typeof DashboardResourcesIndexRoute;
   DashboardResumesIndexRoute: typeof DashboardResumesIndexRoute;
+  DashboardSettingsIndexRoute: typeof DashboardSettingsIndexRoute;
+  DashboardTemplatesIndexRoute: typeof DashboardTemplatesIndexRoute;
+  DashboardToolsIndexRoute: typeof DashboardToolsIndexRoute;
+  DashboardWikiIndexRoute: typeof DashboardWikiIndexRoute;
+  DashboardInterviewResultsSessionIdRoute: typeof DashboardInterviewResultsSessionIdRoute;
+  DashboardInterviewSessionSessionIdRoute: typeof DashboardInterviewSessionSessionIdRoute;
+  DashboardWikiCategorySlugArticleSlugRoute: typeof DashboardWikiCategorySlugArticleSlugRoute;
   DashboardSettingsAuthenticationIndexRoute: typeof DashboardSettingsAuthenticationIndexRoute;
+  DashboardWikiCategorySlugIndexRoute: typeof DashboardWikiCategorySlugIndexRoute;
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardAdminRouteRoute: DashboardAdminRouteRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardAiMentorConversationsRoute: DashboardAiMentorConversationsRoute,
+  DashboardAiMentorMarketRoute: DashboardAiMentorMarketRoute,
+  DashboardAnalyticsActivityRoute: DashboardAnalyticsActivityRoute,
+  DashboardAnalyticsAiMatrixRoute: DashboardAnalyticsAiMatrixRoute,
+  DashboardAnalyticsAiUsageRoute: DashboardAnalyticsAiUsageRoute,
+  DashboardAnalyticsProgressRoute: DashboardAnalyticsProgressRoute,
+  DashboardAnalyticsReportsRoute: DashboardAnalyticsReportsRoute,
+  DashboardCareerAssessmentRoute: DashboardCareerAssessmentRoute,
+  DashboardCareerBrandingRoute: DashboardCareerBrandingRoute,
+  DashboardCareerCertificationsRoute: DashboardCareerCertificationsRoute,
+  DashboardCareerCoachingRoute: DashboardCareerCoachingRoute,
+  DashboardCareerGapAnalysisRoute: DashboardCareerGapAnalysisRoute,
+  DashboardCareerInsightsRoute: DashboardCareerInsightsRoute,
+  DashboardCareerPredictionsRoute: DashboardCareerPredictionsRoute,
+  DashboardCareerQuizRoute: DashboardCareerQuizRoute,
+  DashboardCareerReviewPrepRoute: DashboardCareerReviewPrepRoute,
+  DashboardCareerRoadmapRoute: DashboardCareerRoadmapRoute,
+  DashboardCareerSkillGapRoute: DashboardCareerSkillGapRoute,
+  DashboardCareerSkillsRoute: DashboardCareerSkillsRoute,
+  DashboardCareerSkillsQuizRoute: DashboardCareerSkillsQuizRoute,
+  DashboardCareerStudyPlanRoute: DashboardCareerStudyPlanRoute,
+  DashboardCareerTimelineRoute: DashboardCareerTimelineRoute,
+  DashboardCareerTransitionRoute: DashboardCareerTransitionRoute,
+  DashboardInterviewAnalyticsRoute: DashboardInterviewAnalyticsRoute,
+  DashboardInterviewChatbotRoute: DashboardInterviewChatbotRoute,
+  DashboardInterviewChecklistRoute: DashboardInterviewChecklistRoute,
+  DashboardInterviewConfidenceRoute: DashboardInterviewConfidenceRoute,
+  DashboardInterviewFeedbackRoute: DashboardInterviewFeedbackRoute,
+  DashboardInterviewMockAiRoute: DashboardInterviewMockAiRoute,
+  DashboardInterviewNotesRoute: DashboardInterviewNotesRoute,
+  DashboardInterviewOutfitRoute: DashboardInterviewOutfitRoute,
+  DashboardInterviewPerformanceRoute: DashboardInterviewPerformanceRoute,
+  DashboardInterviewPracticeRoute: DashboardInterviewPracticeRoute,
+  DashboardInterviewQuestionBankRoute: DashboardInterviewQuestionBankRoute,
+  DashboardInterviewQuestionsRoute: DashboardInterviewQuestionsRoute,
+  DashboardInterviewReviewRoute: DashboardInterviewReviewRoute,
+  DashboardInterviewSchedulerRoute: DashboardInterviewSchedulerRoute,
+  DashboardInterviewStarMethodRoute: DashboardInterviewStarMethodRoute,
+  DashboardInterviewTipsRoute: DashboardInterviewTipsRoute,
+  DashboardInterviewVideoAnalysisRoute: DashboardInterviewVideoAnalysisRoute,
+  DashboardInterviewVoiceInterviewRoute: DashboardInterviewVoiceInterviewRoute,
+  DashboardJobsAggregatorRoute: DashboardJobsAggregatorRoute,
+  DashboardJobsAlertsRoute: DashboardJobsAlertsRoute,
+  DashboardJobsApplicationsRoute: DashboardJobsApplicationsRoute,
+  DashboardJobsBoardRoute: DashboardJobsBoardRoute,
+  DashboardJobsCultureMatchRoute: DashboardJobsCultureMatchRoute,
+  DashboardJobsDeadlinesRoute: DashboardJobsDeadlinesRoute,
+  DashboardJobsEmployersRoute: DashboardJobsEmployersRoute,
+  DashboardJobsFollowUpRoute: DashboardJobsFollowUpRoute,
+  DashboardJobsInsightsRoute: DashboardJobsInsightsRoute,
+  DashboardJobsRecommendationsRoute: DashboardJobsRecommendationsRoute,
+  DashboardJobsResearchRoute: DashboardJobsResearchRoute,
+  DashboardJobsSearchRoute: DashboardJobsSearchRoute,
+  DashboardJobsTrendsRoute: DashboardJobsTrendsRoute,
+  DashboardLearnAssessmentsRoute: DashboardLearnAssessmentsRoute,
+  DashboardLearnPathsRoute: DashboardLearnPathsRoute,
+  DashboardLearnRecommendationsRoute: DashboardLearnRecommendationsRoute,
+  DashboardLinkedinContentRoute: DashboardLinkedinContentRoute,
+  DashboardLinkedinMessagesRoute: DashboardLinkedinMessagesRoute,
+  DashboardLinkedinStrategiesRoute: DashboardLinkedinStrategiesRoute,
+  DashboardNetworkingEventsRoute: DashboardNetworkingEventsRoute,
+  DashboardNetworkingMentorsRoute: DashboardNetworkingMentorsRoute,
+  DashboardNetworkingMessageTemplatesRoute:
+    DashboardNetworkingMessageTemplatesRoute,
+  DashboardNetworkingNetworkMapRoute: DashboardNetworkingNetworkMapRoute,
+  DashboardNetworkingRecommendationRequestRoute:
+    DashboardNetworkingRecommendationRequestRoute,
+  DashboardNetworkingReferencesRoute: DashboardNetworkingReferencesRoute,
+  DashboardPartnerApplicationsRoute: DashboardPartnerApplicationsRoute,
+  DashboardPartnerJobsRoute: DashboardPartnerJobsRoute,
+  DashboardPartnerPostJobRoute: DashboardPartnerPostJobRoute,
+  DashboardPortfolioFreelanceRoute: DashboardPortfolioFreelanceRoute,
+  DashboardPortfolioSamplesRoute: DashboardPortfolioSamplesRoute,
+  DashboardProfileAchievementsRoute: DashboardProfileAchievementsRoute,
+  DashboardResourcesCompareRoute: DashboardResourcesCompareRoute,
+  DashboardResourcesMyProgramsRoute: DashboardResourcesMyProgramsRoute,
+  DashboardResourcesProgramsRoute: DashboardResourcesProgramsRouteWithChildren,
+  DashboardResourcesSuccessStoriesRoute: DashboardResourcesSuccessStoriesRoute,
+  DashboardResumesAiWizardRoute: DashboardResumesAiWizardRoute,
+  DashboardResumesCompareRoute: DashboardResumesCompareRoute,
+  DashboardResumesExperienceOptimizerRoute:
+    DashboardResumesExperienceOptimizerRoute,
+  DashboardResumesHistoryRoute: DashboardResumesHistoryRoute,
+  DashboardResumesScoringRoute: DashboardResumesScoringRoute,
   DashboardSettingsAiRoute: DashboardSettingsAiRoute,
   DashboardSettingsApiKeysRoute: DashboardSettingsApiKeysRoute,
   DashboardSettingsDangerZoneRoute: DashboardSettingsDangerZoneRoute,
+  DashboardSettingsDataRoute: DashboardSettingsDataRoute,
   DashboardSettingsPreferencesRoute: DashboardSettingsPreferencesRoute,
   DashboardSettingsProfileRoute: DashboardSettingsProfileRoute,
+  DashboardTemplatesCoverLettersRoute: DashboardTemplatesCoverLettersRoute,
+  DashboardTemplatesGalleryRoute: DashboardTemplatesGalleryRoute,
+  DashboardToolsAiHistoryRoute: DashboardToolsAiHistoryRoute,
+  DashboardToolsAiWriterRoute: DashboardToolsAiWriterRoute,
+  DashboardToolsAtsCheckerRoute: DashboardToolsAtsCheckerRoute,
+  DashboardToolsCoverLetterRoute: DashboardToolsCoverLetterRoute,
+  DashboardToolsElevatorPitchRoute: DashboardToolsElevatorPitchRoute,
+  DashboardToolsJobMatchRoute: DashboardToolsJobMatchRoute,
+  DashboardToolsJobResourcesRoute: DashboardToolsJobResourcesRoute,
+  DashboardToolsKeywordsRoute: DashboardToolsKeywordsRoute,
+  DashboardToolsLinkedinRoute: DashboardToolsLinkedinRoute,
+  DashboardToolsNegotiationRoute: DashboardToolsNegotiationRoute,
+  DashboardToolsQrCodeRoute: DashboardToolsQrCodeRoute,
+  DashboardToolsRemoteReadinessRoute: DashboardToolsRemoteReadinessRoute,
+  DashboardToolsResumeGalleryRoute: DashboardToolsResumeGalleryRoute,
+  DashboardToolsSalaryCalculatorRoute: DashboardToolsSalaryCalculatorRoute,
+  DashboardToolsThankYouRoute: DashboardToolsThankYouRoute,
+  DashboardAiMentorIndexRoute: DashboardAiMentorIndexRoute,
+  DashboardAnalyticsIndexRoute: DashboardAnalyticsIndexRoute,
+  DashboardCareerIndexRoute: DashboardCareerIndexRoute,
+  DashboardHelpIndexRoute: DashboardHelpIndexRoute,
+  DashboardInterviewIndexRoute: DashboardInterviewIndexRoute,
+  DashboardJobsIndexRoute: DashboardJobsIndexRoute,
+  DashboardLearnIndexRoute: DashboardLearnIndexRoute,
+  DashboardLinkedinIndexRoute: DashboardLinkedinIndexRoute,
+  DashboardNetworkingIndexRoute: DashboardNetworkingIndexRoute,
+  DashboardPartnerIndexRoute: DashboardPartnerIndexRoute,
+  DashboardPortfolioIndexRoute: DashboardPortfolioIndexRoute,
+  DashboardProfileIndexRoute: DashboardProfileIndexRoute,
+  DashboardProgressIndexRoute: DashboardProgressIndexRoute,
+  DashboardResourcesIndexRoute: DashboardResourcesIndexRoute,
   DashboardResumesIndexRoute: DashboardResumesIndexRoute,
+  DashboardSettingsIndexRoute: DashboardSettingsIndexRoute,
+  DashboardTemplatesIndexRoute: DashboardTemplatesIndexRoute,
+  DashboardToolsIndexRoute: DashboardToolsIndexRoute,
+  DashboardWikiIndexRoute: DashboardWikiIndexRoute,
+  DashboardInterviewResultsSessionIdRoute:
+    DashboardInterviewResultsSessionIdRoute,
+  DashboardInterviewSessionSessionIdRoute:
+    DashboardInterviewSessionSessionIdRoute,
+  DashboardWikiCategorySlugArticleSlugRoute:
+    DashboardWikiCategorySlugArticleSlugRoute,
   DashboardSettingsAuthenticationIndexRoute:
     DashboardSettingsAuthenticationIndexRoute,
+  DashboardWikiCategorySlugIndexRoute: DashboardWikiCategorySlugIndexRoute,
 };
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
@@ -687,13 +3927,27 @@ const BuilderResumeIdRouteRouteChildren: BuilderResumeIdRouteRouteChildren = {
 const BuilderResumeIdRouteRouteWithChildren =
   BuilderResumeIdRouteRoute._addFileChildren(BuilderResumeIdRouteRouteChildren);
 
+interface UsernameSlugRouteChildren {
+  UsernameSlugCardRoute: typeof UsernameSlugCardRoute;
+  UsernameSlugIndexRoute: typeof UsernameSlugIndexRoute;
+}
+
+const UsernameSlugRouteChildren: UsernameSlugRouteChildren = {
+  UsernameSlugCardRoute: UsernameSlugCardRoute,
+  UsernameSlugIndexRoute: UsernameSlugIndexRoute,
+};
+
+const UsernameSlugRouteWithChildren = UsernameSlugRoute._addFileChildren(
+  UsernameSlugRouteChildren,
+);
+
 const rootRouteChildren: RootRouteChildren = {
   HomeRouteRoute: HomeRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   SchemaDotjsonRoute: SchemaDotjsonRoute,
   BuilderResumeIdRouteRoute: BuilderResumeIdRouteRouteWithChildren,
-  UsernameSlugRoute: UsernameSlugRoute,
+  UsernameSlugRoute: UsernameSlugRouteWithChildren,
   ApiHealthRoute: ApiHealthRoute,
   PrinterResumeIdRoute: PrinterResumeIdRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,

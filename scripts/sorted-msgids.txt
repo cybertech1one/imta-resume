@@ -1,0 +1,5122 @@
+"
+"Dear Professor [NOM],\n"
+"\n"
+"I am reaching out regarding my application for [PROGRAMME/POSTE].\n"
+"\n"
+"Having taken your [MATIERE] courses and appreciated your teaching, I would be very grateful if you would agree to write a recommendation letter on my behalf.\n"
+"\n"
+"I can provide any necessary documents (resume, cover letter, form) as needed.\n"
+"\n"
+"Thank you in advance for your consideration.\n"
+"\n"
+"Respectfully,\n"
+"[VOTRE NOM]
+"
+"Dear Sir/Madam,\n"
+"\n"
+"I am happy to recommend [NOM_CANDIDAT] with whom I had the pleasure of collaborating for [DUREE] at [ENTREPRISE].\n"
+"\n"
+"Our collaboration on [PROJET] allowed me to appreciate their many professional qualities. [NOM_CANDIDAT] is an exceptional colleague, always available and positive.\n"
+"\n"
+"What distinguishes [NOM_CANDIDAT]:\n"
+"- Excellent teamwork ability\n"
+"- Creative resolution of complex problems\n"
+"- Clear and supportive communication\n"
+"- Reliability and commitment to deadlines\n"
+"\n"
+"I do not hesitate to recommend [NOM_CANDIDAT] for any professional opportunity. Any team would be lucky to have them.\n"
+"\n"
+"Best regards,\n"
+"[SIGNATAIRE]
+"
+"Dear Sir/Madam,\n"
+"\n"
+"I am pleased to recommend [NOM_CANDIDAT] for your Master's program. As the professor supervising their research project, I have had the opportunity to appreciate their exceptional qualities.\n"
+"\n"
+"[NOM_CANDIDAT] demonstrated remarkable scientific rigor and an outstanding analytical ability. Their work on [SUJET] showed deep technical mastery and rare intellectual creativity.\n"
+"\n"
+"Beyond their academic skills, [NOM_CANDIDAT] possesses excellent interpersonal qualities. They collaborated effectively with the research team and contributed positively to seminars.\n"
+"\n"
+"I therefore recommend [NOM_CANDIDAT] without any reservation for your program. I am confident they will excel.\n"
+"\n"
+"Respectfully,\n"
+"[SIGNATAIRE]
+"
+"Dear Sir/Madam,\n"
+"\n"
+"It is with great enthusiasm that I recommend [NOM_CANDIDAT] for the position of [POSTE] within your company.\n"
+"\n"
+"As [NOM_CANDIDAT]'s manager for [DUREE] years at [ENTREPRISE], I was able to observe their remarkable professional growth. They consistently exceeded our expectations and played a key role in several strategic projects.\n"
+"\n"
+"Among their main achievements:\n"
+"- Leadership on the [PROJET1] project generating [RESULTAT]\n"
+"- Process improvement in [DOMAINE] reducing costs by [POURCENTAGE]\n"
+"- Mentoring of [NOMBRE] junior team members\n"
+"\n"
+"[NOM_CANDIDAT] combines solid technical expertise with excellent communication and team management skills. They are an integrous, motivated professional always ready to take on new challenges.\n"
+"\n"
+"I strongly recommend them and remain available for any additional information.\n"
+"\n"
+"Best regards,\n"
+"[SIGNATAIRE]
+"
+"Dear [NOM],\n"
+"\n"
+"I am following up regarding my recommendation letter request for [OBJECTIF].\n"
+"\n"
+"I understand you have a busy schedule, but the deadline is approaching ([DATE]). If you need any additional information, please do not hesitate to contact me.\n"
+"\n"
+"I remain at your disposal and thank you in advance for your help.\n"
+"\n"
+"Best regards,\n"
+"[VOTRE_NOM]
+"
+"Dear [NOM],\n"
+"\n"
+"I hope you are doing well. I am reaching out because I am currently looking for new professional opportunities.\n"
+"\n"
+"Having had the pleasure of working with you at [ENTREPRISE], I would be honored if you would agree to serve as a professional reference for me.\n"
+"\n"
+"Your testimony about my work and skills would be very valuable for potential employers.\n"
+"\n"
+"I remain at your disposal for any additional information you may need.\n"
+"\n"
+"Best regards,\n"
+"[VOTRE NOM]
+"
+"Dear [NOM],\n"
+"\n"
+"I hope you are doing well. I am reaching out because I would like to apply for [OBJECTIF].\n"
+"\n"
+"Given our collaboration at [ENTREPRISE] and your knowledge of my work, I would be very honored if you would agree to write a recommendation letter on my behalf.\n"
+"\n"
+"The submission deadline is [DATE]. I am happy to provide any useful documents (resume, job description, etc.).\n"
+"\n"
+"Here are some points you could potentially mention:\n"
+"[POINTS_CLES]\n"
+"\n"
+"I would completely understand if you are unable to accommodate this request. Otherwise, I would be extremely grateful.\n"
+"\n"
+"Best regards,\n"
+"[VOTRE_NOM]
+"
+"Dear [NOM],\n"
+"\n"
+"I wanted to sincerely thank you for taking the time to write a recommendation letter on my behalf.\n"
+"\n"
+"Your support means a lot to me and I greatly appreciate the trust you have placed in me. I will be sure to keep you informed about the outcome of my application.\n"
+"\n"
+"Thank you again for your invaluable help.\n"
+"\n"
+"With all my gratitude,\n"
+"[VOTRE_NOM]
+"
+"E.g.: Increased sales by 25%\n"
+"Launched a new product
+"
+"Hello and welcome to this interview for the {currentProgramName} position. I am your virtual recruiter and I will ask you a few questions to get to know you better.\n"
+"\n"
+"Let's start with the first question:\n"
+"\n"
+"{firstQuestion}
+"
+"Hello {{NAME}},\n"
+"\n"
+"Your message here...\n"
+"\n"
+"Best regards,\n"
+"{{MY_NAME}}
+"
+"Hi [NOM],\n"
+"\n"
+"I hope you're doing well! I'm currently looking for a new position and I was wondering if you would agree to serve as a reference for me.\n"
+"\n"
+"Your feedback on our collaboration at [ENTREPRISE] could really help me in my search.\n"
+"\n"
+"Let me know if this works for you!\n"
+"\n"
+"Thanks in advance,\n"
+"[VOTRE NOM]
+"
+"Hi [NOM],\n"
+"\n"
+"I hope you're doing well! I'm writing because I'm applying for [OBJECTIF] and I would need a recommendation letter.\n"
+"\n"
+"You know my work well and I think your testimony would be very valuable. The deadline is [DATE].\n"
+"\n"
+"Some points you could mention:\n"
+"[POINTS_CLES]\n"
+"\n"
+"Let me know if this works for you. Thanks in advance!\n"
+"\n"
+"Best,\n"
+"[VOTRE_NOM]
+"
+"Learn the STAR method\n"
+"Prepare 10 examples\n"
+"Practice with a mentor
+"
+"One point per line:\n"
+"- Digital transformation projects\n"
+"- Company culture\n"
+"- Growth opportunities
+"
+"Practice the STAR method\n"
+"Prepare concrete examples
+"
+"Thank you very much for your answers. The interview is now complete.\n"
+"\n"
+"Your overall score is {overallScore}%.\n"
+"\n"
+"{0}
+"
+"The certification and licensing section of a healthcare resume carries more weight than in virtually any other industry. Healthcare is regulated at federal, state, and institutional levels, and employers face significant legal liability if they hire someone whose credentials are not current or valid for the jurisdiction in which they practice. This section must be precise, complete, and easy to verify.\n"
+"\n"
+"Organize your certifications in a clear, scannable format. Lead with your primary professional license, such as your RN, LPN, MD, DO, PA, or therapy license. Include the full license title, the issuing state board, your license number if appropriate for your region, and the expiration date. If you hold licenses in multiple states or participate in the Nurse Licensure Compact, note this explicitly as multi-state licensure significantly increases your value to healthcare systems operating across state lines.\n"
+"\n"
+"Below your primary license, list specialty certifications in order of relevance to the position you are targeting. Group life support certifications together (BLS, ACLS, PALS, NRP) and then list specialty certifications (CCRN, CEN, OCN, CNOR, and similar). For each certification, include the certifying body and the expiration date. If you have recently passed a certification exam and are awaiting the official credential, you may note it as pending with the expected date.\n"
+"\n"
+"Compliance training is another area where healthcare resumes can differentiate themselves. Many employers require annual completion of HIPAA privacy training, infection control education, cultural competency modules, and workplace safety courses. While you do not need to list every annual module, noting your familiarity with major compliance frameworks signals that you understand the regulatory environment and will not require extensive onboarding in these areas. If you have served as a compliance champion, educator, or auditor within your unit, highlight these roles as they demonstrate leadership beyond direct patient care.
+"
+"Very good. Let's move on to the next question:\n"
+"\n"
+"{nextQuestion}
+${0}/hour
+'What are the growth opportunities?'
+'What are the team's current challenges?'
+'What does a typical day look like?'
+'What qualities are you looking for?'
+(High anchor for negotiation)
+({0} reviews)
++1 555-123-4567
++{0} more
++{0}% this month
+0 years
+0-1 year
+0-2 yrs
+1 certification in progress
+1 interviewer
+1-2 months
+1-3 years
+1-3 yrs
+10+ yrs
+11 or more programs
+12 percent growth
+2+ years
+2-4 interviewers
+2-5 yrs
+20 minutes duration
+20+ years
+2025-2026 Outlook
+3 active certifications
+3-5 questions with immediate feedback after each answer. Ideal for quick practice.
+3-5 years
+30 minutes
+30-90 days
+36 months
+4 languages available
+45 minutes
+5 minutes duration
+5 minutes quick quiz
+5+ ans d'expérience
+5+ years
+5-10 minutes per question for good analysis
+5-10 yrs
+5-Year Career Projection
+60 minutes
+90 minutes
+94 percent precision
+<0>Duration:</0> {0}
+<0>Prerequisites:</0> {0}
+<0>Salary:</0> {0}
+A badge or seal representing your personal brand
+A classic briefcase is suitable for formal sectors
+A confirmation link has been sent to your current email address. Check your inbox to confirm the change.
+A favor to ask
+A new verification link has been sent to your email address. Check your inbox.
+A professional photo increases your chances of being contacted by 14x. Check these essential points.
+A recognizable symbol linked to your area of expertise
+A renouveler
+A score of 80+ increases your chances of appearing in recruiter searches by 40x.
+A simple smart watch is acceptable in tech
+A simple timer for your meditation or free breathing sessions
+A small favor to ask
+A smart casual style is appropriate: dark jeans, polo or casual shirt.
+A thank you message should be sent promptly after the interview or meeting to remain memorable.
+A unique geometric shape representing your professional essence
+A wedding band or simple ring is acceptable
+A well-written thank you letter can make the difference between two equally qualified candidates. It demonstrates your professionalism, motivation, and ability to communicate effectively. Remember to personalize each letter based on the specific interview.
+AI Career Coach
+AI Personalization
+AI Personalized
+AI Resume Wizard
+AI Video Analysis
+AI Voice Interview
+AI chatbot features
+AI features are not configured. Contact your administrator.
+AI features are not currently available. Please contact your administrator.
+AI is creating personalized questions for your {0} interview
+AI is generating personalized questions based on your profile...
+AI is not available. Please contact your administrator.
+AI language updated successfully.
+AI powered
+AI response
+AI suggestions loaded
+AI will analyze keywords to adapt your letter
+AI-Powered Career Intelligence
+AI-Powered Learning
+AI-generated content
+AI-generated content. Review for accuracy before use.
+ATS Checker
+ATS analysis completed
+Abandoned
+About {0} sessions to reach the optimal level
+Above Market (+{0})
+Above market
+Abstract Symbol
+Academic request
+Accedez aux offres d'emploi, aux employeurs et aux tendances du marche.
+Accelerate growth
+Accelerated industrial development
+Accents
+Accents, links
+Acceptable range
+Access
+Accessories
+Accomplishments
+Accomplishments (one per line)
+Accomplishments Journal
+Accuracy
+Achieved
+Achievement Quantifier
+Achievement quantified
+Acme Corp
+Acquired
+Acquired on
+Acquisition date
+Action items
+Action plan
+Action verbs
+Actions to take (one per line)
+Active Employers
+Active Job Listings
+Active Learning Paths
+Active Mentorship with {0}
+Active QR codes
+Active engagement multiplies your LinkedIn visibility by 5.
+Active listings
+Activity of the last 7 days
+Actuellement en emploi
+Adapt the tone to the situation
+Adapt your outfit based on weather conditions
+Adapt your outfit to the company culture
+Adapt your outfit to the sector (healthcare, industry, etc.)
+Adaptability
+Adaptive Quiz
+Add 10 learning resources
+Add Connection
+Add Event
+Add Feedback
+Add Flashcard
+Add Follow-up Reminder
+Add Learning Resource
+Add Networking Event
+Add New Connection
+Add New Contact
+Add New Goal
+Add Notes
+Add Reminder
+Add Resource
+Add Your First Goal
+Add Your Internships (Stages)
+Add a company...
+Add a deadline
+Add a keyword...
+Add a logo to the center of the QR code
+Add a new application to track
+Add a new contact to your network
+Add a new contact to your professional network
+Add a new deadline to track
+Add a new event to your networking calendar.
+Add a new skill to your profile
+Add a recommender
+Add a reminder
+Add a skill to your inventory
+Add an Event
+Add an action
+Add an application
+Add an entry to your confidence journal
+Add an event to your career timeline
+Add availability
+Add concrete examples
+Add contacts who can recommend you
+Add events with salary information to visualize your progression.
+Add exercises
+Add exercises from other tabs to create your daily routine
+Add keywords that recruiters search for
+Add metrics and concrete numbers to your accomplishments
+Add more technical skills mentioned in the job posting
+Add notes (interview date, contact, etc.)
+Add optional notes...
+Add resources to build your learning library.
+Add results
+Add skills to define and track your goals.
+Add skills to track your progress or generate an AI roadmap from your career goal.
+Add these skills to your profile to improve your visibility with recruiters
+Add to comparison
+Add your first feedback to start tracking.
+Add your first professional reference
+Add your notes from this session...
+Add your notes here...
+Add your skills in the gap analysis to see priorities
+Add your skills to see the visualization
+Added to favorites
+Added to your daily routine
+Additional Certifications
+Additional Resources
+Additional details...
+Additional information about this contact...
+Additional information about this reference...
+Additional notes about this request...
+Additional tips
+Address or online link
+Address or video link
+Adequate lighting on the face
+Adequate technical knowledge
+Adequate volume with some variations
+Adjust the lighting
+Adjust the tone to match your personality and the company
+Administrator
+Adopt a business casual style: dress pants, shirt, no tie required.
+Advanced - Very good!
+Advanced Filters
+Advantages
+Advice
+Advice for developing your skills
+Advice to management
+Affirmation Library
+Affirmation liked
+Affirmation of the day
+Affirmations
+After
+After optimization
+After the Interview
+Agree
+Ajouter
+Ajouter des domaines spécifiques (optionnel)
+Ajouter une compétence
+Alert System
+Alert activated
+Alert created successfully
+Alert deleted
+Alert name
+Alert paused
+Alert updated
+Aligned skills
+All AI features are available
+All Connections
+All Expertise
+All Flashcards
+All Languages
+All Locations
+All Matching Programs
+All Pricing
+All Ranked Programs
+All Strengths
+All Trajectories
+All alerts
+All categories
+All caught up!
+All companies
+All domains
+All fields
+All industries
+All keywords are present
+All levels
+All locations
+All preparation tools
+All regions
+All relationships
+All required skills are present
+All saved cover letter templates
+All scores
+All sectors
+All tools
+All types
+All your follow-ups are up to date!
+All your resume documents and data
+Allow enough time before following up. A follow-up too soon can come across as pushy.
+Allow extra time for unexpected delays
+Almost ready
+Alternative Paths
+Always have 2-3 questions to ask the recruiter to show your interest.
+Always personalize your letter for each application. Mention specific elements about the company, adapt the tone to the industry, and don't forget to proofread carefully before sending.
+Always say thank you
+Ambitious
+An error occurred while generating interview questions. Please try again.
+An error occurred while loading recordings.
+An error occurred while loading your data.
+An error occurred while loading your data. Please refresh the page or try again later.
+An error occurred while loading your favorites. Please try again.
+An error occurred while loading your study plan.
+Analyse en cours...
+Analyser
+Analyses
+Analysis Categories
+Analysis and Progress
+Analysis by Skill
+Analysis by question ({0} segments)
+Analysis completed successfully
+Analysis history
+Analytical Skills
+Analytical ability
+Analytical mindset
+Analytique
+Analyze My Skills
+Analyze a Video
+Analyze and improve your tone, pace, and clarity
+Analyze compatibility
+Analyze keywords
+Analyze the compatibility between your resume and a job listing. Get a detailed score, identify gaps, and receive personalized suggestions to improve your chances.
+Analyze your body language, eye contact, voice, and confidence. Get personalized feedback to shine during your video interviews.
+Analyze your interview recordings with our AI. Receive detailed feedback on your speaking pace, clarity, content, and body language.
+Analyze your performance, identify trends, and turn every piece of feedback into an opportunity for improvement.
+Analyze your resume's compatibility with ATS systems. Identify missing keywords, optimize density, and increase your chances of being selected.
+Analyzed
+Analyzed:
+Analyzer
+Annual salary ranges in MAD
+Annuler
+Answer
+Answer Improvement
+Answer evaluated!
+Answer questions to discover the programs that best match your personality and professional aspirations.
+Answer structure
+Answer the questions about your work style and values to see your compatibility with companies.
+Answer these questions to get a personalized outfit recommendation
+Answer {totalQuestions} questions to identify the training programs and careers that best match your personality, skills, and aspirations in the Moroccan job market.
+Anxiety Management
+Any quality
+Any results or next steps
+Applicant Tracking Systems (ATS) filter out 75% of resumes before a human ever sees them. Check your resume against industry standards to ensure it passes through.
+Application
+Application Follow-up - {{POSTE}}
+Application Management
+Application Tracking
+Application added
+Application date
+Application deleted
+Application recorded
+Application sent
+Application status
+Application status changed
+Application submitted successfully
+Application tracking and status history
+Application updated
+Applications
+Applications followed up with regular follow-ups are 3 times more likely to get a response. The ideal timing for the first follow-up is 7 days after sending your application. Don't forget to personalize each message!
+Applications sent
+Applied on
+Applied {daysSinceApplied} days ago
+Apply a template
+Apply for
+Apply now
+Appropriate distance from the camera
+Approve of CEO
+Approves of CEO
+April
+Architect of tomorrow's transformation
+Archived
+Archivées
+Are You Ready for Remote Work?
+Are you sure you want to delete \"{eventTitle}\"? This action cannot be undone.
+Area to improve
+Areas for Improvement
+Areas to improve
+Arms crossed for 15 seconds
+Arrive 15 minutes early
+Arrive early
+Arrive early to settle in and calm down.
+Art
+Articles, livres
+Artistic
+Ask anything about your career, the Moroccan job market, or IMTA programs
+Ask more questions about the company and team
+Assertive and impactful
+Assertive tone that inspires respect and confidence
+Assess Your Remote Work Readiness
+Assess your skills
+Assess your skills in communication, time management, technical proficiency, self-discipline, and workspace setup. Get personalized recommendations.
+Assess your technical, interpersonal, and leadership skills. Get a personalized improvement plan and track your progress.
+Assurance, transport, repas...
+At Market Rate
+At market average (Top {0}%)
+Attend
+Attending
+Attention to detail
+Aucun chat actif
+Aucune activite recente
+Aucune conversation
+Audience
+Audit
+August
+Authentic personal story
+Automatically extract key skills from a job posting
+Automobile
+Automotive
+Autre
+Availability
+Availability added
+Availability deleted
+Available 24/7
+Available AI Features
+Available Certifications
+Available fields: {{NAME}}, {{COMPANY}}, {{POSITION}}, {{MY_NAME}}, {{COMMON_INTEREST}}, {{SKILL}}
+Available hours per week:
+Avantages
+Average
+Average Gap
+Average Salary by Field
+Average annual growth
+Average cost
+Average difficulty
+Average monthly salaries for beginners in Morocco
+Average of all your quizzes
+Average pace of 145 words/min - slightly fast
+Average progress
+Average rate of 145 words/min - slightly fast
+Average salary
+Average score progress: {averageScore}%
+Average:
+Avg Match Score
+Avg Salary
+Avg Salary (MAD)
+Avg. Salary
+Avoid \"Looking for a job\" - it reduces opportunities
+Avoid any distractions during the interview
+Avoid bulky necklaces
+Avoid casual backpacks
+Avoid excessive caffeine
+Avoid generic messages. Mention a specific detail from the recipient's profile or career to show your genuine interest.
+Avoid heavy foods
+Avoid looking down or to the side for too long.
+Avoid nervous movements like rocking or fidgeting with objects.
+Avoid noisy or bulky jewelry
+Avoid over-optimization - vary your vocabulary
+Avoid overly bright colors or extravagant patterns
+Avoid overly strong perfumes or colognes
+Avoid passive phrasing (\"was responsible for\")
+Avoid prolonged frowning
+Avoid rocking or constant fidgeting
+Avoid skirts that are too short (above the knee)
+Avoid slouching after a few minutes
+Avoid sport or flashy watches
+Avoid staring at a single point for too long
+Avoid strong perfumes and excessive jewelry
+Avoid sudden or excessive movements
+Avoid touching your face while speaking
+Avoid white socks with a suit
+Awareness skills
+Axé sur les données et précis
+Bachelor's Degree
+Back to Gallery
+Back to Interview
+Background
+Background color
+Background color - hex code
+Background color - picker
+Background, motivations, values that define you
+Backgrounds
+Badge Collection
+Badges
+Badges & Achievements
+Badges Earned
+Badges Unlocked
+Badges earned
+Bags and Briefcases
+Balanced and formal
+Banque
+Base salary
+Based on analysis of
+Based on your answers, here are the careers and IMTA programs that best match your unique profile unique.
+Based on your answers, here are your dominant traits
+Based on your performance, here are tips to improve.
+Basic information
+Basé sur les données du marché marocain
+Be authentic
+Be cautious and ask additional questions before making a decision.
+Be concise and clear
+Be specific about your actions
+Be specific and concise
+Be specific: mention the location, approximate date, people involved, and general context.
+Be yourself while highlighting your skills and experiences.
+Before
+Before optimization
+Before the interview
+Before/After Comparison
+Before/After Optimization Comparison
+Beginner - Start building
+Behavioral
+Below Market ({0})
+Below market
+Belt, watch, discreet jewelry, professional bag
+Benchmarks not available
+Benefits
+Benefits Checklist
+Benefits Value
+Best Domain
+Best Match
+Best compatibility: {0}
+Best performing area: {0}
+Best recruitment platforms
+Best timing
+Between Seasons
+Beyond a simple job title, show your value
+Bi-weekly
+Bienveillant
+Bienvenue
+Bienvenue sur votre plateforme carriere !
+Bilan de competences
+Bio example:
+Bio with value proposition
+Biweekly
+Body Language
+Body Stillness
+Body language
+Body language analysis
+Bold and Inspiring
+Bold and ambitious
+Bonus
+Bonuses and Premiums
+Book
+Book Session
+Book a Session
+Book a session with your mentor to get started
+Boost your confidence
+Brand Score
+Brand Statement
+Brand Statement Generator
+Breakdown of your connections by type
+Breathe and relax
+Breathe before answering to organize your thoughts
+Breathe calmly and speak clearly
+Breathe deeply and remember that you are prepared.
+Breathing
+Breathing Exercises
+Breathing techniques to calm stress and anxiety
+Brief description of the event...
+Briefly looking up or to the side shows that you are thinking.
+Bring your documents
+Broaden your geographic search
+Browse Job Listings
+Browse all job offers and find the one that matches your profile.
+Browse available job opportunities from our partner companies.
+Browse job listings
+Browse mentors and send a request to get started
+Browse professional resume examples from various fields and experience levels. Use them as templates for your own resume.
+Browser notifications
+Budget Constraints
+Build Your Personal Brand
+Build a daily routine to maintain your confidence
+Build your network strategically. The goal: 500+ connections to maximize your visibility.
+Builder
+Bullet Point Generator
+Bullet points generated successfully
+Business casual
+Busy
+Button
+By Industry
+By category
+By date
+By following the recommended practice plan
+By industry
+By score
+C'est parti !
+CSV Format
+Calcul en cours...
+Calculate
+Calculate Match Score
+Calculate Your Market Value
+Calculate your potential salary
+Calculate your salary first to see career projections
+Calculate your salary first to see comparisons
+Call
+Calm and composed gestures
+Calm and thoughtful
+Camera Angle
+Camera Zone
+Camera at eye level
+Cancelled
+Capture every important detail of your interviews. Record questions, track your actions, and keep a record of your impressions for better preparation.
+Capture screen
+Cards Due for Review
+Care-oriented
+Career Path Finder
+Career Path Match
+Career Path Visualization
+Career Paths
+Career Prediction
+Career Predictions
+Career Progression
+Career Progression Timeline
+Career Quiz
+Career Timeline
+Career Tracking
+Career Trajectory
+Career assessment coming soon
+Career guidance main content
+Career guidance sections
+Career path created successfully
+Career path updated successfully
+Career preparation
+Careers
+Carefully analyze the required skills and qualifications.
+Carousel navigation
+Casablanca and Rabat offer the best salary opportunities
+Casablanca reste le hub economique avec le plus grand nombre d'opportunites, mais la concurrence y est aussi plus forte.
+Catalog
+Catchy and descriptive headline
+Categories
+Categorized featured stories (Portfolio, Testimonials, etc.)
+Category Distribution
+Catégories de compétences
+Certification
+Certification Management
+Certification Tracking
+Certification name cannot exceed 200 characters
+Certification name must be at least 2 characters
+Certs
+Challenge
+Challenges
+Challenges ahead
+Challenging
+Change scenario
+Change your career
+Changement de carrière
+Characters
+Characters added
+Chat avec votre mentor IA
+Chat with an AI career coach specialized in the Moroccan job market, IMTA programs, and engineering careers. Ask anything about your professional future.
+Check Results
+Check all documents
+Check benchmarks for your industry
+Check camera and microphone
+Check for spelling mistakes
+Check grammar, improve clarity and style of your text
+Check my Text
+Check the company's website and news before the interview.
+Check the condition of your clothes
+Check the route and time
+Check the warning signs you observed during your interviews or research
+Check the weather
+Check their social media (LinkedIn, Facebook)
+Check your setup before the interview
+Checking...
+Checklist Complete
+Checklist exported
+Checklist generated
+Checklist reset
+Chin parallel to the ground
+Choisir ce mentor
+Choisissez un nom qui vous convient. C'est votre coach personnel.
+Choisissez votre filiere
+Choose a QR code
+Choose a Tool
+Choose a logo concept
+Choose a logo style that represents your professional identity
+Choose a professional and structured bag
+Choose a resume to analyze...
+Choose a resume to compare
+Choose a role above to see your skills gap analysis
+Choose a role...
+Choose a scenario
+Choose an outfit suited to the industry and company culture.
+Choose another category
+Choose clean and pressed clothes
+Choose clothes you feel comfortable in
+Choose discreet and elegant jewelry
+Choose duration
+Choose the complete outfit
+Choose the language in which AI features will respond.
+Choose the length adapted to your context
+Choose the position you are targeting above to start the skills gap analysis.
+Choose the position you are targeting to analyze skill gaps
+Choose the position you want to move towards to analyze gaps
+Choose the right people
+Choose the tone that matches your personality and context
+Choose verbs suited to your level of responsibility
+Choose your field, program, and difficulty level
+Choose your outfit
+Choose your specialty for targeted questions
+Clarify what was personally expected of you in this situation.
+Clarify your specific role
+Clarity
+Clean and short nails
+Clean your shoes
+Clear Audio
+Clear and confident voice
+Clear and professional structure
+Clear and understandable articulation
+Clear response structure
+Clear structure that's easy for the recruiter to follow
+Clear value proposition
+Click a script on the left to see details and copy it
+Click an industry to see detailed benchmarks
+Click on each category to see details and suggestions
+Click on each question to see your response details and evaluation
+Click on the progress dots to navigate between questions
+Click the button above to generate suggestions
+Click to upload or drag and drop
+Client
+Close full screen
+Close unnecessary applications
+Close your eyes and focus on your breathing
+Coach Feedback
+Coach général
+Coaching failed
+Cohort Analytics
+Collapse all
+Colleague Letter - Collaboration
+Colleagues
+Collector
+Color Palette
+Color Palettes
+Colors communicate your professional personality
+Commencez par l'une de ces actions
+Commencez à discuter avec un mentor pour voir vos conversations ici
+Comment préférez-vous apprendre ?
+Comment préparer mon premier entretien ?
+Common Questions
+Common connection
+Common mistakes
+Communicate with your mentors
+Communicates enthusiasm, vitality, and action
+Communication
+Communication Agencies
+Communication Skills
+Communication, teamwork, time management
+Companies
+Companies actively hiring
+Company (optional)
+Company *
+Company Comparison
+Company Culture
+Company Intelligence
+Company Research
+Company Values
+Company culture
+Company culture assessment
+Company is required
+Company name cannot exceed 100 characters
+Company size
+Company/Organization
+Compare
+Compare ({0})
+Compare Alternative Paths
+Compare Companies
+Compare Paths
+Compare details of {0} selected listings
+Compare mode
+Compare selected companies side by side
+Compare skill requirements across different industries
+Compare your resume with a job listing
+Compare your salary with industry benchmarks in Morocco
+Compare your skills with industry average levels
+Comparison Result
+Comparison of your current levels with role requirements
+Comparison of your skills with role requirements
+Comparison to successful candidates
+Comparison with Similar Roles
+Compatibilite Culturelle
+Compatibility
+Compatibility Analysis
+Compatibility Calculator
+Compatibility Score
+Compatible
+Compatible Companies
+Compensation records and history
+Competency
+Competing Offer Amount (DH/month)
+Competing Offer?
+Complete 5 milestones
+Complete AI simulation
+Complete Career Center
+Complete History
+Complete IMTA Assessment
+Complete LinkedIn profiles receive 40x more views than incomplete ones. Recruiters spend an average of 6 seconds scanning a profile - optimize every element to make a good impression immediately.
+Complete a few practice sessions to receive personalized tips.
+Complete a few sessions to generate a tailored improvement plan
+Complete all tasks for a week
+Complete analysis
+Complete checklist for the big day
+Complete data export including all relationships
+Complete more sessions to identify areas for improvement
+Complete multiple sessions to see your progress
+Complete online course
+Complete performance report
+Complete the 5-step wizard in the \"Statement\" tab
+Complete the checklist in the \"Social Media\" tab
+Complete the quiz to see your results.
+Complete the quiz to start tracking your progress.
+Complete the quizzes about your work style and values to generate your cultural profile personalized.
+Complete your assessment
+Complete your evaluation first to compare companies.
+Complete your first STAR exercise to see your history here.
+Complete your first quiz to see your history here.
+Complete your first study session
+Complete!
+Completed Goals
+Completed Sessions
+Completed {0}
+Completeness Score
+Complex problem solving
+Compétences
+Compétences activement recherchées par les employeurs
+Compétences avec la demande en plus forte croissance
+Compétences en hausse
+Compétences les plus recherchées
+Compétences recherchées
+Compétences regroupées par catégorie
+Compétences relationnelles
+Concevez des CV professionnels avec des modeles adaptes a votre domaine.
+Concevez un mentor personnalisé adapté à vos besoins
+Concise presentation with keywords and personality
+Conference
+Confidence
+Confidence Exercises
+Confidence Indicators
+Confidence Journal
+Confidence: {0}%
+Confident and professional conclusion
+Configuration du mentor IA
+Configuration loaded
+Configure a reminder for this interview
+Configure reminders for your application follow-ups
+Configure settings for printing
+Configure your customized interview session
+Configure your preferences and generate recommendations
+Configure your preferences to get more relevant recommendations
+Configure your recommendation letter request
+Configure your simulation settings
+Confirmé
+Conflict Resolution
+Congratulations!
+Congratulations! Discover below the careers and IMTA programs that best match your unique profile.
+Congratulations! You have all the required skills for this role.
+Congratulations! You have all the required skills.
+Congratulations! Your personal brand is solid and well-defined.
+Connect to the target role
+Connection
+Connection Strategies
+Connection Strength
+Connection Strength: {0}
+Connection added
+Connection removed
+Connection requests are limited. Be impactful and make them want to accept your invitation.
+Connection timed out. Please retry.
+Connections you haven't interacted with recently
+Consecutive days
+Consistent profile photo
+Constraints (select all that apply)
+Consulting
+Contact Follow-up
+Contact added
+Contact button or main action clearly visible
+Contact deleted
+Contact name
+Contact updated
+Contacts imported
+Contacts made
+Content generated
+Content quality
+Context
+Context, challenge, solution, results for each project
+Continue Learning
+Continue Your Preparation
+Continue adding feedback so we can identify patterns.
+Continue standing straight and open
+Continue your Preparation
+Continuer
+Continuer la discussion
+Contract types
+Convention Center, San Francisco
+Conversation
+Conversations actives
+Conversations, questions-réponses
+Conversion rate
+Copy all
+Copy all keywords
+Copy and Mark as Sent
+Copy embed code
+Copy letter
+Copy message
+Copy template
+Copy this code to embed the QR code on your website
+Copy this example
+Corporate / Finance
+Cost
+Cost Breakdown by Category
+Cost cannot be negative
+Cost cannot exceed 1,000,000
+Cost of Living
+Cost of living
+Costs
+Could not connect to the AI service. Please check your connection and try again.
+Counter
+Counter-Offer Calculator
+Course
+Cover Letter (Optional)
+Cover image aligned with your brand
+Cover letter
+Cover letter deleted
+Cover letter generated
+Cover letter generated successfully!
+Cover letter saved!
+Create Flashcard
+Create Interview Notes
+Create Notes
+Create a Goal
+Create a Personalized Study Plan
+Create a QR code
+Create a Study Plan
+Create a compelling pitch in a few steps. Choose your duration, adapt to the context, and practice until perfection.
+Create a compelling summary that immediately captures recruiters' attention
+Create a customized practice session
+Create a goal
+Create a letter
+Create a new template
+Create a personalized and professional cover letter
+Create a personalized thank you letter after your interview. A professional gesture that can make the difference in your application.
+Create a phase
+Create a pitch
+Create a pitch first in the Builder tab
+Create a professional resume tailored to Moroccan companies and prepare your interviews with our comprehensive platform.
+Create a reminder to follow up with {selectedNodeName}
+Create a resume
+Create a resume tailored to your target industry with our smart builder.
+Create a template
+Create a unique and memorable professional identity. From your brand statement to your online presence, become a reference in your field.
+Create alert
+Create an action
+Create an alert
+Create an alert to start receiving matches
+Create an email to contact
+Create an interview goal
+Create and save your pitches to find them here
+Create custom QR codes for your resumes. Easily share your professional profiles with recruiters and track scan statistics.
+Create flashcards to practice and reinforce your learning.
+Create follow-up actions with clear deadlines
+Create my path
+Create my resume
+Create new entries
+Create path
+Create personalized alerts and receive notifications for offers that perfectly match your criteria. Never miss an opportunity again.
+Create personalized and impactful cover letters powered by artificial intelligence. Choose your template, adjust the tone, and let the magic happen.
+Create personalized learning roadmaps with AI assistance. Track your progress, manage resources, and achieve your career goals with smart study scheduling.
+Create template
+Create the key phases of your transition
+Create your brand statement
+Create your first QR code to find it here
+Create your first actions to move forward
+Create your first alert to receive personalized notifications
+Create your first career roadmap to start planning your path to success.
+Create your first goal based on your feedback.
+Create your first interview goal
+Create your first interview notes to stay organized.
+Create your first recommendation request
+Create your first transition phase
+Create your own message template. Use the {{FIELD}} syntax for customizable fields.
+Created on
+Creative / Design / Media
+Creative Purple
+Creative and Original
+Creative and innovative
+Creative innovation
+Creativity
+Creativity, Innovation
+Credential ID
+Credential ID cannot exceed 100 characters
+Creer mon premier CV
+Creer votre CV
+Criteria
+Critical
+Critical Gaps
+Critical gaps
+Création en cours...
+Créer
+Créer mon mentor
+Créez votre mentor IA
+Cultural Fit
+Culture
+Culture Match
+Culture score
+Currency
+Currency is required
+Current ATS score
+Current Field
+Current Level
+Current Level (1-5)
+Current Level: {0}%
+Current LinkedIn headline
+Current LinkedIn summary
+Current Role
+Current Salary (DH/month)
+Current Streak
+Current criteria:
+Current level
+Current level: {0}/5 | Required level: {1}/5 | Estimated time: {2} weeks
+Current position
+Current role
+Current salary (DH)
+Current score
+Current score:
+Current: {currentLevel}/5
+Currently Selected
+Custom Session
+Custom URL
+Custom banner
+Customer Service
+Customize
+Customize the appearance and language of the application
+Customize the appearance of your QR code
+Customize the bracketed elements before sending the email.
+Customize the bracketed elements before sending.
+Customize this script
+Customize your message before copying it
+Customize your training session
+Cycle
+Daily Requests Remaining
+Daily Tokens Remaining
+Daily tips
+Darija
+Dashboard navigation
+Data Scientist
+Date Obtained
+Date and time
+Date depassee
+Day
+Day Streak
+Days Left
+Deadline
+Deadline Tracking
+Deadline added
+Deadline completed
+Deadline created
+Deadline date
+Deadline date is required
+Deadline deleted
+Deadline passed
+Deadline time
+Deadline updated
+Deadline:
+December
+Decisive
+Declined
+Decouvrez les dernieres tendances, competences recherchees et opportunites sur le marche de l'emploi marocain. Donnees actualisees pour guider vos choix de carriere.
+Decouvrez votre plateforme carriere
+Deepen problem-solving examples
+Define Your Career Goal
+Define a SMART goal based on your feedback.
+Define a concrete action for your transition
+Define a key step of your transition
+Define a time slot when you are available for interviews
+Define and track your goals based on feedback received.
+Define how you communicate with your audience
+Define the key phases of your path
+Define what makes you unique and irreplaceable in the market
+Define your career goal to create a personalized path.
+Define your criteria to receive personalized offers
+Define your target role and timeline
+Define your target role to generate a personalized learning path
+Define your unique value proposition
+Delete API key
+Delete Roadmap?
+Delete Skill?
+Delete event
+Delete reminder
+Delete session {0}
+Delete this alert?
+Delete this application?
+Delete this certification?
+Delete this deadline?
+Delete this delivery?
+Delete this event?
+Delete this goal?
+Delete this interview?
+Delete this item?
+Delete this letter?
+Delete this path?
+Delete this skill?
+Deleted
+Delivery History
+Demand
+Demand Score
+Demand score
+Demand score: {0}/100 | Potential salary boost: +{1}
+Demonstrates real skills with concrete evidence
+Density
+Density details
+Des outils puissants pour preparer votre avenir professionnel
+Describe the certification and its benefits...
+Describe the concrete actions YOU took to accomplish the task.
+Describe the context and circumstances of the situation
+Describe the context and specific situation you were in.
+Describe the context of the situation. Where were you? When did it happen? Who was involved?
+Describe the feedback received...
+Describe your career aspirations...
+Describe your current responsibilities or paste a job description...
+Describe your experience...
+Describe your goal in detail...
+Describe your goal...
+Describe your responsibilities...
+Description (optional)
+Description deleted
+Deselect All
+Design / Media / Communications
+Design Principles for Creative Resumes
+Desired Salary (DH/month)
+Desired tone
+Detail by Category
+Detail the concrete actions you took
+Detailed AI analysis
+Detailed Analysis by Category
+Detailed Comparison
+Detailed STAR example
+Detailed Voice Analysis
+Detailed case studies
+Detailed salary analysis
+Detailed scores by category
+Details about this follow-up...
+Details of people met during the interview
+Detected keywords and their relevance
+Detected {0} times in your feedback
+Determine your optimal negotiation range based on your situation and the market.
+Develop Your Skills
+Development Goals
+Devices
+Did you know?
+Difficulty
+Difficulty Level
+Difficulty level
+Difficulty:
+Digital explorer, I transform pixels into emotions and lines of code into memorable experiences.
+Digital transformation expert with 10 years of experience
+Diplomas and certificates
+Direct
+Disagree
+Discover Mentors
+Discover Your Career Profile
+Discover Your Ideal Career
+Discover career paths matching your IMTA profile
+Discover careers that match your personality with our new quiz.
+Discover certifications suited to your industry
+Discover company cultures that match your values and work style. Evaluate potential employers and prepare relevant questions.
+Discover how to dress to make an excellent first impression during your job interview. Tips adapted to each industry.
+Discover job boards, recruitment agencies, career centers, and other resources to help you find your next opportunity.
+Discover leading companies in Morocco actively hiring IMTA graduates. Explore their listings, culture, and benefits.
+Discover leading companies in Morocco hiring talent in the healthcare, industrial, and HSE sectors.
+Discover optimal career paths with AI-powered predictions. Get personalized salary projections, skill gap analysis, and success probability indicators.
+Discover our career guidance tool to find the ideal path for you.
+Discover our expert tips to effectively prepare for your job interviews. Practical advice for every step of the process.
+Discover personalized career paths based on your IMTA profile, skills, and interests. Explore opportunities in Morocco and internationally.
+Discover salary benchmarks, trending skills, regional opportunities, and personalized career advice powered by real-time market data.
+Discover terms and expressions specific to your industry
+Discover the best job opportunities in Morocco in the healthcare, industrial, and HSE sectors. Find the position that matches your profile and launch your career.
+Discover the best platforms and search strategies for your field
+Discover the essential skills for your field
+Discover the {0} program and its career opportunities in detail.
+Discover this program
+Discover who connects your network together
+Discover your ideal path through our personalized assessment. Analyze your skills, explore market opportunities, and chart your career path.
+Discover your ideal path with personalized assessment and market insights
+Discover your personalized results and the programs that best match your profile.
+Discussion
+Discussion Points Generator
+Discuter
+Distinguish your task from the team's
+Distribution by Category
+Distribution by Priority
+Distribution by Sector
+Distribution by Status
+Distribution of keywords detected in the listing
+Distribution of your transferable skills
+Diversity Score
+Do / Don't
+Do a final practice run
+Do breathing exercises before the interview
+Do it
+Do you have a professional photo?
+Do you have another offer?
+Doctorate
+Document your achievements throughout the year
+Doe
+Does not approve of CEO
+Does not recommend
+Domain
+Domain / Field
+Domain Specific
+Domaine
+Domains
+Don't cross your arms over your chest
+Don't forget to personalize the elements in brackets and adapt the content to your specific background.
+Don't forget your phone (for emergencies)
+Don't leave anything on the table - check what you want to negotiate
+Don't slouch backward
+Don't wear a plunging neckline
+Don't wear a tie with humorous patterns
+Don't wear clothes that are too tight or too loose
+Don't wear sneakers or flip-flops
+Don't wear wrinkled or stained clothes
+Donnez un nom à votre mentor
+Download (.txt)
+Download Transcript
+Download or Record a Video
+Download your career timeline to share or archive it.
+Download your data as a JSON file for backup or transfer to another account.
+Download your network data for backup or analysis
+Downloading QR code as {0}
+Drag and drop a JSON file here, or click to browse
+Drag and drop your video here
+Drag your file here or click to browse
+Dress professionally
+Due
+Due Date
+Due Soon
+Due:
+Duplicate handling:
+Duration:
+Durations
+During
+During the Interview
+During your pitch
+Dynamic and energetic
+Dynamic tone that motivates and excites
+Débutant
+Découvrez votre mentor IA
+Découvrir mes parcours
+Développement des compétences
+Développer mes compétences
+E.g. +1 555 123 4567
+E.g. Data Science Master's application
+E.g. Dr. Jane Doe
+E.g. HR Director
+E.g. Jane Doe
+E.g. Project leadership
+E.g. Technical Director
+E.g.: 'All patients received their care on time, and the intern gained confidence...'
+E.g.: 'During my nursing internship, our team was short-staffed one weekend...'
+E.g.: 'I first prioritized the critical patients, then delegated routine tasks...'
+E.g.: 'I was responsible for coordinating care for 8 patients while training an intern...'
+E.g.: 123 Main Street, City
+E.g.: 8000 - 10000 DH
+E.g.: Apply to 5 job listings
+E.g.: Become Tech Lead
+E.g.: CHU Ibn Sina
+E.g.: Companies struggling with their digital transformation
+E.g.: Complex problem solving
+E.g.: DevOps Engineer, Project Manager...
+E.g.: Digital Project Manager
+E.g.: Follow-up message after event
+E.g.: Following our meeting - {{COMMON_INTEREST}}
+E.g.: Frontend Developer
+E.g.: Full Stack Developer
+E.g.: Full Stack Web Developer
+E.g.: Full-Stack Developer
+E.g.: General Nurse
+E.g.: Google interview pitch
+E.g.: Growth-stage startups
+E.g.: HR Director
+E.g.: HSE Positions Casablanca
+E.g.: I aced my interview!
+E.g.: IT project management, software development, digital marketing...
+E.g.: Improve structured communication
+E.g.: Improved team processes...
+E.g.: Increase their revenue
+E.g.: Industrial Technician, HSE Officer, Nurse...
+E.g.: Jane Smith
+E.g.: Mock Interview - Nurse
+E.g.: My 10 years of hands-on industry experience
+E.g.: Nurse
+E.g.: Nurse Application
+E.g.: Nurse Interview - Central Hospital
+E.g.: Nurse positions Casablanca
+E.g.: Nurse, Maintenance Technician...
+E.g.: OCP, Renault Tanger, ONCF...
+E.g.: Personalized and pragmatic coaching
+E.g.: React, Node.js, Project Management...
+E.g.: Reduce operational costs by 30%
+E.g.: Review technical questions
+E.g.: Send a thank-you email
+E.g.: Sent to jane@techvision.ma, awaiting response...
+E.g.: Student, Technician...
+E.g.: TechVision Morocco
+E.g.: follow-up, event, networking
+E.g.: jane@company.com
+E.g.: jane@techvision.ma
+Early Bird
+Easy
+Eat a balanced breakfast
+Eat well to have the energy you need.
+Edit Action
+Edit Certification
+Edit Contact
+Edit Event
+Edit Goal
+Edit Matching Preferences
+Edit Phase
+Edit Skill
+Edit alert
+Edit application
+Edit deadline
+Edit event
+Edit interview
+Edit my resume
+Edit recommender
+Edit reference
+Edit request
+Education / Training
+Education Gap
+Education Level
+Effective Communication
+Effectiveness by Follow-Up Delay
+Electromechanical Technician
+Elegant Black
+Elevator Pitch Generator
+Email Body
+Email Templates for Outreach
+Email body
+Email contact
+Email for
+Email generator
+Email notifications
+Email template copied
+Email template generator
+Email, phone, social media
+Email:
+Email: Catchy subject line
+Embed code
+Embed code copied
+Emerging Jobs
+Empathetic
+Empathetic communication
+Emplois par région
+Employer Directory
+Employes
+Employeurs
+Employeurs principaux
+Employment opportunities across Morocco
+Employment rate: {0}%
+En cours d'études
+En demande
+En poste
+En tant qu'etudiant IMTA, cette plateforme vous aide a preparer votre avenir professionnel. Creez votre CV, entrainez-vous aux entretiens et explorez les opportunites de carriere.
+En vedette
+Enable AI personalization to see suggestions
+Enable reminder
+Enable reminders
+Enables a countdown timer for each question
+Encourageant et patient
+End
+End & Feedback
+End date
+End interview
+End session and get feedback
+End time
+End with a call to action (contact, exchange)
+End with a specific request: a 15-minute call, a virtual coffee, or simply an answer to a question.
+Energetic
+Energetic Orange
+Energetic and passionate
+Energy
+Energy, Action
+Engagement Tips
+Engaging summary (About)
+Engineering
+Enregistrer
+Ensure brand consistency across all platforms
+Ensure safety
+Enter a URL to generate the QR code
+Enter a URL to generate the code
+Enter a job description and your resume to start the analysis
+Enter information about the company and target position
+Enter job details above to see how well you match.
+Enter job details to see how well you match and what skills you need.
+Enter one discussion point per line to include in the letter
+Enter the answer...
+Enter your current information to calculate your score
+Enter your desired salary
+Enter your details to estimate your salary
+Enter your information to calculate your strategy
+Enter your question...
+Entrepreneurs
+Entrepreneurship
+Entretiens, echeances et suivis a venir
+Entry
+Entry Level
+Entry Level (0-2 years)
+Entry Level / Junior
+Entry added successfully
+Environment
+Error Loading Roadmaps
+Error adding application
+Error adding availability
+Error adding deadline
+Error adding entry
+Error adding feedback
+Error adding recommender
+Error adding reference
+Error adding reminder
+Error adding to favorites
+Error adding to routine
+Error changing status
+Error clearing history
+Error completing exercise
+Error copying. Please copy the link manually.
+Error creating alert
+Error creating career path
+Error creating goal
+Error creating interview
+Error creating recording
+Error creating request
+Error creating session
+Error deleting
+Error deleting QR code
+Error deleting alert
+Error deleting feedback
+Error deleting interview
+Error deleting recommender
+Error deleting reminder
+Error deleting request
+Error during analysis
+Error during creation
+Error during deletion
+Error during evaluation
+Error during export
+Error during extraction
+Error during generation
+Error during optimization
+Error during quantification
+Error during regeneration
+Error during reset
+Error during save
+Error during update
+Error during verification
+Error evaluating response
+Error generating
+Error generating recommendations
+Error generating summary
+Error loading
+Error loading checklist
+Error loading data
+Error loading equipment
+Error loading favorites
+Error loading list
+Error loading notes
+Error loading questions
+Error loading session data
+Error recording application
+Error removing favorite
+Error removing from favorites
+Error saving
+Error saving QR code
+Error saving record
+Error saving reminder
+Error sharing. Please try again.
+Error updating
+Error updating alert
+Error updating favorites
+Error updating interview
+Error updating outcome
+Error updating preferences
+Error updating recommender
+Error updating request
+Error updating status
+Essential elements for an effective professional website
+Est. Cost
+Estimate of your salary growth based on typical career progressions
+Estimate your potential salary in Morocco based on your field, position, experience, and region. Plan your career with up-to-date market data.
+Estimated ATS score
+Estimated Hours
+Estimated ROI
+Estimated Salary
+Estimated Weeks
+Estimated duration
+Estimated score: 85/100
+Estimated time to reach your goals
+Estimated time: {0} weeks
+Estimated weeks
+Estimez votre valeur sur le marché selon votre profil
+Etape {0} sur {1}
+Evaluate the strength and consistency of your personal brand
+Evaluate your answers to identify areas for improvement
+Evaluating...
+Evaluation in progress...
+Evaluez vos competences et decouvrez les metiers qui vous correspondent.
+Event Calendar
+Event Name
+Event added
+Event created successfully
+Event deleted successfully
+Event history
+Event name
+Event type
+Event updated successfully
+Every day is a new opportunity to shine!
+Evokes creativity, innovation, and originality
+Evolution of your salary over time
+Evolution of your scores over recent weeks
+Evolution of your scores over time
+Ex:
+Ex: +212 6 00 00 00 00
+Ex: 12000
+Ex: 14000
+Ex: 15000
+Ex: 16000
+Ex: 25000
+Ex: CHU Mohammed VI, OCP...
+Ex: Casablanca, Maroc
+Ex: Communication
+Ex: Energies renouvelables, IA, Automobile
+Ex: Full Stack Developer
+Ex: Google, Microsoft...
+Ex: HSE Manager, Data Scientist
+Ex: IRCA, PMI, NEBOSH
+Ex: IRCA-45001-2024-1234
+Ex: ISO 45001 Lead Auditor
+Ex: ISO 45001, Risk Assessment, Team Leadership
+Ex: Ingénieur DevOps, Chef de projet, Data Scientist
+Ex: Junior Developer, HSE Technician
+Ex: Junior Developer, Student, etc.
+Ex: My Path to Senior Developer
+Ex: OCP Group
+Ex: Path to Senior Developer
+Ex: Project Management, Python, Leadership, Communication
+Ex: Project Management, Python, Safety Auditing, Communication
+Ex: Python, Docker, SQL, Lean Manufacturing, AutoCAD
+Ex: Python, Lean Manufacturing, SolidWorks
+Ex: Rabat
+Ex: React, TypeScript, Node.js
+Ex: React.js
+Ex: Senior Developer, HSE Manager, etc.
+Ex: Senior HSE Manager
+Ex: Stress management, Patient communication, Preventive maintenance...
+Ex: Stress management, Patient communication...
+Ex: Tech Solutions
+Ex: TechCorp
+Ex: contact@email.com
+Ex: https://meet.google.com/abc-defg-hij
+Example copied
+Examples
+Excellent
+Excellent communication skills
+Excellent communicator
+Excellent interpersonal skills, would integrate well with the team.
+Excellent introduction with natural smile
+Excellent personal presentation and clarity of expression
+Excellent posture! You are well seated and your positioning is professional.
+Excellent prevention awareness
+Excellent prevention skills
+Excellent progress! Your brand is taking shape and becoming consistent.
+Excellent sense of prevention
+Excellent timing! {recordingTime}s out of {targetTime}s target
+Excellent work!
+Excellent work! Try the advanced level to challenge yourself
+Excellent work! You are well prepared for a real interview.
+Excellent! No inactivity period detected
+Excellent! You already have all recommended certifications for this industry.
+Excellent! You have already added all recommended skills.
+Exceptional performance! You are ready for a real interview.
+Excluded companies
+Executive (10+ years)
+Executive / Senior Management
+Executive Management / CEO
+Exercices, mises en situation
+Exercise complete!
+Exercise completed! Well done!
+Exercises
+Exhale
+Exit full screen
+Exit practice
+Expected contacts
+Expected demand evolution by sector
+Expected growth
+Experience Comparison
+Experience Gap
+Experience Level
+Experience level
+Expert (10+ years)
+Expert - Excellent brand!
+Expert Professional
+Expertise
+Experts in a specific field are in high demand
+Expiration Calendar
+Expiration Date
+Expiration Timeline
+Expirations
+Expire bientot
+Expired {absValue} days ago
+Expiree
+Expires today
+Expires tomorrow
+Expiry date must be after the issue date
+Explain what your responsibility or mission was in that situation.
+Explain your role and specific responsibilities
+Explanation
+Explore Training
+Explore all programs ranked by compatibility
+Explore available job offers and find your next professional challenge.
+Explore available offers
+Explore available opportunities in your industry.
+Explore career guidance options
+Explore career paths and their required skills
+Explore companies in depth. Discover their culture, salaries, employee reviews, and prepare for interviews.
+Explore different career paths and see how they might unfold based on your profile.
+Explore our collection of interview questions by field and type. Each question includes a sample answer and tips to help you prepare.
+Explore our complete collection of interview questions categorized by type, difficulty, and industry. Each question includes a model answer and a detailed STAR example.
+Explore our training programs and develop the skills needed for your career.
+Explore our training programs and take the first step toward your dream career.
+Explore programs
+Explore the concepts in the \"Visual Identity\" tab
+Explore the different progression stages in your field, from beginner to leader.
+Explore the recommended program
+Explorer les offres
+Export (.txt)
+Export Checklist
+Export Contacts
+Export JSON
+Export Network Data
+Export PDF
+Export Plan
+Export Preparation Summary
+Export Report
+Export Selected Data
+Export Your Timeline
+Export details:
+Export downloaded
+Export for Resume
+Export your progress report to share with your coach or mentor.
+Export/Import History
+Exported at:
+Exporting...
+Expérimenté
+Extract Skills
+Extracted skills will appear here
+Extracting...
+Eye Contact
+Eye Contact Guide
+Facial Expression
+Facial Expressions
+Facteurs salariaux
+Factual
+Failed to add connection
+Failed to add contact
+Failed to add event
+Failed to add interaction
+Failed to add skill
+Failed to analyze resume
+Failed to complete assessment. Please try again.
+Failed to create certification. Please try again.
+Failed to create event
+Failed to create suggestion. Please try again.
+Failed to delete certification. Please try again.
+Failed to delete contact
+Failed to delete event
+Failed to delete pitch
+Failed to delete session. Please try again.
+Failed to delete skill
+Failed to delete suggestions. Please try again.
+Failed to export data
+Failed to generate AI quiz
+Failed to generate interview questions. The AI service may be temporarily unavailable.
+Failed to import data
+Failed to load study plan
+Failed to parse JSON
+Failed to parse JSON file
+Failed to remove connection
+Failed to reset assessment. Please try again.
+Failed to save assessment progress. Please try again.
+Failed to save pitch
+Failed to save results
+Failed to submit application
+Failed to update AI language.
+Failed to update RSVP
+Failed to update career path
+Failed to update certification. Please try again.
+Failed to update contact
+Failed to update event
+Failed to update event attendance. Please try again.
+Failed to update favorite status. Please try again.
+Failed to update pitch
+Failed to update rating
+Failed to update reminder
+Failed to update suggestion. Please try again.
+Failed to update target
+Failed to validate import file
+Family Obligations
+Fashion
+Fast loading
+Favorite updated
+Feature in development
+Featured Listings
+February
+Feedback Tracking
+Feedback added successfully
+Feedback deleted
+Feedback history
+Feedback received
+Feedbacks
+Feet flat on the floor
+Fermer
+Few jobs
+Field / Sector
+Fields of interest
+File validated successfully!
+Fill in the form and click \"Calculate\" to see your estimate
+Fill in the form and generate your thank you letter
+Fill in the form to see your recommendations
+Fill in the job information and click \"Generate\" to create your personalized letter
+Fill in your certification details
+Fill in your professional reference details
+Fill in your profile above and generate your first career prediction.
+Fill in your profile to get personalized insights
+Fill in your recommender's details
+Filler Words Detected
+Filler word detection
+Filler words
+Filler words like \"uh\", \"so\", \"actually\" can diminish the impact of your answers.
+Filter by alert
+Filter by field:
+Filter:
+Final
+Final follow-up
+Final offer
+Finance
+Finance / Banking
+Finance / Banking / Insurance
+Find Your Ideal Company
+Find a quiet and comfortable place
+Find your ideal job
+Find your path
+Finish Session
+First
+First Name
+First Step
+First follow-up
+First person, personal story, call to action
+Fixed monthly compensation
+Flashcard Pro
+Focus on skills with strong growth (+15% or more). These skills will be even more in-demand in the coming years. Combine technical and soft skills to maximize your employability.
+Focused
+Follow these 5 steps to create your unique personal brand statement
+Follow these tips to maximize your response chances
+Follow this action plan to achieve your professional goals
+Follow this timeline for optimal preparation
+Follow up politely
+Follow-Up Best Practices
+Follow-Up Calendar
+Follow-Up Management
+Follow-Up Tracking
+Follow-Ups Sent vs Responses
+Follow-up
+Follow-up - Recommendation Letter
+Follow-up Actions
+Follow-up Date (optional)
+Follow-up Reminders
+Follow-up Tools
+Follow-up Tracking
+Follow-up and reminder messages
+Follow-up needed
+Follow-up reminders
+Follow-up:
+Follow-up: Wait 5-7 days
+Follow-ups scheduled
+Following Our Interview - {{POSTE}}
+For IMTA and vocational training graduates, internship sections are critical. Include your stage de fin d'etudes.
+For You
+For better readability, print on high-quality paper. Make sure the contrast between the QR code and the background is sufficient. Always test scannability before distribution.
+For highly sought-after positions
+For whom? (Problem/Need)
+For:
+Formal and authoritative tone that establishes credibility
+Formal initial request
+Formal professional attire is recommended: suit or tailored outfit, dress shirt/blouse.
+Formal request
+Formality level:
+Formatting
+Formatting & Structure
+Forte demande
+Found
+Fourchette
+Free Mentorship
+Free conversation with our AI coach. Ask your questions and get personalized advice.
+Frequency
+Frequently Asked Questions
+Fresh breath (avoid garlic and onion the night before)
+Fri
+Friday
+Friendly tone that creates a human connection
+Full Name
+Full feedback
+Full screen
+Full simulation (8-10 questions) with detailed analysis at the end. Like a real interview.
+Full video analysis will be available in a future update.
+Functional form
+Future Direct Manager
+Gap Analysis
+Gap details
+Gap visualization
+Gap: {0} level(s)
+Gaps
+Gaps to close
+Gather all necessary documents in a folder.
+General Manager
+General Notes
+General interview questions
+General interview questions for all domains
+General interview questions for all fields
+Generate AI Path
+Generate AI Quiz
+Generate AI Roadmap
+Generate AI analysis
+Generate Bullet Points
+Generate Career Predictions
+Generate Letter
+Generate New Career Prediction
+Generate Summary
+Generate a PDF document with all your preparation materials
+Generate a Path
+Generate a Study Plan
+Generate a letter first to get suggestions
+Generate a letter first to see the analysis
+Generate a letter first to see the preview
+Generate a personalized AI learning path or export your analysis.
+Generate an AI Learning Path
+Generate an AI roadmap to create your personalized study schedule.
+Generate and export a complete checklist to optimize your profile
+Generate and save your cover letters to find them here.
+Generate and save your thank you letters to find them here.
+Generate headline suggestions
+Generate my Cover Letter
+Generate my cultural profile
+Generate my personalized checklist
+Generate new recommendations based on your profile
+Generate new suggestions
+Generate personalized career roadmaps powered by AI. Compare alternative paths, track your progress, and achieve your career goals with actionable steps and resources.
+Generate recommendations
+Generate summary suggestions
+Generate your personalized plan
+Generated Bullet Points
+Generated Letter
+Generated Summary
+Generated suggestions
+Gently return to your breathing if you wander
+Geographic Mobility
+Geographic distribution of scans
+Gestures
+Get AI evaluation
+Get Personalized Insights
+Get advice
+Get dressed in your prepared outfit
+Get in touch with the admissions team for more information.
+Get inspired by these real examples of successful negotiations
+Get my recommendation
+Give enough time
+Give your roadmap a name to save it for later.
+Give yourself enough time to prepare calmly.
+Glance quickly at your notes if necessary, but return to the camera quickly.
+Go there
+Go to analyzer
+Go to builder
+Go to calculator
+Go to career guidance
+Go to common questions
+Go to generator
+Go to preparation guide
+Go to previous question
+Go to the Overview tab to select a role and see the gap analysis.
+Go to the Overview tab to select a role before generating a path.
+Go to the \"Value Proposition\" tab to stand out
+Go to tip {0}: {1}
+Goal Reached!
+Goal Title
+Goal Tracking
+Goal achieved
+Goal created
+Goal created successfully
+Goal progress
+Goal title
+Goal updated
+Goal:
+Goals Achieved
+Goals achieved
+Goals in Progress
+Goals, milestones, and progress tracking
+Going
+Gold
+Good
+Good Lighting
+Good answers
+Good answers (70%+)
+Good communication
+Good eye contact during technical explanation
+Good lighting is essential to appear professional
+Good overall eye contact, but you tend to look down during difficult questions.
+Good physical endurance
+Good start! Keep developing your brand for more impact.
+Good stress management
+Good team spirit
+Good technical foundation, but could go deeper on complex topics.
+Good technical knowledge demonstrated
+Good work! Keep practicing to improve your answers.
+Got it!
+Grammar
+Grammar and Style Checker
+Graphiques
+Green Flags
+Growth
+Growth Discussion Guide
+Growth Drivers
+Growth Projections 2024-2028
+Growth Rate
+Growth, Balance
+Growth:
+HR Director
+HSE
+HSE / Sécurité
+HSE Technician
+HTML embed code
+Hand Gestures
+Hands visible on the desk
+Hard
+Have a glass of water nearby
+Have a list of people who can speak about your skills.
+Have a list of thoughtful questions to ask the recruiter.
+Have multiple copies of your resume, cover letter, and diplomas.
+Have something to write with
+Headline Generation
+Headline example:
+Health
+Health, safety, and industrial environment
+Healthcare
+Healthcare / Medical
+Healthcare infrastructure expansion
+Hello and welcome to this interview for the position of {targetRole}{0}. I am {1}, {2}. Could you start by introducing yourself?
+Here are all IMTA programs ranked by compatibility with your profile.
+Here is what will be analyzed in your video
+Hide ideal answer
+Hide past
+High School
+High alert
+High competition
+High demand
+High impact
+High priority
+High resolution
+High-quality professional photo
+Higher Salary
+Highlight important keywords
+Highlighted strengths
+Hiring Companies
+Historique des conversations
+History cleared
+Hold
+Home Office Equipment Guide
+Home Page
+Hook with an impact statement or quote
+Hospitals and Clinics
+Hot
+Hours per week:
+How did you meet? Any important details...
+How does the career orientation quiz work?
+How strong are your connections
+How to apply
+How to use action verbs
+How well did you know this?
+How you met, topics discussed, etc.
+Human Resources
+Hypothetical scenarios
+Hypothetical scenarios to assess your judgment
+I completed my interview practice session with a score of {finalScore}%!
+I help you bring your digital projects to life
+I push the boundaries of what's possible to turn your ideas into resounding successes.
+I'm attending this event
+ID card
+IMTA Analysis
+IMTA Assessment
+IMTA Career Guidance
+IMTA Dashboard
+IMTA Programs
+IMTA Tools
+IMTA Training
+IT / Digital
+Ideal answer:
+Ideal connections
+Ideal for IT and tech positions
+Ideal for:
+Ideal sample answer
+Ideal timing
+Identified Improvement Areas
+Identified strengths
+Identify gaps between your skills and your target role
+Identify how your experience matches the position
+Identify periods without employment in your journey
+Identify the gap between your current skills and your target role requirements. Get personalized recommendations to boost your employability.
+Identify the gaps between your current skills and those required for your target role. Get personalized recommendations and an action plan to close these gaps.
+Identify your transferable skills, define your goals, and create a structured action plan to succeed in your career transition.
+If you have a mutual contact, mention them. Personal referrals significantly increase the response rate.
+If you haven't heard back a week before the deadline, send a courteous reminder.
+Images, screenshots, or videos of your work
+Imaginative
+Impact of Experience on Salary
+Impactful bio (160 characters)
+Import / Export Contacts
+Import Contacts
+Import Selected Data
+Import an existing video or record yourself for a complete analysis.
+Import as new entries with modified identifiers
+Import completed with {0} errors. {totalImported} records imported, {totalSkipped} skipped.
+Import completed! {totalImported} records imported, {totalSkipped} skipped.
+Import/Export
+Important elements to remember from this interview
+Improve customer experience
+Improve your response rates with these best practices
+Improve your resume now
+Improve your skills
+Improved Answer
+Improved Text (After)
+Improvement Suggestions
+Improvement Tasks
+Improvement failed
+Improvement suggestions
+Improvements Completed
+Improving
+In 5 seconds, the visitor understands what you do
+In Person
+In demand
+In experience descriptions
+In progress
+In progress - Keep going!
+In the skills section
+In your professional headline
+In your summary/About section
+In {daysUntil} day(s)
+In {days} day(s)
+In {diffDays} days
+In-Demand Skills
+Inactivity Period Analysis
+Inactivity period
+Inactivity periods
+Inactivity periods longer than 30 days are highlighted. Prepare explanations for recruiters.
+Include a clear call to action
+Include amounts (revenue, savings)
+Include benefits
+Include label
+Include logo
+Include numbers if possible
+Include soft skills such as {0}
+Include your current role + specialty + added value
+Include your target job title
+Increase productivity
+Increase the frequency of important keywords in your resume
+Increases your chances of interview success
+Individual
+Industrial
+Industrial SMEs
+Industrial hygiene, safety, and environmental management
+Industrie
+Industriel
+Industries
+Industry Benchmark
+Industry Benchmarks
+Industry Experience
+Industry Keywords
+Industry Language
+Industry Outlook
+Industry Skills
+Industry Trends
+Industry benchmarks will be available soon
+Industry sector
+Industry...
+Industry:
+Informal request
+Information about the interview you had
+Information about the person who interviewed you
+Informatique
+Inhale
+Initial
+Initial offer
+Innovation
+Insights
+Inspirant et énergique
+Inspires trust, seriousness, and competence
+Inspiring
+Install
+Install the app for quick access
+Instant alerts
+Instant feedback
+Insurance, transport, meals...
+Integrated Keywords
+Intelligence du marché de l'emploi au Maroc
+Interaction History
+Interaction added
+Interests (optional, comma-separated)
+Internship / Apprenticeship
+Internship certificates
+Interpersonal skills
+Interview Coach
+Interview Completed
+Interview Completed!
+Interview Configuration
+Interview Day
+Interview Details
+Interview Feedback Tracker
+Interview Hub
+Interview Key Points
+Interview Language
+Interview Mode
+Interview Outfit Advisor
+Interview Performance
+Interview Performance Tracking
+Interview Process
+Interview Question Bank
+Interview Readiness Score
+Interview Recording Review
+Interview Reminder
+Interview Results
+Interview Scheduler
+Interview Success Tips
+Interview Video Analysis
+Interview analytics
+Interview complete
+Interview completed
+Interview date
+Interview date *
+Interview deleted
+Interview difficulty
+Interview in progress
+Interview language
+Interview mode
+Interview notes created
+Interview notes...
+Interview practice modes
+Interview prep checklists and notes
+Interview preparation main content
+Interview readiness score
+Interview ready
+Interview reminders
+Interview scheduled
+Interview scheduled successfully
+Interview statistics
+Interview type
+Interview updated
+Interviewer Feedback
+Interviewer name
+Interviewers
+Interviews
+Introduce yourself and explain why you'd like this mentor...
+Introduction Message
+Invalid summary data received
+Inventory
+Invest in your training, reap the rewards.
+Investment
+Iron shirt, pants, and jacket if necessary
+Iron the clothes
+Issuer name cannot exceed 100 characters
+Issuer name must be at least 2 characters
+Issues
+Issuing Organization
+JSON Format
+JSON files only
+January
+Jeune diplômé
+Jewelry
+Job
+Job Adaptation
+Job Aggregator
+Job Board
+Job Board Integration
+Job Comparison
+Job Description (optional)
+Job Details
+Job Growth
+Job Information Request
+Job Listings Aggregator
+Job Market Insights
+Job Market Trends
+Job Market by Region
+Job Match
+Job Match Score
+Job Matches
+Job Openings
+Job Postings
+Job Search Preferences
+Job Security
+Job Title
+Job board sections
+Job comparison
+Job description
+Job description (optional)
+Job description *
+Job description loaded
+Job description saved
+Job description/responsibilities
+Job distribution by region
+Job filters
+Job listings
+Job market evolution over time
+Job offers will appear here once added by the aggregator
+Job opportunities main content
+Job saved
+Job search journal and daily reflections
+Job title
+Jobs Matched
+Jobs analyzed
+John
+Journal
+Journal series
+July
+June
+Junior (0-2 years)
+Junior (1-2 years)
+Just now
+Keep a professional but engaging tone
+Keep a tone consistent with the interview
+Keep arms relaxed at your sides
+Keep completing quizzes to unlock all badges!
+Keep each part short: 1-2 sentences for S and T, 2-3 for A, 1-2 for R
+Keep existing data, ignore duplicates
+Keep going to unlock badges!
+Keep practicing
+Keep practicing to strengthen your skills.
+Keep practicing. Practice makes perfect!
+Keep up the momentum!
+Keep your arms uncrossed and palms visible to project openness and confidence.
+Keep your bag clean and organized
+Keep your hands visible and relaxed
+Keep your shoulders relaxed but not drooping
+Key Milestones
+Key Moments
+Key Phrases
+Key Skills
+Key Skills (comma-separated)
+Key Tips
+Key discussion points
+Key insights and statistics
+Key point
+Key points
+Key points of this answer:
+Key points to mention
+Key points:
+Key takeaways
+Keyword Analysis
+Keyword Details
+Keyword Frequency
+Keyword Match Analysis
+Keyword Optimization - {selectedIndustryLabel}
+Keyword density
+Keywords Found ({0})
+Keywords analyzed
+Keywords by category
+Keywords copied to clipboard
+Keywords found
+Keywords included:
+Keywords to use
+Keywords well integrated
+L'analyse a échoué. Veuillez réessayer.
+L'historique des opérations n'est pas encore disponible.
+La recherche a échoué. Veuillez réessayer.
+Language Barrier
+Langue :
+Langue préférée ?
+Langues
+Large Companies
+Large Corporation / Industry
+Large Corporations
+Large company (500+ employees)
+Last Name
+Last contact date
+Last contact:
+Last day
+Launch practice mode with a timer to simulate a real interview
+Leadership
+Leadership / Management
+Leadership Skills
+Leadership abilities
+Leadership and strategic vision
+Leadership capabilities
+Leadership potential
+Leading sector
+Lean slightly forward to show your interest and engagement.
+Leaning
+Learn about the company's mission, values, news, and culture.
+Learning
+Learning Opportunities
+Learning Path
+Learning resources
+Lecture
+Legal
+Legal / Law Firm
+Les tendances montrent une forte demande dans les trois secteurs. Investissez dans votre formation maintenant pour saisir les meilleures opportunites.
+Less priority: {0}
+Less than 3 seconds loading time
+Less than 30 days
+Let thoughts pass without judging them
+Letter Preview
+Letter Style
+Letter deleted
+Letter downloaded
+Letter exported
+Letter loaded
+Letters created
+Level (1-5)
+Lighting
+Limit yourself to a few discreet pieces
+Limited
+Limited Time
+Link (optional)
+Link copied to clipboard
+Link copied to clipboard!
+LinkedIn
+LinkedIn Connection Request - Standard
+LinkedIn Headline Generator
+LinkedIn Profile
+LinkedIn Profile Optimizer
+LinkedIn Profile URL
+LinkedIn SEO Tips
+LinkedIn Summary Generator
+LinkedIn Summary Optimizer
+LinkedIn URL
+LinkedIn connection and engagement messages
+LinkedIn summary optimized
+LinkedIn: Stay under 300 characters
+List of topics to review, questions to prepare...
+List your specialties with keywords
+Listed experiences
+Listen carefully
+Listening
+Listings found
+Listings:
+Live Transcription
+Load
+Loading Error
+Loading QR codes...
+Loading analysis...
+Loading career assessment...
+Loading career predictions...
+Loading career quiz...
+Loading career roadmap...
+Loading certifications...
+Loading error
+Loading events...
+Loading job match calculator...
+Loading job offers...
+Loading negotiation guide...
+Loading paths...
+Loading questions
+Loading questions...
+Loading readiness score...
+Loading results...
+Loading session...
+Loading skills tracker...
+Loading statistics...
+Loading tips...
+Loading your study plan...
+Location (optional)
+Location Restrictions
+Location and link
+Locations
+Log Interaction
+Log of questions asked and your answers
+Logo Concept
+Logo, headings
+Long-press for options
+Longest Streak
+Look at the camera as if it were your interviewer
+Look directly into the camera as if it were the eyes of the person you're speaking with.
+Low (<0.5%)
+Low competition
+Low demand
+Low impact
+Low priority
+Luxury, Authority
+MP4, MOV, WebM (max 500MB)
+Main Benefit
+Main Zone
+Maintain a 30-day study streak
+Maintain a 7-day study streak
+Maintain eye contact 60-70% of the time
+Maintain eye contact, smile, and adopt an open posture.
+Maintain imaginary eye contact
+Maintain this posture throughout the interview
+Maintained eye contact
+Maintenance, electromechanics, and industrial production
+Maintenance, electromechanics, welding, and machine operation
+Major
+Make it easy
+Make strategic pauses to emphasize important points
+Make sure everything fits well and you feel comfortable
+Make sure the time is correct
+Make sure there are no stains, holes, or missing buttons
+Make sure you have all your documents ready.
+Make sure your camera and microphone are enabled
+Make sure your clothes are clean and pressed
+Make sure your resume is up to date and tailored to the position.
+Make this a recurring reminder
+Make your request at least 3-4 weeks before the deadline to allow for a thoughtful and quality letter.
+Manage My Skills
+Manage all your interviews in one place. Schedule, track, and prepare effectively for every opportunity.
+Manage availability
+Manage my skills
+Manage preferences
+Manage your contacts data
+Manage your professional certifications, track expiration dates, set up renewal reminders, and evaluate the return on investment of your training.
+Manage your skills for the transition
+Manage your skills, set goals, track your progress, and identify gaps to fill for your career.
+Manage your stress
+Management
+Manager
+Manquants
+Manufacturing
+Many jobs
+Map Your Professional Network
+March
+Mark as achieved
+Mark as applied
+Mark as complete
+Mark as done
+Mark as failed
+Mark as favorite
+Mark as passed
+Mark as read
+Mark as sent
+Mark as unread
+Mark recommendations as applied
+Mark resolved
+Mark unresolved
+Marked as applied
+Marked as complete
+Marked as incomplete
+Market
+Market Analysis
+Market Comparison
+Market Highlights
+Market Median
+Market Rate (DH/month)
+Market Trends
+Market data not available
+Market demand data will be available soon
+Marketing
+Marketing / Communications
+Marketing Consultant
+Master the STAR method
+Master the art of negotiation with professional scripts, calculation tools, and proven strategies to get the compensation you deserve.
+Master's Degree
+Match
+Match Score
+Match score
+Match to a Specific Job
+Maximize your LinkedIn visibility. Get a completeness score, headline and summary suggestions, and personalized tips to attract recruiters.
+Maximum 3 companies to compare
+Maximum salary (MAD/year)
+May
+Maybe
+Media
+Median
+Median Salary (MAD)
+Median annual salaries in MAD{0}
+Median salaries (examples)
+Meditation
+Meditation Session
+Meditation Timer
+Meditation completed! Well done!
+Medium company (50-500 employees)
+Medium competition
+Medium demand
+Medium impact
+Medium priority
+Meeting link
+Meetup
+Men
+Men's Outfit
+Mental
+Mental Wellness
+Mentees
+Mention a mutual connection
+Mention any constraints
+Mention measurable results and what you took away from this experience.
+Mention the \"{0}\" project that particularly interested you
+Mention timelines (in X months, time reduction)
+Mention what you learned
+Mention your certifications
+Mention your relevant certifications if you have any
+Mentioned Certifications
+Mentor Chat
+Mentor IA Carrière
+Mentor Matching
+Mentor recommendations are based on your profile
+Mentor's Availability
+Mentoring
+Mentors
+Mentors experts
+Mentors who have achieved your target role
+Mentors with expertise in your target skills
+Mentorship Goals
+Mentorship Requests
+Message
+Message Templates
+Message body
+Message copied to clipboard
+Message options
+Message queued (offline)
+Microphone Check
+Microphone access denied
+Microphone active
+Microphone detected and ready
+Microphone muted
+Mid
+Mid (2-5 years)
+Mid-Level (3-5 years)
+Mid-level Management
+Milestone Achiever
+Milestones
+Milestones (one per line)
+Milestones ({0}/{1})
+Milestones ({completedMilestones}/{totalMilestones})
+Mind your body language
+Minimum reached
+Minimum salary (MAD/year)
+Minimum score
+Mining & Chemistry
+Minor
+Missing Elements
+Missing Keywords ({0})
+Missing Skills
+Missing keywords
+Mission
+Mobile responsive site
+Mock interview features
+Model Answer
+Model Answer Example
+Model: {0}
+Moderate jobs
+Modified
+Modify the criteria for your alert
+Modify the details of the networking event.
+Moins de 2 ans
+Mon
+Mon historique
+Monday
+Monthly Master
+Monthly Requests Remaining
+Monthly Tokens Remaining
+Monthly range
+Monthly salaries reported by employees (in DH)
+Monthly salary ranges in DH
+Mood
+More than 2 months without contact
+More than 2 weeks without contact
+More than 90 days
+More than a month without contact
+More views
+Moroccan Job Market
+Moroccan Market
+Moroccan employers often use ATS systems in both languages. A bilingual CV increases your match rate.
+Morocco Market Intelligence
+Most In-Demand Fields
+Most In-Demand Skills
+Most active alert
+Most in-demand skills on the job market in Morocco
+Most sought-after skills in the market
+Motivant
+Motivating
+Motivational
+Movement
+Multinational companies often offer 20-30% higher salaries
+Multiple contact information
+Multiple locations
+Mutual Connections
+Mutual Connections Map
+My Cultural Profile
+My Daily Routine
+My Favorite Questions
+My Favorite Tips
+My Letters ({0})
+My Programs
+My QR Codes ({0})
+My Quota
+My Routine
+My Usage
+My answer:
+My career path
+My favorite companies
+Médian
+Name (English)
+Name (French)
+Name *
+Name cannot exceed 64 characters
+Name is required
+Name this search to find it easily later
+Name:
+National average
+Natural and discreet makeup
+Natural leadership
+Nature Green
+Neat and professional hairstyle
+Needs follow-up
+Needs practice
+Negative
+Negatives
+Negotiable
+Negotiation Tactics
+Negotiation Tips
+Negotiation strategies adapted to your career stage
+Network Growth Over Time
+Networking & Contacts
+Networking Coffee Thank You
+Networking contacts and professional references
+Neutral
+Never interrupt and take the time to fully understand the questions.
+Never miss an application deadline. Track your due dates, set up reminders, and stay in control of your job search.
+New AI response
+New Action
+New Analysis
+New Certification
+New Event
+New Feedback
+New Goal
+New Interview
+New Message
+New Notes
+New Phase
+New Practice Session
+New Search
+New Session
+New Skill
+New alert
+New application
+New career path
+New conversation
+New deadline
+New entry
+New exercise
+New goal
+New interview
+New job alert
+New keywords
+New recommender
+New request
+New: AI Chatbot
+Next Question
+Next Steps
+Next affirmation
+Next question
+Next steps
+Next tip
+Next:
+Nice to Have
+Night Owl
+Niveau
+Niveau d'expérience
+No Career Goal Set
+No Flashcards Yet
+No Goals Yet
+No Job Matches Yet
+No Learning Paths
+No Mentors Found
+No Past Sessions
+No Predictions Yet
+No Progress History
+No Requests Yet
+No Resources Found
+No Resources to Display
+No Saved Roadmaps
+No Schedule Yet
+No Show
+No Skills Added
+No Trajectory Selected
+No Upcoming Sessions
+No actions defined
+No active goals
+No active goals. Define your career goals!
+No alerts
+No analysis available
+No analyzed segments available
+No applications
+No applications found
+No applications to follow up on. Add applications in the \"My Applications\" section.
+No applications yet
+No availability defined
+No body language observations available
+No career path data available for this field. Contact the administrator to configure career roles.
+No career path defined
+No certifications found
+No certifications match your search criteria.
+No certifications with expiration date.
+No companies found
+No comparisons available
+No completed goals
+No contacts match your filters
+No contacts yet
+No conversations yet
+No cost data available yet
+No data yet
+No deadlines found
+No deadlines today
+No deliveries recorded
+No direct matches
+No directly aligned skills
+No employers found
+No employers registered
+No events
+No events found
+No exercises completed
+No exercises in your routine
+No expiration
+No export/import history yet
+No feedback found
+No follow-up actions recorded
+No follow-ups scheduled
+No goals defined
+No goals this week
+No headline defined
+No history
+No industry data
+No interactions logged yet
+No interactions recorded yet
+No interviews found
+No interviews today
+No issues detected!
+No jobs match your criteria
+No journal entries
+No key points recorded
+No letters generated
+No letters to display
+No listings found
+No market data available
+No matches
+No messages yet. Start the conversation!
+No notes
+No notes found
+No notes match your search criteria.
+No notes recorded
+No offers available
+No offers found
+No offers match your current criteria
+No offers to compare
+No partial matches
+No pending follow-ups
+No pending reminders
+No phases defined
+No preview available
+No progress data yet
+No progress to display
+No projections available
+No questions available for practice
+No questions available for this configuration
+No questions found
+No questions found with these filters
+No questions recorded
+No quiz completed yet
+No recommendations
+No recommenders found
+No recordings
+No recruiters recorded
+No references found
+No regional data available
+No reminder
+No reminders configured
+No requests found
+No resources available
+No resources found
+No resources match your search.
+No resume available
+No roles available
+No roles available. Please contact the administrator.
+No salary data
+No salary data available for this sector
+No saved QR codes
+No saved letters
+No saved offers
+No saved pitches
+No saved searches
+No scenario selected
+No sector data available
+No skills data available
+No skills found
+No skills in this category
+No skills match your search criteria.
+No skills recorded
+No skills recorded. Add skills from your career events.
+No skills to display
+No skills to prioritize
+No summary defined
+No tasks for today. Great job staying on track!
+No templates found
+No tips found
+No tips yet
+No upcoming actions. Add one!
+No upcoming events
+No upcoming expiration
+No usage limits
+No weaknesses identified
+No word cloud available
+Nod to show your engagement
+Non-verbal communication
+None
+Not Going
+Not Started
+Not asked
+Not disclosed
+Not enough data
+Not enough data to display trends
+Not ready
+Not set
+Not verified
+Note 2-3 specific questions to ask about the company
+Note the name of your contact person
+Notes Zone
+Notes and preparation
+Notes cannot exceed 1000 characters
+Notes deleted
+Notes or instructions...
+Notes saved
+Notes:
+Notification frequency
+Notification preferences
+Notification type
+Notifications enabled
+Notify people around you
+Nous adapterons les recommandations a votre domaine d'expertise
+Nouvelle conversation
+November
+Number of connections
+Number of interviewers
+Number of skills
+Nurse
+Nurse, RN, care, operating room (separated by commas)
+Observe the company environment
+Obtain 1 certification
+Obtain 5 certifications
+Obtain recognized certifications to increase your market value
+Obtained on {0}
+Occurrences:
+October
+Offer Received
+Offer received
+Offer specific examples of projects or achievements that the recommender could mention.
+Offers
+Office
+Office Equipped
+Offline
+Offres actives
+On Hold
+On Vacation
+Onboarding steps
+Open Positions
+Open Posture
+Open Resource
+Open Simulator
+Open and measured gestures
+Open email client
+Open gestures to illustrate a point
+Open in email
+Opening
+Opportunités d'emploi à travers le Maroc
+Opt for a classic and discreet watch
+Opt for natural and professional makeup
+Opt for very formal attire: full suit, neutral colors, classic accessories.
+Optimal
+Optimal (0.5-3%)
+Optimal Duration
+Optimal Timing
+Optimize my Summary
+Optimize processes
+Optimize your response chances by tracking your application follow-ups. Optimal timing, email templates, and response statistics.
+Optimize your resume now
+Optimize your social media presence
+Optimize your summary for LinkedIn SEO and attract more recruiters
+Optimized Summary
+Optimized meta descriptions
+Optimizing...
+Optional - to calculate the percentage increase
+Organisation
+Organize your accomplishments, track your goals, and prepare for a productive discussion with your manager.
+Organize your interviews
+Organized highlights
+Original Text (Before)
+Original and eye-catching to stand out
+Others
+Our AI is analyzing your recording to provide detailed feedback.
+Our AI will analyze your skill gaps and generate a personalized learning path to reach your target role: {0}
+Our algorithms analyze your feedback to identify recurring trends and offer personalized recommendations.
+Outcome (optional)
+Outcome updated
+Outfit Guide
+Overall
+Overall Analysis Score
+Overall Score
+Overall positive tone with appropriate variations
+Overall positive tone with some appropriate variations
+Overall progress
+Overall rating
+Overdue
+Overview of the Moroccan job market in your target sectors
+Overwrite duplicates
+PDF export is under development
+PDF export is under development. Feature coming soon!
+PDF/DOCX Parsing
+Pace
+Pace too fast in this section
+Page {currentPage} of {totalPages}
+Panel
+Panel up to 4 people
+Parcourir les mentors
+Partenaire
+Partial
+Partial Matches
+Partner
+Partner Dashboard
+Partner Employers
+Partner companies that hire our graduates
+Pas d'expiration
+Passed
+Passed (+70%)
+Passer
+Passer le bilan carriere
+Passionate about my work, I love creating solutions that truly make a difference for my clients.
+Past
+Past Events
+Past due
+Paste a job description and select a resume to see the analysis
+Paste job description here for better matching...
+Paste or write your text here for verification...
+Paste the complete job description here...
+Paste the full text of the job posting here...
+Paste the job description for optimal personalization...
+Paste the job description here to check keyword match...
+Paste the job description here...
+Paste the job description to analyze it
+Paste the job posting
+Paste your current LinkedIn summary or write a new one...
+Paste your improved text here...
+Paste your original text here...
+Paste your resume content
+Paste your resume text here...
+Path Recommendation
+Path to
+Pathways
+Patient Care
+Pattern analysis complete
+Patterns
+Pending Reminders
+Pending actions
+Pending follow-ups
+Pending reminders
+People you might want to connect with based on your network
+Per minute
+Per session rate
+Percentile
+Perfect Presentation
+Perfect Your Video Presence
+Perfect your interview skills with our personalized AI simulations. Practice on real questions and receive instant feedback to land your first job.
+Perfect!
+Perfectionist
+Perfectly readable on smartphone and tablet
+Performance Analysis
+Performance Review
+Performance Review Preparation
+Performance Trend
+Performance by alert
+Performance by question type
+Performance, seniority...
+Personal Brand Audit
+Personal Branding
+Personal Branding Guide
+Personal Emblem
+Personal Grooming
+Personal Logo Concepts
+Personal Monogram
+Personal Website Checklist
+Personal notes
+Personal notes about this application...
+Personal notes about this interview...
+Personal notes for this event...
+Personality
+Personality radar chart showing your traits
+Personalization
+Personalization fields
+Personalize every message
+Personalize more for the company
+Personalized
+Personalized Improvement Plan
+Personalized Recommendations
+Personalized Tips
+Personalized advice
+Personalized advice generated by artificial intelligence
+Personalized recommendations based on your performance
+Personnalité :
+Phase description...
+Phone Call
+Phone number to call
+Phone:
+Pitch Duration
+Pitch copied
+Pitch copied to clipboard
+Pitch deleted
+Pitch loaded for editing
+Pitch name
+Pitch saved
+Pitch updated
+Pitfalls to Avoid
+Plan Your Career
+Plan Your Professional Growth
+Plan a Transition
+Plan networking events to expand your professional connections and discover new opportunities.
+Plan to arrive 10-15 minutes before your interview to settle in calmly.
+Plan your follow-ups to maximize your response chances
+Plan your path
+Plan your route to arrive on time.
+Planifiez vos prochaines etapes
+Planned
+Playful
+Please add at least one keyword
+Please allow microphone access
+Please create a pitch before saving
+Please describe your area of expertise
+Please enter a URL
+Please enter a date and time
+Please enter a job description
+Please enter a title
+Please enter a valid URL
+Please enter an achievement to quantify
+Please enter text to check
+Please enter the target position
+Please enter your current summary
+Please enter your resume content or select a resume
+Please fill in all required fields
+Please fill in at least the company or position
+Please fill in both fields
+Please fill in the job description and select a resume
+Please fill in the required fields
+Please first generate or select a letter
+Please generate a letter first
+Please paste a job posting
+Please select a resume first
+Please select a sending date
+Please select a valid JSON file
+Please select at least one data type to export
+Please select at least one data type to import
+Please try again later.
+Please upload and validate a file first
+Points forts
+Points of attention:
+Points to work on
+Polish and brush your shoes so they look impeccable
+Polite follow-up
+Poor
+Portfolio
+Poses that increase your confidence and reduce cortisol. Hold each pose for 2 minutes.
+Posez vos questions sur votre carrière
+Posez votre première question au coach carrière IA
+Posez votre question...
+Position / Job
+Position cannot exceed 100 characters
+Position your camera for a professional look
+Position yourself correctly
+Position yourself facing a natural light source
+Positive
+Positive Affirmations
+Positive and enthusiastic attitude
+Positive trend
+Positives
+Post a Job
+Post-application Follow-up
+Post-event Connection
+Post-event Thank You
+Post-interview Follow-up
+Post-interview Thank You
+Post-interview follow-up
+Poste
+Posted on
+Postes
+Postes ouverts
+Posture
+Posture Check
+Posture Checklist
+Potential Challenges
+Pour exporter en image, utilisez la fonction de capture d'ecran de votre navigateur (Ctrl+Shift+S)
+Power Poses
+Powered
+Powered by AI
+Powered by AI to help IMTA graduates succeed
+Powerful Action Verbs
+Practical strategies for managing stress and anxiety before an interview
+Practice History
+Practice Mode
+Practice Scenarios
+Practice an interview
+Practice by Domain
+Practice common questions
+Practice common questions by domain
+Practice completed
+Practice in front of a mirror to improve eye contact
+Practice interview questions specific to your field.
+Practice interviews
+Practice introducing yourself in 2-3 minutes in a concise and impactful way.
+Practice needed
+Practice now
+Practice out loud
+Practice out loud so your answers feel natural
+Practice program
+Practice recorded!
+Practice regularly to improve your speaking confidence
+Practice responding to difficult negotiation situations
+Practice silent pauses - they are more professional than 'um'
+Practice started
+Practice strategic pauses before responding
+Practice to discover your strengths
+Practice to identify your areas for improvement
+Practice with AI
+Practice with an intelligent virtual recruiter
+Practice with an intelligent virtual recruiter. Receive immediate feedback on each response and improve your interview skills.
+Practice your answers to frequent interview questions.
+Practice your interview skills with AI-powered simulations
+Practice your interviews in real conditions with our voice AI. Choose between an individual interview or a panel of interviewers to best prepare yourself.
+Practice your interviews with our AI assistant to prepare effectively.
+Practice your pitch at least 20 times before an important situation. Repetition builds confidence and allows you to deliver a natural and authentic message.
+Practice your timing with this stopwatch
+Practicing
+Pratique
+Precise
+Precise keywords
+Precision
+Predicted Completion Rate
+Predictions
+Predictive Career Matcher
+Preferably send by email for faster follow-up
+Preferences updated
+Preferred regions
+Premium Consulting
+Premium details
+Preparation
+Preparation Checklist
+Preparation Complete
+Preparation Guide
+Preparation List
+Preparation Schedule
+Preparation is the key to interview success.
+Preparation materials
+Preparation progress
+Prepare 3-4 detailed STAR examples for each key competency
+Prepare 5-6 STAR stories that you can adapt to different questions
+Prepare Interviews
+Prepare Your Annual Review
+Prepare Your CV
+Prepare Your Future
+Prepare accessories
+Prepare an emergency kit
+Prepare concrete examples from your internship experiences
+Prepare effectively for your interview with our complete checklist. Check off each step to be ready on interview day.
+Prepare examples for each required skill
+Prepare for common questions
+Prepare for your job interviews with our AI coach. Get personalized feedback and improve your professional communication skills.
+Prepare my interviews
+Prepare questions
+Prepare questions to ask
+Prepare relevant questions to maximize the meeting
+Prepare the background
+Prepare with our Question Bank
+Prepare your answers
+Prepare your answers in advance to reduce hesitation
+Prepare your answers to avoid hesitations
+Prepare your application
+Prepare your career growth discussions
+Prepare your documents
+Prepare your introduction
+Prepare your key arguments for the review meeting
+Prepare your mind for successful interviews. Guided breathing, positive affirmations, power poses, and visualization techniques to boost your confidence.
+Prepare your outfit the night before
+Prepare your outfit the night before the interview
+Prepare your personal introduction (2-3 minutes)
+Prepare your references
+Prepare your resume
+Prepare yourself before the big day
+Preparing
+Preparing to print...
+Present
+Present the results obtained and lessons learned
+Present your background and expertise (2-3 paragraphs)
+Press Enter for a line break
+Press Enter to send
+Press Enter to send, Shift+Enter for new line
+Pret a booster votre carriere ?
+Pret a postuler?
+Preview of your QR code
+Previous affirmation
+Previous question
+Previous tip
+Print format
+Print multiple copies of your resume
+Print options
+Print preview
+Prioritaire
+Priorities
+Priorities (select up to 3)
+Priority Skills
+Priority areas
+Priority skills
+Pro Scripts
+Pro Tip
+Probability
+Problem Solving
+Process Improvement
+Process duration
+Processing
+Productivity
+Productivity tips
+Profession
+Professional / Expert
+Professional Blue
+Professional Career Guidance
+Professional Exchange - {{COMPETENCE}}
+Professional Icon
+Professional Negotiation Scripts
+Professional Network
+Professional Network Map
+Professional Networking Email
+Professional Reference Request
+Professional Summary Writer
+Professional Training
+Professional and serious
+Professional and structured profile, good overall presentation.
+Professional certifications and credentials
+Professional field
+Professional outreach emails
+Professional photo
+Professionals are busy. Get to the point in 3-4 paragraphs maximum while remaining polite and professional.
+Professionals from your target industries
+Professor
+Professor Letter - Master's
+Profile Information
+Profile Photo Checklist
+Profile Score
+Profile not completed
+Profile photo
+Profile required
+Profile views
+Profiles with 50+ skills receive 17x more views. Ask for endorsements on your top 5 skills.
+Program (Optional)
+Program (optional)
+Program / Specialty
+Programming, architecture, tools, and best practices
+Progress History
+Progress over time
+Project
+Project Leadership
+Project Management
+Project Manager
+Promotion
+Proper Framing
+Propose an availability date for a potential second interview
+Proposed salary
+Proven phrase templates for every stage of your negotiation. Customize them to your situation.
+Provide enough context
+Provide information
+Provider: {0}
+Prédicteur de salaire
+Prédire le salaire
+Préparation entretien
+Préparer les entretiens
+Pull for new conversation
+Put your phone on silent or turn it off.
+QR Code Configuration
+QR Code preview
+QR Codes
+QR code deleted
+QR code not found
+QR code saved
+QR codes are an excellent way to share your resume at networking events, on your business cards, or in your presentations. Customize the colors to match your personal brand.
+QR color
+QR color - hex code
+QR color - picker
+Quality
+Quality image that humanizes your site
+Quality leather or faux leather is preferable
+Quality visuals
+Quantified
+Quantified Achievement
+Quantified goal (optional)
+Quantify Your Achievements
+Quantify my Achievement
+Quantify results if possible
+Quantify your achievements
+Quantify your results when possible (%, time, money)
+Quantifying...
+Quarterly
+Quel est votre domaine ?
+Quel est votre niveau actuel ?
+Quel est votre plus grand défi ?
+Quelle personnalité pour votre mentor ?
+Quels secteurs recrutent au Maroc ?
+Question Bank
+Question Generation Failed
+Question bank
+Question review
+Question {0} / {totalQuestions}
+Question {0} of {1}
+Question {0} sur {1}
+Question {0}/{totalQuestions}
+Question:
+Questions a poser
+Questions about your motivations
+Questions about your past experiences
+Questions about your past experiences and behaviors
+Questions about your specific technical skills
+Questions about your technical skills
+Questions adapted to your level
+Questions and Answers
+Questions answered
+Questions asked
+Questions asked by former candidates
+Questions specific to nursing and caregiving
+Questions specific to nursing, healthcare assistants, and midwifery
+Questions to Ask Employers
+Questions to Ask Your Manager
+Questions to address:
+Questions to assess your key competencies
+Queued
+Queued messages sent
+Quick actions
+Quick adaptability
+Quick checklist - Virtual interview
+Quick practice features
+Quick statistics
+Quick stats
+Quickly add the required skills to your inventory
+Quit
+Quiz not available yet
+Quiz progress
+Quiz progress: {0}% complete
+Quiz questions are not yet available. Please contact the administrator to configure the assessment questions.
+Quizzes completed
+Quotes with name, photo, and company if possible
+Q{0}: {1}
+ROI
+ROI Analysis by Certification
+RSVP Status
+RSVP updated
+Random
+Random Practice
+Range
+Ranked by compatibility with your profile
+Ranked by importance and gap size
+Rapports Exportes
+Rate each statement from 1 (strongly disagree) to 5 (strongly agree)
+Reach Out
+Reach level 5 in any skill
+Read carefully before sending
+Read your pitch during practice
+Readiness Level
+Readiness Score
+Readiness score: {score} out of 100
+Ready
+Ready for the Role
+Ready for the interview
+Ready for the role
+Ready for your next interview?
+Ready to Bridge the Gaps?
+Ready to Progress?
+Ready to Start Your Journey?
+Ready to Start?
+Ready to practice?
+Ready to record
+Ready to revolutionize your marketing strategy?
+Real Estate
+Real-time audio
+Realistic experience
+Recall your experience related to {jobPosition}
+Receive notifications for your follow-ups
+Received
+Recent Interactions
+Recent Reviews
+Recent Sessions
+Recent activity
+Recent contact
+Recent history
+Recent photo, neutral background, professional attire
+Recent practice sessions
+Recent reviews
+Recherche d'emploi
+Recherche en cours...
+Rechercher des employeurs...
+Recipient
+Recipient name
+Recomm.
+Recommandé pour vous
+Recommend
+Recommendation Letter Request
+Recommendation Request
+Recommendation Requests
+Recommendation hidden
+Recommendation {0}
+Recommendations
+Recommendations based on your results
+Recommendations by Industry
+Recommendations:
+Recommended Certifications
+Recommended IMTA Programs
+Recommended Jobs
+Recommended Resources
+Recommended Skills
+Recommended Skills - {selectedIndustryLabel}
+Recommended Strategy
+Recommended action:
+Recommended after
+Recommended answer time:
+Recommended colors
+Recommended goals based on your activity
+Recommended keywords for your sector
+Recommended practice
+Recommended resources to develop this skill
+Recommended skills for
+Recommended structure
+Recommender
+Recommender added
+Recommender deleted
+Recommender updated
+Recommenders
+Reconnect Suggestions
+Record a Delivery
+Record a transferable skill for your transition
+Record an interaction with this contact
+Record an interaction with {selectedNodeName}
+Record delivery
+Record feedback received during an interview or practice session.
+Record the basic information for your upcoming interview.
+Record yourself regularly to become aware of your habits
+Record yourself regularly to track your progress
+Record yourself to analyze your non-verbal language
+Recording Analysis
+Recording Review
+Recording Simulator
+Recording analyzed successfully!
+Recording deleted
+Recording in progress...
+Recordings
+Recruiter Information
+Recruiter contact
+Recruiter messages
+Recruiter name
+Recruiters
+Recruiters use these keywords to find candidates. Integrate them into your profile.
+Recrutent actuellement
+Recurrence
+Recurrent
+Recurring Availability
+Recurring strength
+Red Flag Detector
+Red Flags to Watch
+Reduce costs
+Reduce hesitations at the beginning of responses
+Reduces stress by having a prepared response framework
+Reference Manager
+Reference added
+Reference deleted
+Reference the values of {recipientCompany} discussed during the interview
+Reference updated
+Referral Follow-up Email
+Referral from {{POINT_COMMUN}}
+Refine your search with detailed criteria
+Reflect on your performance and prepare your answers
+Reflection
+Regional Comparison
+Regional Differences
+Regional Insights
+Regional Job Market
+Regions
+Related Skill
+Relationship
+Relationship Strength
+Relationship type
+Relax and focus on your breathing
+Release for new conversation
+Relevance
+Relevance to Target: {0}%
+Relevance:
+Relevant examples
+Relevant experience found:
+Relevant questions to evaluate company culture during your interviews
+Reliability
+Reload the page
+Remaining suggestions
+Remember: you are prepared!
+Reminder (days)
+Reminder Settings
+Reminder active
+Reminder added
+Reminder cannot be negative
+Reminder cannot exceed 365 days
+Reminder date
+Reminder delays (days)
+Reminder deleted
+Reminder frequency
+Reminder saved!
+Reminder time
+Reminder title
+Reminder type
+Reminder updated
+Reminder:
+Reminders
+Remote Work
+Remote Work Assessment
+Remote Work Readiness Checker
+Remove Favorite
+Remove from comparison
+Remove from favorites
+Removed from favorites
+Removed from your routine
+Remplissez votre profil pour voir la prédiction salariale
+Renew
+Repeat every week
+Replace \"[Your name]\" with your actual signature
+Replace existing data with imported data
+Replace the elements in [brackets] with your specific information for maximum impact.
+Replace the placeholders [Position], [Recruiter name], [Date] and [Your name] before sending.
+Replace weak verbs with impactful action verbs
+Report exported successfully
+Represents growth, balance, and health
+Request Mentorship
+Request created
+Request deleted
+Request purpose
+Request status
+Request updated
+Requests
+Required Level
+Required Skills
+Required Skills (comma-separated)
+Required Skills for {0}
+Required experience
+Required level:
+Required skills
+Required: {requiredLevel}/5
+Requirements
+Rescheduled
+Research
+Research market salaries for your role
+Research the company
+Research the company more to ask relevant questions
+Reset Filters
+Reset search
+Resource Hunter
+Resource title
+Resources for {0}
+Resources:
+Respectful
+Responded on {0}
+Response Rate Trends
+Response evaluated successfully!
+Response rate
+Ressources Complementaires
+Ressources Supplementaires
+Ressources emploi
+Rest
+Restart evaluation
+Restart the quiz
+Result notes
+Results saved
+Results saved to your account
+Results will appear here
+Resume (multiple copies)
+Resume Analysis
+Resume Gap Analysis
+Resume Improvement
+Resume Preview
+Resume URL *
+Resume Wizard
+Resume created
+Resume deleted
+Resume not found
+Resume session {0}
+Resume template copied! Creating new resume...
+Resume updated
+Retail / Distribution
+Retake Assessment
+Retake Quiz
+Retake the assessment
+Retake the test
+Retake this quiz
+Retour
+Retrieving your quiz results
+Review 100 flashcards
+Review flashcards to reinforce your learning
+Review the job posting
+Review your notes one last time
+Review your previous STAR exercises and evaluations.
+Reviews
+Rien de prevu
+Rising
+Rising Skills
+Risk prevention is a priority for you.
+Round
+Routine
+Run Simulation
+Run an analysis
+Run an analysis to see keyword density
+Run an analysis to see the before/after comparison
+Run an analysis to see the keyword cloud
+Références salariales
+Région
+Répondez à quelques questions pour obtenir des recommandations personnalisées
+Réseautage
+S'entrainer
+S'entrainer aux entretiens
+STAR Example Bank
+STAR Guide
+STAR Method
+Safety Focus
+Safety awareness
+Safety focus
+Salaire annuel prédit
+Salaire moyen
+Salaire moyen d'un ingénieur IMTA ?
+Salaires
+Salaires moyens par poste et niveau d'expérience
+Salaries
+Salary (DH/month)
+Salary Benchmarks by Industry
+Salary Benchmarks by Role
+Salary Breakdown
+Salary Comparison by Field
+Salary Grid
+Salary Negotiation Guide
+Salary Position
+Salary Progression
+Salary Projection
+Salary Ranges by Role
+Salary Research
+Salary Trends
+Salary Trends by Sector
+Salary at 5 Years
+Salary by Field
+Salary impact
+Salary premium:
+Salary range
+Salary range (MAD)
+Same
+Same handle across all platforms if possible
+Same photo or style as LinkedIn for recognition
+Sample text with this palette
+San Francisco, CA
+Santé
+Sat
+Saturday
+Save Goal
+Save Preferences
+Save Your Results
+Save Your Roadmap
+Save for later
+Save job descriptions to analyze them later
+Save recommendations to find them here
+Save search
+Save this letter
+Save this offer
+Saved Listings
+Saved Searches
+Scan distribution by device type
+Scan trends over the last 30 days
+Scans over time
+Scans today
+Scenario Name
+Schedule a new interview
+Schedule a session with {0} {1}
+Schedule an interview
+Scheduled
+Scientific rigor
+Score ATS
+Score Breakdown
+Score Details
+Score Distribution
+Score by category
+Score distribution
+Score evolution
+Score improvement
+Score: {0}%
+Scores by question
+Search LinkedIn, Indeed, and Glassdoor in one interface. Compare listings, track your applications, and save your searches.
+Search among available offers and find the opportunity that matches your profile
+Search appearances
+Search by title, company, skill...
+Search connections...
+Search contacts, companies, tags...
+Search deleted
+Search employers...
+Search for a certification...
+Search for a company...
+Search for a job or company
+Search for a position, company, skill...
+Search for a position, company...
+Search for a question...
+Search for a reference...
+Search for a skill...
+Search for a tip...
+Search for new opportunities
+Search for offers
+Search for recent press articles
+Search for templates...
+Search in feedbacks...
+Search jobs by title, company, or skills...
+Search keywords
+Search mentors by name, title, or skills...
+Search name
+Search notes...
+Search resources...
+Search resumes...
+Search saved
+Seasons
+Second follow-up
+Secondary
+Secteur
+Section Analysis
+Section regenerated!
+Sectors
+Sectors with most opportunities
+See common questions
+See less
+Segments
+Select All
+Select This Path
+Select Your Target Role
+Select a Conversation
+Select a QR code
+Select a Target Role
+Select a career path to see a detailed analysis of your skills and identify gaps to fill.
+Select a career path to see the analysis of your skills
+Select a color palette
+Select a field
+Select a level
+Select a mentor...
+Select a palette that matches your professional personality
+Select a path
+Select a program
+Select a recommendation to view details
+Select a recommender
+Select a script
+Select a target role
+Select a target role to see recommended learning resources.
+Select a template
+Select a trait
+Select all elements of your outfit (clothes, shoes, accessories)
+Select an existing resume...
+Select an industry
+Select data to export:
+Select data to import:
+Select education level
+Select field
+Select industry
+Select language
+Select level
+Select listings from the search tab to compare them
+Select or generate a letter first to record a delivery
+Select professional and appropriate clothing.
+Select recommenders who know you well and can speak to specific skills relevant to your application.
+Select region
+Select skill
+Select target field
+Select up to 2 companies to compare with your profile
+Select up to 3 listings to compare them
+Select your industry for personalized recommendations
+Select your letter style
+Select your resume *
+Select your sector
+Select your target industry
+Selected Path
+Self-Assessment Templates
+Self-Confidence Exercises
+Self-assessment
+Self-assessment progress
+Send Message
+Send Request
+Send a Follow-Up
+Send a message to a mentor or connection
+Send a request to {0} {1}
+Send a thank you message after receiving the letter and keep the recommender informed of the outcome.
+Send a thank-you after the interview
+Send a thank-you email within 24 hours after the interview.
+Send date *
+Send follow-up
+Send method
+Send them a quick message or book a session
+Sending recorded successfully
+Sending removed
+Sending tips
+Sending verification email...
+Sending your letter within 24-48 hours shows your seriousness and interest in the position. It also helps you stay fresh in the recruiter's mind while taking time to write a thoughtful message.
+Sending...
+Senior (5+ years)
+Senior (6-10 years)
+Senior Recruiter
+Sense of safety
+Sent
+Sent on {0}
+Sent:
+Separate keywords with commas
+September
+Services
+Session Analysis
+Session Complete!
+Session Configuration
+Session Notes
+Session Summary
+Session Topic
+Session Type
+Session actions
+Session deleted
+Session details
+Session not found
+Set
+Set Career Goal
+Set Goal
+Set Reminder
+Set a Goal
+Set a goal for this week
+Set a new goal to track with your mentor
+Set a reminder to follow up with this contact
+Set goals with your mentor to track your progress
+Set reminder
+Set your alarm with a safety margin
+Set your career goal to get a personalized AI-generated study plan
+Set your interview date to receive a reminder
+Set your next interview goal to track your preparation.
+Set your target salary range
+Set your usual availability slots
+Set your weekly study time target
+Settings saved
+Share Your Roadmap
+Share the concrete results of your actions. Quantify if possible.
+Share with a Mentor
+Share your feedback about this session...
+Share your resume in one scan
+Share your resume, the job/program description, and key points you would like to see mentioned.
+Share your roadmap with others using this code.
+Sharing...
+Shave or carefully trim your beard
+Shoulders relaxed, not raised
+Show Answer
+Show More Details
+Show duplicates
+Show embed code
+Show favorites only
+Show ideal answer
+Show past
+Show respect for the recruiter
+Show resume name under QR code
+Show your face and upper body
+Show your skills
+Similar listings
+Simple
+Simple form, response time indicated
+Simulate a real interview
+Simulate an interview
+Simulated Interview
+Simulating...
+Simulation realiste
+Simulez des entretiens avec l'IA et recevez des retours personnalises.
+Since {0}
+Sit or lie down comfortably
+Situation
+Situational
+Skill
+Skill Assessment
+Skill Details
+Skill Development
+Skill Master
+Skill Name
+Skill Suggestions
+Skill added
+Skill added successfully
+Skill deleted successfully
+Skill description...
+Skill name
+Skill rating updated
+Skill updated
+Skills (comma-separated)
+Skills Acquisition
+Skills Alignment
+Skills Assessment Quiz
+Skills Checklist
+Skills Development
+Skills Extractor
+Skills Gap
+Skills Gap Analysis
+Skills Gap Analyzer
+Skills Heatmap
+Skills Management
+Skills Overview
+Skills Tracking
+Skills Visualization
+Skills covered
+Skills employers are actively seeking
+Skills extracted successfully
+Skills quiz results and assessments
+Skills ranked by market demand score
+Skills to Develop
+Skills to develop
+Skills to develop by priority order
+Skills with fastest growing demand in Morocco
+Skip duplicates
+Slightly slow down your speaking pace
+Small company (10-50 employees)
+Small earrings are preferable
+Smart Analysis
+Smart casual
+Smart suggestions to personalize your letter
+Smile
+Smile - it helps you feel confident
+Smile more, especially at the beginning and end
+Smile naturally to project confidence
+Smile to project energy
+Snooze 3 days
+Social Impact
+Social Media
+Social Media Checklist
+Soft skills
+Software Engineer
+Some data could not be loaded. Please refresh the page.
+Soon, access job listings matching your profile directly and apply with one click!
+Sophistication, luxury, and authority
+Source: {0}
+Southern regions (Laayoune, Dakhla) offer attractive remoteness bonuses.
+Spaced Repetition Practice
+Speaking pace
+Speaking...
+Specialization
+Specific Tips
+Specific Topic
+Specific skill
+Specific tips for video interviews
+Specify the topic you want to focus on
+Specify volumes (number of projects, clients, users)
+Spelling
+Sports
+Spreadsheet-compatible contact list
+Spécialisation :
+Stable
+Standard Quiz
+Standard quiz questions haven't been configured yet. Try the AI-powered quiz for personalized questions based on your profile!
+Start AI chatbot conversation
+Start Assessment
+Start Practicing
+Start Quiz
+Start Recording
+Start Session
+Start a Quiz
+Start a Session
+Start a conversation
+Start a personalized practice session now
+Start a session
+Start adding deadlines
+Start an exercise
+Start assessment
+Start building your career timeline by adding your professional experiences.
+Start building your professional network by adding your first contact.
+Start by adding your certifications to track their validity and plan renewals.
+Start by adding your current skills to analyze the gaps with your target role.
+Start by adding your skills to track your progress and identify gaps.
+Start by adding your transferable skills
+Start by asking
+Start date
+Start each bullet point with an action verb
+Start each bullet point with an action verb, quantify your achievements with concrete numbers, and adapt your vocabulary to the target industry. Use our AI tools to transform your responsibilities into measurable accomplishments.
+Start meditation
+Start mock interview session - 20 minutes
+Start over
+Start practicing
+Start practicing to see your trends
+Start quick practice session - 5 minutes
+Start scheduling your interviews
+Start time
+Start tracking your applications
+Start tracking your job applications to stay organized and never miss a follow-up.
+Start tracking your skills
+Start your first mock interview to build confidence and improve your skills before the real thing.
+Start your first practice session
+Started: {0}
+Starting Salary
+Startup (fewer than 10 employees)
+Startups
+Statement
+Status Distribution
+Status updated
+Statut de vos candidatures par categorie
+Stay calm and composed
+Stay relevant to the question
+Stay well hydrated
+Step {0}
+Step {wizardStep}
+Step-by-Step Construction
+Steps
+Steps to follow:
+Stick to headings like \"Experience\", \"Education\", \"Skills\". ATS systems may not recognize creative alternatives.
+Stimulant
+Straight and open posture
+Straight back and shoulders pulled back
+Strategic
+Strategic leader, I guide organizations toward operational excellence and sustainable innovation.
+Strategic questions to get the information you need
+Strategy:
+Stratégie de carrière
+Strength
+Strength: {0}
+Strengthen your confidence with powerful affirmations
+Strengthening safety standards
+Strengths and areas for improvement detected during the video
+Stress Management
+Stress resilience
+Strong Ties
+Strong interest in patient care
+Strong technical aptitude
+Structure
+Structure your answer with the STAR method
+Structure your interview answers like a professional
+Structured responses with concrete examples
+Structured training for behavioral questions
+Student
+Students
+Study Plan Generator
+Study Streak
+Study Time
+Study after 10 PM
+Study before 8 AM
+Study these model answers to understand the STAR structure in practice.
+Style Preview
+Subject
+Subject (Optional)
+Subject (optional)
+Subject Line
+Subject:
+Submit Application
+Submit response
+Subscription
+Subtle forward lean
+Success Factors
+Success Guide
+Success Rate
+Success Stories
+Success comes to those who prepare.
+Success rate
+Successful average
+Suggested Answer:
+Suggested Connections
+Suggested SEO keywords
+Suggestions:
+Suivant
+Sujets :
+Summary Generation
+Summary of your professional preferences and values
+Summary suggestions generated
+Summer / Hot Weather
+Sun
+Sunday
+Supervisor
+Supervisor Letter - Employment
+Supprimer
+Supprimer la conversation
+Sur quoi votre mentor doit-il se concentrer ?
+Surprising
+System Health
+Sélectionner
+Sélectionner la région
+Sélectionner le domaine
+Sélectionner le niveau
+Sélectionnez un mentor pour commencer
+Tags (comma-separated)
+Tags (separated by commas)
+Tailor it if necessary to the target position
+Take a deep breath before answering
+Take a few deep breaths
+Take a few moments to calm down before the interview.
+Take a shower and groom yourself
+Take care of your personal hygiene
+Take time to think before answering
+Tanger affiche la plus forte croissance (+22%) grace aux zones franches et a l'industrie automobile.
+Tapez votre message...
+Target Date
+Target Field
+Target Industries
+Target Industries (comma-separated)
+Target Level
+Target Role
+Target Salary (MAD/year)
+Target company
+Target date
+Target position
+Target position *
+Target practice count
+Target role
+Target salary (DH)
+Target updated successfully
+Target:
+Target: {0}
+Task
+Task (English)
+Task (French)
+Tasks to complete following this interview
+Team / Potential Colleagues
+Teamwork
+Tech
+Tech / IT
+Tech Corp
+Tech Startups
+TechConnect 2024
+Technical Interview
+Technical Lead
+Technical aptitude
+Technical mastery
+Technical skills
+Technique
+Technology
+Technology / IT
+Technology / Startup
+Tell us about your background and we'll predict optimal career paths for you.
+Tell us about your current situation and where you want to be.
+Tell us about yourself for personalized insights
+Template Selection
+Template applied successfully
+Template copied
+Template copied to clipboard
+Template created successfully
+Template deleted
+Template name
+Template:
+Test and Develop Your Skills
+Test internet connection
+Test the route in advance if possible
+Text to check
+Thank You
+Thank You - Interview for {{POSTE}}
+Thank You Letter
+Thank You Letter Generator
+Thank You for Recommendation
+Thank You for Your Recommendation
+Thank you
+Thank you and gratitude messages
+Thank you letter generated successfully
+Thank you letter saved!
+Thank you: Send within 24 hours
+The Golden Rule
+The IMTA programs that best match your profile
+The STAR Method
+The STAR Method - Your Key to Structured Answers
+The STAR method is a structured communication technique for answering behavioral questions. It helps you give clear, concise, and impactful answers.
+The STAR method is a structured response technique used to answer behavioral questions during job interviews. It helps you present your experiences in a clear, concise, and compelling way.
+The big day
+The candidate handles pressure well, thoughtful responses.
+The employer says:
+The importance of the thank you letter
+The interview has passed!
+The key phases of your professional transition
+The recruiter is thinking...
+The right timing can make all the difference in a negotiation
+The strap should be in good condition
+The {panelSize} members of your panel
+There was an error loading your roadmaps. Please try again later.
+These estimates are based on Moroccan market data from 2024. Actual salaries may vary depending on the company, individual negotiations, and economic conditions. For more detailed information, consult official salary surveys or contact industry professionals.
+These skills are ranked by impact on your employability, based on market demand and your current level.
+These tips and scripts are general recommendations. Each negotiation situation is unique. Adapt these strategies to your specific context, company culture, and local market. The important thing is to remain professional, respectful, and well-prepared.
+Think about percentages (improvement, reduction)
+Think positively
+Thinking Zone
+This action cannot be undone. Your roadmap \"{0}\" will be permanently deleted.
+This action is irreversible.
+This action is irreversible. The alert and all its matches will be permanently deleted.
+This action is irreversible. The application will be permanently deleted.
+This action is irreversible. The certification \"{0}\" will be permanently deleted.
+This action is irreversible. The deadline will be permanently deleted.
+This action is irreversible. The event \"{0}\" will be permanently deleted.
+This action is irreversible. The interview will be permanently deleted.
+This action is irreversible. The letter \"{0}\" will be permanently deleted.
+This action is irreversible. The letter for {0} will be permanently deleted.
+This action is irreversible. The path will be permanently deleted.
+This action is irreversible. The skill \"{0}\" will be permanently deleted.
+This company matches {0}% of your cultural preferences.
+This criterion is less important to you ({0}/100). You can be more flexible on this point.
+This exercise is already in your routine
+This may take a few seconds
+This mentor offers free sessions
+This month
+This recommender has associated requests
+This session does not exist or has been deleted.
+This skill will be removed from your history.
+This week
+This week's goals
+This will also remove all associated resources and tasks.
+This {totalQuestions}-question quiz will assess your skills across 5 key areas of remote work.
+Thread and needle, spare buttons, stain removal wipes
+Thu
+Thursday
+Time Management
+Time Range
+Time remaining:
+Time's up!
+Timeline (months)
+Timeline to Achieve Goal
+Timer per Question
+Timezone
+Timing Recommendations
+Timing Strategies
+Tip available
+Tip indicators
+Tip {0}
+Tip {0} of {1}: {2}
+Tip: Aim for 50 skills
+Tip: Smile more at the beginning and end of the interview. A natural smile projects confidence and approachability.
+Tips and tricks
+Tips based on video analysis to improve your presence and confidence.
+Tips by Experience Level
+Tips by professional field
+Tips for Answering
+Tips for Good Interview Note-Taking
+Tips for Succeeding in Your Interviews
+Tips for Your Practice
+Tips for a better score
+Tips for an Effective Letter
+Tips for an Effective Resume
+Tips for an effective headline
+Tips for better alerts
+Tips for better recordings
+Tips for effective messages
+Tips for meditating
+Tips for optimal printing
+Tips for optimizing your keywords
+Tips for reducing filler words
+Tips for success
+Tips for the day of the interview
+Tips for using STAR effectively
+Tips specific to the Moroccan job market and employer expectations.
+Tips to Accelerate Your Progression
+Title (optional)
+Title and description for each page
+Title cannot exceed 100 characters
+Title is required
+Title suggestions generated
+Title/Position
+To Renew
+To acquire
+To avoid
+To develop
+To do
+To improve
+To increase
+To reduce
+To watch
+Today is the first day of your professional future.
+Today's Tasks
+Today's progress
+Toggle navigation menu
+Tomorrow
+Ton
+Tone
+Tone adapted to the chosen style
+Tone:
+Too high (>3%)
+Tool
+Tools & Software
+Tools & Technologies
+Top 3 Recommended Programs
+Top Employers in Morocco
+Top Hiring Sectors
+Top In-Demand Skills
+Top Match
+Top Mentor Recommendations
+Top Recruiters This Quarter
+Top skills for {0}
+Top skills:
+Total Days
+Total Growth
+Total Investment
+Total Jobs
+Total Network
+Total Sessions
+Total Skills
+Total Study Days
+Total Time
+Total compensation (with bonus)
+Total detected
+Total duration
+Total goals
+Total matches
+Total offers
+Total progress
+Total references
+Total requests
+Total scans
+Tous les secteurs
+Tout ce dont vous avez besoin
+Tout effacer
+Track all your applications in one place. Manage your interviews, notes, and next steps.
+Track all your professional interactions over time
+Track how your network has expanded
+Track networking events and opportunities
+Track the evolution of your skills over time
+Track the expiration dates of your certifications
+Track the status of your applications and keep notes
+Track your current vs target skill levels
+Track your feedback
+Track your journey to {0}
+Track your performance over time
+Track your professional contacts, schedule follow-ups, and nurture relationships that advance your career.
+Track your progress in areas that need improvement
+Track your progress through each step of your career roadmap.
+Track your progress through key achievements
+Track your progress toward your annual goals
+Track your progress with your mentor
+Track your progress, identify your strengths, and improve your interview skills through IA.
+Track your sent thank you letters
+Track your skills and identify gaps to fill
+Track your tasks and goals
+Track your technical and soft skills, set improvement goals, and visualize your growth over time. Add your first skill to get started!
+Traditional tone with classic structure
+Training
+Training completed
+Training programs suited to your profile with full details
+Training started
+Trajectories
+Transferable Skills
+Transferable skills
+Transform your gap analysis into a concrete action plan with weekly goals and learning resources.
+Transform your responsibilities into quantified and impactful achievements
+Transition Planner
+Transition Timeline
+Trend to watch
+Trends
+Trimmed beard or careful shave
+Trouver mon mentor
+Trouver un emploi
+Trouver un mentor
+Trust, Professionalism
+Try Again
+Try adjusting your filters or search term
+Try adjusting your search criteria or clearing the filters to see all your contacts.
+Try adjusting your search filters to find more mentors
+Try adjusting your search or filters to find more opportunities.
+Try changing your filters
+Try changing your filters or create a new template
+Try changing your search criteria
+Try changing your search filters
+Try modifying your search criteria or broadening your filters
+Try modifying your search filters
+Try on the outfit
+Tue
+Tuesday
+Turn off your phone
+Tutorial
+Type your message...
+Type your response...
+Type:
+Types of skills highlighted
+Typical career path and salary progression in your field
+Typical questions by domain
+Typical salary ranges in Morocco to help you calibrate your expectations
+Typical value:
+Typographic Wordmark
+Télécom
+URL copied to clipboard
+UX/UI Designer
+Unable to load alerts. Please try again.
+Unable to load coaching data. Please try again.
+Unable to load companies
+Unable to load data. Please try again.
+Unable to load feedback. Please try again.
+Unable to load improvements. Please try again.
+Unable to load job listings
+Unable to load job listings. Please try again.
+Unable to load job offers. Please try again.
+Unable to load results. Please try again.
+Unable to load the checklist. Please try again.
+Unable to load your applications
+Unable to load your certifications. Please try again.
+Unable to load your cover letters. Please try again.
+Unable to load your evaluation. Please try again.
+Unable to load your quiz results. Please try again.
+Unable to load your references. Please try again.
+Unable to load your skills. Please try again later.
+Unable to load your thank you letters. Please try again.
+Unfavorite
+Unified Search
+Uniform username
+Unique Strength
+Unique Value Proposition Builder
+Unique and memorable tone that stands out
+Unlimited
+Unlock badges by completing challenges
+Unlock badges by reaching study milestones
+Unsolicited Application - {{POSTE}} - {{MON_NOM}}
+Unsolicited Application Email
+Untitled
+Up-to-date data
+Upcoming Actions
+Upcoming Sessions
+Upcoming events
+Upcoming interview
+Upcoming interviews
+Upcoming urgent deadlines
+Update contact information
+Update it now
+Update the information for this deadline
+Update the information for your application
+Update your career goals to get better mentor recommendations
+Update your interview information
+Update your skill levels to start tracking your progress.
+Updates
+Upload a previously exported JSON file to restore or merge your data.
+Upload a recording
+Upload and analyze
+Upload export file:
+Upload or record a video to get a complete analysis.
+Upload your first interview recording to receive a detailed analysis by our AI.
+Upload your interview recording for a detailed AI analysis.
+Urgent
+Urgent - {days} jours
+Use 'I did...' not 'We did...'. Be specific about your individual actions.
+Use 'I' not 'We'
+Use AI features to generate content
+Use Situation, Task, Action, Result to structure your answers.
+Use Template
+Use a maximum of 120 characters (fully visible)
+Use a resume
+Use an external microphone if possible
+Use artificial intelligence to transform your resume into an impactful document. Generate impactful bullet points, optimize your summary, and much more.
+Use as Template
+Use concrete numbers to illustrate your accomplishments.
+Use keywords from your industry
+Use natural gestures to emphasize your points without overdoing it.
+Use numbers and percentages. \"Managed team of 5\" is better than \"Managed a team\" for ATS scoring.
+Use open gestures to emphasize your key points
+Use our salary calculator to get an accurate estimate of your value based on your experience and region.
+Use terms specific to your profession
+Use the STAR method (Situation, Task, Action, Result)
+Use the STAR method to structure your answers
+Use the What-If Simulator to create career trajectories, then select one to track.
+Use the power of your imagination to prepare for success
+Use the same terms as the job listing in your resume. Quantify your achievements with concrete numbers. Adapt your professional summary for each application. A score of 70%+ significantly increases your chances of being contacted.
+Use the same terms as the job listing. Avoid over-optimization (density above 3%). Include variations of important keywords. Place the most important keywords in the summary and section titles. Aim for an ATS score of at least 70% to maximize your chances.
+Use the suggestions above to improve your resume and increase your chances of passing ATS filters.
+Use these insights to optimize your resume and increase your chances of being selected.
+Use this information to customize your resume and prepare for interviews.
+Use this time to relax
+Use timestamps to easily find key moments
+Used
+Useful Resources
+Useful resources
+Username can only contain lowercase letters, numbers, periods, hyphens, and underscores.
+Username cannot exceed 64 characters
+Username is required
+Utilisez notre calculateur pour estimer votre salaire selon votre experience, region et domaine.
+Validate
+Validation failed
+Valide
+Value Proposition
+Values
+Values Alignment
+Variable
+Vary verbs to avoid repetition
+Vary your intonation
+Vedette
+Verifiable client reviews
+Verification URL
+Verify everything is in your folder
+Verify the exact address of the interview location
+Version:
+Very favorable
+Very formal
+Veuillez entrer vos compétences
+Veuillez remplir tous les champs
+Victories
+Victory
+Video
+Video Call
+Video analysis (placeholder)
+Video file
+Video ready for analysis
+Vidéos, diagrammes
+View AI Analysis
+View AI Status
+View AI status
+View All Analyses
+View All Employers
+View Checklist
+View Detailed Analysis
+View Detailed Results
+View Full Template
+View LinkedIn
+View Notes
+View Profile
+View Results
+View a sample answer
+View all actions
+View all career guidance
+View all skills
+View analysis
+View analytics
+View and customize shortcuts to navigate faster.
+View available programs
+View compatible companies
+View detailed analysis
+View details
+View examples
+View full example
+View model answer
+View my score
+View offers
+View on {0}
+View preparation guide and tips
+View profile
+View resource
+View resources
+View results
+View results for {0}
+View the final rendering
+View the full path
+View your recent data export and import operations.
+Vigilant
+Virtual Attire
+Virtual interview
+Visible call to action
+Visible piercings may be poorly perceived depending on the sector
+Vision
+Vision, decision-making, team motivation
+Visionary
+Visionary Leader
+Visit our analytics page for comprehensive salary data by sector and region
+Visit the company's official website
+Visiter le site
+Visual Comparison
+Visual Identity
+Visual Network
+Visualization
+Visualization Techniques
+Visualization of your dominant traits
+Visualize connections, discover mutual contacts, track interactions, and grow your professional network strategically.
+Visualize the impact of optimizations on your profile
+Visualize the improvements made to your text side by side
+Visualize the progress of each skill toward its goal
+Visualize your professional journey, track your skills, set your goals and benchmark yourself against market benchmarks.
+Visuel
+Voice
+Voice Interview
+Voice Interview (Beta)
+Voice Modulation
+Voice Simulation
+Voice and Diction
+Voice and Tone
+Voice and Tone Guide
+Volume
+Vos actions apparaitront ici
+Vos competences par type
+Vos dernieres actions sur la plateforme
+Votre mentor
+Votre mentor sera créé avec des capacités d'intelligence artificielle. Vous pourrez toujours le personnaliser plus tard.
+Votre salaire estimé
+Vous etes pret !
+Vous pousse à progresser
+Vue d'ensemble
+Vérifiez votre mentor
+Vérifié
+Wake up early and get ready
+Warm and Approachable
+Warm and approachable
+Warning signs during a negotiation that deserve your attention
+Watches
+We are preparing the assessment questions. Check back later to discover the careers that best match your profile!
+We'll analyze your skills against market demand and provide tailored recommendations
+Wear clean and polished shoes
+Wear socks that match your shoes
+Web Developer
+Webinar
+Website URL
+Wed
+Wednesday
+Week Warrior
+Weekly Goal
+Weekly Overview
+Weekly Progress
+Weekly Study Schedule
+Weekly Summary
+Weekly goals
+Weeks
+Welcoming
+Wellness
+What Finance and Accounting Employers Expect on a Resume
+What concrete actions did you take? Describe step by step what YOU did.
+What did you discuss?
+What do you want to remember?
+What is the STAR Method?
+What is the company's industry?
+What is the size of the company?
+What is your profession or expertise?
+What is your unique strength?
+What personality trait defines you?
+What sets you apart
+What to do after the interview
+What type of position are you targeting?
+What value do you bring to your clients?
+What was the result? Quantify if possible. What did you learn?
+What was your specific responsibility? What was your role or mission?
+What worked:
+What would you like to discuss?
+What you do + for whom + link
+What's new
+What-If Scenario Simulator
+What-If Simulator
+When a Resume Objective Is Still Appropriate
+When:
+Where technology meets the art of the possible
+Where to look during a video interview to project confidence and engagement
+Where to place these keywords?
+Who is your target audience?
+Who will you be interviewing with?
+Why 24-48 hours?
+Why These Mentors?
+Why ask this question?
+Why this job matches
+Why this match:
+Willing to relocate for a job
+Winter / Cold Weather
+With deep expertise in the field, I help companies navigate their strategic challenges.
+Women
+Women's Outfit
+Word cloud
+Words
+Words (after)
+Words detected
+Work Preferences
+Work Style
+Work on reducing filler words
+Work on reducing filler words like \"um\" and \"so\"
+Work preference
+Work style
+Work type
+Work-Life Balance
+Write a brief message to the employer...
+Write down the names and titles of all recruiters from the start
+Write your message here...
+Write your response here... Take time to structure your ideas.
+Writing Tone
+Writing tone
+Years Exp.
+Years known
+Years of Experience
+Years of experience
+Years of experience: {0} years
+You
+You are almost ready! A few more practice sessions will help.
+You are offline
+You are ready for your interview!
+You are starting your personal branding journey. Complete the sections above!
+You completed a {0} interview for the position of {targetRole}.
+You don't have a resume yet. <0>Create one</0>
+You don't have any learning paths yet. Generate one with AI to start developing your skills.
+You excel at solving technical problems.
+You finished in {recordingTime}s - try slowing down a bit!
+You have completed the entire preparation list. You are ready for your interview!
+You have natural abilities to lead teams.
+You have strong empathy and enjoy helping others.
+You know how to convey your ideas and listen to others.
+You must have at least one exchange before ending
+You need more practice before a real interview.
+You place great importance on this criterion ({0}/100). Look for companies that also value this.
+You project good overall confidence. Your posture and tone reflect assurance.
+You stay calm in difficult situations.
+You took {recordingTime}s - try shortening your pitch!
+You're all caught up!
+You've answered all {0} questions
+You: 
+Your AI-generated study plan for this week
+Your Brand Statement
+Your Career Goals
+Your Career Highlights
+Your Career Intelligence Hub
+Your Career Trajectory
+Your Cultural Profile
+Your Current Skills (comma-separated)
+Your Data
+Your Goals
+Your Job Matches
+Your Journey
+Your Learning Paths
+Your Next Steps
+Your Panel
+Your Personality Profile
+Your Personalized Results
+Your Pitch
+Your Predicted Career Paths
+Your Profile
+Your Profile Analysis
+Your Progress
+Your Resume
+Your Roadmap Steps
+Your Salary Expectation
+Your Saved Roadmaps
+Your Simulated Trajectories
+Your Skills
+Your Skills (comma-separated)
+Your Solution
+Your Strengths
+Your Target
+Your Transition Path
+Your Unique Value Proposition
+Your Years of Experience
+Your \"About\" section is your elevator pitch. Tell your professional story in an engaging way.
+Your accomplishment (without metrics)
+Your area of expertise
+Your availability this week
+Your bullet points will appear here
+Your career starts with a great presentation.
+Your checklist progress
+Your completed sessions will appear here
+Your cover letter will appear here
+Your current LinkedIn headline...
+Your current LinkedIn summary
+Your current salary
+Your current summary/About section...
+Your email subject line determines whether it will be opened. Be specific and avoid generic phrasing.
+Your environment reflects your professionalism
+Your experience
+Your facial expressions are consistent with your speech. More smiling would be beneficial.
+Your gestures are natural and support your speech well. Be careful not to cross your arms too often.
+Your goals for this week
+Your headline is the first thing recruiters see. Optimize it with strategic keywords.
+Your identified strengths
+Your industry
+Your initials stylized in an elegant and memorable design
+Your interview at {0} is {timeLabel}!
+Your interview is {timeLabel}!
+Your interview statistics
+Your interviewer for this session
+Your key skills (separated by commas)
+Your latest job listings and their performance
+Your letter will appear here
+Your level:
+Your message
+Your name with distinctive and personalized typography
+Your next steps
+Your observations and reflections on this interview
+Your optimized summary will appear here
+Your outfit is ready! You have completed all outfit preparation steps.
+Your overall score
+Your performance by category
+Your performance compared to candidates who passed their interviews
+Your personal brand is well established. Keep evolving it and creating consistent content.
+Your pitch is a bit short. Add more details.
+Your pitch is too long. Try to shorten it.
+Your pitch will appear here
+Your potential is limitless, explore it!
+Your previous analyses will appear here
+Your professional future starts now. Explore IMTA programs and get started!
+Your professional journey is continuous.
+Your profile can be improved
+Your quantified accomplishment will appear here
+Your recent entries
+Your recommendation
+Your recordings
+Your response
+Your response:
+Your results are automatically saved to your account. Come back anytime to review them.
+Your resume and profile information will be shared with the employer. You can add an optional cover letter message below.
+Your resume is your passport to success.
+Your score
+Your strengths
+Your summary will appear here
+Your thank you letter deliveries will appear here
+Your voice is clear but the pace can be improved. Some filler words detected.
+Your {providerName} account has been linked successfully.
+Your {providerName} account has been unlinked successfully.
+Zones to Avoid
+above average
+actives
+answers
+applications
+archivées
+average
+below average
+bonus salarial
+caracteres
+certification(s)
+characters
+classic
+communication, STAR, examples
+company(ies)
+compared to market
+compatibility
+compatible
+complete
+contacts
+contacts found
+contents generated
+correct answers
+croissance
+days
+days left
+deadline(s)
+e.g., 10 hours
+e.g., Complete Leadership Training
+e.g., Engineering Manager
+e.g., Follow up on job opening
+e.g., Follow up on job opportunity
+e.g., HSE Coordinator, Nurse, Technician
+e.g., Leadership, System Design, Python
+e.g., Python, Leadership, French
+e.g., Question about career advice
+e.g., Technology, FinTech
+e.g., Transition to management
+emplois
+employers
+employés
+entreprise(s) trouvee(s)
+equipped
+estimated (target: {targetSeconds}s)
+estimated weeks
+estimated years
+ex. Infirmier, Technicien HSE
+ex. Rédaction de CV, Négociation salariale
+ex. Sarah, Coach Ali, Dr. Expert
+exchanges
+exercises completed
+expected contacts
+favoris
+favorites
+follow-ups
+for later
+hiring now
+hours
+https://event-website.com
+https://linkedin.com/in/...
+https://linkedin.com/in/username
+https://your-resume.com/profile
+in 2 days
+in-demand skills
+including {0} critical
+items checked
+items completed
+job found
+jobs
+jobs found
+john.doe@company.com
+john@example.com
+linkedin.com/in/your-name instead of numbers
+listings
+match rate
+median annual
+messages
+min
+minimalist
+minimum characters
+minutes
+modern
+month
+months
+more
+of goal
+of video
+of {0} required skills
+offers found
+open positions
+opportunities
+or
+or click to browse
+out of 100
+out of {skillGapsLength} skills
+par an
+partner employers
+pending reminders
+per year
+postes ouverts
+premium
+professional
+questions
+questions answered
+recommendations
+recruiter@company.com
+request(s)
+requests
+resources found
+responses
+resumes found
+reviews
+salaire
+sessions this month
+since you signed up
+skills
+skills to develop
+steps completed
+tech, senior-roles, responsive
+time remaining
+times
+to
+to review
+tokens
+tomorrow
+unread
+vs current salary
+vs mois dernier
+vs your position
+week
+words (target: {targetWords})
+years
+{0} ({1} weeks)
+{0} - Detailed Steps
+{0} Day Streak
+{0} Sector
+{0} at {1}
+{0} available
+{0} day(s) ago
+{0} employer(s)
+{0} employer{1} found
+{0} follow-up(s)
+{0} follow-ups marked as sent
+{0} improvement suggestions found
+{0} job(s) found
+{0} jobs
+{0} months
+{0} new recommendations generated
+{0} position(s)
+{0} positions
+{0} sessions
+{0} skill(s)
+{0} steps
+{0} steps over {1}
+{0} suggestions found
+{0} years
+{0}% Match
+{0}% ahead
+{0}% behind
+{0}% complete
+{0}% match
+{0}+ years exp.
+{absValue} days remaining
+{allJobsCount} or more active job offers
+{assessmentProgress}% complete
+{averageScore} percent average score
+{completedCount} completed sessions
+{completedMilestones}/{0} milestones
+{completedSkills}/{0} skills
+{days} jours restants
+{diffHours} hour{0} ago
+{diffMins} min ago
+{diffMins} minute{0} ago
+{employerCount} employers
+{goalsCount} goals
+{months} months
+{questionCount} exchange(s)
+{sessionsCount} total sessions
+{sessionsThisMonth} sessions this month
+{weeks} weeks
+{years} year(s)
+{years} year(s) {remainingMonths} months
+{years} years
+{years} years {remainingMonths} months
+Étape {0} sur 5
+Étape {step} sur 4
+Étudiant
+Êtes-vous sûr de vouloir supprimer cette conversation ? Cette action est irréversible.

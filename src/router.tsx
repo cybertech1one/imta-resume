@@ -26,11 +26,16 @@ export const getRouter = async () => {
 		routeTree,
 		scrollRestoration: true,
 		defaultPreload: "intent",
-		defaultViewTransition: true,
+		defaultPreloadStaleTime: 30_000, // Keep preloaded data fresh for 30s
+		defaultViewTransition: false,
 		defaultStructuralSharing: true,
 		defaultErrorComponent: ErrorScreen,
 		defaultPendingComponent: LoadingScreen,
 		defaultNotFoundComponent: NotFoundScreen,
+		// Show pending UI after 200ms (avoids flash on fast navigations)
+		// but once shown, display for at least 300ms (avoids jarring flicker)
+		defaultPendingMs: 200,
+		defaultPendingMinMs: 300,
 		context: { orpc, queryClient, theme, locale, session, flags },
 	});
 

@@ -37,10 +37,13 @@ export function getProviderIcon(providerId: AuthProvider): ReactNode {
  * Hook to fetch and manage authentication accounts
  */
 export function useAuthAccounts() {
+	const { data: session } = authClient.useSession();
+
 	const { data: accounts } = useQuery({
 		queryKey: ["auth", "accounts"],
 		queryFn: () => authClient.listAccounts(),
 		select: ({ data }) => data ?? [],
+		enabled: !!session?.user,
 	});
 
 	const getAccountByProviderId = useCallback(
@@ -75,7 +78,7 @@ export function useAuthProviderActions() {
 			return;
 		}
 
-		toast.dismiss(toastId);
+		toast.success(t`Your ${providerName} account has been linked successfully.`, { id: toastId });
 	}, []);
 
 	const unlink = useCallback(async (provider: AuthProvider, accountId: string) => {
@@ -89,7 +92,7 @@ export function useAuthProviderActions() {
 			return;
 		}
 
-		toast.dismiss(toastId);
+		toast.success(t`Your ${providerName} account has been unlinked successfully.`, { id: toastId });
 	}, []);
 
 	return { link, unlink };
@@ -100,7 +103,12 @@ export function useAuthProviderActions() {
  * Possible values: "credential", "google", "github", "custom"
  */
 export function useEnabledProviders() {
-	const { data: enabledProviders = [] } = useQuery(orpc.auth.providers.list.queryOptions());
+	const { data: session } = authClient.useSession();
+
+	const { data: enabledProviders = [] } = useQuery({
+		...orpc.auth.providers.list.queryOptions(),
+		enabled: !!session?.user,
+	});
 
 	return { enabledProviders };
 }
@@ -109,10 +117,13 @@ export function useEnabledProviders() {
  * Hook to list the authenticated passkeys for the current user
  */
 export function useAuthPasskeys() {
+	const { data: session } = authClient.useSession();
+
 	const { data } = useQuery({
 		queryKey: ["auth", "passkeys"],
 		queryFn: () => authClient.passkey.listUserPasskeys(),
 		select: ({ data }) => data ?? [],
+		enabled: !!session?.user,
 	});
 
 	const passkeys = useMemo(() => data ?? [], [data]);

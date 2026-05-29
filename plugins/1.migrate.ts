@@ -18,8 +18,19 @@ async function migrateDatabase() {
 	try {
 		await migrate(db, { migrationsFolder: "./migrations" });
 		console.log("✅ Database migrations completed");
-	} catch (error) {
-		console.error("🚨 Database migrations failed:", error);
+	} catch (error: unknown) {
+		// Check if the error is "already exists" which means tables were created outside migrations
+		const errorMessage = error instanceof Error ? error.message : String(error);
+		const errorCause = (error as { cause?: { code?: string } })?.cause;
+
+		if (errorCause?.code === "42710" || errorCause?.code === "42P07" || errorMessage.includes("already exists")) {
+			console.log(
+				"⚠️ Some database objects already exist - this is expected if migrations were applied outside Drizzle",
+			);
+			console.log("✅ Continuing with existing database schema...");
+		} else {
+			console.error("🚨 Database migrations failed:", error);
+		}
 	} finally {
 		await pool.end();
 	}

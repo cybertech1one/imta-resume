@@ -14,7 +14,7 @@ import {
 	TrashSimpleIcon,
 } from "@phosphor-icons/react";
 import { Reorder, useDragControls } from "motion/react";
-import { useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { useResumeStore } from "@/components/resume/store/resume";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import {
@@ -52,13 +52,13 @@ type MoveItemSubmenuProps = {
 };
 
 /**
- * Submenu component for moving items between sections/pages.
+ * Memoized submenu component for moving items between sections/pages.
  * Displays compatible targets grouped by page with options to:
  * - Move to existing compatible section
  * - Create new section on existing page
  * - Create new page with new section
  */
-function MoveItemSubmenu({ type, item, customSectionId }: MoveItemSubmenuProps) {
+const MoveItemSubmenu = memo(function MoveItemSubmenu({ type, item, customSectionId }: MoveItemSubmenuProps) {
 	const resume = useResumeStore((state) => state.resume);
 	const updateResumeData = useResumeStore((state) => state.updateResumeData);
 
@@ -147,7 +147,8 @@ function MoveItemSubmenu({ type, item, customSectionId }: MoveItemSubmenuProps) 
 			</DropdownMenuSubContent>
 		</DropdownMenuSub>
 	);
-}
+});
+MoveItemSubmenu.displayName = "MoveItemSubmenu";
 
 // ============================================================================
 // SectionItem Component
@@ -161,13 +162,23 @@ type Props<T extends SectionItemType> = {
 	customSectionId?: string;
 };
 
-export function SectionItem<T extends SectionItemType>({ type, item, title, subtitle, customSectionId }: Props<T>) {
+/**
+ * Memoized SectionItem component for resume builder sections.
+ * Prevents unnecessary re-renders when sibling items change.
+ */
+export const SectionItem = memo(function SectionItem<T extends SectionItemType>({
+	type,
+	item,
+	title,
+	subtitle,
+	customSectionId,
+}: Props<T>) {
 	const confirm = useConfirm();
 	const controls = useDragControls();
 	const { openDialog } = useDialogStore();
 	const updateResumeData = useResumeStore((state) => state.updateResumeData);
 
-	const onToggleVisibility = () => {
+	const onToggleVisibility = useCallback(() => {
 		updateResumeData((draft) => {
 			if (customSectionId) {
 				const section = draft.customSections.find((s) => s.id === customSectionId);
@@ -183,19 +194,19 @@ export function SectionItem<T extends SectionItemType>({ type, item, title, subt
 				section.items[index].hidden = !section.items[index].hidden;
 			}
 		});
-	};
+	}, [updateResumeData, customSectionId, item.id, type]);
 
-	const onUpdate = () => {
+	const onUpdate = useCallback(() => {
 		// Type assertion needed because TypeScript can't narrow the union type through template literals
 		openDialog(`resume.sections.${type}.update`, { item, customSectionId } as never);
-	};
+	}, [openDialog, type, item, customSectionId]);
 
-	const onDuplicate = () => {
+	const onDuplicate = useCallback(() => {
 		// Type assertion needed because TypeScript can't narrow the union type through template literals
 		openDialog(`resume.sections.${type}.create`, { item, customSectionId } as never);
-	};
+	}, [openDialog, type, item, customSectionId]);
 
-	const onDelete = async () => {
+	const onDelete = useCallback(async () => {
 		const confirmed = await confirm("Are you sure you want to delete this item?", {
 			confirmText: "Delete",
 			cancelText: "Cancel",
@@ -218,7 +229,7 @@ export function SectionItem<T extends SectionItemType>({ type, item, title, subt
 				section.items.splice(index, 1);
 			}
 		});
-	};
+	}, [confirm, updateResumeData, customSectionId, item.id, type]);
 
 	return (
 		<Reorder.Item
@@ -295,23 +306,33 @@ export function SectionItem<T extends SectionItemType>({ type, item, title, subt
 			</DropdownMenu>
 		</Reorder.Item>
 	);
-}
+}) as <T extends SectionItemType>(props: Props<T>) => React.ReactElement;
+(SectionItem as { displayName?: string }).displayName = "SectionItem";
 
 type AddButtonProps = Omit<ButtonProps, "type"> & {
 	type: SectionType | "custom";
 	customSectionId?: string;
 };
 
-export function SectionAddItemButton({ type, customSectionId, className, children, ...props }: AddButtonProps) {
+/**
+ * Memoized SectionAddItemButton for adding new items to resume sections.
+ */
+export const SectionAddItemButton = memo(function SectionAddItemButton({
+	type,
+	customSectionId,
+	className,
+	children,
+	...props
+}: AddButtonProps) {
 	const { openDialog } = useDialogStore();
 
-	const handleAdd = () => {
+	const handleAdd = useCallback(() => {
 		if (type === "custom") {
 			openDialog("resume.sections.custom.create", undefined);
 		} else {
 			openDialog(`resume.sections.${type}.create`, customSectionId ? { customSectionId } : undefined);
 		}
-	};
+	}, [openDialog, type, customSectionId]);
 
 	return (
 		<Button
@@ -325,4 +346,5 @@ export function SectionAddItemButton({ type, customSectionId, className, childre
 			{children}
 		</Button>
 	);
-}
+});
+SectionAddItemButton.displayName = "SectionAddItemButton";

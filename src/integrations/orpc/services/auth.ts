@@ -59,14 +59,23 @@ export const authService = {
 		// The storage service delete method supports recursive deletion via prefix
 		try {
 			await storageService.delete(`uploads/${input.userId}`);
-		} catch {
-			// Ignore error and proceed with deleting user
+		} catch (err) {
+			// Log storage deletion error but proceed with account deletion
+			// Storage cleanup can be handled separately if needed
+			console.warn(
+				`[auth] Failed to delete storage files for user ${input.userId.substring(0, 8)}...: ` +
+					`${err instanceof Error ? err.message : "Unknown error"}`,
+			);
 		}
 
 		try {
 			await db.delete(schema.user).where(eq(schema.user.id, input.userId));
 		} catch (err) {
-			console.error(`Failed to delete user record for userId=${input.userId}:`, err);
+			// Log error with sanitized message (don't expose full error details)
+			console.error(
+				`[auth] Failed to delete user record for userId=${input.userId.substring(0, 8)}...: ` +
+					`${err instanceof Error ? err.message : "Unknown error"}`,
+			);
 
 			throw new ORPCError("INTERNAL_SERVER_ERROR");
 		}

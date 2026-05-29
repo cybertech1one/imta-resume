@@ -374,6 +374,12 @@ export class JSONResumeImporter {
 				location: basics.location ? formatLocation(basics.location) : "",
 				website: createUrl(basics.url),
 				customFields: [],
+				// Morocco-specific fields (default values)
+				cin: "",
+				militaryServiceStatus: "not-applicable",
+				dateOfBirth: "",
+				nationality: "",
+				maritalStatus: "",
 			};
 
 			// Map image to picture

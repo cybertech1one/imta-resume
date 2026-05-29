@@ -59,8 +59,9 @@ export default defineConfig({
 		"zu-ZA",
 	],
 	fallbackLocales: {
+		"ar-SA": "fr-FR",
 		"zu-ZA": "en-US",
-		default: "en-US",
+		default: "fr-FR",
 	},
 	formatOptions: {
 		lineNumbers: false,

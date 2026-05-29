@@ -8,7 +8,7 @@ type SendEmailOptions = {
 	from?: string;
 };
 
-const isSmtpEnabled = () => {
+export const isSmtpEnabled = () => {
 	return !!env.SMTP_HOST && !!env.SMTP_USER && !!env.SMTP_PASS && !!env.SMTP_FROM;
 };
 
@@ -36,7 +36,7 @@ const getTransport = () => {
 export const sendEmail = async (options: SendEmailOptions) => {
 	const transport = getTransport();
 
-	const from = options.from ?? env.SMTP_FROM ?? "Reactive Resume <noreply@localhost>";
+	const from = options.from ?? env.SMTP_FROM ?? "IMTA Resume <noreply@localhost>";
 	const payload: nodemailer.SendMailOptions = {
 		to: options.to,
 		from,
@@ -44,7 +44,13 @@ export const sendEmail = async (options: SendEmailOptions) => {
 		text: options.text,
 	};
 
-	if (!transport) return console.log("[EMAIL] SMTP not configured; logging email:", payload);
+	if (!transport) {
+		// SMTP not configured - log email in development only
+		if (process.env.NODE_ENV !== "production") {
+			console.debug("[EMAIL] SMTP not configured; would send:", payload);
+		}
+		return;
+	}
 
 	try {
 		await transport.sendMail({ ...options, from });

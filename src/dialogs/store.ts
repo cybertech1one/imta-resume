@@ -7,6 +7,7 @@ import {
 	educationItemSchema,
 	experienceItemSchema,
 	interestItemSchema,
+	internshipItemSchema,
 	languageItemSchema,
 	profileItemSchema,
 	projectItemSchema,
@@ -133,6 +134,14 @@ const dialogTypeSchema = z.discriminatedUnion("type", [
 	z.object({
 		type: z.literal("resume.sections.references.update"),
 		data: z.object({ item: referenceItemSchema, customSectionId: z.string().optional() }),
+	}),
+	z.object({
+		type: z.literal("resume.sections.internships.create"),
+		data: z.object({ item: internshipItemSchema.optional(), customSectionId: z.string().optional() }).optional(),
+	}),
+	z.object({
+		type: z.literal("resume.sections.internships.update"),
+		data: z.object({ item: internshipItemSchema, customSectionId: z.string().optional() }),
 	}),
 	z.object({ type: z.literal("resume.sections.custom.create"), data: customSectionSchema.optional() }),
 	z.object({ type: z.literal("resume.sections.custom.update"), data: customSectionSchema }),

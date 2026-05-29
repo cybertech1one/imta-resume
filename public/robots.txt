@@ -1,5 +1,24 @@
+# IMTA Resume - Robots.txt
 # https://www.robotstxt.org/robotstxt.html
+
 User-agent: *
 Allow: /
 
-Sitemap: https://rxresu.me/sitemap.xml
+# Crawl delay for politeness
+Crawl-delay: 1
+
+# Disallow private areas
+Disallow: /dashboard/
+Disallow: /builder/
+Disallow: /printer/
+Disallow: /api/
+Disallow: /auth/verify-2fa
+Disallow: /auth/verify-2fa-backup
+Disallow: /auth/reset-password
+Disallow: /auth/resume-password
+
+# Allow public resume pages
+Allow: /$
+
+# Sitemap location
+Sitemap: https://imta.ma/sitemap.xml

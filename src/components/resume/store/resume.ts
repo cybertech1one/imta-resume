@@ -26,14 +26,27 @@ type ResumeStoreActions = {
 
 type ResumeStore = ResumeStoreState & ResumeStoreActions;
 
-const controller = new AbortController();
-const signal = controller.signal;
+// Sync controller - manages abort signals for debounced resume updates
+let syncController = new AbortController();
 
 const _syncResume = (resume: Resume) => {
-	orpc.resume.update.call({ id: resume.id, data: resume.data }, { signal });
+	// Use a fresh signal for each actual API call
+	orpc.resume.update.call({ id: resume.id, data: resume.data }, { signal: syncController.signal });
 };
 
-const syncResume = debounce(_syncResume, 500, { signal });
+// Create debounced sync function
+let syncResume = debounce(_syncResume, 500, { signal: syncController.signal });
+
+/**
+ * Cancels any pending sync operations and resets the sync controller.
+ * Call this when switching resumes or cleaning up to prevent memory leaks
+ * and stale requests.
+ */
+export function cancelPendingSync() {
+	syncController.abort();
+	syncController = new AbortController();
+	syncResume = debounce(_syncResume, 500, { signal: syncController.signal });
+}
 
 let errorToastId: string | number | undefined;
 
@@ -46,6 +59,8 @@ export const useResumeStore = create<ResumeStore>()(
 			isReady: false,
 
 			initialize: (resume) => {
+				// Cancel any pending sync from the previous resume
+				cancelPendingSync();
 				set((state) => {
 					state.resume = resume as Resume;
 					state.isReady = resume !== null;

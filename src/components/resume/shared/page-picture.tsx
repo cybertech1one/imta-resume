@@ -21,8 +21,9 @@ export function PagePicture({ className, style }: { className?: string; style?: 
 			}}
 		>
 			<img
-				alt={name}
+				alt={name || "Profile picture"}
 				src={picture.url}
+				loading="lazy"
 				className="size-full object-cover"
 				style={{ transform: `rotate(${picture.rotation}deg)` }}
 			/>

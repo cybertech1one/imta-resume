@@ -103,7 +103,7 @@ function DropdownMenuCheckboxItem({ className, children, checked, disabled, ...p
 			{...props}
 		>
 			<span className="pointer-events-none absolute start-2 flex size-3.5 items-center justify-center">
-				<DropdownMenuItemIndicatorPrimitive initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }}>
+				<DropdownMenuItemIndicatorPrimitive initial={false} animate={{ opacity: 1, scale: 1 }}>
 					<CheckIcon className="size-4" />
 				</DropdownMenuItemIndicatorPrimitive>
 			</span>

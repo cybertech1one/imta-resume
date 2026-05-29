@@ -216,7 +216,12 @@ function CertificationForm() {
 							<Trans>Description</Trans>
 						</FormLabel>
 						<FormControl>
-							<RichInput {...field} value={field.value} onChange={field.onChange} />
+							<RichInput
+								{...field}
+								value={field.value}
+								onChange={field.onChange}
+								aiContext="Certification description for a resume. Focus on skills validated, relevance to career goals, and any notable achievements during certification."
+							/>
 						</FormControl>
 						<FormMessage />
 					</FormItem>

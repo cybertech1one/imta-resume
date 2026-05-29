@@ -64,14 +64,33 @@ export const customFieldSchema = z.object({
 	link: z.string().describe("If the custom field should be a link, the URL to link to.").catch(""),
 });
 
+// Morocco-specific: Military service status options
+export const militaryServiceStatusSchema = z.enum(["not-applicable", "completed", "exempted", "pending", "in-service"]);
+
 export const basicsSchema = z.object({
-	name: z.string().describe("The full name of the author of the resume."),
-	headline: z.string().describe("The headline of the author of the resume."),
-	email: z.string().describe("The email address of the author of the resume."),
-	phone: z.string().describe("The phone number of the author of the resume."),
-	location: z.string().describe("The location of the author of the resume."),
+	name: z.string().max(128).describe("The full name of the author of the resume."),
+	headline: z.string().max(256).describe("The headline of the author of the resume."),
+	email: z.string().max(254).describe("The email address of the author of the resume."),
+	phone: z.string().max(32).describe("The phone number of the author of the resume."),
+	location: z.string().max(256).describe("The location of the author of the resume."),
 	website: urlSchema.describe("The website of the author of the resume."),
 	customFields: z.array(customFieldSchema).describe("The custom fields to display on the resume."),
+	// Morocco-specific fields (optional with default for backwards compatibility)
+	cin: z
+		.string()
+		.default("")
+		.describe("Carte d'Identite Nationale (Moroccan national ID number). Format: XX000000 or similar."),
+	militaryServiceStatus: militaryServiceStatusSchema
+		.default("not-applicable")
+		.describe(
+			"Military service status for Moroccan job market. Options: not-applicable, completed (effectue), exempted (dispense), pending (en attente), in-service (en cours).",
+		),
+	dateOfBirth: z.string().default("").describe("Date of birth. Common in Moroccan CVs."),
+	nationality: z.string().default("").describe("Nationality. Common in Moroccan CVs."),
+	maritalStatus: z
+		.string()
+		.default("")
+		.describe("Marital status (celibataire, marie(e), etc.). Common in Moroccan CVs."),
 });
 
 export const summarySchema = z.object({
@@ -87,7 +106,7 @@ export const baseItemSchema = z.object({
 });
 
 export const awardItemSchema = baseItemSchema.extend({
-	title: z.string().min(1).describe("The title of the award."),
+	title: z.string().min(1, { message: "Award title is required" }).describe("The title of the award."),
 	awarder: z.string().describe("The awarder of the award."),
 	date: z.string().describe("The date when the award was received."),
 	website: urlSchema.describe("The website of the award, if any."),
@@ -95,7 +114,7 @@ export const awardItemSchema = baseItemSchema.extend({
 });
 
 export const certificationItemSchema = baseItemSchema.extend({
-	title: z.string().min(1).describe("The title of the certification."),
+	title: z.string().min(1, { message: "Certification title is required" }).describe("The title of the certification."),
 	issuer: z.string().describe("The issuer of the certification."),
 	date: z.string().describe("The date when the certification was received."),
 	website: urlSchema.describe("The website of the certification, if any."),
@@ -103,7 +122,7 @@ export const certificationItemSchema = baseItemSchema.extend({
 });
 
 export const educationItemSchema = baseItemSchema.extend({
-	school: z.string().min(1).describe("The name of the school or institution."),
+	school: z.string().min(1, { message: "School name is required" }).describe("The name of the school or institution."),
 	degree: z.string().describe("The degree or qualification obtained."),
 	area: z.string().describe("The area of study or specialization."),
 	grade: z.string().describe("The grade or score achieved."),
@@ -114,7 +133,10 @@ export const educationItemSchema = baseItemSchema.extend({
 });
 
 export const experienceItemSchema = baseItemSchema.extend({
-	company: z.string().min(1).describe("The name of the company or organization."),
+	company: z
+		.string()
+		.min(1, { message: "Company name is required" })
+		.describe("The name of the company or organization."),
 	position: z.string().describe("The position held at the company or organization."),
 	location: z.string().describe("The location of the company or organization."),
 	period: z.string().describe("The period of time the author was employed at the company or organization."),
@@ -124,7 +146,7 @@ export const experienceItemSchema = baseItemSchema.extend({
 
 export const interestItemSchema = baseItemSchema.extend({
 	icon: iconSchema,
-	name: z.string().min(1).describe("The name of the interest/hobby."),
+	name: z.string().min(1, { message: "Interest name is required" }).describe("The name of the interest/hobby."),
 	keywords: z
 		.array(z.string())
 		.catch([])
@@ -132,7 +154,10 @@ export const interestItemSchema = baseItemSchema.extend({
 });
 
 export const languageItemSchema = baseItemSchema.extend({
-	language: z.string().min(1).describe("The name of the language the author knows."),
+	language: z
+		.string()
+		.min(1, { message: "Language name is required" })
+		.describe("The name of the language the author knows."),
 	fluency: z
 		.string()
 		.describe(
@@ -150,20 +175,20 @@ export const languageItemSchema = baseItemSchema.extend({
 
 export const profileItemSchema = baseItemSchema.extend({
 	icon: iconSchema,
-	network: z.string().min(1).describe("The name of the network or platform."),
+	network: z.string().min(1, { message: "Network name is required" }).describe("The name of the network or platform."),
 	username: z.string().describe("The username of the author on the network or platform."),
 	website: urlSchema.describe("The link to the profile of the author on the network or platform, if any."),
 });
 
 export const projectItemSchema = baseItemSchema.extend({
-	name: z.string().min(1).describe("The name of the project."),
+	name: z.string().min(1, { message: "Project name is required" }).describe("The name of the project."),
 	period: z.string().describe("The period of time the project was worked on."),
 	website: urlSchema.describe("The link to the project, if any."),
 	description: z.string().describe("The description of the project. This should be a HTML-formatted string."),
 });
 
 export const publicationItemSchema = baseItemSchema.extend({
-	title: z.string().min(1).describe("The title of the publication."),
+	title: z.string().min(1, { message: "Publication title is required" }).describe("The title of the publication."),
 	publisher: z.string().describe("The publisher of the publication."),
 	date: z.string().describe("The date when the publication was published."),
 	website: urlSchema.describe("The link to the publication, if any."),
@@ -171,7 +196,10 @@ export const publicationItemSchema = baseItemSchema.extend({
 });
 
 export const referenceItemSchema = baseItemSchema.extend({
-	name: z.string().min(1).describe("The name of the reference, or a note such as 'Available upon request'."),
+	name: z
+		.string()
+		.min(1, { message: "Reference name is required" })
+		.describe("The name of the reference, or a note such as 'Available upon request'."),
 	position: z.string().describe("The position or job title of the reference."),
 	website: urlSchema.describe("The website or LinkedIn profile of the reference, if any."),
 	phone: z.string().describe("The phone number of the reference."),
@@ -184,7 +212,7 @@ export const referenceItemSchema = baseItemSchema.extend({
 
 export const skillItemSchema = baseItemSchema.extend({
 	icon: iconSchema,
-	name: z.string().min(1).describe("The name of the skill."),
+	name: z.string().min(1, { message: "Skill name is required" }).describe("The name of the skill."),
 	proficiency: z
 		.string()
 		.describe(
@@ -205,13 +233,45 @@ export const skillItemSchema = baseItemSchema.extend({
 });
 
 export const volunteerItemSchema = baseItemSchema.extend({
-	organization: z.string().min(1).describe("The name of the organization or company."),
+	organization: z
+		.string()
+		.min(1, { message: "Organization name is required" })
+		.describe("The name of the organization or company."),
 	location: z.string().describe("The location of the organization or company."),
 	period: z.string().describe("The period of time the author was volunteered at the organization or company."),
 	website: urlSchema.describe("The link to the organization or company, if any."),
 	description: z
 		.string()
 		.describe("The description of the volunteer experience. This should be a HTML-formatted string."),
+});
+
+// IMTA/Morocco-specific: Internship (Stage) section for trade school students
+export const internshipTypeSchema = z.enum(["observation", "application", "end-of-studies", "professional", "other"]);
+
+export const internshipItemSchema = baseItemSchema.extend({
+	company: z
+		.string()
+		.min(1, { message: "Company name is required" })
+		.describe("The name of the company or organization where the internship took place."),
+	position: z.string().describe("The position or role during the internship."),
+	supervisor: z.string().describe("The name of the internship supervisor (maitre de stage)."),
+	location: z.string().describe("The location of the company or organization."),
+	period: z.string().describe("The period of time the internship lasted."),
+	type: internshipTypeSchema
+		.catch("application")
+		.describe(
+			"The type of internship: observation (stage d'observation), application (stage d'application), end-of-studies (stage de fin d'etudes), professional, or other.",
+		),
+	website: urlSchema.describe("The website of the company or organization, if any."),
+	tasksPerformed: z
+		.string()
+		.describe("The tasks performed during the internship. This should be a HTML-formatted string."),
+	skillsAcquired: z.array(z.string()).catch([]).describe("The skills acquired during the internship."),
+	evaluation: z
+		.string()
+		.describe(
+			"The supervisor's evaluation or appreciation. Can include grade/note if applicable. This should be a HTML-formatted string.",
+		),
 });
 
 export const baseSectionSchema = z.object({
@@ -268,6 +328,11 @@ export const volunteerSectionSchema = baseSectionSchema.extend({
 	items: z.array(volunteerItemSchema).describe("The items to display in the volunteer section."),
 });
 
+// IMTA/Morocco-specific: Internship (Stage) section
+export const internshipsSectionSchema = baseSectionSchema.extend({
+	items: z.array(internshipItemSchema).describe("The items to display in the internships (stages) section."),
+});
+
 export const sectionsSchema = z.object({
 	profiles: profilesSectionSchema.describe("The section to display the profiles of the author."),
 	experience: experienceSectionSchema.describe("The section to display the experience of the author."),
@@ -281,6 +346,17 @@ export const sectionsSchema = z.object({
 	publications: publicationsSectionSchema.describe("The section to display the publications of the author."),
 	volunteer: volunteerSectionSchema.describe("The section to display the volunteer experience of the author."),
 	references: referencesSectionSchema.describe("The section to display the references of the author."),
+	// IMTA/Morocco-specific: Internships (Stages) section - optional with default for backwards compatibility
+	internships: internshipsSectionSchema
+		.default({
+			title: "",
+			columns: 1,
+			hidden: false,
+			items: [],
+		})
+		.describe(
+			"The section to display the internships (stages) of the author. Important for trade school and vocational training students.",
+		),
 });
 
 export type SectionType = keyof z.infer<typeof sectionsSchema>;
@@ -300,6 +376,7 @@ export const sectionTypeSchema = z.enum([
 	"publications",
 	"volunteer",
 	"references",
+	"internships",
 ]);
 
 export const customSectionItemSchema = z.union([
@@ -315,6 +392,7 @@ export const customSectionItemSchema = z.union([
 	publicationItemSchema,
 	volunteerItemSchema,
 	referenceItemSchema,
+	internshipItemSchema,
 ]);
 
 export type CustomSectionItem = z.infer<typeof customSectionItemSchema>;
@@ -397,7 +475,7 @@ export const pageSchema = z.object({
 	locale: z
 		.string()
 		.describe("The locale of the page. Used for displaying pre-translated section headings, if not overridden.")
-		.catch("en-US"),
+		.catch("fr-FR"),
 	hideIcons: z.boolean().describe("Whether to hide the icons of the sections.").catch(false),
 });
 
@@ -427,6 +505,54 @@ export const designSchema = z.object({
 	colors: colorDesignSchema,
 });
 
+// IMTA Branding Schema for Moroccan trade school students
+export const imtaBrandingSchema = z.object({
+	enabled: z.boolean().describe("Whether to apply IMTA branding to the resume.").default(false),
+	showLogo: z.boolean().describe("Whether to show the IMTA logo on the resume.").default(false),
+	program: z
+		.enum(["healthcare", "industrial", "hse", "general"])
+		.describe("The IMTA program the student is enrolled in.")
+		.default("general"),
+	promotionYear: z.string().optional().describe("The promotion/graduation year (e.g., 2024-2025)."),
+	studentId: z.string().optional().describe("The IMTA student ID number."),
+});
+
+export type IMTABranding = z.infer<typeof imtaBrandingSchema>;
+
+export const businessCardThemeSchema = z.enum([
+	"minimal",
+	"professional",
+	"modern",
+	"creative",
+	"moroccan",
+	"elegant",
+	"glassmorphism",
+	"neon",
+]);
+
+export const businessCardSchema = z.object({
+	enabled: z.boolean().describe("Whether the business card feature is enabled for this resume.").default(false),
+	showPhoto: z.boolean().describe("Whether to show the profile photo on the business card.").default(true),
+	showHeadline: z.boolean().describe("Whether to show the headline on the business card.").default(true),
+	showEmail: z.boolean().describe("Whether to show the email on the business card.").default(true),
+	showPhone: z.boolean().describe("Whether to show the phone number on the business card.").default(false),
+	showLocation: z.boolean().describe("Whether to show the location on the business card.").default(true),
+	showSocialLinks: z.boolean().describe("Whether to show social profile links on the business card.").default(true),
+	showWebsite: z.boolean().describe("Whether to show the website URL on the business card.").default(true),
+	theme: businessCardThemeSchema.describe("The visual theme for the business card.").default("professional"),
+	accentColor: z.string().describe("The accent color for the business card header.").default("#3b82f6"),
+	qrCodeMode: z
+		.enum(["url", "vcard"])
+		.describe("Whether the QR code should point to the card URL or contain the vCard data.")
+		.default("url"),
+	showSummary: z
+		.boolean()
+		.describe("Whether to show a brief summary/about section on the business card.")
+		.default(false),
+});
+
+export type BusinessCardSettings = z.infer<typeof businessCardSchema>;
+
 export const typographySchema = z.object({
 	body: typographyItemSchema.describe("The typography for the body of the resume."),
 	heading: typographyItemSchema.describe("The typography for the headings of the resume."),
@@ -455,6 +581,15 @@ export const metadataSchema = z.object({
 		.string()
 		.describe(
 			"Personal notes for the resume. Can be used to add any additional information or instructions for the resume. These notes are not displayed on the resume, they are only visible to the author of the resume when editing the resume. This should be a HTML-formatted string.",
+		),
+	businessCard: businessCardSchema
+		.optional()
+		.describe("Settings for the digital business card feature. Allows sharing contact info as a simple card view."),
+	// IMTA/Morocco-specific branding
+	imtaBranding: imtaBrandingSchema
+		.optional()
+		.describe(
+			"IMTA (Institut Medi Technology Avicenne) branding settings for Moroccan trade school students. Enables institution-specific theming and metadata.",
 		),
 });
 
@@ -496,6 +631,12 @@ export const defaultResumeData: ResumeData = {
 		location: "",
 		website: { url: "", label: "" },
 		customFields: [],
+		// Morocco-specific fields
+		cin: "",
+		militaryServiceStatus: "not-applicable",
+		dateOfBirth: "",
+		nationality: "",
+		maritalStatus: "",
 	},
 	summary: {
 		title: "",
@@ -576,6 +717,13 @@ export const defaultResumeData: ResumeData = {
 			hidden: false,
 			items: [],
 		},
+		// IMTA/Morocco-specific: Internships section
+		internships: {
+			title: "",
+			columns: 1,
+			hidden: false,
+			items: [],
+		},
 	},
 	customSections: [],
 	metadata: {
@@ -591,7 +739,7 @@ export const defaultResumeData: ResumeData = {
 			],
 		},
 		css: { enabled: false, value: "" },
-		page: { gapX: 4, gapY: 6, marginX: 14, marginY: 12, format: "a4", locale: "en-US", hideIcons: false },
+		page: { gapX: 4, gapY: 6, marginX: 14, marginY: 12, format: "a4", locale: "fr-FR", hideIcons: false },
 		design: {
 			colors: {
 				primary: "rgba(220, 38, 38, 1)",
@@ -618,5 +766,19 @@ export const defaultResumeData: ResumeData = {
 			},
 		},
 		notes: "",
+		businessCard: {
+			enabled: false,
+			showPhoto: true,
+			showHeadline: true,
+			showEmail: true,
+			showPhone: false,
+			showLocation: true,
+			showSocialLinks: true,
+			showWebsite: true,
+			theme: "professional",
+			accentColor: "#3b82f6",
+			qrCodeMode: "url",
+			showSummary: false,
+		},
 	},
 };

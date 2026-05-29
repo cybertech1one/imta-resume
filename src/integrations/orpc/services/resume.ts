@@ -1,5 +1,5 @@
 import { ORPCError } from "@orpc/client";
-import { and, arrayContains, asc, desc, eq, sql } from "drizzle-orm";
+import { and, arrayContains, asc, desc, eq, or, sql } from "drizzle-orm";
 import { get } from "es-toolkit/compat";
 import { match } from "ts-pattern";
 import { schema } from "@/integrations/drizzle";
@@ -12,6 +12,80 @@ import { hashPassword } from "@/utils/password";
 import { generateId } from "@/utils/string";
 import { hasResumeAccess } from "../helpers/resume-access";
 import { getStorageService } from "./storage";
+
+/**
+ * SSRF protection: validates that a URL does not point to private/internal networks.
+ * Blocks localhost, link-local, and RFC-1918 private IP ranges to prevent
+ * Server-Side Request Forgery when fetching user-controlled picture URLs.
+ */
+function isPrivateUrl(url: string): boolean {
+	try {
+		const parsed = new URL(url);
+		const hostname = parsed.hostname;
+
+		// Block localhost variants
+		if (hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1") return true;
+
+		// Block 0.0.0.0
+		if (hostname === "0.0.0.0") return true;
+
+		// Block RFC-1918 private ranges: 10.x.x.x
+		if (hostname.startsWith("10.")) return true;
+
+		// Block RFC-1918 private ranges: 172.16.0.0 - 172.31.255.255
+		if (hostname.startsWith("172.")) {
+			const second = Number.parseInt(hostname.split(".")[1], 10);
+			if (second >= 16 && second <= 31) return true;
+		}
+
+		// Block RFC-1918 private ranges: 192.168.x.x
+		if (hostname.startsWith("192.168.")) return true;
+
+		// Block link-local / cloud metadata: 169.254.x.x (AWS/GCP/Azure metadata endpoint)
+		if (hostname.startsWith("169.254.")) return true;
+
+		// Block non-http(s) schemes
+		if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return true;
+
+		return false;
+	} catch {
+		return true; // Block malformed URLs
+	}
+}
+
+// Timeout wrapper to prevent storage operations from hanging indefinitely
+// when S3/SeaweedFS is unreachable (the S3 client has no built-in timeout).
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+	return Promise.race([
+		promise,
+		new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Storage operation timed out")), ms)),
+	]);
+}
+
+// Helper function to build resume response (reduces duplication)
+function buildResumeResponse<T extends boolean>(
+	resume: {
+		id: string;
+		name: string;
+		slug: string;
+		tags: string[];
+		data: ResumeData;
+		isPublic: boolean;
+		isLocked: boolean;
+	},
+	hasPassword: T,
+) {
+	return {
+		id: resume.id,
+		name: resume.name,
+		slug: resume.slug,
+		tags: resume.tags,
+		data: resume.data,
+		isPublic: resume.isPublic,
+		isLocked: resume.isLocked,
+		hasPassword,
+	};
+}
 
 const tags = {
 	list: async (input: { userId: string }): Promise<string[]> => {
@@ -51,6 +125,14 @@ const statistics = {
 	},
 
 	increment: async (input: { id: string; views?: boolean; downloads?: boolean }): Promise<void> => {
+		const [resume] = await db
+			.select({ isPublic: schema.resume.isPublic })
+			.from(schema.resume)
+			.where(eq(schema.resume.id, input.id))
+			.limit(1);
+
+		if (!resume?.isPublic) return;
+
 		const views = input.views ? 1 : 0;
 		const downloads = input.downloads ? 1 : 0;
 		const lastViewedAt = input.views ? sql`now()` : undefined;
@@ -151,15 +233,22 @@ export const resumeService = {
 		try {
 			if (!resume.data.picture.url) throw new Error("Picture is not available");
 
+			// SSRF protection: validate the original user-controlled URL before any transformation.
+			// The APP_URL replacement below is a trusted server-side transform (self-fetch for SSR),
+			// so we check the raw URL first to block user-injected private network targets.
+			if (isPrivateUrl(resume.data.picture.url)) throw new Error("Picture URL points to a private network");
+
 			// Convert picture URL to base64 data, so there's no fetching required on the client.
 			const url = resume.data.picture.url.replace(env.APP_URL, "http://localhost:3000");
+
 			const base64 = await fetch(url)
 				.then((res) => res.arrayBuffer())
 				.then((buffer) => Buffer.from(buffer).toString("base64"));
 
 			resume.data.picture.url = `data:image/jpeg;base64,${base64}`;
-		} catch {
-			// Ignore errors, as the picture is not always available
+		} catch (error) {
+			console.warn("[Resume] Failed to convert picture to base64:", error);
+			// Continue without picture
 		}
 
 		return resume;
@@ -184,7 +273,9 @@ export const resumeService = {
 				and(
 					eq(schema.resume.slug, input.slug),
 					eq(schema.user.username, input.username),
-					input.currentUserId ? eq(schema.resume.userId, input.currentUserId) : eq(schema.resume.isPublic, true),
+					input.currentUserId
+						? or(eq(schema.resume.userId, input.currentUserId), eq(schema.resume.isPublic, true))
+						: eq(schema.resume.isPublic, true),
 				),
 			);
 
@@ -192,32 +283,51 @@ export const resumeService = {
 
 		if (!resume.hasPassword) {
 			await resumeService.statistics.increment({ id: resume.id, views: true });
-
-			return {
-				id: resume.id,
-				name: resume.name,
-				slug: resume.slug,
-				tags: resume.tags,
-				data: resume.data,
-				isPublic: resume.isPublic,
-				isLocked: resume.isLocked,
-				hasPassword: false as const,
-			};
+			return buildResumeResponse(resume, false as const);
 		}
 
 		if (hasResumeAccess(resume.id, resume.passwordHash)) {
 			await resumeService.statistics.increment({ id: resume.id, views: true });
+			return buildResumeResponse(resume, true as const);
+		}
 
-			return {
-				id: resume.id,
-				name: resume.name,
-				slug: resume.slug,
-				tags: resume.tags,
-				data: resume.data,
-				isPublic: resume.isPublic,
-				isLocked: resume.isLocked,
-				hasPassword: true as const,
-			};
+		throw new ORPCError("NEED_PASSWORD", {
+			status: 401,
+			data: { username: input.username, slug: input.slug },
+		});
+	},
+
+	getBusinessCardBySlug: async (input: { username: string; slug: string; currentUserId?: string }) => {
+		const [resume] = await db
+			.select({
+				id: schema.resume.id,
+				name: schema.resume.name,
+				slug: schema.resume.slug,
+				tags: schema.resume.tags,
+				data: schema.resume.data,
+				isPublic: schema.resume.isPublic,
+				isLocked: schema.resume.isLocked,
+				passwordHash: schema.resume.password,
+				hasPassword: sql<boolean>`${schema.resume.password} IS NOT NULL`,
+			})
+			.from(schema.resume)
+			.innerJoin(schema.user, eq(schema.resume.userId, schema.user.id))
+			.where(
+				and(
+					eq(schema.resume.slug, input.slug),
+					eq(schema.user.username, input.username),
+					input.currentUserId
+						? or(eq(schema.resume.userId, input.currentUserId), eq(schema.resume.isPublic, true))
+						: eq(schema.resume.isPublic, true),
+				),
+			);
+
+		if (!resume) throw new ORPCError("NOT_FOUND");
+
+		if (!resume.hasPassword || hasResumeAccess(resume.id, resume.passwordHash)) {
+			await resumeService.statistics.increment({ id: resume.id, views: true });
+
+			return buildResumeResponse(resume, false as const);
 		}
 
 		throw new ORPCError("NEED_PASSWORD", {
@@ -337,9 +447,14 @@ export const resumeService = {
 				and(eq(schema.resume.id, input.id), eq(schema.resume.isLocked, false), eq(schema.resume.userId, input.userId)),
 			);
 
-		// Delete screenshots and PDFs using the new key format
-		const deleteScreenshotsPromise = storageService.delete(`uploads/${input.userId}/screenshots/${input.id}`);
-		const deletePdfsPromise = storageService.delete(`uploads/${input.userId}/pdfs/${input.id}`);
+		// Delete screenshots and PDFs using the new key format.
+		// Wrap storage calls in a 5s timeout so they don't hang forever when S3/SeaweedFS is down.
+		// Storage cleanup is best-effort — the DB deletion is what matters.
+		const deleteScreenshotsPromise = withTimeout(
+			storageService.delete(`uploads/${input.userId}/screenshots/${input.id}`),
+			5000,
+		);
+		const deletePdfsPromise = withTimeout(storageService.delete(`uploads/${input.userId}/pdfs/${input.id}`), 5000);
 
 		await Promise.allSettled([deleteResumePromise, deleteScreenshotsPromise, deletePdfsPromise]);
 	},

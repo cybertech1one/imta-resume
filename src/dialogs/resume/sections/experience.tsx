@@ -234,7 +234,12 @@ function ExperienceForm() {
 							<Trans>Description</Trans>
 						</FormLabel>
 						<FormControl>
-							<RichInput {...field} value={field.value} onChange={field.onChange} />
+							<RichInput
+								{...field}
+								value={field.value}
+								onChange={field.onChange}
+								aiContext="Job experience description for a resume. Focus on achievements, responsibilities, and impact. Use action verbs and quantify results when possible."
+							/>
 						</FormControl>
 						<FormMessage />
 					</FormItem>

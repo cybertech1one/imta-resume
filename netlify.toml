@@ -1,2 +1,88 @@
 [build]
 publish = "dist/"
+
+# Security Headers for all routes
+[[headers]]
+for = "/*"
+[headers.values]
+  # Prevent clickjacking
+  X-Frame-Options = "SAMEORIGIN"
+  # Prevent MIME type sniffing
+  X-Content-Type-Options = "nosniff"
+  # Control referrer information
+  Referrer-Policy = "strict-origin-when-cross-origin"
+  # Restrict browser features
+  Permissions-Policy = "camera=(self), microphone=(self), geolocation=(), interest-cohort=(), payment=(), usb=()"
+  # XSS Protection (legacy but harmless)
+  X-XSS-Protection = "1; mode=block"
+  # Cross-Origin policies
+  Cross-Origin-Opener-Policy = "same-origin-allow-popups"
+  Cross-Origin-Resource-Policy = "cross-origin"
+
+# HSTS for production (only set if using custom domain with HTTPS)
+# Uncomment when deploying to production with HTTPS
+# Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+# Content Security Policy
+# Note: CSP is handled dynamically by the server for better nonce support
+# This is a fallback for static assets
+  Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.crowdin.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https: wss:; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://accounts.google.com https://github.com/login/oauth"
+
+# Cache control for static assets
+[[headers]]
+for = "/assets/*"
+[headers.values]
+  Cache-Control = "public, max-age=31536000, immutable"
+  X-Content-Type-Options = "nosniff"
+
+# Cache control for fonts
+[[headers]]
+for = "/*.woff2"
+[headers.values]
+  Cache-Control = "public, max-age=31536000, immutable"
+  Access-Control-Allow-Origin = "*"
+
+[[headers]]
+for = "/*.woff"
+[headers.values]
+  Cache-Control = "public, max-age=31536000, immutable"
+  Access-Control-Allow-Origin = "*"
+
+# Cache control for images
+[[headers]]
+for = "/*.png"
+[headers.values]
+  Cache-Control = "public, max-age=86400"
+
+[[headers]]
+for = "/*.jpg"
+[headers.values]
+  Cache-Control = "public, max-age=86400"
+
+[[headers]]
+for = "/*.webp"
+[headers.values]
+  Cache-Control = "public, max-age=86400"
+
+[[headers]]
+for = "/*.svg"
+[headers.values]
+  Cache-Control = "public, max-age=86400"
+
+# No cache for HTML pages (SSR)
+[[headers]]
+for = "/*.html"
+[headers.values]
+  Cache-Control = "no-cache, no-store, must-revalidate"
+
+# No cache for service worker
+[[headers]]
+for = "/sw.js"
+[headers.values]
+  Cache-Control = "no-cache, no-store, must-revalidate"
+
+# No cache for manifest
+[[headers]]
+for = "/manifest.webmanifest"
+[headers.values]
+  Cache-Control = "no-cache"

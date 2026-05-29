@@ -22,6 +22,8 @@ async function handler({ request }: { request: Request }) {
 
 	if (!userId || !filePath) return new Response("Bad Request", { status: 400 });
 
+	if (!isValidUserId(userId)) return new Response("Forbidden", { status: 403 });
+
 	if (!isValidPath(userId) || !isValidPathSegments(filePath)) return new Response("Forbidden", { status: 403 });
 
 	// Build the full storage key: uploads/{userId}/{filePath}
@@ -73,9 +75,22 @@ function parseRouteParams(url: string): { userId: string | undefined; filePath: 
  * Validates that a path segment does not contain directory traversal attempts.
  */
 function isValidPath(segment: string): boolean {
+	// Reject empty segments, dots-only segments, and segments with path separators
+	if (!segment || segment === "." || segment === "..") return false;
+	if (/[/\\]/.test(segment)) return false;
+	if (segment.includes("..")) return false;
+
 	const normalized = normalize(segment).replace(/^(\.\.(\/|\\|$))+/, "");
 
 	return normalized === segment;
+}
+
+/**
+ * Validates that a userId is a valid UUID format to prevent path traversal.
+ */
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+function isValidUserId(userId: string): boolean {
+	return UUID_PATTERN.test(userId);
 }
 
 /**

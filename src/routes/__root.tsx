@@ -9,7 +9,9 @@ import { createRootRouteWithContext, HeadContent, Scripts } from "@tanstack/reac
 import { MotionConfig } from "motion/react";
 import { CommandPalette } from "@/components/command-palette";
 import { BreakpointIndicator } from "@/components/layout/breakpoint-indicator";
+import { RouterProgress } from "@/components/layout/router-progress";
 import { ThemeProvider } from "@/components/theme/provider";
+import { SkipToContent } from "@/components/ui/a11y";
 import { Toaster } from "@/components/ui/sonner";
 import { DialogManager } from "@/dialogs/manager";
 import { ConfirmDialogProvider } from "@/hooks/use-confirm";
@@ -19,6 +21,12 @@ import type { AuthSession } from "@/integrations/auth/types";
 import { client, type orpc } from "@/integrations/orpc/client";
 import type { FeatureFlags } from "@/integrations/orpc/services/flags";
 import { getLocale, isRTL, type Locale, loadLocale } from "@/utils/locale";
+import {
+	defaultSEO,
+	generateOrganizationSchema,
+	generateSoftwareApplicationSchema,
+	generateWebsiteSchema,
+} from "@/utils/seo";
 import { getTheme, type Theme } from "@/utils/theme";
 import appCss from "../styles/globals.css?url";
 
@@ -31,21 +39,25 @@ type RouterContext = {
 	flags: FeatureFlags;
 };
 
-const appName = "Reactive Resume";
-const tagline = "A free and open-source resume builder";
-const title = `${appName} — ${tagline}`;
-const description =
-	"Reactive Resume is a free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.";
+// Use SEO defaults from utility
+const { appName, title, description } = defaultSEO;
 
 await loadLocale(await getLocale());
 
 export const Route = createRootRouteWithContext<RouterContext>()({
 	shellComponent: RootDocument,
 	head: () => {
-		const appUrl = process.env.APP_URL ?? "https://rxresu.me/";
+		const appUrl = (typeof process !== "undefined" ? process.env.APP_URL : undefined) ?? "https://rxresu.me/";
 
 		return {
 			links: [
+				// Google Fonts - Playfair Display & Source Serif 4
+				{ rel: "preconnect", href: "https://fonts.googleapis.com" },
+				{ rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+				{
+					rel: "stylesheet",
+					href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap",
+				},
 				{ rel: "stylesheet", href: appCss },
 				// Icons
 				{ rel: "icon", href: "/favicon.ico", type: "image/x-icon", sizes: "128x128" },
@@ -59,20 +71,32 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 				{ charSet: "UTF-8" },
 				{ name: "description", content: description },
 				{ name: "viewport", content: "width=device-width, initial-scale=1" },
+				// Additional SEO meta tags
+				{ name: "author", content: appName },
+				{ name: "application-name", content: appName },
+				{ name: "theme-color", content: "#1e40af" },
 				// Twitter Tags
-				{ property: "twitter:image", content: `${appUrl}/opengraph/banner.jpg` },
+				{ property: "twitter:image", content: `${appUrl}opengraph/banner.jpg` },
 				{ property: "twitter:card", content: "summary_large_image" },
 				{ property: "twitter:title", content: title },
 				{ property: "twitter:description", content: description },
+				{ property: "twitter:site", content: "@imta_resume" },
+				{ property: "twitter:creator", content: "@imta_resume" },
 				// OpenGraph Tags
-				{ property: "og:image", content: `${appUrl}/opengraph/banner.jpg` },
+				{ property: "og:image", content: `${appUrl}opengraph/banner.jpg` },
+				{ property: "og:image:width", content: "1200" },
+				{ property: "og:image:height", content: "630" },
+				{ property: "og:image:alt", content: `${appName} - ${description}` },
 				{ property: "og:site_name", content: appName },
 				{ property: "og:title", content: title },
 				{ property: "og:description", content: description },
 				{ property: "og:url", content: appUrl },
+				{ property: "og:type", content: "website" },
+				{ property: "og:locale", content: (i18n.locale ?? "fr-FR").replace("-", "_") },
 			],
-			// Register service worker via script tag
+			// Register service worker and JSON-LD structured data
 			scripts: [
+				// Service worker registration
 				{
 					children: `
 						if('serviceWorker' in navigator) {
@@ -81,6 +105,42 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 							})
 						}
 					`,
+				},
+				// JSON-LD Organization schema
+				{
+					type: "application/ld+json",
+					children: JSON.stringify(
+						generateOrganizationSchema({
+							name: appName,
+							url: appUrl,
+							logo: `${appUrl}/logo.svg`,
+							description,
+						}),
+					),
+				},
+				// JSON-LD Website schema
+				{
+					type: "application/ld+json",
+					children: JSON.stringify(
+						generateWebsiteSchema({
+							name: appName,
+							url: appUrl,
+							description,
+						}),
+					),
+				},
+				// JSON-LD SoftwareApplication schema
+				{
+					type: "application/ld+json",
+					children: JSON.stringify(
+						generateSoftwareApplicationSchema({
+							name: appName,
+							url: appUrl,
+							description,
+							applicationCategory: "BusinessApplication",
+							offers: { price: "0", priceCurrency: "USD" },
+						}),
+					),
 				},
 			],
 		};
@@ -112,13 +172,15 @@ function RootDocument({ children }: Props) {
 			</head>
 
 			<body>
+				<SkipToContent />
+				<RouterProgress />
 				<MotionConfig reducedMotion="user">
 					<I18nProvider i18n={i18n}>
 						<IconContext.Provider value={{ size: 16, weight: "regular" }}>
 							<ThemeProvider theme={theme}>
 								<ConfirmDialogProvider>
 									<PromptDialogProvider>
-										{children}
+										<main id="main-content">{children}</main>
 
 										<DialogManager />
 										<CommandPalette />

@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { CaretRightIcon } from "@phosphor-icons/react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -25,7 +26,7 @@ export function SectionBase({ type, className, ...props }: Props) {
 			<AccordionItem value={type} className="group/accordion space-y-4">
 				<div className="flex items-center">
 					<AccordionTrigger asChild className="me-2 items-center justify-center">
-						<Button size="icon" variant="ghost">
+						<Button size="icon" variant="ghost" aria-label={collapsed ? t`Expand section` : t`Collapse section`}>
 							<CaretRightIcon />
 						</Button>
 					</AccordionTrigger>

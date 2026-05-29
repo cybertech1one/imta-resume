@@ -1,12 +1,15 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import type { Icon } from "@phosphor-icons/react";
-import { GithubLogoIcon, LinkedinLogoIcon, XLogoIcon } from "@phosphor-icons/react";
-import { motion } from "motion/react";
-import { useState } from "react";
-import { BrandIcon } from "@/components/ui/brand-icon";
-import { Button } from "@/components/ui/button";
-import { Copyright } from "@/components/ui/copyright";
+import {
+	EnvelopeIcon,
+	FileTextIcon,
+	GlobeIcon,
+	InstagramLogoIcon,
+	LinkedinLogoIcon,
+	MapPinIcon,
+	PhoneIcon,
+} from "@phosphor-icons/react";
 
 type FooterLinkItem = {
 	url: string;
@@ -24,89 +27,113 @@ type SocialLink = {
 	icon: Icon;
 };
 
-const getResourceLinks = (): FooterLinkItem[] => [
-	{ url: "https://docs.rxresu.me", label: t`Documentation` },
-	{ url: "https://opencollective.com/reactive-resume", label: t`Sponsorships` },
-	{ url: "https://github.com/amruthpillai/reactive-resume", label: t`Source Code` },
-	{ url: "https://docs.rxresu.me/changelog", label: t`Changelog` },
+const getProductLinks = (): FooterLinkItem[] => [
+	{ url: "/dashboard", label: t`Créer un CV` },
+	{ url: "/wiki", label: t`Guide d'utilisation` },
+	{ url: "#features", label: t`Fonctionnalités` },
+	{ url: "#templates", label: t`Modèles` },
+	{ url: "#faq", label: t`FAQ` },
 ];
 
-const getCommunityLinks = (): FooterLinkItem[] => [
-	{ url: "https://github.com/amruthpillai/reactive-resume/issues", label: t`Report an issue` },
-	{ url: "https://crowdin.com/project/reactive-resume", label: t`Translations` },
-	{ url: "https://reddit.com/r/reactiveresume", label: t`Subreddit` },
-	{ url: "https://discord.gg/EE8yFqW4", label: t`Discord` },
+const getIMTALinks = (): FooterLinkItem[] => [
+	{ url: "https://imta.ma", label: t`Site web IMTA` },
+	{ url: "https://imta.ma/programs", label: t`Programmes` },
+	{ url: "https://imta.ma/admissions", label: t`Admissions` },
+	{ url: "https://imta.ma/contact", label: t`Contacter IMTA` },
 ];
 
 const socialLinks: SocialLink[] = [
-	{ url: "https://github.com/amruthpillai/reactive-resume", label: "GitHub", icon: GithubLogoIcon },
-	{ url: "https://linkedin.com/in/amruthpillai", label: "LinkedIn", icon: LinkedinLogoIcon },
-	{ url: "https://x.com/KingOKings", label: "X (Twitter)", icon: XLogoIcon },
+	{ url: "https://imta.ma", label: "Site web", icon: GlobeIcon },
+	{ url: "https://linkedin.com/school/imta-ma", label: "LinkedIn", icon: LinkedinLogoIcon },
+	{ url: "https://instagram.com/imta.ma", label: "Instagram", icon: InstagramLogoIcon },
 ];
 
 export function Footer() {
 	return (
-		<motion.footer
-			id="footer"
-			className="p-4 pb-8 md:p-8 md:pb-12"
-			initial={{ opacity: 0 }}
-			whileInView={{ opacity: 1 }}
-			viewport={{ once: true }}
-			transition={{ duration: 0.6 }}
-		>
-			<div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-				{/* Brand Column */}
-				<div className="space-y-4 sm:col-span-2 lg:col-span-1">
-					<BrandIcon variant="logo" className="size-10" />
-
-					<div className="space-y-2">
-						<h2 className="font-bold text-lg tracking-tight">Reactive Resume</h2>
-						<p className="max-w-xs text-muted-foreground text-sm leading-relaxed">
-							<Trans>
-								A free and open-source resume builder that simplifies the process of creating, updating, and sharing
-								your resume.
-							</Trans>
-						</p>
+		<footer id="footer" className="border-zinc-200 border-t bg-white py-12 md:py-16">
+			<div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
+				<div className="space-y-6 sm:col-span-2 lg:col-span-1">
+					<div className="flex items-center gap-3">
+						<div className="relative flex size-11 items-center justify-center rounded-md bg-emerald-800 text-white">
+							<FileTextIcon aria-hidden="true" className="size-6" weight="fill" />
+							<div className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full bg-teal-400 ring-2 ring-white" />
+						</div>
+						<h2 className="font-bold font-display text-2xl text-zinc-950">
+							IMTA<span className="text-emerald-800"> Resume</span>
+						</h2>
 					</div>
 
-					{/* Social Links */}
+					<p className="max-w-xs text-zinc-600 leading-7">
+						<Trans>Le créateur de CV gratuit pour les étudiants et professionnels de l'IMTA au Maroc.</Trans>
+					</p>
+
+					<div className="flex items-center gap-2 text-sm text-zinc-500">
+						<MapPinIcon aria-hidden="true" className="size-4 text-emerald-800" />
+						<span>
+							<Trans>Maroc</Trans>
+						</span>
+					</div>
+
 					<div className="flex items-center gap-2 pt-2">
 						{socialLinks.map((social) => (
-							<Button key={social.label} size="icon-sm" variant="ghost" asChild>
-								<a
-									href={social.url}
-									target="_blank"
-									rel="noopener"
-									aria-label={`${social.label} (${t`opens in new tab`})`}
-								>
-									<social.icon aria-hidden="true" size={18} />
-								</a>
-							</Button>
+							<a
+								key={social.label}
+								href={social.url}
+								target="_blank"
+								rel="noopener"
+								aria-label={`${social.label} (${t`s'ouvre dans un nouvel onglet`})`}
+								className="inline-flex size-9 items-center justify-center rounded-md text-zinc-600 transition-colors hover:bg-emerald-50 hover:text-emerald-800"
+							>
+								<social.icon aria-hidden="true" size={20} />
+							</a>
 						))}
 					</div>
 				</div>
 
-				{/* Resources Column */}
-				<FooterLinkGroup title={t`Resources`} links={getResourceLinks()} />
+				<FooterLinkGroup title={t`Produit`} links={getProductLinks()} />
+				<FooterLinkGroup title={t`IMTA`} links={getIMTALinks()} />
 
-				{/* Community Column */}
-				<FooterLinkGroup title={t`Community`} links={getCommunityLinks()} />
+				<div className="space-y-6 sm:col-span-2 lg:col-span-1">
+					<h2 className="font-semibold text-xs text-zinc-500 uppercase">
+						<Trans>Contact</Trans>
+					</h2>
+					<div className="space-y-4">
+						<a href="mailto:contact@imta.ma" className="flex items-center gap-3 text-zinc-600 hover:text-emerald-800">
+							<EnvelopeIcon aria-hidden="true" className="size-4" />
+							<span>contact@imta.ma</span>
+						</a>
+						<a href="tel:+212500000000" className="flex items-center gap-3 text-zinc-600 hover:text-emerald-800">
+							<PhoneIcon aria-hidden="true" className="size-4" />
+							<span>+212 5 00 00 00 00</span>
+						</a>
+						<a
+							href="https://imta.ma"
+							target="_blank"
+							rel="noopener"
+							className="flex items-center gap-3 text-zinc-600 hover:text-emerald-800"
+						>
+							<GlobeIcon aria-hidden="true" className="size-4" />
+							<span>imta.ma</span>
+						</a>
+					</div>
 
-				{/* Copyright Column */}
-				<div className="space-y-4 sm:col-span-2 lg:col-span-1">
-					<Copyright />
+					<div className="pt-6 text-xs text-zinc-500 leading-6">
+						<p>&copy; {new Date().getFullYear()} IMTA Resume</p>
+						<p>
+							<Trans>Tous droits réservés.</Trans>
+						</p>
+					</div>
 				</div>
 			</div>
-		</motion.footer>
+		</footer>
 	);
 }
 
 function FooterLinkGroup({ title, links }: FooterLinkGroupProps) {
 	return (
-		<div className="space-y-4">
-			<h2 className="font-medium text-muted-foreground text-sm tracking-tight">{title}</h2>
-
-			<ul className="space-y-3">
+		<div className="space-y-5">
+			<h2 className="font-semibold text-xs text-zinc-500 uppercase">{title}</h2>
+			<ul className="space-y-3.5">
 				{links.map((link) => (
 					<FooterLink key={link.url} url={link.url} label={link.label} />
 				))}
@@ -116,26 +143,18 @@ function FooterLinkGroup({ title, links }: FooterLinkGroupProps) {
 }
 
 function FooterLink({ url, label }: FooterLinkItem) {
-	const [isHovered, setIsHovered] = useState(false);
+	const isExternal = url.startsWith("http");
 
 	return (
-		<li className="relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+		<li>
 			<a
 				href={url}
-				target="_blank"
-				rel="noopener"
-				className="relative inline-block text-sm transition-colors hover:text-foreground"
+				target={isExternal ? "_blank" : undefined}
+				rel={isExternal ? "noopener" : undefined}
+				className="inline-flex items-center gap-1.5 text-zinc-600 underline-offset-4 transition-colors hover:text-emerald-800 hover:underline"
 			>
 				{label}
-				<span className="sr-only"> ({t`opens in new tab`})</span>
-
-				<motion.div
-					aria-hidden="true"
-					initial={{ width: 0, opacity: 0 }}
-					animate={isHovered ? { width: "100%", opacity: 1 } : { width: 0, opacity: 0 }}
-					transition={{ duration: 0.25, ease: "easeOut" }}
-					className="pointer-events-none absolute start-0 -bottom-0.5 h-px rounded bg-primary"
-				/>
+				{isExternal && <span className="sr-only"> ({t`s'ouvre dans un nouvel onglet`})</span>}
 			</a>
 		</li>
 	);

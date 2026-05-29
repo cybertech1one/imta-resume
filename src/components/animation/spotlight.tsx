@@ -25,7 +25,7 @@ export const Spotlight = ({
 }: SpotlightProps) => {
 	return (
 		<motion.div
-			initial={{ opacity: 0 }}
+			initial={false}
 			animate={{ opacity: 1 }}
 			transition={{ duration: 1.5 }}
 			className="pointer-events-none absolute inset-0 h-full w-full"

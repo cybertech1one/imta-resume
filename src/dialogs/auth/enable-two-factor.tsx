@@ -20,13 +20,20 @@ import { authClient } from "@/integrations/auth/client";
 import { type DialogProps, useDialogStore } from "../store";
 
 const enableFormSchema = z.object({
-	password: z.string().min(6).max(64),
+	password: z
+		.string()
+		.min(1, { message: "Password is required" })
+		.min(6, { message: "Password must be at least 6 characters" })
+		.max(64, { message: "Password cannot exceed 64 characters" }),
 });
 
 type EnableFormValues = z.infer<typeof enableFormSchema>;
 
 const verifyFormSchema = z.object({
-	code: z.string().length(6, "Code must be 6 digits"),
+	code: z
+		.string()
+		.length(6, { message: "Verification code must be exactly 6 digits" })
+		.regex(/^\d+$/, { message: "Code must contain only numbers" }),
 });
 
 type VerifyFormValues = z.infer<typeof verifyFormSchema>;
@@ -46,6 +53,7 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 		defaultValues: {
 			password: "",
 		},
+		mode: "onBlur",
 	});
 
 	const verifyForm = useForm<VerifyFormValues>({
@@ -60,7 +68,7 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 
 		const { data, error } = await authClient.twoFactor.enable({
 			password: values.password,
-			issuer: "Reactive Resume",
+			issuer: "IMTA Resume",
 		});
 
 		if (error) {
@@ -128,7 +136,7 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement("a");
 		a.href = url;
-		a.download = "reactive-resume_backup-codes.txt";
+		a.download = "imta-resume_backup-codes.txt";
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
@@ -187,7 +195,14 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 												/>
 											</FormControl>
 
-											<Button size="icon" variant="ghost" type="button" onClick={toggleShowPassword}>
+											<Button
+												size="icon"
+												variant="ghost"
+												type="button"
+												aria-label={showPassword ? t`Hide password` : t`Show password`}
+												aria-pressed={showPassword}
+												onClick={toggleShowPassword}
+											>
 												{showPassword ? <EyeIcon /> : <EyeSlashIcon />}
 											</Button>
 										</div>
@@ -212,7 +227,13 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 								<>
 									<div className="flex items-center gap-x-2">
 										<Input readOnly value={secret} className="font-mono text-sm" />
-										<Button size="icon" variant="ghost" type="button" onClick={handleCopySecret}>
+										<Button
+											size="icon"
+											variant="ghost"
+											type="button"
+											aria-label={t`Copy secret to clipboard`}
+											onClick={handleCopySecret}
+										>
 											<CopyIcon />
 										</Button>
 									</div>
@@ -282,11 +303,23 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 								</div>
 
 								<div className="flex items-center gap-x-2">
-									<Button type="button" variant="outline" onClick={handleDownloadBackupCodes} className="flex-1">
+									<Button
+										type="button"
+										variant="outline"
+										aria-label={t`Download backup codes`}
+										onClick={handleDownloadBackupCodes}
+										className="flex-1"
+									>
 										<ArrowDownIcon className="me-2 size-4" />
 										<Trans>Download</Trans>
 									</Button>
-									<Button type="button" variant="ghost" onClick={handleCopyBackupCodes} className="flex-1">
+									<Button
+										type="button"
+										variant="ghost"
+										aria-label={t`Copy backup codes to clipboard`}
+										onClick={handleCopyBackupCodes}
+										className="flex-1"
+									>
 										<CopyIcon className="me-2 size-4" />
 										<Trans>Copy</Trans>
 									</Button>

@@ -1,10 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { CaretRightIcon } from "@phosphor-icons/react";
-import { motion } from "motion/react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/utils/style";
 
 const crowdinUrl = "https://crowdin.com/project/reactive-resume";
 
@@ -15,114 +12,97 @@ type FAQItemData = {
 
 const getFaqItems = (): FAQItemData[] => [
 	{
-		question: t`Is Reactive Resume really free?`,
-		answer: t`Yes! Reactive Resume is completely free to use, with no hidden costs, premium tiers, or subscription fees. It's open-source and will always remain free.`,
+		question: t`IMTA Resume est-il vraiment gratuit ?`,
+		answer: t`Oui ! IMTA Resume est entièrement gratuit, sans coûts cachés, abonnements premium ni frais d'inscription.`,
 	},
 	{
-		question: t`How is my data protected?`,
-		answer: t`Your data is stored securely and is never shared with third parties. You can also self-host Reactive Resume on your own servers for complete control over your data.`,
+		question: t`Comment mes données sont-elles protégées ?`,
+		answer: t`Vos données sont stockées de manière sécurisée et ne sont jamais partagées avec des tiers. Vous avez un contrôle total sur vos informations personnelles.`,
 	},
 	{
-		question: t`Can I export my resume to PDF?`,
-		answer: t`Absolutely! You can export your resume to PDF with a single click. The exported PDF maintains all your formatting and styling perfectly.`,
+		question: t`Puis-je exporter mon CV en PDF ?`,
+		answer: t`Oui. Vous pouvez exporter votre CV en PDF en un seul clic, avec une mise en forme conservée.`,
 	},
 	{
-		question: t`Is Reactive Resume available in multiple languages?`,
+		question: t`IMTA Resume est-il disponible en plusieurs langues ?`,
 		answer: (
 			<Trans>
-				Yes, Reactive Resume is available in multiple languages. You can choose your preferred language in the settings
-				page, or using the language switcher in the top right corner. If you don't see your language, or you would like
-				to improve the existing translations, you can{" "}
+				Oui, IMTA Resume est disponible en plusieurs langues, notamment le français, l'anglais et l'arabe. Vous pouvez
+				choisir votre langue préférée dans les paramètres. Si vous souhaitez améliorer les traductions, vous pouvez{" "}
 				<a
 					href={crowdinUrl}
 					target="_blank"
 					rel="noopener"
-					className={buttonVariants({ variant: "link", className: "h-auto px-0!" })}
+					className="font-semibold text-emerald-800 underline underline-offset-4"
 				>
-					contribute to the translations on Crowdin
-					<span className="sr-only"> (opens in new tab)</span>
+					contribuer sur Crowdin
+					<span className="sr-only"> (s'ouvre dans un nouvel onglet)</span>
 				</a>
 				.
 			</Trans>
 		),
 	},
 	{
-		question: t`What makes Reactive Resume different from other resume builders?`,
-		answer: t`Reactive Resume is open-source, privacy-focused, and completely free. Unlike other resume builders, it doesn't show ads, track your data, or limit your features behind a paywall.`,
+		question: t`Qu'est-ce qui différencie IMTA Resume des autres créateurs de CV ?`,
+		answer: t`IMTA Resume est gratuit, respectueux de la vie privée et pensé pour aider les étudiants à avancer rapidement dans leurs candidatures.`,
 	},
 	{
-		question: t`Can I customize the templates?`,
-		answer: t`Yes! Every template is fully customizable. You can change colors, fonts, spacing, and even write custom CSS for complete control over your resume's appearance.`,
+		question: t`Puis-je personnaliser les modèles ?`,
+		answer: t`Oui. Chaque modèle peut être personnalisé avec les couleurs, les polices, l'espacement et les sections dont vous avez besoin.`,
 	},
 	{
-		question: t`How do I share my resume?`,
-		answer: t`You can share your resume via a unique public URL, protect it with a password, or download it as a PDF to share directly. The choice is yours!`,
+		question: t`Comment partager mon CV ?`,
+		answer: t`Vous pouvez partager votre CV via une URL publique unique, le protéger avec un mot de passe ou le télécharger en PDF.`,
 	},
 ];
 
 export function FAQ() {
 	const faqItems = getFaqItems();
+	const midpoint = Math.ceil(faqItems.length / 2);
+	const columns = [faqItems.slice(0, midpoint), faqItems.slice(midpoint)];
 
 	return (
-		<section
-			id="frequently-asked-questions"
-			className="flex flex-col gap-x-16 gap-y-6 p-4 md:p-8 lg:flex-row lg:gap-x-18 xl:py-16"
-		>
-			<motion.h2
-				className={cn(
-					"flex-1 font-semibold text-2xl tracking-tight md:text-4xl xl:text-5xl",
-					"flex shrink-0 flex-wrap items-center gap-x-1.5 lg:flex-col lg:items-start",
-				)}
-				initial={{ opacity: 0, x: -20 }}
-				whileInView={{ opacity: 1, x: 0 }}
-				viewport={{ once: true }}
-				transition={{ duration: 0.6 }}
-			>
-				<Trans context="Every word needs to be wrapped in a tag">
-					<span>Frequently</span>
-					<span>Asked</span>
-					<span>Questions</span>
-				</Trans>
-			</motion.h2>
+		<section id="faq" className="bg-white py-16 md:py-20">
+			<div className="mx-auto max-w-7xl px-6 lg:px-10">
+				<div className="mb-10 max-w-3xl">
+					<p className="mb-4 font-semibold text-emerald-800 text-sm">
+						<Trans>Des questions ?</Trans>
+					</p>
+					<h2 className="font-display text-4xl text-zinc-950 leading-tight md:text-5xl">
+						<Trans>Questions fréquentes</Trans>
+					</h2>
+				</div>
 
-			<motion.div
-				className="max-w-2xl flex-2 lg:ml-auto 2xl:max-w-3xl"
-				initial={{ opacity: 0, y: 20 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				viewport={{ once: true }}
-				transition={{ duration: 0.6, delay: 0.1 }}
-			>
-				<Accordion type="multiple">
-					{faqItems.map((item, index) => (
-						<FAQItemComponent key={item.question} item={item} index={index} />
+				<div className="grid gap-4 lg:grid-cols-2">
+					{columns.map((column, index) => (
+						<Accordion
+							key={`faq-column-${index}`}
+							type="multiple"
+							className="rounded-lg border border-zinc-200 bg-white px-5"
+						>
+							{column.map((item) => (
+								<FAQItemComponent key={item.question} item={item} />
+							))}
+						</Accordion>
 					))}
-				</Accordion>
-			</motion.div>
+				</div>
+			</div>
 		</section>
 	);
 }
 
 type FAQItemComponentProps = {
 	item: FAQItemData;
-	index: number;
 };
 
-function FAQItemComponent({ item, index }: FAQItemComponentProps) {
+function FAQItemComponent({ item }: FAQItemComponentProps) {
 	return (
-		<motion.div
-			className="last:border-b"
-			initial={{ opacity: 0, y: 10 }}
-			whileInView={{ opacity: 1, y: 0 }}
-			viewport={{ once: true }}
-			transition={{ duration: 0.4, delay: index * 0.05 }}
-		>
-			<AccordionItem value={item.question} className="group border-t">
-				<AccordionTrigger className="py-5">
-					{item.question}
-					<CaretRightIcon aria-hidden="true" className="shrink-0 transition-transform duration-200" />
-				</AccordionTrigger>
-				<AccordionContent className="pb-5 text-muted-foreground leading-relaxed">{item.answer}</AccordionContent>
-			</AccordionItem>
-		</motion.div>
+		<AccordionItem value={item.question} className="group border-zinc-200 border-t last:border-b">
+			<AccordionTrigger className="py-6 text-left font-medium transition-colors hover:text-emerald-800">
+				{item.question}
+				<CaretRightIcon aria-hidden="true" className="shrink-0 text-emerald-700/60 transition-transform duration-200" />
+			</AccordionTrigger>
+			<AccordionContent className="pb-6 text-zinc-600 leading-7">{item.answer}</AccordionContent>
+		</AccordionItem>
 	);
 }

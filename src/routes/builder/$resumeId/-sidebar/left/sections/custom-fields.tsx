@@ -1,3 +1,4 @@
+import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { DotsSixVerticalIcon, LinkIcon, ListPlusIcon, XIcon } from "@phosphor-icons/react";
 import { Reorder, useDragControls } from "motion/react";
@@ -90,7 +91,7 @@ export function CustomFieldsSection({ onSubmit }: Props) {
 
 					<Popover>
 						<PopoverTrigger asChild>
-							<Button size="icon" variant="ghost" className="ms-1">
+							<Button size="icon" variant="ghost" className="ms-1" aria-label={t`Add link`}>
 								<LinkIcon />
 							</Button>
 						</PopoverTrigger>
@@ -108,7 +109,7 @@ export function CustomFieldsSection({ onSubmit }: Props) {
 										<Input
 											type="url"
 											value={field.value}
-											placeholder="Must start with https://"
+											placeholder={t`Must start with https://`}
 											onChange={(e) => {
 												field.onChange(e.target.value);
 												form.handleSubmit(onSubmit)();
@@ -120,7 +121,7 @@ export function CustomFieldsSection({ onSubmit }: Props) {
 						</PopoverContent>
 					</Popover>
 
-					<Button size="icon" variant="ghost" onClick={() => handleRemove(index)}>
+					<Button size="icon" variant="ghost" onClick={() => handleRemove(index)} aria-label={t`Remove custom field`}>
 						<XIcon />
 					</Button>
 				</CustomFieldItem>
@@ -148,7 +149,7 @@ function CustomFieldItem({ field, children }: CustomFieldItemProps) {
 			value={field}
 			dragListener={false}
 			dragControls={controls}
-			initial={{ opacity: 0, y: -10 }}
+			initial={false}
 			animate={{ opacity: 1, y: 0 }}
 			className="flex touch-none items-center"
 		>
@@ -156,6 +157,7 @@ function CustomFieldItem({ field, children }: CustomFieldItemProps) {
 				size="icon"
 				variant="ghost"
 				className="me-2 touch-none"
+				aria-label={t`Drag to reorder`}
 				onPointerDown={(e) => {
 					e.preventDefault();
 					controls.start(e);

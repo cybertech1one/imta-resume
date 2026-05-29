@@ -1,10 +1,12 @@
 import { t } from "@lingui/core/macro";
 import {
+	AddressBookIcon,
 	ArticleIcon,
 	BooksIcon,
 	BriefcaseIcon,
 	CertificateIcon,
 	ChartLineIcon,
+	ClipboardTextIcon,
 	CodeSimpleIcon,
 	CompassToolIcon,
 	DiamondsFourIcon,
@@ -23,6 +25,7 @@ import {
 	PhoneIcon,
 	ReadCvLogoIcon,
 	ShareFatIcon,
+	SparkleIcon,
 	StarIcon,
 	TextTIcon,
 	TranslateIcon,
@@ -44,7 +47,9 @@ export type RightSidebarSection =
 	| "css"
 	| "notes"
 	| "sharing"
+	| "business-card"
 	| "statistics"
+	| "ai-analysis"
 	| "export"
 	| "information";
 
@@ -57,6 +62,7 @@ export const leftSidebarSections: LeftSidebarSection[] = [
 	"profiles",
 	"experience",
 	"education",
+	"internships", // IMTA/Morocco-specific: Stages section
 	"projects",
 	"skills",
 	"languages",
@@ -78,7 +84,9 @@ export const rightSidebarSections: RightSidebarSection[] = [
 	"css",
 	"notes",
 	"sharing",
+	"business-card",
 	"statistics",
+	"ai-analysis",
 	"export",
 	"information",
 ] as const;
@@ -93,6 +101,7 @@ export const getSectionTitle = (type: SidebarSection): string => {
 			.with("profiles", () => t`Profiles`)
 			.with("experience", () => t`Experience`)
 			.with("education", () => t`Education`)
+			.with("internships", () => t`Internships`) // IMTA/Morocco-specific: Stages
 			.with("projects", () => t`Projects`)
 			.with("skills", () => t`Skills`)
 			.with("languages", () => t`Languages`)
@@ -113,7 +122,9 @@ export const getSectionTitle = (type: SidebarSection): string => {
 			.with("css", () => t`Custom CSS`)
 			.with("notes", () => t`Notes`)
 			.with("sharing", () => t`Sharing`)
+			.with("business-card", () => t`Business Card`)
 			.with("statistics", () => t`Statistics`)
+			.with("ai-analysis", () => t`AI Analysis`)
 			.with("export", () => t`Export`)
 			.with("information", () => t`Information`)
 
@@ -133,6 +144,7 @@ export const getSectionIcon = (type: SidebarSection, props?: IconProps): React.R
 			.with("profiles", () => <MessengerLogoIcon {...iconProps} />)
 			.with("experience", () => <BriefcaseIcon {...iconProps} />)
 			.with("education", () => <GraduationCapIcon {...iconProps} />)
+			.with("internships", () => <ClipboardTextIcon {...iconProps} />) // IMTA/Morocco-specific: Stages
 			.with("projects", () => <CodeSimpleIcon {...iconProps} />)
 			.with("skills", () => <CompassToolIcon {...iconProps} />)
 			.with("languages", () => <TranslateIcon {...iconProps} />)
@@ -153,7 +165,9 @@ export const getSectionIcon = (type: SidebarSection, props?: IconProps): React.R
 			.with("css", () => <FileCssIcon {...iconProps} />)
 			.with("notes", () => <NotepadIcon {...iconProps} />)
 			.with("sharing", () => <ShareFatIcon {...iconProps} />)
+			.with("business-card", () => <AddressBookIcon {...iconProps} />)
 			.with("statistics", () => <ChartLineIcon {...iconProps} />)
+			.with("ai-analysis", () => <SparkleIcon {...iconProps} />)
 			.with("export", () => <DownloadIcon {...iconProps} />)
 			.with("information", () => <InfoIcon {...iconProps} />)
 

@@ -1,137 +1,71 @@
-import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { ArrowRightIcon, BookIcon, SparkleIcon } from "@phosphor-icons/react";
+import { ArrowRightIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
-import { motion } from "motion/react";
-import { CometCard } from "@/components/animation/comet-card";
-import { Spotlight } from "@/components/animation/spotlight";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+
+const HERO_IMAGE = "/home/home-hero-students-career.webp";
+const EMERALD = "oklch(0.42 0.13 160)";
+const PAPER = "oklch(0.985 0.008 90)";
 
 export function Hero() {
 	return (
 		<section
 			id="hero"
-			className="relative flex min-h-svh w-svw flex-col items-center justify-center overflow-hidden border-b py-24"
+			className="relative min-h-[610px] overflow-hidden bg-zinc-950 text-white sm:min-h-[650px] lg:min-h-[690px]"
 		>
-			<Spotlight />
-
-			<motion.div
-				initial={{ opacity: 0, y: 100 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 1.5, ease: "easeOut" }}
-			>
-				<CometCard glareOpacity={0} className="relative -mb-12 3xl:max-w-7xl max-w-4xl px-8 md:-mb-24 md:px-12 lg:px-0">
-					<video
-						loop
-						muted
-						autoPlay
-						playsInline
-						// @ts-expect-error - typescript doesn't know about fetchPriority for video elements
-						fetchPriority="high"
-						src="/videos/timelapse.mp4"
-						aria-label={t`Timelapse demonstration of building a resume with Reactive Resume`}
-						className="pointer-events-none size-full rounded-lg border object-cover"
-					/>
-
-					<div
-						aria-hidden="true"
-						className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-40% via-transparent to-background"
-					/>
-				</CometCard>
-			</motion.div>
-
-			<div className="relative z-10 flex max-w-2xl flex-col items-center gap-y-6 px-4 xs:px-0 text-center">
-				{/* Badge */}
-				<motion.a
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6, delay: 0.8 }}
-					target="_blank"
-					rel="noopener"
-					href="https://docs.rxresu.me/getting-started"
-				>
-					<Badge variant="secondary" className="h-auto gap-1.5 px-3 py-0.5">
-						<SparkleIcon aria-hidden="true" className="size-3.5" weight="fill" />
-						<Trans>What's new in the latest version?</Trans>
-					</Badge>
-				</motion.a>
-
-				{/* Headline */}
-				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6, delay: 1 }}
-				>
-					<Trans>
-						<p className="font-medium text-muted-foreground tracking-tight md:text-lg">Finally,</p>
-						<h1 className="mt-1 font-bold text-4xl tracking-tight md:text-5xl lg:text-6xl">
-							A free and open-source resume builder
-						</h1>
-					</Trans>
-				</motion.div>
-
-				{/* Description */}
-				<motion.p
-					className="max-w-xl text-base text-muted-foreground leading-relaxed md:text-lg"
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6, delay: 1.2 }}
-				>
-					<Trans>
-						Reactive Resume is a free and open-source resume builder that simplifies the process of creating, updating,
-						and sharing your resume.
-					</Trans>
-				</motion.p>
-
-				{/* CTA Buttons */}
-				<motion.div
-					className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4"
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6, delay: 1.4 }}
-				>
-					<Button asChild size="lg" className="group relative overflow-hidden px-4">
-						<Link to="/dashboard">
-							<span className="relative z-10 flex items-center gap-2">
-								<Trans>Get Started</Trans>
-								<ArrowRightIcon
-									aria-hidden="true"
-									className="size-4 transition-transform group-hover:translate-x-0.5"
-								/>
-							</span>
-						</Link>
-					</Button>
-
-					<Button asChild size="lg" variant="ghost" className="gap-2 px-4">
-						<a href="https://docs.rxresu.me" target="_blank" rel="noopener">
-							<BookIcon aria-hidden="true" className="size-4" />
-							<Trans>Learn More</Trans>
-							<span className="sr-only">
-								<Trans>(opens in new tab)</Trans>
-							</span>
-						</a>
-					</Button>
-				</motion.div>
-			</div>
-
-			{/* Scroll indicator - decorative */}
-			<motion.div
+			<img
+				src={HERO_IMAGE}
+				alt=""
 				aria-hidden="true"
-				role="presentation"
-				className="absolute start-1/2 bottom-8 -translate-x-1/2"
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				transition={{ delay: 2, duration: 1 }}
-			>
-				<motion.div
-					className="flex h-8 w-5 items-start justify-center rounded-full border border-muted-foreground/30 p-1.5"
-					animate={{ y: [0, 5, 0] }}
-					transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-				>
-					<motion.div className="h-1.5 w-1 rounded-full bg-muted-foreground/50" />
-				</motion.div>
-			</motion.div>
+				className="absolute inset-0 size-full object-cover object-[66%_center] md:object-[58%_center]"
+				fetchPriority="high"
+				decoding="async"
+				width={1672}
+				height={941}
+			/>
+			<div
+				aria-hidden="true"
+				className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,19,14,0.94)_0%,rgba(5,24,17,0.78)_35%,rgba(5,24,17,0.34)_68%,rgba(5,24,17,0.04)_100%)]"
+			/>
+			<div
+				aria-hidden="true"
+				className="absolute inset-x-0 bottom-0 h-32"
+				style={{ background: `linear-gradient(180deg, transparent, ${PAPER})` }}
+			/>
+
+			<div className="relative z-10 mx-auto flex min-h-[610px] max-w-7xl items-center px-6 pt-28 pb-16 sm:min-h-[650px] lg:min-h-[690px] lg:px-10">
+				<div className="max-w-3xl">
+					<h1 className="max-w-3xl font-display text-5xl text-white leading-[0.98] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
+						<Trans>Ton métier mérite un</Trans>{" "}
+						<span style={{ color: "oklch(0.78 0.15 160)" }}>
+							<Trans>CV à sa hauteur.</Trans>
+						</span>
+					</h1>
+
+					<p className="mt-7 max-w-xl text-lg text-white/84 leading-8 md:text-xl">
+						<Trans>
+							Crée un CV professionnel, prépare tes entretiens avec l'IA et décroche ton stage avec les outils IMTA.
+						</Trans>
+					</p>
+
+					<div className="mt-10 flex flex-col gap-4 sm:flex-row">
+						<Link
+							to="/dashboard"
+							className="inline-flex h-14 items-center justify-center gap-2 rounded-md px-7 font-semibold text-base text-white shadow-[0_16px_36px_rgba(0,0,0,0.22)] transition-transform hover:-translate-y-0.5"
+							style={{ backgroundColor: EMERALD }}
+						>
+							<Trans>Créer mon CV</Trans>
+							<ArrowRightIcon className="size-5" aria-hidden="true" />
+						</Link>
+
+						<a
+							href="#templates"
+							className="inline-flex h-14 items-center justify-center rounded-md border border-white/60 bg-white/8 px-7 font-semibold text-base text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-zinc-950"
+						>
+							<Trans>Explorer les modèles</Trans>
+						</a>
+					</div>
+				</div>
+			</div>
 		</section>
 	);
 }

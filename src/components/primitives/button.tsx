@@ -5,7 +5,7 @@ type ButtonProps = WithAsChild<
 	Omit<HTMLMotionProps<"button">, "children"> & {
 		hoverScale?: number;
 		tapScale?: number;
-		// biome-ignore lint/suspicious/noExplicitAny: unknown type
+		// biome-ignore lint/suspicious/noExplicitAny: Flexible children type for Button with Slot pattern
 		children?: any;
 	}
 >;

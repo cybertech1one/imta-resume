@@ -7,83 +7,107 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-	--radius: 0.45rem;
+	--radius: 0.625rem;
 
 	--breakpoint-xs: 32rem;
 	--breakpoint-3xl: 112rem;
 	--breakpoint-4xl: 128rem;
 
 	--font-sans: "IBM Plex Sans Variable", sans-serif;
+	--font-display: "Playfair Display", serif;
+	--font-serif: "Source Serif 4", serif;
 
 	--color-zinc-925: oklch(17.55% 0 285.854);
 
-	--background: oklch(1 0 0);
-	--foreground: oklch(0.145 0 0);
-	--card: oklch(1 0 0);
-	--card-foreground: oklch(0.145 0 0);
-	--popover: oklch(1 0 0);
-	--popover-foreground: oklch(0.145 0 0);
-	--primary: oklch(0.205 0 0);
-	--primary-foreground: oklch(0.985 0 0);
-	--secondary: oklch(0.97 0 0);
-	--secondary-foreground: oklch(0.205 0 0);
-	--muted: oklch(0.97 0 0);
-	--muted-foreground: oklch(0.556 0 0);
-	--accent: oklch(0.97 0 0);
-	--accent-foreground: oklch(0.205 0 0);
-	--success: oklch(59.6% 0.145 163.225);
-	--destructive: oklch(0.58 0.22 27);
-	--border: oklch(0.922 0 0);
-	--input: oklch(0.922 0 0);
-	--ring: oklch(0.708 0 0);
-	--chart-1: oklch(0.809 0.105 251.813);
-	--chart-2: oklch(0.623 0.214 259.815);
-	--chart-3: oklch(0.546 0.245 262.881);
-	--chart-4: oklch(0.488 0.243 264.376);
-	--chart-5: oklch(0.424 0.199 265.638);
-	--sidebar: oklch(0.985 0 0);
-	--sidebar-foreground: oklch(0.145 0 0);
-	--sidebar-primary: oklch(0.205 0 0);
-	--sidebar-primary-foreground: oklch(0.985 0 0);
-	--sidebar-accent: oklch(0.97 0 0);
-	--sidebar-accent-foreground: oklch(0.205 0 0);
-	--sidebar-border: oklch(0.922 0 0);
-	--sidebar-ring: oklch(0.708 0 0);
+	/* IMTA Morocco Palette - Emerald, Teal & Deep Blue */
+	--background: oklch(0.988 0.003 250);
+	--foreground: oklch(0.2 0.02 250);
+	--card: oklch(0.995 0.002 250);
+	--card-foreground: oklch(0.2 0.02 250);
+	--popover: oklch(0.995 0.002 250);
+	--popover-foreground: oklch(0.2 0.02 250);
+	--primary: oklch(0.45 0.14 160);
+	--primary-foreground: oklch(0.98 0.005 250);
+	--secondary: oklch(0.96 0.008 250);
+	--secondary-foreground: oklch(0.25 0.02 250);
+	--muted: oklch(0.955 0.008 250);
+	--muted-foreground: oklch(0.45 0.02 250);
+	--accent: oklch(0.92 0.03 195);
+	--accent-foreground: oklch(0.22 0.02 250);
+	--success: oklch(0.62 0.17 155);
+	--destructive: oklch(0.55 0.2 25);
+	--border: oklch(0.9 0.01 250);
+	--input: oklch(0.93 0.008 250);
+	--ring: oklch(0.45 0.14 160);
+	--chart-1: oklch(0.5 0.14 160);
+	--chart-2: oklch(0.55 0.15 195);
+	--chart-3: oklch(0.45 0.12 250);
+	--chart-4: oklch(0.55 0.16 30);
+	--chart-5: oklch(0.5 0.14 200);
+	--sidebar: oklch(0.98 0.003 250);
+	--sidebar-foreground: oklch(0.2 0.02 250);
+	--sidebar-primary: oklch(0.45 0.14 160);
+	--sidebar-primary-foreground: oklch(0.98 0.005 250);
+	--sidebar-accent: oklch(0.94 0.02 195);
+	--sidebar-accent-foreground: oklch(0.22 0.02 250);
+	--sidebar-border: oklch(0.92 0.008 250);
+	--sidebar-ring: oklch(0.45 0.14 160);
+
+	/* IMTA Brand Colors */
+	--imta-emerald: oklch(0.45 0.14 160);
+	--imta-emerald-light: oklch(0.55 0.12 160);
+	--imta-teal: oklch(0.55 0.15 195);
+	--imta-teal-light: oklch(0.72 0.12 195);
+	--imta-blue: oklch(0.35 0.12 250);
+	--imta-blue-light: oklch(0.5 0.1 250);
+	--imta-light: oklch(0.97 0.008 250);
+	--imta-terracotta: oklch(0.55 0.14 35);
 }
 
+/* Dark mode - IMTA Morocco themed */
 .dark {
-	--background: oklch(0.145 0 0);
-	--foreground: oklch(0.985 0 0);
-	--card: oklch(0.205 0 0);
-	--card-foreground: oklch(0.985 0 0);
-	--popover: oklch(0.205 0 0);
-	--popover-foreground: oklch(0.985 0 0);
-	--primary: oklch(0.87 0 0);
-	--primary-foreground: oklch(0.205 0 0);
-	--secondary: oklch(0.269 0 0);
-	--secondary-foreground: oklch(0.985 0 0);
-	--muted: oklch(0.269 0 0);
-	--muted-foreground: oklch(0.708 0 0);
-	--accent: oklch(0.371 0 0);
-	--accent-foreground: oklch(0.985 0 0);
-	--success: oklch(59.6% 0.145 163.225);
-	--destructive: oklch(0.704 0.191 22.216);
-	--border: oklch(1 0 0 / 10%);
-	--input: oklch(1 0 0 / 15%);
-	--ring: oklch(0.556 0 0);
-	--chart-1: oklch(0.809 0.105 251.813);
-	--chart-2: oklch(0.623 0.214 259.815);
-	--chart-3: oklch(0.546 0.245 262.881);
-	--chart-4: oklch(0.488 0.243 264.376);
-	--chart-5: oklch(0.424 0.199 265.638);
-	--sidebar: oklch(0.205 0 0);
-	--sidebar-foreground: oklch(0.985 0 0);
-	--sidebar-primary: oklch(0.488 0.243 264.376);
-	--sidebar-primary-foreground: oklch(0.985 0 0);
-	--sidebar-accent: oklch(0.269 0 0);
-	--sidebar-accent-foreground: oklch(0.985 0 0);
-	--sidebar-border: oklch(1 0 0 / 10%);
-	--sidebar-ring: oklch(0.556 0 0);
+	--background: oklch(0.13 0.015 250);
+	--foreground: oklch(0.93 0.01 250);
+	--card: oklch(0.16 0.018 250);
+	--card-foreground: oklch(0.93 0.01 250);
+	--popover: oklch(0.16 0.018 250);
+	--popover-foreground: oklch(0.93 0.01 250);
+	--primary: oklch(0.55 0.14 160);
+	--primary-foreground: oklch(0.12 0.02 250);
+	--secondary: oklch(0.22 0.02 250);
+	--secondary-foreground: oklch(0.88 0.01 250);
+	--muted: oklch(0.2 0.015 250);
+	--muted-foreground: oklch(0.65 0.02 250);
+	--accent: oklch(0.25 0.03 195);
+	--accent-foreground: oklch(0.92 0.01 250);
+	--success: oklch(0.55 0.15 155);
+	--destructive: oklch(0.5 0.18 25);
+	--border: oklch(0.25 0.02 250);
+	--input: oklch(0.2 0.015 250);
+	--ring: oklch(0.55 0.14 160);
+	--chart-1: oklch(0.55 0.14 160);
+	--chart-2: oklch(0.6 0.15 195);
+	--chart-3: oklch(0.5 0.12 250);
+	--chart-4: oklch(0.6 0.16 30);
+	--chart-5: oklch(0.55 0.14 200);
+	--sidebar: oklch(0.14 0.015 250);
+	--sidebar-foreground: oklch(0.93 0.01 250);
+	--sidebar-primary: oklch(0.55 0.14 160);
+	--sidebar-primary-foreground: oklch(0.12 0.02 250);
+	--sidebar-accent: oklch(0.22 0.025 195);
+	--sidebar-accent-foreground: oklch(0.92 0.01 250);
+	--sidebar-border: oklch(0.25 0.02 250);
+	--sidebar-ring: oklch(0.55 0.14 160);
+
+	/* Dark mode IMTA Brand Colors - slightly lighter for visibility */
+	--imta-emerald: oklch(0.55 0.14 160);
+	--imta-emerald-light: oklch(0.65 0.12 160);
+	--imta-teal: oklch(0.6 0.15 195);
+	--imta-teal-light: oklch(0.75 0.12 195);
+	--imta-blue: oklch(0.5 0.12 250);
+	--imta-blue-light: oklch(0.6 0.1 250);
+	--imta-light: oklch(0.9 0.008 250);
+	--imta-terracotta: oklch(0.6 0.14 35);
 }
 
 @theme inline {
@@ -126,10 +150,32 @@
 	--radius-2xl: calc(var(--radius) + 8px);
 	--radius-3xl: calc(var(--radius) + 12px);
 	--radius-4xl: calc(var(--radius) + 16px);
+
+	/* IMTA Brand colors for Tailwind */
+	--color-imta-emerald: var(--imta-emerald);
+	--color-imta-emerald-light: var(--imta-emerald-light);
+	--color-imta-teal: var(--imta-teal);
+	--color-imta-teal-light: var(--imta-teal-light);
+	--color-imta-blue: var(--imta-blue);
+	--color-imta-blue-light: var(--imta-blue-light);
+	--color-imta-light: var(--imta-light);
+	--color-imta-terracotta: var(--imta-terracotta);
+
+	/* Font families */
+	--font-display: var(--font-display);
+	--font-serif: var(--font-serif);
 }
 
 @utility aspect-page {
 	aspect-ratio: 1 / 1.4142;
+}
+
+@utility font-display {
+	font-family: var(--font-display);
+}
+
+@utility font-serif {
+	font-family: var(--font-serif);
 }
 
 @layer base {
@@ -138,7 +184,7 @@
 	}
 
 	body {
-		@apply bg-background font-sans text-sm text-foreground proportional-nums antialiased selection:bg-primary selection:text-primary-foreground print:bg-white;
+		@apply bg-background font-sans text-sm text-foreground proportional-nums antialiased selection:bg-primary/20 selection:text-primary print:bg-white;
 	}
 
 	input[type="number"] {
@@ -146,13 +192,17 @@
 		@apply [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none;
 	}
 
-	/* Accessibility: Focus visible styles for links */
 	a:focus-visible {
 		@apply outline-2 outline-offset-2 outline-ring rounded-sm;
 	}
+
+	h1,
+	h2,
+	h3 {
+		text-wrap: balance;
+	}
 }
 
-/* Accessibility: Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
 	*,
 	*::before,
@@ -170,7 +220,6 @@
 	}
 }
 
-/* Fix for ScrollArea viewport width overflow */
 [data-slot="scroll-area-viewport"] > div {
 	box-sizing: border-box !important;
 	display: block !important;
@@ -183,4 +232,828 @@
 	box-sizing: border-box !important;
 	width: 100% !important;
 	max-width: 100% !important;
+}
+
+/* Moroccan geometric pattern */
+.moroccan-pattern {
+	background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23166534' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Zellige-inspired decorative border */
+.zellige-border {
+	border-image: linear-gradient(135deg, var(--imta-emerald) 0%, var(--imta-teal) 50%, var(--imta-blue) 100%) 1;
+}
+
+/* ============================================
+   RTL Support (Arabic, Hebrew, Persian, etc.)
+   ============================================ */
+[dir="rtl"] {
+	direction: rtl;
+}
+
+[dir="rtl"] .rtl\:text-right {
+	text-align: right;
+}
+
+[dir="rtl"] .rtl\:mr-auto {
+	margin-right: auto;
+	margin-left: 0;
+}
+
+[dir="rtl"] .rtl\:ml-auto {
+	margin-right: 0;
+	margin-left: auto;
+}
+
+/* RTL: Flip flex and grid directions */
+[dir="rtl"] .rtl\:flex-row-reverse {
+	flex-direction: row-reverse;
+}
+
+/* RTL: Sidebar border flip */
+[dir="rtl"] [data-sidebar] {
+	border-right: none;
+	border-left: 1px solid var(--sidebar-border);
+}
+
+/* RTL: Flip border-l indicators */
+[dir="rtl"] .border-l-2 {
+	border-right-width: 2px;
+	border-left-width: 0;
+}
+
+/* RTL: Fix text alignment for Arabic/Hebrew form fields */
+[dir="rtl"] input,
+[dir="rtl"] textarea {
+	text-align: right;
+}
+
+/* RTL: Fix activity timeline line position */
+[dir="rtl"] .activity-item {
+	padding-right: 2rem;
+	padding-left: 0;
+}
+
+[dir="rtl"] .activity-item::before {
+	right: 1.15rem;
+	left: auto;
+}
+
+/* RTL: Arrow icon direction */
+[dir="rtl"] .rtl\:rotate-180 {
+	transform: rotate(180deg);
+}
+
+/* RTL: Notification dot position flip */
+[dir="rtl"] .notification-dot::after,
+[dir="rtl"] .notification-dot::before {
+	right: auto;
+	left: -1px;
+}
+
+/* RTL: Skip link positioning */
+[dir="rtl"] .skip-link {
+	right: 0;
+	left: auto;
+}
+
+/* RTL: Form field animated underline */
+[dir="rtl"] .form-field-animated::after {
+	right: 50%;
+	left: auto;
+}
+
+[dir="rtl"] .form-field-animated:focus-within::after {
+	right: 0;
+	left: auto;
+}
+
+/* RTL: Section divider diamond position */
+[dir="rtl"] .section-divider::after {
+	right: 50%;
+	left: auto;
+	transform: translateX(50%);
+}
+
+/* RTL: Toaster positioning */
+[dir="rtl"] [data-sonner-toaster] {
+	right: auto !important;
+	left: var(--offset, 32px) !important;
+}
+
+/* RTL: RTL-aware border radius utilities */
+[dir="rtl"] .rtl\:rounded-l-none {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+[dir="rtl"] .rtl\:rounded-r-none {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+/* RTL: Collapsible caret rotation adjustment */
+[dir="rtl"] [data-state="open"] > .rtl\:rotate-icon {
+	transform: rotate(-180deg);
+}
+
+/* RTL: Margin-start/end logical property fallbacks */
+[dir="rtl"] .ms-auto {
+	margin-right: auto;
+	margin-left: unset;
+}
+
+[dir="rtl"] .me-auto {
+	margin-right: unset;
+	margin-left: auto;
+}
+
+/* RTL: Padding-start/end logical property fallbacks */
+[dir="rtl"] .ps-4 {
+	padding-right: 1rem;
+	padding-left: unset;
+}
+
+[dir="rtl"] .pe-4 {
+	padding-right: unset;
+	padding-left: 1rem;
+}
+
+/* RTL: End positioning for absolute elements */
+[dir="rtl"] .end-2 {
+	right: unset;
+	left: 0.5rem;
+}
+
+/* RTL: Arabic-specific font improvements */
+[dir="rtl"] body {
+	font-feature-settings:
+		"liga" 1,
+		"calt" 1;
+	line-height: 1.8;
+}
+
+/* RTL: Improve Arabic text rendering */
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+	line-height: 1.6;
+}
+
+/* Skip to main content link for accessibility */
+.skip-link {
+	position: absolute;
+	top: -40px;
+	left: 0;
+	z-index: 100;
+	padding: 8px 16px;
+	font-weight: 600;
+	color: var(--primary-foreground);
+	background: var(--primary);
+	transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+	top: 0;
+}
+
+/* Focus visible styles for accessibility */
+:focus-visible {
+	outline: 2px solid var(--ring);
+	outline-offset: 2px;
+}
+
+/* Animated gradient backgrounds */
+@keyframes gradient-shift {
+	0%,
+	100% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+}
+
+.animated-gradient {
+	background-size: 200% 200%;
+	animation: gradient-shift 8s ease infinite;
+}
+
+/* Smooth glow effect for AI elements */
+@keyframes subtle-glow {
+	0%,
+	100% {
+		box-shadow: 0 0 20px oklch(0.55 0.14 160 / 0.15);
+	}
+	50% {
+		box-shadow: 0 0 40px oklch(0.55 0.14 160 / 0.25);
+	}
+}
+
+.ai-glow {
+	animation: subtle-glow 3s ease-in-out infinite;
+}
+
+/* Shimmer loading effect */
+@keyframes shimmer {
+	0% {
+		transform: translateX(-100%);
+	}
+	100% {
+		transform: translateX(100%);
+	}
+}
+
+.shimmer {
+	position: relative;
+	overflow: hidden;
+}
+
+.shimmer::after {
+	position: absolute;
+	inset: 0;
+	content: "";
+	background: linear-gradient(90deg, transparent, oklch(1 0 0 / 0.1), transparent);
+	transform: translateX(-100%);
+	animation: shimmer 2s infinite;
+}
+
+/* Glass morphism effect */
+.glass {
+	background: oklch(1 0 0 / 0.05);
+	border: 1px solid oklch(1 0 0 / 0.1);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+}
+
+.dark .glass {
+	background: oklch(0 0 0 / 0.3);
+	border: 1px solid oklch(1 0 0 / 0.1);
+}
+
+/* Moroccan star pattern */
+.moroccan-star-pattern {
+	background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23166534' fill-opacity='0.02'%3E%3Cpath d='M40 0l9.9 30.1L80 40l-30.1 9.9L40 80l-9.9-30.1L0 40l30.1-9.9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Card hover elevation */
+.card-hover {
+	transition:
+		transform 0.3s ease,
+		box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+	box-shadow: 0 20px 40px oklch(0 0 0 / 0.12);
+	transform: translateY(-4px);
+}
+
+.dark .card-hover:hover {
+	box-shadow: 0 20px 40px oklch(0 0 0 / 0.4);
+}
+
+/* Text gradient utility */
+.text-gradient-imta {
+	-webkit-text-fill-color: transparent;
+	background: linear-gradient(135deg, var(--imta-emerald) 0%, var(--imta-teal) 50%, var(--imta-blue) 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+}
+
+/* Score ring animation */
+@keyframes score-fill {
+	from {
+		stroke-dashoffset: 352;
+	}
+}
+
+.score-ring {
+	animation: score-fill 1.5s ease-out forwards;
+}
+
+/* Pulse animation for badges */
+@keyframes badge-pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.7;
+	}
+}
+
+.badge-pulse {
+	animation: badge-pulse 2s ease-in-out infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+.float {
+	animation: float 6s ease-in-out infinite;
+}
+
+/* Loading bar animation */
+@keyframes loading-bar {
+	0% {
+		transform: translateX(-100%);
+	}
+	50% {
+		transform: translateX(150%);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
+}
+
+/* Router progress bar glow animation */
+@keyframes progress-glow {
+	0%,
+	100% {
+		box-shadow: 0 0 6px oklch(0.7 0.15 160 / 0.4);
+	}
+	50% {
+		box-shadow: 0 0 12px oklch(0.7 0.15 160 / 0.7);
+	}
+}
+
+/* Skeleton wave effect - enhanced shimmer */
+@keyframes skeleton-wave {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+
+.skeleton-wave {
+	background: linear-gradient(
+		90deg,
+		var(--muted) 0%,
+		oklch(from var(--muted) calc(l + 0.05) c h) 50%,
+		var(--muted) 100%
+	);
+	background-size: 200% 100%;
+	animation: skeleton-wave 1.5s ease-in-out infinite;
+}
+
+/* ============================================
+   GLASS CARD - Glassmorphism card effect
+   ============================================ */
+.glass-card {
+	position: relative;
+	background: oklch(1 0 0 / 0.06);
+	border: 1px solid oklch(1 0 0 / 0.12);
+	border-radius: var(--radius-xl);
+	box-shadow:
+		0 4px 24px oklch(0 0 0 / 0.04),
+		inset 0 1px 0 oklch(1 0 0 / 0.15);
+	-webkit-backdrop-filter: blur(16px) saturate(1.6);
+	backdrop-filter: blur(16px) saturate(1.6);
+	transition:
+		box-shadow 0.3s ease,
+		border-color 0.3s ease,
+		transform 0.3s ease;
+}
+
+.glass-card:hover {
+	border-color: oklch(1 0 0 / 0.2);
+	box-shadow:
+		0 8px 40px oklch(0 0 0 / 0.08),
+		inset 0 1px 0 oklch(1 0 0 / 0.2);
+}
+
+.dark .glass-card {
+	background: oklch(1 0 0 / 0.04);
+	border: 1px solid oklch(1 0 0 / 0.08);
+	box-shadow:
+		0 4px 24px oklch(0 0 0 / 0.2),
+		inset 0 1px 0 oklch(1 0 0 / 0.06);
+}
+
+.dark .glass-card:hover {
+	border-color: oklch(1 0 0 / 0.14);
+	box-shadow:
+		0 8px 40px oklch(0 0 0 / 0.35),
+		inset 0 1px 0 oklch(1 0 0 / 0.1);
+}
+
+/* ============================================
+   GRADIENT BORDER - Animated gradient border
+   ============================================ */
+@keyframes gradient-border-rotate {
+	0% {
+		--gradient-angle: 0deg;
+	}
+	100% {
+		--gradient-angle: 360deg;
+	}
+}
+
+@property --gradient-angle {
+	syntax: "<angle>";
+	initial-value: 0deg;
+	inherits: false;
+}
+
+.gradient-border {
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--radius-xl);
+}
+
+.gradient-border::before {
+	position: absolute;
+	inset: 0;
+	padding: 1.5px;
+	content: "";
+	background: conic-gradient(
+		from var(--gradient-angle, 0deg),
+		var(--imta-emerald),
+		var(--imta-teal),
+		var(--imta-blue),
+		var(--imta-emerald)
+	);
+	border-radius: inherit;
+	-webkit-mask:
+		linear-gradient(#fff 0 0) content-box,
+		linear-gradient(#fff 0 0);
+	mask:
+		linear-gradient(#fff 0 0) content-box,
+		linear-gradient(#fff 0 0);
+	-webkit-mask-composite: xor;
+	mask-composite: exclude;
+	animation: gradient-border-rotate 4s linear infinite;
+}
+
+/* ============================================
+   HOVER LIFT - Scale + shadow on hover
+   ============================================ */
+.hover-lift {
+	transition:
+		transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+		box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+	will-change: transform, box-shadow;
+}
+
+.hover-lift:hover {
+	box-shadow:
+		0 20px 40px oklch(0 0 0 / 0.1),
+		0 8px 16px oklch(0 0 0 / 0.06);
+	transform: translateY(-6px) scale(1.015);
+}
+
+.dark .hover-lift:hover {
+	box-shadow:
+		0 20px 40px oklch(0 0 0 / 0.35),
+		0 8px 16px oklch(0 0 0 / 0.2);
+}
+
+/* ============================================
+   SHIMMER TEXT - Animated text shimmer
+   ============================================ */
+@keyframes shimmer-text-flow {
+	0% {
+		background-position: -200% center;
+	}
+	100% {
+		background-position: 200% center;
+	}
+}
+
+.shimmer-text {
+	-webkit-text-fill-color: transparent;
+	background: linear-gradient(
+		110deg,
+		var(--imta-emerald) 0%,
+		var(--imta-teal) 25%,
+		var(--imta-emerald-light) 50%,
+		var(--imta-blue) 75%,
+		var(--imta-emerald) 100%
+	);
+	-webkit-background-clip: text;
+	background-clip: text;
+	background-size: 200% auto;
+	animation: shimmer-text-flow 4s linear infinite;
+}
+
+/* ============================================
+   STAT CARD - Dedicated stat card styling
+   ============================================ */
+.stat-card {
+	position: relative;
+	padding: 1.25rem 1.5rem;
+	overflow: hidden;
+	background: var(--card);
+	border: 1px solid oklch(0 0 0 / 0.06);
+	border-radius: var(--radius-xl);
+	transition:
+		transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+		box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+		border-color 0.28s ease;
+}
+
+.stat-card::before {
+	position: absolute;
+	inset: 0;
+	content: "";
+	background: linear-gradient(
+		135deg,
+		oklch(from var(--imta-emerald) l c h / 0.06) 0%,
+		oklch(from var(--imta-teal) l c h / 0.04) 100%
+	);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.stat-card:hover {
+	border-color: var(--imta-emerald-light);
+	box-shadow:
+		0 12px 32px oklch(0 0 0 / 0.08),
+		0 4px 8px oklch(0 0 0 / 0.04);
+	transform: translateY(-4px);
+}
+
+.stat-card:hover::before {
+	opacity: 1;
+}
+
+.dark .stat-card {
+	border-color: oklch(1 0 0 / 0.06);
+}
+
+.dark .stat-card:hover {
+	border-color: var(--imta-emerald);
+	box-shadow:
+		0 12px 32px oklch(0 0 0 / 0.3),
+		0 4px 8px oklch(0 0 0 / 0.2);
+}
+
+/* ============================================
+   PROGRESS RING - SVG-based progress ring
+   ============================================ */
+@keyframes progress-ring-fill {
+	from {
+		stroke-dashoffset: var(--ring-circumference, 339.292);
+	}
+}
+
+.progress-ring-track {
+	fill: none;
+	stroke: oklch(from var(--muted) l c h / 0.4);
+	stroke-width: 8;
+	stroke-linecap: round;
+}
+
+.progress-ring-fill {
+	filter: drop-shadow(0 0 6px oklch(from var(--imta-emerald) l c h / 0.4));
+	fill: none;
+	stroke-width: 8;
+	stroke-linecap: round;
+	transform: rotate(-90deg);
+	transform-origin: 50% 50%;
+	animation: progress-ring-fill 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ============================================
+   PAGE TRANSITIONS - Smooth page animations
+   ============================================ */
+@keyframes page-fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.page-enter {
+	animation: page-fade-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ============================================
+   CUSTOM SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: oklch(from var(--muted-foreground) l c h / 0.2);
+	border-radius: 9999px;
+	transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: oklch(from var(--muted-foreground) l c h / 0.4);
+}
+
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+/* Firefox scrollbar */
+* {
+	scrollbar-color: oklch(from var(--muted-foreground) l c h / 0.2) transparent;
+	scrollbar-width: thin;
+}
+
+/* ============================================
+   ANIMATED COUNTER - Number count-up effect
+   ============================================ */
+@keyframes count-up-pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.6;
+	}
+}
+
+.count-up-loading {
+	animation: count-up-pulse 1s ease-in-out infinite;
+}
+
+/* ============================================
+   QUICK ACTION CARD - Enhanced action cards
+   ============================================ */
+.quick-action-card {
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--radius-xl);
+	transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.quick-action-card::after {
+	position: absolute;
+	inset: 0;
+	content: "";
+	background: radial-gradient(circle at 50% 120%, oklch(from var(--primary) l c h / 0.08) 0%, transparent 70%);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.quick-action-card:hover::after {
+	opacity: 1;
+}
+
+/* ============================================
+   ACTIVITY FEED ITEM - Timeline styling
+   ============================================ */
+.activity-item {
+	position: relative;
+	padding-left: 2rem;
+}
+
+.activity-item::before {
+	position: absolute;
+	top: 2.5rem;
+	bottom: -0.5rem;
+	left: 1.15rem;
+	width: 1.5px;
+	content: "";
+	background: linear-gradient(to bottom, var(--border), transparent);
+}
+
+.activity-item:last-child::before {
+	display: none;
+}
+
+/* ============================================
+   SECTION DIVIDER - Decorative section break
+   ============================================ */
+.section-divider {
+	position: relative;
+	height: 1px;
+	background: linear-gradient(
+		90deg,
+		transparent 0%,
+		var(--imta-emerald-light) 20%,
+		var(--imta-teal) 50%,
+		var(--imta-blue-light) 80%,
+		transparent 100%
+	);
+	opacity: 0.3;
+}
+
+.section-divider::after {
+	position: absolute;
+	top: -2px;
+	left: 50%;
+	width: 6px;
+	height: 6px;
+	content: "";
+	background: var(--imta-teal);
+	border-radius: 50%;
+	box-shadow: 0 0 8px oklch(from var(--imta-teal) l c h / 0.5);
+	transform: translateX(-50%);
+}
+
+/* ============================================
+   FORM FIELD FOCUS ANIMATION
+   ============================================ */
+.form-field-animated {
+	position: relative;
+}
+
+.form-field-animated::after {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 2px;
+	content: "";
+	background: linear-gradient(90deg, var(--imta-emerald), var(--imta-teal));
+	border-radius: 9999px;
+	transition:
+		width 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+		left 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.form-field-animated:focus-within::after {
+	left: 0;
+	width: 100%;
+}
+
+/* ============================================
+   RESUME CARD ENHANCEMENTS
+   ============================================ */
+.resume-card-overlay {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+	justify-content: center;
+	background: oklch(0 0 0 / 0.5);
+	opacity: 0;
+	-webkit-backdrop-filter: blur(4px);
+	backdrop-filter: blur(4px);
+	transition: opacity 0.25s ease;
+}
+
+.resume-card-overlay:hover {
+	opacity: 1;
+}
+
+/* ============================================
+   NOTIFICATION DOT - Pulsing dot indicator
+   ============================================ */
+@keyframes notification-ping {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+	75%,
+	100% {
+		transform: scale(2.2);
+		opacity: 0;
+	}
+}
+
+.notification-dot {
+	position: relative;
+}
+
+.notification-dot::after {
+	position: absolute;
+	top: -1px;
+	right: -1px;
+	width: 8px;
+	height: 8px;
+	content: "";
+	background: var(--destructive);
+	border-radius: 50%;
+}
+
+.notification-dot::before {
+	position: absolute;
+	top: -1px;
+	right: -1px;
+	width: 8px;
+	height: 8px;
+	content: "";
+	background: var(--destructive);
+	border-radius: 50%;
+	animation: notification-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }

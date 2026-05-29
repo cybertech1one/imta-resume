@@ -28,10 +28,31 @@ type SidebarContextProps = {
 
 const SidebarContext = React.createContext<SidebarContextProps | null>(null);
 
+// Inert defaults used only during SSR. Under code-splitting, a lazy route's chunk can
+// instantiate its own copy of this module on the server, so useContext returns null even
+// though <SidebarProvider> wraps the tree. The trigger's rendered DOM is state-independent
+// (just a button), so returning defaults here avoids an SSR crash without a hydration mismatch;
+// the client always hydrates against the real provider.
+const SSR_SIDEBAR_FALLBACK: SidebarContextProps = {
+	state: "expanded",
+	open: true,
+	setOpen: () => {},
+	openMobile: false,
+	setOpenMobile: () => {},
+	isMobile: false,
+	toggleSidebar: () => {},
+};
+
 function useSidebarState() {
 	const context = React.useContext(SidebarContext);
 
 	if (!context) {
+		// On the client a missing provider is a genuine bug; on the server it's the
+		// code-split module-duplication case described above. import.meta.env.SSR is Vite's
+		// canonical SSR flag (typeof window is unreliable here — the SSR runtime shims window).
+		if (import.meta.env.SSR) {
+			return SSR_SIDEBAR_FALLBACK;
+		}
 		throw new Error("useSidebarState must be used within a <SidebarProvider />.");
 	}
 
@@ -241,7 +262,7 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
 			{...props}
 		>
 			<SidebarSimpleIcon />
-			<span className="sr-only">Toggle Sidebar</span>
+			<span className="sr-only">Basculer la barre latérale</span>
 		</Button>
 	);
 }
@@ -253,10 +274,10 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
 		<button
 			data-sidebar="rail"
 			data-slot="sidebar-rail"
-			aria-label="Toggle Sidebar"
+			aria-label="Basculer la barre latérale"
 			tabIndex={-1}
 			onClick={toggleSidebar}
-			title="Toggle Sidebar"
+			title="Basculer la barre latérale"
 			className={cn(
 				"absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-in-out after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] hover:after:bg-sidebar-border group-data-[side=right]:start-0 group-data-[side=left]:-end-4 sm:flex",
 				"in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize",

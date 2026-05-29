@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { BrandIcon } from "../ui/brand-icon";
 
-export function NotFoundScreen({ routeId }: NotFoundRouteProps) {
+export function NotFoundScreen(_props: NotFoundRouteProps) {
 	return (
 		<div className="mx-auto flex h-svh max-w-md flex-col items-center justify-center gap-y-4">
 			<BrandIcon variant="logo" className="size-12" />
@@ -13,15 +13,17 @@ export function NotFoundScreen({ routeId }: NotFoundRouteProps) {
 			<Alert>
 				<WarningIcon />
 				<AlertTitle>
-					<Trans>An error occurred while loading the page.</Trans>
+					<Trans>Page not found</Trans>
 				</AlertTitle>
-				<AlertDescription>{routeId}</AlertDescription>
+				<AlertDescription>
+					<Trans>The page you are looking for does not exist or has been moved.</Trans>
+				</AlertDescription>
 			</Alert>
 
 			<Button asChild>
-				<Link to="..">
+				<Link to="/dashboard">
 					<ArrowLeftIcon />
-					<Trans>Go Back</Trans>
+					<Trans>Go to Dashboard</Trans>
 				</Link>
 			</Button>
 		</div>

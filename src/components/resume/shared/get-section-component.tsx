@@ -7,6 +7,7 @@ import { CertificationsItem } from "./items/certifications-item";
 import { EducationItem } from "./items/education-item";
 import { ExperienceItem } from "./items/experience-item";
 import { InterestsItem } from "./items/interests-item";
+import { InternshipsItem } from "./items/internships-item";
 import { LanguagesItem } from "./items/languages-item";
 import { ProfilesItem } from "./items/profiles-item";
 import { ProjectsItem } from "./items/projects-item";
@@ -41,6 +42,7 @@ function renderItemByType(type: SectionType, item: CustomSectionItem, itemClassN
 		))
 		.with("volunteer", () => <VolunteerItem {...(item as SectionItem<"volunteer">)} className={itemClassName} />)
 		.with("references", () => <ReferencesItem {...(item as SectionItem<"references">)} className={itemClassName} />)
+		.with("internships", () => <InternshipsItem {...(item as SectionItem<"internships">)} className={itemClassName} />)
 		.exhaustive();
 }
 
@@ -148,6 +150,14 @@ export function getSectionComponent(
 				</PageSection>
 			);
 			return ReferencesSection;
+		})
+		.with("internships", () => {
+			const InternshipsSection = ({ id: _id }: { id: string }) => (
+				<PageSection type="internships" className={sectionClassName}>
+					{(item) => <InternshipsItem {...item} className={itemClassName} />}
+				</PageSection>
+			);
+			return InternshipsSection;
 		})
 		.otherwise(() => {
 			// Custom section - render based on its type

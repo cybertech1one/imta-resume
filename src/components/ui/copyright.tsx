@@ -6,36 +6,27 @@ type Props = React.ComponentProps<"div">;
 export function Copyright({ className, ...props }: Props) {
 	return (
 		<div className={cn("text-muted-foreground/80 text-xs leading-relaxed", className)} {...props}>
-			<p>
-				<Trans>
-					Licensed under{" "}
-					<a href="#" target="_blank" rel="noopener" className="font-medium underline underline-offset-2">
-						MIT
-					</a>
-					.
-				</Trans>
-			</p>
+			<p>&copy; {new Date().getFullYear()} IMTA Resume</p>
 
-			<p>
-				<Trans>By the community, for the community.</Trans>
-			</p>
-
-			<p>
+			<p className="mt-2">
 				<Trans>
-					A passion project by{" "}
+					Official resume builder for{" "}
 					<a
+						href="https://imta.ma"
 						target="_blank"
 						rel="noopener"
-						href="https://amruthpillai.com"
-						className="font-medium underline underline-offset-2"
+						className="font-medium underline underline-offset-2 hover:text-primary"
 					>
-						Amruth Pillai
+						IMTA Trade School
 					</a>
-					.
 				</Trans>
 			</p>
 
-			<p className="mt-4">Reactive Resume v{__APP_VERSION__}</p>
+			<p className="mt-2">
+				<Trans>Made with love in Morocco</Trans> 🇲🇦
+			</p>
+
+			<p className="mt-4 text-muted-foreground/60">v{__APP_VERSION__}</p>
 		</div>
 	);
 }

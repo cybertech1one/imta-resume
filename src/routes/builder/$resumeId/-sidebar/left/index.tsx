@@ -16,6 +16,7 @@ import { CustomSectionBuilder } from "./sections/custom";
 import { EducationSectionBuilder } from "./sections/education";
 import { ExperienceSectionBuilder } from "./sections/experience";
 import { InterestsSectionBuilder } from "./sections/interests";
+import { InternshipsSectionBuilder } from "./sections/internships";
 import { LanguagesSectionBuilder } from "./sections/languages";
 import { PictureSectionBuilder } from "./sections/picture";
 import { ProfilesSectionBuilder } from "./sections/profiles";
@@ -34,6 +35,7 @@ function getSectionComponent(type: LeftSidebarSection) {
 		.with("profiles", () => <ProfilesSectionBuilder />)
 		.with("experience", () => <ExperienceSectionBuilder />)
 		.with("education", () => <EducationSectionBuilder />)
+		.with("internships", () => <InternshipsSectionBuilder />) // IMTA/Morocco-specific: Stages
 		.with("projects", () => <ProjectsSectionBuilder />)
 		.with("skills", () => <SkillsSectionBuilder />)
 		.with("languages", () => <LanguagesSectionBuilder />)
@@ -97,6 +99,7 @@ function SidebarEdge({ scrollAreaRef }: SidebarEdgeProps) {
 						size="icon"
 						variant="ghost"
 						title={getSectionTitle(section)}
+						aria-label={getSectionTitle(section)}
 						onClick={() => scrollToSection(section)}
 					>
 						{getSectionIcon(section)}
@@ -106,7 +109,7 @@ function SidebarEdge({ scrollAreaRef }: SidebarEdgeProps) {
 
 			<UserDropdownMenu>
 				{({ session }) => (
-					<Button size="icon" variant="ghost">
+					<Button size="icon" variant="ghost" aria-label={`User menu for ${session.user.name}`}>
 						<Avatar className="size-6">
 							<AvatarImage src={session.user.image ?? undefined} />
 							<AvatarFallback className="text-[0.5rem]">{getInitials(session.user.name)}</AvatarFallback>

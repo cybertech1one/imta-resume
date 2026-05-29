@@ -1,0 +1,11 @@
+import pg from "pg";
+const { Client } = pg;
+const c = new Client({ host: "localhost", port: 5432, database: "postgres", user: "postgres", password: "postgres" });
+await c.connect();
+const r = await c.query("SELECT id, title, category, field, sort_order FROM interview_tip LIMIT 5");
+console.log(JSON.stringify(r.rows, null, 2));
+const cats = await c.query("SELECT DISTINCT category FROM interview_tip ORDER BY category");
+console.log("Existing categories:", cats.rows.map(r => r.category));
+const fields = await c.query("SELECT DISTINCT field FROM interview_tip ORDER BY field");
+console.log("Existing fields:", fields.rows.map(r => r.field));
+await c.end();

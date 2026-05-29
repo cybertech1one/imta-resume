@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { DownloadSimpleIcon, FileIcon, UploadSimpleIcon } from "@phosphor-icons/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
@@ -14,7 +14,6 @@ import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTit
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
-import { useAIStore } from "@/integrations/ai/store";
 import { JSONResumeImporter } from "@/integrations/import/json-resume";
 import { ReactiveResumeJSONImporter } from "@/integrations/import/reactive-resume-json";
 import { ReactiveResumeV4JSONImporter } from "@/integrations/import/reactive-resume-v4-json";
@@ -63,7 +62,7 @@ const formSchema = z.discriminatedUnion("type", [
 type FormValues = z.infer<typeof formSchema>;
 
 export function ImportResumeDialog(_: DialogProps<"resume.import">) {
-	const { enabled: isAIEnabled, provider, model, apiKey, baseURL } = useAIStore();
+	const { data: aiStatus } = useQuery(orpc.aiConfig.status.check.queryOptions());
 	const closeDialog = useDialogStore((state) => state.closeDialog);
 
 	const prevTypeRef = useRef<string>("");
@@ -129,23 +128,19 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
 			}
 
 			if (values.type === "pdf") {
-				if (!isAIEnabled)
+				if (!aiStatus?.available)
 					throw new Error(t`This feature requires AI Integration to be enabled. Please enable it in the settings.`);
 
 				const arrayBuffer = await values.file.arrayBuffer();
 				const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
 
 				data = await client.ai.parsePdf({
-					provider,
-					model,
-					apiKey,
-					baseURL,
 					file: { name: values.file.name, data: base64 },
 				});
 			}
 
 			if (values.type === "docx") {
-				if (!isAIEnabled)
+				if (!aiStatus?.available)
 					throw new Error(t`This feature requires AI Integration to be enabled. Please enable it in the settings.`);
 
 				const arrayBuffer = await values.file.arrayBuffer();
@@ -156,10 +151,6 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
 						: ("application/vnd.openxmlformats-officedocument.wordprocessingml.document" as const);
 
 				data = await client.ai.parseDocx({
-					provider,
-					model,
-					apiKey,
-					baseURL,
 					mediaType,
 					file: { name: values.file.name, data: base64 },
 				});
@@ -190,8 +181,8 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
 				</DialogTitle>
 				<DialogDescription>
 					<Trans>
-						Continue where you left off by importing an existing resume you created using Reactive Resume or any another
-						resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Reactive Resume.
+						Continue where you left off by importing an existing resume you created using IMTA Resume or any other
+						resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from IMTA Resume.
 					</Trans>
 				</DialogDescription>
 			</DialogHeader>
@@ -212,8 +203,8 @@ export function ImportResumeDialog(_: DialogProps<"resume.import">) {
 										value={field.value}
 										onValueChange={field.onChange}
 										options={[
-											{ value: "reactive-resume-json", label: "Reactive Resume (JSON)" },
-											{ value: "reactive-resume-v4-json", label: "Reactive Resume v4 (JSON)" },
+											{ value: "reactive-resume-json", label: "IMTA Resume (JSON)" },
+											{ value: "reactive-resume-v4-json", label: "IMTA Resume v4 (JSON)" },
 											{ value: "json-resume-json", label: "JSON Resume" },
 											{
 												value: "pdf",

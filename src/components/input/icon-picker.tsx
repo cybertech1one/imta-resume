@@ -4,6 +4,7 @@ import Fuse from "fuse.js";
 import { memo, useCallback, useMemo, useState } from "react";
 import { type CellComponentProps, Grid } from "react-window";
 import { Button } from "@/components/ui/button";
+import { useDebounce } from "@/hooks/use-debounce";
 import { type IconName, icons } from "@/schema/icons";
 import { cn } from "@/utils/style";
 import { Input } from "../ui/input";
@@ -52,9 +53,10 @@ function IconCellComponent({ columnIndex, rowIndex, style, icons, onChange }: Ic
 			type="button"
 			title={icon}
 			style={style}
-			tabIndex={-1}
+			tabIndex={0}
+			aria-label={icon ? t`Select ${icon} icon` : t`No icon`}
 			onClick={() => onChange(icon)}
-			className="flex size-full items-center justify-center hover:bg-accent"
+			className="flex size-full items-center justify-center hover:bg-accent focus:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset"
 		>
 			{icon ? <i className={cn("ph text-base", `ph-${icon}`)} /> : <ProhibitIcon />}
 		</button>
@@ -85,8 +87,9 @@ export function IconPicker({ value, onChange, popoverProps, ...props }: IconPick
 	const searchIcons = useIconSearch();
 
 	const [search, setSearch] = useState("");
+	const debouncedSearch = useDebounce(search, 150);
 
-	const searchedIcons = useMemo(() => searchIcons(search), [search, searchIcons]);
+	const searchedIcons = useMemo(() => searchIcons(debouncedSearch), [debouncedSearch, searchIcons]);
 	const rowCount = useMemo(() => Math.ceil(searchedIcons.length / columnCount), [searchedIcons]);
 
 	return (
@@ -102,7 +105,7 @@ export function IconPicker({ value, onChange, popoverProps, ...props }: IconPick
 
 				<div className="size-[290px]">
 					<Grid
-						key={search}
+						key={debouncedSearch}
 						rowCount={rowCount}
 						rowHeight={rowHeight}
 						columnCount={columnCount}

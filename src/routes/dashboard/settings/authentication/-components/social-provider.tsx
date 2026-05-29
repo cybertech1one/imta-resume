@@ -34,11 +34,7 @@ export function SocialProviderSection({ provider, name, animationDelay = 0 }: So
 	}, [account, unlink, provider]);
 
 	return (
-		<motion.div
-			initial={{ opacity: 0, y: -20 }}
-			animate={{ opacity: 1, y: 0 }}
-			transition={{ duration: 0.3, delay: animationDelay }}
-		>
+		<motion.div initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: animationDelay }}>
 			<Separator />
 
 			<div className="mt-4 flex items-center justify-between gap-x-4">

@@ -270,7 +270,12 @@ function EducationForm() {
 							<Trans>Description</Trans>
 						</FormLabel>
 						<FormControl>
-							<RichInput {...field} value={field.value} onChange={field.onChange} />
+							<RichInput
+								{...field}
+								value={field.value}
+								onChange={field.onChange}
+								aiContext="Education description for a resume. Focus on relevant coursework, achievements, honors, and activities related to career goals."
+							/>
 						</FormControl>
 						<FormMessage />
 					</FormItem>

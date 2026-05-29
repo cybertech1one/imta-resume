@@ -16,8 +16,16 @@ import { type DialogProps, useDialogStore } from "../store";
 
 const formSchema = z
 	.object({
-		currentPassword: z.string().min(6).max(64),
-		newPassword: z.string().min(6).max(64),
+		currentPassword: z
+			.string()
+			.min(1, { message: "Current password is required" })
+			.min(6, { message: "Password must be at least 6 characters" })
+			.max(64, { message: "Password cannot exceed 64 characters" }),
+		newPassword: z
+			.string()
+			.min(1, { message: "New password is required" })
+			.min(6, { message: "Password must be at least 6 characters" })
+			.max(64, { message: "Password cannot exceed 64 characters" }),
 	})
 	.refine((data) => data.newPassword !== data.currentPassword, {
 		message: "New password cannot be the same as the current password.",
@@ -39,6 +47,7 @@ export function ChangePasswordDialog(_: DialogProps<"auth.change-password">) {
 			currentPassword: "",
 			newPassword: "",
 		},
+		mode: "onBlur",
 	});
 
 	const onSubmit = async (data: FormValues) => {
@@ -92,7 +101,14 @@ export function ChangePasswordDialog(_: DialogProps<"auth.change-password">) {
 										/>
 									</FormControl>
 
-									<Button size="icon" variant="ghost" type="button" onClick={toggleShowCurrentPassword}>
+									<Button
+										size="icon"
+										variant="ghost"
+										type="button"
+										aria-label={showCurrentPassword ? t`Hide current password` : t`Show current password`}
+										aria-pressed={showCurrentPassword}
+										onClick={toggleShowCurrentPassword}
+									>
 										{showCurrentPassword ? <EyeIcon /> : <EyeSlashIcon />}
 									</Button>
 								</div>
@@ -120,7 +136,14 @@ export function ChangePasswordDialog(_: DialogProps<"auth.change-password">) {
 										/>
 									</FormControl>
 
-									<Button size="icon" variant="ghost" type="button" onClick={toggleShowNewPassword}>
+									<Button
+										size="icon"
+										variant="ghost"
+										type="button"
+										aria-label={showNewPassword ? t`Hide new password` : t`Show new password`}
+										aria-pressed={showNewPassword}
+										onClick={toggleShowNewPassword}
+									>
 										{showNewPassword ? <EyeIcon /> : <EyeSlashIcon />}
 									</Button>
 								</div>
@@ -130,7 +153,7 @@ export function ChangePasswordDialog(_: DialogProps<"auth.change-password">) {
 					/>
 
 					<DialogFooter>
-						<Button type="submit">
+						<Button type="submit" loading={form.formState.isSubmitting} loadingText={t`Updating...`}>
 							<Trans>Update Password</Trans>
 						</Button>
 					</DialogFooter>

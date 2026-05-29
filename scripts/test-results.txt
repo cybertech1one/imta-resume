@@ -1,0 +1,1150 @@
+[1m╔══════════════════════════════════════════════════════╗[0m
+[1m║  COMPREHENSIVE ORPC API ENDPOINT TEST               ║[0m
+[1m║  Testing 1094 endpoints at http://localhost:3040  ║[0m
+[1m╚══════════════════════════════════════════════════════╝[0m
+
+[1m=== AUTHENTICATION ===[0m
+  Rate limited, waiting 5s (attempt 1/5)...
+[32m✓[0m Student login — cookie length=107
+[32m✓[0m Admin login — cookie length=105
+[32m✓[0m Student session — user=student1@test.com
+[32m✓[0m Admin session — user=admin@test.com role=admin
+
+[1m=== AUTH PROTECTION TESTS ===[0m
+[32m✓[0m Auth guard: achievements/getProfile — 401 without auth cookie
+[32m✓[0m Auth guard: achievements/getStatistics — 401 without auth cookie
+[32m✓[0m Auth guard: achievements/getAchievementDefinitions — 401 without auth cookie
+[32m✓[0m Auth guard: achievements/getUserAchievements — 401 without auth cookie
+[32m✓[0m Auth guard: achievements/getUserAchievementsWithDefinitions — 401 without auth cookie
+[32m✓[0m Auth guard: achievements/getChallenges — 401 without auth cookie
+[32m✓[0m Auth guard: achievements/getLeaderboard — 401 without auth cookie
+[32m✓[0m Auth guard: achievements/getMilestones — 401 without auth cookie
+[32m✓[0m Auth guard: achievements/getRewards — 401 without auth cookie
+[32m✓[0m Auth guard: achievements/getNotifications — 401 without auth cookie
+[32m✓[0m Admin guard: admin/analytics/getOverview — 403 for non-admin user
+[32m✓[0m Admin guard: admin/analytics/getAdvancedOverview — 403 for non-admin user
+[32m✓[0m Admin guard: admin/analytics/getUserGrowth — 403 for non-admin user
+[32m✓[0m Admin guard: admin/analytics/getResumeGrowth — 403 for non-admin user
+[32m✓[0m Admin guard: admin/analytics/getTopResumes — 403 for non-admin user
+
+[1m=== PUBLIC ENDPOINTS (no auth) ===[0m
+[32m✓[0m GET aiConfig/status/check — 200 {"available":true,"provider":{"displayName":"deepseek","provider":"deepseek","mo
+[32m✓[0m GET auth/providers/list — 200 {"credential":"Password"}
+[32m✓[0m POST auth/verifyResumePassword — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET brandingExamples/list — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST career/getCareerPaths — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST career/getCareerProgram — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST career/comparePrograms — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST career/getMarketInsights — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST career/getTopEmployers — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST career/getAssessmentQuestions — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST career/getSalaryStatistics — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerQuizQuestions/list — 200 [{"id":"ca-q1","quizType":"career_assessment","question":"How do you react in an
+[32m✓[0m GET careerQuizQuestions/listWithOptions — 200 [{"id":"ca-q1","quizType":"career_assessment","question":"How do you react in an
+[32m✓[0m GET careerQuizQuestions/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerQuizQuestions/getByIdWithOptions — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerQuizQuestions/getCategories — 200 ["career_goals","communication","environment","interests","learning","personalit
+[32m✓[0m GET careerQuizOptions/listByQuestion — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET flags/get — 200 {"disableSignups":false,"disableEmailAuth":false}
+[32m✓[0m GET insights/listIndustryTrends — 200 []
+[32m✓[0m GET insights/listSalaryBenchmarks — 200 []
+[32m✓[0m GET insights/listJobDemand — 200 []
+[32m✓[0m GET insights/listSkillsHeatmap — 200 []
+[32m✓[0m GET insights/listCompanyHiring — 200 []
+[32m✓[0m GET insights/listRemoteWorkStats — 200 []
+[32m✓[0m GET insights/listGrowthProjections — 200 []
+[32m✓[0m GET insights/listCompetitiveLandscape — 200 []
+[32m✓[0m GET insights/listRegionalComparisons — 200 []
+[32m✓[0m GET insights/getStatistics — 200 {"totalIndustries":0,"totalCompaniesTracked":0,"totalOpenPositions":0}
+[32m✓[0m GET insights/getAllData — 200 {"industryTrends":[],"salaryBenchmarks":[],"jobDemandIndicators":[],"skillsHeatm
+[32m✓[0m POST interviewChecklist/list — 200 []
+[32m✓[0m POST interviewChecklist/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewChecklist/getCategories — 200 []
+[32m✓[0m GET marketIntelligence/salaries/list — 200 [{"id":"7683b0ae-1f99-4f81-bc51-fb4780ed201d","role":"Aide Soignant","roleFr":"A
+[32m✓[0m GET marketIntelligence/salaries/getByRole — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET marketIntelligence/skills/list — 200 [{"id":"65ab68dd-0f86-4112-a963-fd08c518a12f","skill":"French","skillFr":"França
+[32m✓[0m GET marketIntelligence/skills/getTop — 200 [{"id":"65ab68dd-0f86-4112-a963-fd08c518a12f","skill":"French","skillFr":"França
+[32m✓[0m GET marketIntelligence/skills/getRising — 200 [{"id":"69c706eb-c85e-46aa-bd55-fe1d8ebc371c","skill":"Environmental Compliance"
+[32m✓[0m GET marketIntelligence/regions/list — 200 [{"id":"d5477279-01d2-4677-8fa5-c67f1bb47f2f","region":"casablanca-settat","regi
+[32m✓[0m GET marketIntelligence/regions/get — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET marketIntelligence/employers/list — 200 [{"id":"79e3ffac-602c-496b-a144-73582a8bfea4","name":"IRESEN","nameFr":"IRESEN",
+[32m✓[0m GET marketIntelligence/employers/get — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET marketIntelligence/employers/search — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET marketIntelligence/analytics/overview — 200 {"summary":{"totalJobs":145000,"avgSalary":99222,"avgJobGrowth":10.8,"totalEmplo
+[32m✓[0m GET marketIntelligence/analytics/salaryComparison — 200 {"roles":[{"role":"Responsable HSE","roleFr":"Responsable HSE","field":"hse","le
+[32m✓[0m GET marketIntelligence/analytics/careerProgression — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET marketIntelligence/analytics/industryTrends — 200 [{"category":"skills","title":"Hot Skills in Demand","titleFr":"Competences les 
+[32m✓[0m GET printer/printResumeAsPDF — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST qrCode/recordScan — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resources/getPrograms — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resources/getProgram — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resources/getResources — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resources/getLearningPaths — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resources/getSuccessStories — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resume/statistics/increment — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET resume/getBySlug — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET resume/getBusinessCardBySlug — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET statistics/user/getCount — 200 9
+[32m✓[0m GET statistics/resume/getCount — 200 23
+[32m✓[0m GET statistics/github/getStarCount — 200 38014
+[32m✓[0m POST support/submitContactForm — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST support/submitFeedback — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST support/reportBug — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST support/requestFeature — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET voiceInterview/personas/list — 200 []
+[32m✓[0m GET voiceInterview/personas/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST imtaPrograms/list — 200 [{"id":"technicien_anesthesie","name":"Anesthesia Technician","nameFr":"Technici
+[32m✓[0m POST imtaPrograms/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewTips/list — 200 [{"id":"during-4","title":"Ask Smart Questions","titleFr":"Posez des questions p
+[32m✓[0m POST interviewTips/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewTips/getCategories — 200 ["preparation","body_language","after","during"]
+[32m✓[0m POST interviewQuestions/list — 200 [{"id":"q-behavioral-2","question":"Describe a challenge you overcame during you
+[32m✓[0m POST interviewQuestions/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewQuestions/getTypes — 200 ["general","behavioral","situational","technical"]
+[32m✓[0m POST marketInsights/list — 200 [{"id":"019e62b5-153a-74ee-8d40-fe36415b5203","title":"Healthcare Demand","title
+[32m✓[0m POST marketInsights/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST employers/list — 200 [{"id":"019e647e-e5f6-7179-961c-6e52cecd8481","name":"OCP Group","sector":"Minin
+[32m✓[0m POST employers/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST skillLibrary/list — 200 [{"id":"019e647e-e672-77ab-9f94-8ad96bf585ee","name":"ISO 14001","nameFr":"ISO 1
+[32m✓[0m POST skillLibrary/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST skillLibrary/getCategories — 200 ["certifications","soft","languages","technical"]
+[32m✓[0m POST skillLibrary/getFields — 200 ["hse","industrial","healthcare"]
+
+[1m=== PROTECTED ENDPOINTS (student auth) ===[0m
+[32m✓[0m GET achievements/getProfile — 200 {"id":"019e65a6-adb9-7538-ac52-98461a2a36dd","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m GET achievements/getStatistics — 200 {"totalXp":0,"currentLevel":1,"xpProgress":0,"xpToNextLevel":400,"currentStreak"
+[32m✓[0m POST achievements/updateStreak — 200 {"currentStreak":2,"longestStreak":2}
+[32m✓[0m POST achievements/toggleLeaderboardVisibility — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET achievements/getAchievementDefinitions — 200 [{"id":"resume-builder","title":"Resume Creator","description":"Build and save r
+[32m✓[0m GET achievements/getUserAchievements — 200 []
+[32m✓[0m GET achievements/getUserAchievementsWithDefinitions — 200 [{"definition":{"id":"resume-builder","title":"Resume Creator","description":"Bu
+[32m✓[0m POST achievements/updateAchievementProgress — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST achievements/markAchievementSeen — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET achievements/getChallenges — 200 [{"id":"019e6994-337f-778e-85e6-297b6a8599e2","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m POST achievements/updateChallengeProgress — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET achievements/getLeaderboard — 200 [{"rank":1,"odataUserId":"019c07c4-6abd-7186-84a0-fc2b94bcdb65","userName":"IMTA
+[32m✓[0m GET achievements/getMilestones — 200 [{"id":"milestone-1","title":"Getting Started","description":"Complete your firs
+[32m✓[0m GET achievements/getRewards — 200 [{"id":"reward-1","title":"Emerald Theme","description":"A rich dark emerald col
+[32m✓[0m POST achievements/activateReward — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET achievements/getNotifications — 200 []
+[32m✓[0m POST achievements/markNotificationRead — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST achievements/markAllNotificationsRead — 200 {}
+[32m✓[0m GET achievements/getNotificationPreferences — 200 {"id":"019e65a6-ae81-77ea-9d24-431d2061808b","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m PUT achievements/updateNotificationPreferences — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST activity/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET activity/list — 200 [{"id":"019e6638-8689-7578-ab0f-37f29a6e84d2","userId":"019c6d29-dbf5-7329-8e5b-
+[33m⊘[0m DELETE activity/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET adaptiveLearning/profile/getOrCreate — 200 {"id":"019e65c2-3b33-72e4-99cc-40401b0ca864","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m PUT adaptiveLearning/profile/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/profile/completeOnboarding — 200 {"id":"019e65c2-3b33-72e4-99cc-40401b0ca864","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m GET adaptiveLearning/paths/list — 200 []
+[32m✓[0m GET adaptiveLearning/paths/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET adaptiveLearning/paths/getPrimary — 200 {}
+[32m✓[0m POST adaptiveLearning/paths/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT adaptiveLearning/paths/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/paths/start — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/paths/updateProgress — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE adaptiveLearning/paths/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST adaptiveLearning/paths/generate — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET adaptiveLearning/milestones/listByPath — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET adaptiveLearning/milestones/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/milestones/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/milestones/updateStatus — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/milestones/updateProgress — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE adaptiveLearning/milestones/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET adaptiveLearning/assessments/list — 200 []
+[32m✓[0m GET adaptiveLearning/assessments/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET adaptiveLearning/assessments/getLatest — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/assessments/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/assessments/assessSkillLevel — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET adaptiveLearning/recommendations/list — 200 [{"id":"019e699a-ae30-7621-b10f-c50962c5813b","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m GET adaptiveLearning/recommendations/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/recommendations/markViewed — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/recommendations/accept — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/recommendations/complete — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/recommendations/dismiss — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST adaptiveLearning/recommendations/generate — 200 [{"id":"019e699b-9129-7478-8905-563d3ac7de72","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m POST adaptiveLearning/difficulty/adapt — 200 {"adjusted":false,"reason":"No assessments found","multiplier":1}
+[33m⊘[0m POST ai/testConnection — AI generation - requires configured provider
+[33m⊘[0m POST ai/parsePdf — AI generation - requires configured provider
+[33m⊘[0m POST ai/parseDocx — AI generation - requires configured provider
+[33m⊘[0m POST ai/improveContent — AI generation - requires configured provider
+[33m⊘[0m POST ai/generateSummary — AI generation - requires configured provider
+[33m⊘[0m POST ai/suggestSkills — AI generation - requires configured provider
+[33m⊘[0m POST ai/generateHeadline — AI generation - requires configured provider
+[33m⊘[0m POST ai/fixGrammar — AI generation - requires configured provider
+[33m⊘[0m POST ai/analyzeResume — AI generation - requires configured provider
+[32m✓[0m GET aiConfig/usage/getMyUsage — 200 {"today":{"requests":16,"tokens":33762},"month":{"requests":47,"tokens":99782},"
+[32m✓[0m GET aiConfig/usage/getMyQuota — 200 {"allowed":true,"remaining":{"dailyRequests":34,"monthlyRequests":453,"dailyToke
+[32m✓[0m GET aiConfig/usage/getDetailedStats — 200 {"byFeature":[{"feature":"improve_content","count":15,"tokens":23190,"avgDuratio
+[32m✓[0m GET aiHistory/list — 200 [{"id":"019e699a-5026-71c0-bec0-b29d5c4c693b","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m GET aiHistory/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiHistory/toggleFavorite — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiHistory/markApplied — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE aiHistory/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET aiHistory/getStats — 200 {"total":44,"bySource":{"interview_chat":3,"improve_content":15,"interview_evalu
+[32m✓[0m POST aiHistory/extendExpiration — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiMentor/templates/list — 200 [{"id":"019c6ee2-9384-729f-814d-ce80c2cf83a1","name":"Dr. Amina","nameFr":"Dr. A
+[32m✓[0m GET aiMentor/templates/get — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiMentor/templates/getBySpecialization — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiMentor/user/list — 200 [{"id":"019e6585-ea8e-73e7-bc8f-4fd8e46b48a6","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m GET aiMentor/user/getPrimary — 200 {"id":"019e6585-ea8e-73e7-bc8f-4fd8e46b48a6","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m POST aiMentor/user/selectTemplate — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiMentor/user/createCustom — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT aiMentor/user/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiMentor/user/setPrimary — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE aiMentor/user/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET aiMentor/conversations/list — 200 []
+[32m✓[0m GET aiMentor/conversations/get — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiMentor/conversations/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiMentor/conversations/sendMessage — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiMentor/conversations/archive — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE aiMentor/conversations/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET aiMentor/sessions/list — 200 []
+[32m✓[0m GET aiMentor/sessions/upcoming — 200 []
+[32m✓[0m POST aiMentor/sessions/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiMentor/sessions/complete — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiMentor/sessions/rate — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE aiMentor/sessions/cancel — destructive operation - skipped to preserve data
+[32m✓[0m GET aiMentor/onboarding/get — 200 {"id":"019e6583-2b6d-759a-9734-cc81f7609309","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m PUT aiMentor/onboarding/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiMentor/onboarding/complete — 200 {"id":"019e6583-2b6d-759a-9734-cc81f7609309","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m GET aiMentor/onboarding/getRecommendations — 200 [{"id":"019c6ee2-938b-733d-bd2e-60b9b86e3487","name":"Karim","nameFr":"Karim","a
+[32m✓[0m POST aiWriter/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiWriter/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiWriter/list — 200 [{"id":"019e699a-5026-71c0-bec0-b29d5c4c693b","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m PUT aiWriter/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE aiWriter/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST aiWriter/toggleFavorite — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST aiWriter/generateBulletPoints — AI generation - requires configured provider
+[33m⊘[0m POST aiWriter/generateSummary — AI generation - requires configured provider
+[33m⊘[0m POST aiWriter/quantifyAchievement — AI generation - requires configured provider
+[33m⊘[0m POST aiWriter/extractSkills — AI generation - requires configured provider
+[33m⊘[0m POST aiWriter/generateCoverLetter — AI generation - requires configured provider
+[33m⊘[0m POST aiWriter/optimizeLinkedIn — AI generation - requires configured provider
+[33m⊘[0m POST aiWriter/checkGrammar — AI generation - requires configured provider
+[32m✓[0m GET aiWriter/getStatistics — 200 {"total":44,"byType":{},"byTone":{},"favorites":0,"recentCount":44}
+[33m⊘[0m DELETE auth/deleteAccount — destructive operation - skipped to preserve data
+[32m✓[0m GET auth/getUserRole — 200 {"role":"user"}
+[32m✓[0m GET branding/getData — 200 {"profession":"","targetAudience":"","uniqueStrength":"","valueProvided":"","per
+[32m✓[0m PUT branding/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST branding/toggleSocialItem — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST branding/toggleWebsiteItem — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST career/submitAssessment — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET chatbotSession/list — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST chatbotSession/create — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST chatbotSession/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST careerCoaching/createCareerPath — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT careerCoaching/updateCareerPath — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerCoaching/getCareerPath — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerCoaching/getActiveCareerPath — 200 null
+[32m✓[0m GET careerCoaching/listCareerPaths — 200 []
+[32m✓[0m PUT careerCoaching/updateMilestone — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerCoaching/createSkillGapAnalysis — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerCoaching/getLatestSkillGapAnalysis — 200 null
+[32m✓[0m GET careerCoaching/listSkillGapAnalyses — 200 []
+[32m✓[0m POST careerCoaching/createWeeklyGoal — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT careerCoaching/updateWeeklyGoal — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE careerCoaching/deleteWeeklyGoal — destructive operation - skipped to preserve data
+[32m✓[0m GET careerCoaching/getWeeklyGoals — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerCoaching/getCurrentWeekGoals — 200 []
+[32m✓[0m GET careerCoaching/getWeeklyGoalStats — 200 {"total":0,"completed":0,"inProgress":0,"pending":0,"completionRate":0,"byCatego
+[32m✓[0m POST careerCoaching/createJournalEntry — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT careerCoaching/updateJournalEntry — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE careerCoaching/deleteJournalEntry — destructive operation - skipped to preserve data
+[32m✓[0m GET careerCoaching/getJournalEntries — 200 []
+[32m✓[0m GET careerCoaching/getTodaysWins — 200 []
+[32m✓[0m GET careerCoaching/getJournalStats — 200 {"totalEntries":0,"winCount":0,"challengeCount":0,"learningCount":0,"averageMood
+[32m✓[0m GET careerCoaching/getTodaysAffirmation — 200 null
+[32m✓[0m POST careerCoaching/likeAffirmation — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerCoaching/saveAffirmation — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerCoaching/getSavedAffirmations — 200 []
+[32m✓[0m POST careerCoaching/createCoachingSession — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT careerCoaching/updateCoachingSession — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerCoaching/getCoachingSession — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerCoaching/listCoachingSessions — 200 []
+[32m✓[0m GET careerCoaching/getDashboardStats — 200 {"careerPath":null,"weeklyGoals":{"total":0,"completed":0,"inProgress":0,"pendin
+[32m✓[0m POST careerMatcher/getLatestPrediction — 200 null
+[32m✓[0m POST careerMatcher/listPredictions — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerMatcher/getPrediction — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerMatcher/predictCareerPaths — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST careerMatcher/deletePrediction — destructive operation - skipped to preserve data
+[32m✓[0m POST careerMatcher/matchToJobs — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerMatcher/listJobMatchScores — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerMatcher/getJobMatchScore — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerMatcher/updateJobMatchStatus — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST careerMatcher/deleteJobMatchScore — destructive operation - skipped to preserve data
+[32m✓[0m POST careerMatcher/simulateCareerPath — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerMatcher/listTrajectories — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerMatcher/getTrajectory — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerMatcher/selectTrajectory — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerMatcher/getSelectedTrajectory — 200 null
+[33m⊘[0m POST careerMatcher/deleteTrajectory — destructive operation - skipped to preserve data
+[32m✓[0m POST careerMatcher/identifyTransferableSkills — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerMatcher/getSuccessFactors — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerMatcher/comparePathOptions — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerMatcher/getStatistics — 200 {"totalPredictions":0,"completedPredictions":0,"totalJobMatches":0,"averageMatch
+[32m✓[0m GET careerQuizResults/list — 200 []
+[32m✓[0m GET careerQuizResults/getLatest — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerQuizResults/save — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE careerQuizResults/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST careerTransition/skillsCreate — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerTransition/skillsGetById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerTransition/skillsList — 200 []
+[32m✓[0m PUT careerTransition/skillsUpdate — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE careerTransition/skillsDelete — destructive operation - skipped to preserve data
+[32m✓[0m POST careerTransition/timelineCreate — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerTransition/timelineGetById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerTransition/timelineList — 200 []
+[32m✓[0m PUT careerTransition/timelineUpdate — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerTransition/timelineToggle — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE careerTransition/timelineDelete — destructive operation - skipped to preserve data
+[32m✓[0m POST careerTransition/actionsCreate — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerTransition/actionsGetById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET careerTransition/actionsList — 200 []
+[32m✓[0m PUT careerTransition/actionsUpdate — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST careerTransition/actionsToggle — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE careerTransition/actionsDelete — destructive operation - skipped to preserve data
+[32m✓[0m GET careerTransition/actionsGetStatistics — 200 {"total":0,"completed":0,"byCategory":{},"byPriority":{},"totalHours":0,"complet
+[32m✓[0m GET careerTransition/getOverview — 200 {"overallReadiness":0,"skills":{"total":0,"byCategory":{}},"timeline":{"total":0
+[32m✓[0m POST companyResearch/favorites/add — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE companyResearch/favorites/remove — destructive operation - skipped to preserve data
+[32m✓[0m GET companyResearch/favorites/list — 200 []
+[32m✓[0m GET companyResearch/favorites/listIds — 200 []
+[32m✓[0m POST companyResearch/favorites/toggle — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST companyResearch/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET companyResearch/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET companyResearch/list — 200 []
+[32m✓[0m PUT companyResearch/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE companyResearch/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET companyResearch/getStatistics — 200 {"totalCompanies":0,"totalFavorites":0,"totalReviews":0,"byIndustry":{}}
+[32m✓[0m GET confidenceExercises/getStats — 200 {"totalCompleted":0,"streak":0,"lastCompletedDate":null,"categoryProgress":{"bre
+[32m✓[0m GET confidenceExercises/getCompletedToday — 200 []
+[32m✓[0m POST confidenceExercises/completeExercise — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET confidenceExercises/getDailyRoutine — 200 []
+[32m✓[0m POST confidenceExercises/addToRoutine — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE confidenceExercises/removeFromRoutine — destructive operation - skipped to preserve data
+[33m⊘[0m DELETE confidenceExercises/clearRoutine — destructive operation - skipped to preserve data
+[32m✓[0m GET confidenceExercises/isCompletedToday — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST coverLetter/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET coverLetter/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET coverLetter/list — 200 [{"id":"019e699b-1ca1-7706-9665-bc1bd3f502f5","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m PUT coverLetter/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE coverLetter/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST coverLetter/duplicate — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET coverLetter/getStatistics — 200 {"total":1,"byTemplate":{"formal":1},"byTone":{"professional":1},"recentCompanie
+[32m✓[0m GET cultureMatch/get — 200 {"id":"019e6994-7946-7140-9574-6c675b8eb234","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m POST cultureMatch/getOrCreate — 200 {"id":"019e6994-7946-7140-9574-6c675b8eb234","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m POST cultureMatch/updateWorkStyleAnswer — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST cultureMatch/updateValuesScore — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST cultureMatch/toggleRedFlag — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST cultureMatch/saveProfile — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST cultureMatch/reset — 200 {}
+[32m✓[0m GET dashboard/getStatistics — 200 {"resumeCount":12,"activeApplicationsCount":7,"upcomingInterviewsCount":0,"netwo
+[32m✓[0m GET dashboard/getUpcomingItems — 200 [{"id":"019e6654-3e04-723f-96f7-10a102cbcbb1","type":"follow_up","title":"Follow
+[32m✓[0m GET dashboard/getRecentActivity — 200 [{"id":"019e6638-8689-7578-ab0f-37f29a6e84d2","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m POST dataExport/exportData — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST dataExport/validateImportData — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST dataExport/importData — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET dataExport/getHistory — 200 []
+[32m✓[0m GET dataExport/getHistoryById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST deadlines/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET deadlines/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET deadlines/list — 200 []
+[32m✓[0m PUT deadlines/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST deadlines/toggleComplete — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST deadlines/toggleReminder — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE deadlines/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET deadlines/getStatistics — 200 {"total":0,"upcoming":0,"past":0,"completed":0,"highPriority":0,"thisWeek":0,"by
+[32m✓[0m GET elevatorPitch/list — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST elevatorPitch/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST elevatorPitch/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST elevatorPitch/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST experienceOptimizer/createBeforeAfterExample — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET experienceOptimizer/getBeforeAfterExamples — 200 []
+[32m✓[0m PUT experienceOptimizer/updateBeforeAfterExample — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE experienceOptimizer/deleteBeforeAfterExample — destructive operation - skipped to preserve data
+[32m✓[0m POST experienceOptimizer/createActionVerb — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET experienceOptimizer/getActionVerbs — 200 []
+[32m✓[0m PUT experienceOptimizer/toggleActionVerbFavorite — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE experienceOptimizer/deleteActionVerb — destructive operation - skipped to preserve data
+[32m✓[0m POST experienceOptimizer/createOptimizationHistory — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET experienceOptimizer/getOptimizationHistory — 200 []
+[33m⊘[0m DELETE experienceOptimizer/deleteOptimizationHistory — destructive operation - skipped to preserve data
+[33m⊘[0m DELETE experienceOptimizer/clearOptimizationHistory — destructive operation - skipped to preserve data
+[32m✓[0m GET experienceOptimizer/getIndustryPreference — 200 null
+[32m✓[0m PUT experienceOptimizer/upsertIndustryPreference — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST experienceOptimizer/addFavoriteKeyword — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE experienceOptimizer/removeFavoriteKeyword — destructive operation - skipped to preserve data
+[32m✓[0m POST experienceOptimizer/addFavoritePhrase — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE experienceOptimizer/removeFavoritePhrase — destructive operation - skipped to preserve data
+[32m✓[0m GET experienceOptimizer/getExpandedTips — 200 []
+[32m✓[0m POST experienceOptimizer/toggleExpandedTip — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET freelance/skills/list — 200 []
+[32m✓[0m POST freelance/skills/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT freelance/skills/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE freelance/skills/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET freelance/packages/list — 200 []
+[32m✓[0m POST freelance/packages/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT freelance/packages/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE freelance/packages/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET freelance/portfolio/list — 200 []
+[32m✓[0m POST freelance/portfolio/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT freelance/portfolio/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE freelance/portfolio/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET freelance/testimonials/list — 200 []
+[32m✓[0m POST freelance/testimonials/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT freelance/testimonials/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE freelance/testimonials/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET freelance/proposals/list — 200 []
+[32m✓[0m POST freelance/proposals/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT freelance/proposals/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST freelance/proposals/incrementUsage — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE freelance/proposals/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET freelance/getProfile — 200 null
+[32m✓[0m PUT freelance/updateProfile — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET freelance/getAll — 200 {"profile":null,"skills":[],"packages":[],"portfolio":[],"testimonials":[],"prop
+[32m✓[0m POST goals/milestones/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT goals/milestones/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST goals/milestones/toggle — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE goals/milestones/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST goals/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET goals/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET goals/list — 200 [{"id":"019e6654-1483-744e-8d4f-355493b7cf92","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m PUT goals/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST goals/updateProgress — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE goals/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET goals/getStatistics — 200 {"total":7,"byStatus":{"not_started":3,"in_progress":4},"byCategory":{"education
+[32m✓[0m GET insights/getUserProfile — 200 {"id":"019e6994-7e83-7005-b7d3-dd7c2f821e49","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m POST insights/getOrCreateUserProfile — 200 {"id":"019e6994-7e83-7005-b7d3-dd7c2f821e49","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m PUT insights/updateUserProfile — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST insights/seedData — seed endpoint - skipped to preserve data
+[32m✓[0m POST interview/generateQuestions — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interview/evaluateResponse — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interview/analyzeSession — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interview/getTips — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interview/getCommonQuestions — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interview/chatWithInterviewer — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interview/generateChatbotSummary — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewAnalytics/analyzePerformance — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewAnalytics/identifyPatterns — 200 {"commonMistakes":[],"strengthPatterns":[],"weaknessPatterns":[],"questionTypePe
+[32m✓[0m POST interviewAnalytics/generateImprovementPlan — 200 {"userId":"019c6d29-dbf5-7329-8e5b-d99eb5d693ea","priorityAreas":[],"weeklyGoals
+[32m✓[0m POST interviewAnalytics/trackImprovement — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewAnalytics/compareToSuccessful — 200 {"userScore":0,"successfulCandidateAvg":75,"percentile":0,"gapsToClose":[],"stre
+[32m✓[0m POST interviewAnalytics/predictInterviewSuccess — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewAnalytics/recordWeakness — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewAnalytics/resolveWeakness — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewAnalytics/recordImprovement — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewAnalytics/getWeaknesses — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewAnalytics/getImprovements — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewAnalytics/getTemplates — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewAnalytics/recordTemplateUsage — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewAnalytics/getAdaptiveDifficulty — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewAnalytics/getDashboard — 200 {"patterns":{"commonMistakes":[],"strengthPatterns":[],"weaknessPatterns":[],"qu
+[32m✓[0m POST interviewFeedback/feedback/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewFeedback/feedback/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewFeedback/feedback/list — 200 {"items":[],"total":0}
+[32m✓[0m PUT interviewFeedback/feedback/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewFeedback/feedback/toggleResolved — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE interviewFeedback/feedback/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET interviewFeedback/feedback/getStatistics — 200 {"total":0,"strengths":0,"improvements":0,"unresolvedCount":0,"highPriority":0,"
+[32m✓[0m POST interviewFeedback/goals/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewFeedback/goals/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewFeedback/goals/list — 200 []
+[32m✓[0m PUT interviewFeedback/goals/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewFeedback/goals/toggleMilestone — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE interviewFeedback/goals/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET interviewFeedback/goals/getStatistics — 200 {"total":0,"inProgress":0,"completed":0,"notStarted":0,"overdue":0}
+[32m✓[0m GET interviewFeedback/trends/list — 200 [{"id":"019e6994-8130-778f-b0bb-c61916262179","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m GET interviewFeedback/trends/getLatest — 200 {"id":"019e6994-8130-778f-b0bb-c61916262179","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m POST interviewFeedback/trends/calculate — 200 {"id":"019e6994-8130-778f-b0bb-c61916262179","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m GET interviewFeedback/patterns/list — 200 []
+[32m✓[0m POST interviewFeedback/patterns/analyze — 200 []
+[33m⊘[0m DELETE interviewFeedback/patterns/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST interviewNotes/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewNotes/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewNotes/list — 200 []
+[32m✓[0m PUT interviewNotes/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE interviewNotes/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST interviewNotes/toggleKeyPoint — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewNotes/toggleFollowUpAction — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewNotes/addKeyPoint — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewNotes/addFollowUpAction — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewNotes/addInterviewer — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewNotes/addQuestionResponse — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewNotes/getCompanies — 200 []
+[32m✓[0m GET interviewNotes/getStatistics — 200 {"total":0,"completed":0,"scheduled":0,"pendingActions":0}
+[32m✓[0m POST interviewPrep/items/add — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewPrep/items/toggle — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT interviewPrep/items/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE interviewPrep/items/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST interviewPrep/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewPrep/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewPrep/list — 200 []
+[32m✓[0m PUT interviewPrep/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE interviewPrep/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET interviewPrep/getUpcoming — 200 []
+[32m✓[0m GET interviewPrep/getStatistics — 200 {"total":0,"byStatus":{},"byType":{},"upcoming":0,"preparing":0,"ready":0,"compl
+[32m✓[0m POST interviewRecording/recordings/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewRecording/recordings/getById — 400 needs input (endpoint reachable) Input validation failed
+[31m✗[0m GET interviewRecording/recordings/list — 500 server error: Internal server error
+[32m✓[0m PUT interviewRecording/recordings/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE interviewRecording/recordings/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST interviewRecording/recordings/analyze — 400 needs input (endpoint reachable) Input validation failed
+[31m✗[0m GET interviewRecording/recordings/getStatistics — 500 server error: Internal server error
+[32m✓[0m GET interviewRecording/progress/list — 200 []
+[32m✓[0m GET interviewRecording/progress/getLatest — 200 null
+[32m✓[0m POST interviewScheduler/reminders/add — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewScheduler/reminders/toggle — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE interviewScheduler/reminders/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET interviewScheduler/reminders/getPending — 200 []
+[32m✓[0m POST interviewScheduler/availability/add — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewScheduler/availability/list — 200 []
+[33m⊘[0m DELETE interviewScheduler/availability/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST interviewScheduler/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewScheduler/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewScheduler/list — 200 []
+[32m✓[0m PUT interviewScheduler/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT interviewScheduler/updateOutcome — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE interviewScheduler/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET interviewScheduler/getUpcoming — 200 []
+[32m✓[0m GET interviewScheduler/getStatistics — 200 {"total":0,"upcoming":0,"completed":0,"thisMonth":0,"successRate":0,"byStatus":{
+[32m✓[0m POST interviewTracking/performance/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewTracking/performance/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewTracking/performance/list — 200 []
+[32m✓[0m PUT interviewTracking/performance/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE interviewTracking/performance/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET interviewTracking/performance/getTrends — 200 []
+[32m✓[0m GET interviewTracking/performance/getScoreBreakdown — 200 {"confidence":0,"clarity":0,"relevance":0,"technical":0,"communication":0}
+[32m✓[0m GET interviewTracking/performance/getStrengthsAndImprovements — 200 {"strengths":[],"improvements":[]}
+[32m✓[0m GET interviewTracking/performance/getStatistics — 200 {"totalSessions":0,"averageScore":0,"scoreImprovement":0,"bestCategory":"N/A","w
+[32m✓[0m POST interviewTracking/goals/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewTracking/goals/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewTracking/goals/list — 200 []
+[32m✓[0m PUT interviewTracking/goals/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE interviewTracking/goals/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST interviewTracking/goals/incrementPractice — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET interviewTracking/goals/getStatistics — 200 {"totalGoals":0,"completedGoals":0,"activeGoals":0,"upcomingInterviews":0,"avera
+[32m✓[0m GET interviewTracking/goals/getUpcoming — 200 []
+[32m✓[0m GET interviewTracking/ai/getTips — 200 ["Pratiquez vos reponses a voix haute pour gagner en confiance. L'enregistrement
+[32m✓[0m GET interviewTracking/ai/getSummary — 200 {"statistics":{"totalSessions":0,"averageScore":0,"scoreImprovement":0,"bestCate
+[32m✓[0m POST jobAggregator/jobs/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobAggregator/jobs/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobAggregator/jobs/list — 200 []
+[32m✓[0m PUT jobAggregator/jobs/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST jobAggregator/jobs/toggleSaved — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST jobAggregator/jobs/updateStatus — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE jobAggregator/jobs/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET jobAggregator/jobs/getStatistics — 200 {"total":0,"saved":0,"applied":0,"bySource":{"linkedin":0,"indeed":0,"glassdoor"
+[32m✓[0m POST jobAggregator/savedSearches/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobAggregator/savedSearches/list — 200 []
+[32m✓[0m GET jobAggregator/savedSearches/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT jobAggregator/savedSearches/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE jobAggregator/savedSearches/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST jobAlerts/match/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobAlerts/match/list — 200 []
+[32m✓[0m POST jobAlerts/match/markViewed — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST jobAlerts/match/markApplied — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE jobAlerts/match/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST jobAlerts/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobAlerts/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobAlerts/list — 200 []
+[32m✓[0m PUT jobAlerts/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST jobAlerts/toggleStatus — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE jobAlerts/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET jobAlerts/getStatistics — 200 {"totalAlerts":0,"activeAlerts":0,"totalMatches":0,"appliedFromAlerts":0,"avgMat
+[32m✓[0m POST jobApplications/activity/add — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobApplications/activity/list — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST jobApplications/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobApplications/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobApplications/list — 200 [{"id":"019e6654-4ddc-7428-919e-1cc80f1c6503","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m PUT jobApplications/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST jobApplications/updateStatus — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE jobApplications/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET jobApplications/getStatistics — 200 {"total":7,"byStatus":{"saved":2,"applied":3,"interview":2},"thisWeek":7,"respon
+[32m✓[0m POST jobMatch/createSavedJob — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobMatch/getSavedJobById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobMatch/listSavedJobs — 200 []
+[32m✓[0m PUT jobMatch/updateSavedJob — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE jobMatch/deleteSavedJob — destructive operation - skipped to preserve data
+[32m✓[0m POST jobMatch/analyzeJobMatch — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobMatch/getAnalysisById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobMatch/listAnalysisHistory — 200 []
+[33m⊘[0m DELETE jobMatch/deleteAnalysis — destructive operation - skipped to preserve data
+[33m⊘[0m DELETE jobMatch/clearAnalysisHistory — destructive operation - skipped to preserve data
+[32m✓[0m GET jobRecommendations/getPreferences — 200 null
+[32m✓[0m PUT jobRecommendations/updatePreferences — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobRecommendations/getRecommendations — 200 {"recommendations":[],"total":0}
+[32m✓[0m POST jobRecommendations/generateRecommendations — 200 {"generated":0,"total":0}
+[32m✓[0m PUT jobRecommendations/updateStatus — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST jobRecommendations/dismiss — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST jobRecommendations/save — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST jobRecommendations/markViewed — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST jobRecommendations/markApplied — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET jobRecommendations/getStats — 200 {"total":0,"new":0,"viewed":0,"saved":0,"applied":0,"dismissed":0,"averageScore"
+[32m✓[0m POST journal/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET journal/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET journal/getByDate — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET journal/list — 200 []
+[32m✓[0m PUT journal/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST journal/upsert — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE journal/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET journal/getStatistics — 200 {"totalEntries":0,"totalApplications":0,"totalInterviews":0,"totalNetworking":0,
+[32m✓[0m GET learningPath/list — 200 []
+[32m✓[0m GET learningPath/get — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET learningPath/getByStatus — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningPath/analyzeGap — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningPath/generate — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningPath/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT learningPath/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT learningPath/updateProgress — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningPath/start — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningPath/complete — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningPath/completeMilestone — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE learningPath/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET learningRecommendations/listResources — 200 []
+[32m✓[0m GET learningRecommendations/getResource — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningRecommendations/startResource — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningRecommendations/trackEngagement — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET learningRecommendations/getUserCompletions — 200 []
+[32m✓[0m GET learningRecommendations/getUserFavorites — 200 []
+[32m✓[0m POST learningRecommendations/generateRecommendations — 200 []
+[32m✓[0m GET learningRecommendations/personalizeContent — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningRecommendations/scheduleReminders — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningRecommendations/optimizeSequence — 200 {}
+[32m✓[0m GET learningRecommendations/connectWithMentors — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET learningRecommendations/getActiveRecommendations — 200 []
+[32m✓[0m POST learningRecommendations/markViewed — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningRecommendations/markClicked — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningRecommendations/provideFeedback — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningRecommendations/createGoal — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST learningRecommendations/updateGoalProgress — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET learningRecommendations/getUserGoals — 200 []
+[32m✓[0m POST learningRecommendations/createSequence — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET learningRecommendations/getUserSequences — 200 []
+[32m✓[0m GET learningRecommendations/getStatistics — 200 {"totalResourcesStarted":0,"completedResources":0,"inProgressResources":0,"total
+[32m✓[0m GET skillProgress/list — 200 []
+[32m✓[0m GET skillProgress/getByCategory — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET skillProgress/get — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST skillProgress/upsert — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT skillProgress/updateLevel — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST skillProgress/logPractice — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET skillProgress/getStats — 200 {"totalSkills":0,"avgProgress":0,"avgLevel":0,"totalHoursInvested":0,"byCategory
+[33m⊘[0m DELETE skillProgress/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET linkedin/getProfile — 200 {"id":"019e649f-aaf2-76a0-bb37-8bd4812d2aa6","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m PUT linkedin/updateProfile — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST linkedin/togglePhotoTip — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST linkedin/generateHeadlines — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST linkedin/generateSummaries — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST linkedin/generateChecklist — 200 [{"id":"professional","category":"Profile Photo","item":"Photo professionnelle",
+[32m✓[0m POST linkedin/toggleChecklistItem — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET linkedin/getIndustryKeywords — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET linkedin/getIndustrySkills — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET linkedin/getConnectionStrategies — 200 [{"id":"second-degree","title":"2nd Degree Connections","description":"Connect w
+[32m✓[0m GET linkedin/getEngagementTips — 200 [{"id":"post-regularly","category":"posting","title":"Post regularly","descripti
+[32m✓[0m GET linkedin/getIndustries — 200 [{"value":"technology","label":"Technology / IT"},{"value":"finance","label":"Fi
+[32m✓[0m POST linkedin/calculateScore — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST linkedinContent/createPost — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT linkedinContent/updatePost — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE linkedinContent/deletePost — destructive operation - skipped to preserve data
+[31m✗[0m GET linkedinContent/listPosts — 500 server error: Internal server error
+[32m✓[0m GET linkedinContent/getPost — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET linkedinContent/getPostTemplates — 200 {"career_update":{"fr":{"new_job":"🎉 Nouvelle aventure professionnelle !\n\nJe 
+[32m✓[0m GET linkedinContent/getHashtagSuggestions — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST linkedinContent/createMessage — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT linkedinContent/updateMessage — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE linkedinContent/deleteMessage — destructive operation - skipped to preserve data
+[31m✗[0m GET linkedinContent/listMessages — 500 server error: Internal server error
+[32m✓[0m GET linkedinContent/getMessage — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET linkedinContent/getMessageTemplates — 200 {"connection_request":{"fr":{"alumni":"Bonjour {name},\n\nJe suis également dipl
+[32m✓[0m POST linkedinContent/createProfileAnalysis — 400 needs input (endpoint reachable) Input validation failed
+[31m✗[0m GET linkedinContent/listProfileAnalyses — 500 server error: Internal server error
+[31m✗[0m GET linkedinContent/getLatestProfileAnalysis — 500 server error: Internal server error
+[31m✗[0m GET linkedinContent/getStats — 500 server error: Internal server error
+[32m✓[0m POST marketIntelligence/salaries/predict — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST marketIntelligence/jobMatch/calculate — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST marketIntelligence/analytics/personalizedInsights — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST mentorMessaging/sendMessage — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET mentorMessaging/getConversation — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET mentorMessaging/getConversations — 200 []
+[32m✓[0m GET mentorMessaging/getInbox — 200 []
+[32m✓[0m GET mentorMessaging/getSent — 200 []
+[32m✓[0m PUT mentorMessaging/markAsRead — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT mentorMessaging/markConversationAsRead — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET mentorMessaging/getUnreadCount — 200 0
+[33m⊘[0m DELETE mentorMessaging/deleteMessage — destructive operation - skipped to preserve data
+[32m✓[0m GET mentors/listMentors — 200 [{"id":"019c3b7f-373f-710c-afc5-2a1688420aaa","userId":"019c07c4-6abd-7186-84a0-
+[32m✓[0m GET mentors/getMentor — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST mentors/seedMentors — seed endpoint - skipped to preserve data
+[32m✓[0m POST mentors/createRequest — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET mentors/listRequests — 200 []
+[32m✓[0m PUT mentors/updateRequestStatus — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE mentors/deleteRequest — destructive operation - skipped to preserve data
+[32m✓[0m POST mentors/createSession — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET mentors/listSessions — 200 []
+[32m✓[0m PUT mentors/updateSession — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE mentors/deleteSession — destructive operation - skipped to preserve data
+[32m✓[0m POST mentors/createGoal — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET mentors/listGoals — 200 []
+[32m✓[0m PUT mentors/updateGoal — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST mentors/toggleMilestone — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE mentors/deleteGoal — destructive operation - skipped to preserve data
+[32m✓[0m GET mentors/getUserGoals — 200 {"targetRole":"","skills":[],"industries":[],"timeline":"6 months"}
+[32m✓[0m PUT mentors/updateUserGoals — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST mentors/createReview — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET mentors/listReviews — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET mentors/getStatistics — 200 {"totalMentors":6,"completedSessions":0,"upcomingSessions":0,"activeGoals":0,"pe
+[32m✓[0m GET messageTemplate/list — 200 []
+[32m✓[0m POST messageTemplate/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT messageTemplate/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE messageTemplate/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST messageTemplate/toggleFavorite — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST mockAi/createSession — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/getCurrentSession — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/getSession — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/updateSession — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/deleteSession — destructive operation - skipped to preserve data
+[33m⊘[0m POST mockAi/getHistory — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/getStatistics — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/getFieldConfigs — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/getProgramsByField — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/getAllPrograms — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/getDifficultyConfigs — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/getQuestions — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/getFeedbackTemplates — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/getFeedbackTemplateForScore — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/getInterviewTips — AI generation - requires configured provider
+[33m⊘[0m POST mockAi/getRandomTip — AI generation - requires configured provider
+[32m✓[0m POST networking/interactions/add — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET networking/interactions/list — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE networking/interactions/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST networking/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET networking/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET networking/list — 200 [{"id":"019e6654-4163-73df-b7a3-026b9d05b618","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m PUT networking/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST networking/toggleFavorite — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE networking/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET networking/getFollowUpReminders — 200 [{"id":"019e6636-3c0e-778c-9cef-9ab9d8b2f3ca","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m GET networking/getDormantContacts — 200 [{"id":"019e6636-3c0e-778c-9cef-9ab9d8b2f3ca","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m GET networking/getStatistics — 200 {"total":17,"favorites":8,"byRelationship":{"other":3,"colleague":2,"recruiter":
+[32m✓[0m POST networkingEvents/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET networkingEvents/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET networkingEvents/list — 200 []
+[32m✓[0m PUT networkingEvents/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST networkingEvents/updateRsvp — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST networkingEvents/updateOutcome — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST networkingEvents/toggleReminder — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE networkingEvents/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET networkingEvents/getPendingReminders — 200 []
+[32m✓[0m GET networkingEvents/getStatistics — 200 {"totalUpcoming":0,"totalPast":0,"goingCount":0,"totalContacts":0,"pendingRemind
+[32m✓[0m POST notification/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET notification/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET notification/list — 200 [{"id":"019e6626-d784-74ba-b2ab-3e0822ba0278","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m PUT notification/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST notification/markAllAsRead — 200 {}
+[33m⊘[0m DELETE notification/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST notification/cleanup — 200 {}
+[32m✓[0m GET notification/getUnreadCount — 200 0
+[32m✓[0m GET notification/preferences/get — 200 {"tips":true,"reminders":true,"milestones":true,"announcements":true}
+[32m✓[0m PUT notification/preferences/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET outfitChecklist/getCheckedItems — 200 []
+[32m✓[0m POST outfitChecklist/toggleItem — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT outfitChecklist/setItems — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE outfitChecklist/clearAll — destructive operation - skipped to preserve data
+[32m✓[0m GET printer/getResumeScreenshot — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST qrCode/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET qrCode/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET qrCode/list — 200 []
+[32m✓[0m PUT qrCode/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE qrCode/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET qrCode/getStatistics — 200 {"scansByDate":[],"scansByDevice":[],"scansByLocation":[],"totalScans":0}
+[32m✓[0m GET quickChecklist/get — 200 {"checkedItems":[],"reminderDate":null,"reminderTime":null,"reminderCompany":nul
+[32m✓[0m POST quickChecklist/toggleItem — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT quickChecklist/updateCheckedItems — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST quickChecklist/reset — 200 {}
+[32m✓[0m POST quickChecklist/setReminder — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE quickChecklist/clearReminder — destructive operation - skipped to preserve data
+[32m✓[0m POST recommendationRequest/recommenders/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET recommendationRequest/recommenders/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET recommendationRequest/recommenders/list — 200 []
+[32m✓[0m PUT recommendationRequest/recommenders/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE recommendationRequest/recommenders/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST recommendationRequest/requests/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET recommendationRequest/requests/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET recommendationRequest/requests/list — 200 []
+[32m✓[0m PUT recommendationRequest/requests/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PATCH recommendationRequest/requests/updateStatus — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE recommendationRequest/requests/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET recommendationRequest/getStatistics — 200 {"total":0,"pending":0,"received":0,"sent":0,"urgent":0,"recommenders":0}
+[32m✓[0m GET recommendationRequest/getPendingFollowUps — 200 []
+[32m✓[0m GET remoteReadiness/getResults — 200 []
+[32m✓[0m GET remoteReadiness/getLatestResult — 200 null
+[32m✓[0m POST remoteReadiness/saveResult — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET remoteReadiness/getChecklist — 200 []
+[32m✓[0m POST remoteReadiness/toggleChecklistItem — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT remoteReadiness/updateChecklistItems — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET remoteReadiness/getOfficeItems — 200 []
+[32m✓[0m POST remoteReadiness/toggleOfficeItem — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT remoteReadiness/updateOfficeItems — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET remoteReadiness/getImprovements — 200 []
+[32m✓[0m POST remoteReadiness/createImprovement — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST remoteReadiness/toggleImprovement — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE remoteReadiness/deleteImprovement — destructive operation - skipped to preserve data
+[33m⊘[0m DELETE remoteReadiness/clearImprovements — destructive operation - skipped to preserve data
+[32m✓[0m POST remoteReadiness/createImprovements — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET resume/tags/list — 200 ["<script>alert(1)</script>","BTP","career-change","conducteur-engins","healthca
+[32m✓[0m GET resume/statistics/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET resume/list — 200 [{"id":"019e699a-4834-76aa-9a28-4619ad34ceb2","name":"Resume with emoji and RTL 
+[32m✓[0m GET resume/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resume/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resume/import — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT resume/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resume/setLocked — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resume/setPassword — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST resume/removePassword — destructive operation - skipped to preserve data
+[32m✓[0m POST resume/duplicate — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE resume/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET resumeHistory/list — 200 []
+[32m✓[0m GET resumeHistory/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT resumeHistory/updateNote — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resumeHistory/restore — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET resumeHistory/getStorageStats — 200 {"usedStorage":0,"totalStorage":104857600}
+[32m✓[0m GET resumeHistory/getStats — 200 {"totalVersions":0,"totalSize":0,"lastModified":null}
+[32m✓[0m POST resumeHistory/cleanupOldVersions — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resumeScoring/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET resumeScoring/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET resumeScoring/getLatest — 200 null
+[32m✓[0m GET resumeScoring/getLatestByResumeId — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET resumeScoring/list — 200 []
+[32m✓[0m PUT resumeScoring/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST resumeScoring/updateSelectedIndustry — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE resumeScoring/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET resumeScoring/getHistory — 200 []
+[32m✓[0m GET resumeScoring/getBeforeAfterComparison — 200 []
+[32m✓[0m GET resumeScoring/getStatistics — 200 {"total":0,"averageOverallScore":0,"averageAtsScore":0,"highestScore":0,"latestS
+[32m✓[0m POST reviewPrep/createAccomplishment — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET reviewPrep/getAccomplishment — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET reviewPrep/getAccomplishments — 200 []
+[32m✓[0m PUT reviewPrep/updateAccomplishment — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE reviewPrep/deleteAccomplishment — destructive operation - skipped to preserve data
+[32m✓[0m POST reviewPrep/createGoal — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET reviewPrep/getGoal — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET reviewPrep/getGoals — 200 []
+[32m✓[0m PUT reviewPrep/updateGoal — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE reviewPrep/deleteGoal — destructive operation - skipped to preserve data
+[32m✓[0m POST reviewPrep/createSalaryResearch — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET reviewPrep/getSalaryResearch — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET reviewPrep/getSalaryResearches — 200 []
+[32m✓[0m PUT reviewPrep/updateSalaryResearch — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE reviewPrep/deleteSalaryResearch — destructive operation - skipped to preserve data
+[32m✓[0m GET reviewPrep/getAssessmentData — 200 null
+[32m✓[0m POST reviewPrep/saveAssessmentData — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET reviewPrep/getTimelineData — 200 null
+[32m✓[0m POST reviewPrep/saveTimelineData — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET reviewPrep/getSalaryExpectation — 200 null
+[32m✓[0m POST reviewPrep/saveSalaryExpectation — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST salaryHistory/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET salaryHistory/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET salaryHistory/list — 200 []
+[32m✓[0m PUT salaryHistory/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE salaryHistory/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET salaryHistory/getStatistics — 200 {"currentSalary":null,"totalRecords":0,"averageSalary":0,"highestSalary":0,"lowe
+[32m✓[0m GET search/global — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET search/getRecent — 200 []
+[32m✓[0m POST search/saveRecent — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE search/clearRecent — destructive operation - skipped to preserve data
+[33m⊘[0m DELETE search/deleteRecent — destructive operation - skipped to preserve data
+[32m✓[0m GET shortcuts/getAll — 200 [{"id":"go_dashboard","category":"navigation","keys":["g","d"],"label":"Go to Da
+[32m✓[0m GET shortcuts/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET shortcuts/getDefaults — 200 [{"id":"go_dashboard","category":"navigation","keys":["g","d"],"label":"Go to Da
+[32m✓[0m PUT shortcuts/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST shortcuts/toggle — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST shortcuts/resetToDefaults — 200 {"success":true}
+[32m✓[0m GET starMethod/list — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST starMethod/create — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST starMethod/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST storage/uploadFile — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST storage/deleteFile — destructive operation - skipped to preserve data
+[32m✓[0m GET analytics/getOverview — 200 {"totalViews":7,"totalDownloads":0,"totalResumes":12,"resumeMetrics":[{"id":"019
+[32m✓[0m POST thankYouLetter/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET thankYouLetter/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET thankYouLetter/list — 200 []
+[32m✓[0m PUT thankYouLetter/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE thankYouLetter/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET thankYouLetter/listSendTracking — 200 []
+[32m✓[0m GET thankYouLetter/getSendTracking — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST thankYouLetter/createSendTracking — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE thankYouLetter/deleteSendTracking — destructive operation - skipped to preserve data
+[32m✓[0m GET thankYouLetter/getSuggestions — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST thankYouLetter/createSuggestion — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST thankYouLetter/toggleSuggestion — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE thankYouLetter/deleteSuggestions — destructive operation - skipped to preserve data
+[32m✓[0m GET thankYouLetter/getStatistics — 200 {"totalLetters":0,"totalSent":0,"templateDistribution":{},"methodDistribution":{
+[32m✓[0m GET training/getMyTrainingInterests — 200 []
+[32m✓[0m POST training/addTrainingInterest — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT training/updateTrainingInterest — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE training/deleteTrainingInterest — destructive operation - skipped to preserve data
+[32m✓[0m GET training/getTrainingStats — 200 {"totalInterests":0,"inProgressCount":0,"completedCount":0,"interestedCount":0,"
+[32m✓[0m POST userActivity/log — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET userActivity/getRecent — 200 [{"id":"019e6638-8689-7578-ab0f-37f29a6e84d2","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m GET userActivity/getByCategory — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET userActivity/getStats — 200 {"totalActivities":1,"byCategory":[{"category":"resume","count":1}],"byType":[{"
+[32m✓[0m GET userActivity/getDailyActivity — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET userActivity/getTodayCount — 200 0
+[32m✓[0m GET userActivity/getWeekCount — 200 1
+[33m⊘[0m DELETE userActivity/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET userSettings/getPreferredAiLanguage — 200 {"language":"fr"}
+[32m✓[0m PUT userSettings/updatePreferredAiLanguage — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST videoAnalysis/results/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET videoAnalysis/results/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET videoAnalysis/results/list — 200 {"items":[],"total":0}
+[32m✓[0m PUT videoAnalysis/results/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE videoAnalysis/results/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET videoAnalysis/results/getStatistics — 200 {"totalAnalyses":0,"averageScore":0,"totalDuration":0,"bestScore":0,"categoryAve
+[32m✓[0m GET videoAnalysis/results/getLatest — 200 null
+[32m✓[0m GET videoAnalysis/postureChecklist/get — 200 {"id":"019e6994-9b88-719f-b303-43dea5d35f00","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m POST videoAnalysis/postureChecklist/toggleItem — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST videoAnalysis/postureChecklist/reset — 200 {"id":"019e6994-9b88-719f-b303-43dea5d35f00","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m POST voiceInterview/sessions/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET voiceInterview/sessions/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET voiceInterview/sessions/list — 200 {"items":[],"total":0}
+[32m✓[0m PUT voiceInterview/sessions/updateStatus — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT voiceInterview/sessions/saveTranscript — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE voiceInterview/sessions/delete — destructive operation - skipped to preserve data
+[32m✓[0m GET voiceInterview/sessions/getStatistics — 200 {"total":0,"completed":0,"inProgress":0,"avgScore":0,"totalDuration":0,"panelSes
+[32m✓[0m POST voiceInterview/sessions/pause — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST voiceInterview/sessions/resume — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET voiceInterview/sessions/getResumable — 200 []
+[32m✓[0m GET voiceInterview/panelists/getForSession — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST voiceInterview/panelists/add — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT voiceInterview/panelists/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE voiceInterview/panelists/remove — destructive operation - skipped to preserve data
+[32m✓[0m POST voiceInterview/feedback/generate — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST workSamples/createProject — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET workSamples/getProjectById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET workSamples/listProjects — 200 []
+[32m✓[0m PUT workSamples/updateProject — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE workSamples/deleteProject — destructive operation - skipped to preserve data
+[32m✓[0m POST workSamples/toggleFeatured — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET workSamples/getStatistics — 200 {"total":0,"byType":{},"byStatus":{},"featured":0,"skillsCount":0}
+[32m✓[0m POST workSamples/createCaseStudy — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET workSamples/getCaseStudyById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET workSamples/getCaseStudyByProjectId — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET workSamples/listCaseStudies — 200 []
+[32m✓[0m PUT workSamples/updateCaseStudy — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE workSamples/deleteCaseStudy — destructive operation - skipped to preserve data
+[32m✓[0m GET aiAnalyticsStudent/getMyModelPerformance — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiAnalyticsStudent/getMyFeatureUsage — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiAnalyticsStudent/getMyCostAnalysis — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiAnalyticsStudent/getMyQualityScores — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiAnalyticsStudent/getMyProgress — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiAnalyticsStudent/generateMyExport — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST skillGap/analyzeGap — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET skillGap/getMarketDemand — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET skillGap/prioritizeSkills — 200 []
+[32m✓[0m GET skillGap/suggestResources — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET skillGap/estimateTimeToClose — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET skillGap/getIndustryBenchmarks — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST studentProgress/trackActivity — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET studentProgress/getActivityLog — 200 []
+[32m✓[0m GET studentProgress/getActivityStats — 200 []
+[32m✓[0m GET studentProgress/getProgress — 200 {"id":"019e65bb-2d45-754a-9421-8ec84a0f687f","userId":"019c6d29-dbf5-7329-8e5b-d
+[32m✓[0m POST studentProgress/calculateProgressScore — 200 0
+[32m✓[0m POST studentProgress/trackSkillProgression — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET studentProgress/getSkillProgression — 200 []
+[32m✓[0m GET studentProgress/getSkillTimeline — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET studentProgress/compareToCohort — 200 {"percentile":0,"rank":1,"totalUsers":1,"aheadOf":0}
+[32m✓[0m POST studentProgress/awardBadge — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET studentProgress/getUserBadges — 200 []
+[32m✓[0m POST studentProgress/markBadgeSeen — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET studentProgress/getWeakAreas — 200 []
+[32m✓[0m GET studentProgress/getCohorts — 200 []
+[32m✓[0m GET studentProgress/getCohort — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST studentProgress/joinCohort — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST studentProgress/leaveCohort — 400 needs input (endpoint reachable) Input validation failed
+[31m✗[0m POST studentProgress/createWeeklySnapshot — 500 server error: Internal server error
+[32m✓[0m GET studentProgress/getWeeklySnapshots — 200 [{"id":"019e6994-9f5d-76f9-9e0d-cf2e89692662","userId":"019c6d29-dbf5-7329-8e5b-
+[32m✓[0m POST aiTraining/collectFeedback — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiTraining/myFeedback — 200 []
+[32m✓[0m POST aiMetrics/tracking/latency — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiMetrics/tracking/quality — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiMetrics/tracking/error — 400 needs input (endpoint reachable) Input validation failed
+
+[1m=== ADMIN ENDPOINTS (admin auth) ===[0m
+[32m✓[0m GET admin/analytics/getOverview — 200 {"users":10,"resumes":34,"views":193,"downloads":0}
+[32m✓[0m GET admin/analytics/getAdvancedOverview — 200 {"users":{"total":10,"active7d":4,"active30d":4,"new7d":1,"new30d":1,"verified":
+[32m✓[0m GET admin/analytics/getUserGrowth — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET admin/analytics/getResumeGrowth — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET admin/analytics/getTopResumes — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET admin/analytics/getRecentActivity — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET admin/system/getHealth — 200 {"database":{"status":"healthy","latencyMs":1},"storage":{"status":"healthy"},"a
+[32m✓[0m GET admin/users/list — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET admin/users/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT admin/users/updateRole — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE admin/users/delete — destructive operation - skipped to preserve data
+[33m⊘[0m POST admin/users/bulkDelete — destructive operation - skipped to preserve data
+[32m✓[0m POST admin/users/bulkUpdateRole — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET admin/resumes/list — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET admin/resumes/getById — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE admin/resumes/delete — destructive operation - skipped to preserve data
+[33m⊘[0m POST admin/resumes/bulkDelete — destructive operation - skipped to preserve data
+[32m✓[0m GET admin/audit/list — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET admin/export/users — 200 [{"id":"019e699a-7bc6-72be-9504-f843d2c07612","name":"Omar Khalifi","email":"oma
+[32m✓[0m GET admin/export/resumes — 200 [{"id":"019e699b-2314-7129-a510-8cc48724f320","name":"CV Maintenance Industriell
+[32m✓[0m GET aiConfig/providers/list — 200 [{"id":"019c40b9-6b5d-77ca-8128-6ed37962c3a3","provider":"deepseek","displayName
+[32m✓[0m GET aiConfig/providers/getById — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiConfig/providers/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT aiConfig/providers/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE aiConfig/providers/delete — destructive operation - skipped to preserve data
+[32m✓[0m PUT aiConfig/providers/setDefault — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT aiConfig/providers/toggleEnabled — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiConfig/quotas/list — 200 [{"id":"019e647e-a7f8-707e-8244-e4f66b56032d","name":"Student Plan","description
+[32m✓[0m POST aiConfig/quotas/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT aiConfig/quotas/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE aiConfig/quotas/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST aiConfig/quotas/assignToUser — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE aiConfig/quotas/removeFromUser — destructive operation - skipped to preserve data
+[32m✓[0m GET aiConfig/usage/getUserUsage — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiConfig/usage/getGlobalStats — 200 {"today":{"requests":79,"tokens":115124},"month":{"requests":176,"tokens":272242
+[32m✓[0m GET aiConfig/usage/getGlobalDetailedStats — 200 {"byFeature":[{"feature":"improve_content","count":29,"tokens":43863,"avgDuratio
+[32m✓[0m GET aiConfig/globalSettings/get — 200 {"id":"global","maxDailyRequests":10000,"maxMonthlyRequests":100000,"maxDailyTok
+[32m✓[0m PUT aiConfig/globalSettings/update — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiConfig/globalSettings/checkGlobalQuota — 200 {"allowed":true,"globalLimitsActive":true,"usage":{"daily":{"requests":77,"token
+[32m✓[0m GET aiConfig/globalSettings/getStats — 200 {"settings":{"maxDailyRequests":10000,"maxMonthlyRequests":100000,"maxDailyToken
+[33m⊘[0m POST aiMentor/templates/seed — seed endpoint - skipped to preserve data
+[32m✓[0m GET brandingExamples/listAll — 200 []
+[32m✓[0m GET brandingExamples/get — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST brandingExamples/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT brandingExamples/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE brandingExamples/delete — destructive operation - skipped to preserve data
+[33m⊘[0m POST brandingExamples/seed — seed endpoint - skipped to preserve data
+[33m⊘[0m POST careerCoaching/seedAffirmations — seed endpoint - skipped to preserve data
+[32m✓[0m POST careerQuizQuestions/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT careerQuizQuestions/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE careerQuizQuestions/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST careerQuizOptions/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT careerQuizOptions/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE careerQuizOptions/delete — destructive operation - skipped to preserve data
+[33m⊘[0m POST careerQuizSeed/questions — seed endpoint - skipped to preserve data
+[33m⊘[0m POST careerQuizSeed/options — seed endpoint - skipped to preserve data
+[33m⊘[0m POST insights/seedIfEmpty — seed endpoint - skipped to preserve data
+[32m✓[0m POST interviewChecklist/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewChecklist/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST interviewChecklist/delete — destructive operation - skipped to preserve data
+[33m⊘[0m POST interviewChecklist/seed — seed endpoint - skipped to preserve data
+[33m⊘[0m POST interviewChecklist/bulkSeed — seed endpoint - skipped to preserve data
+[32m✓[0m POST learningRecommendations/createResource — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT learningRecommendations/updateResource — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE learningRecommendations/deleteResource — destructive operation - skipped to preserve data
+[33m⊘[0m POST learningRecommendations/seedResources — seed endpoint - skipped to preserve data
+[33m⊘[0m POST marketIntelligence/salaries/seed — seed endpoint - skipped to preserve data
+[33m⊘[0m POST marketIntelligence/skills/seed — seed endpoint - skipped to preserve data
+[33m⊘[0m POST marketIntelligence/regions/seed — seed endpoint - skipped to preserve data
+[33m⊘[0m POST marketIntelligence/employers/seed — seed endpoint - skipped to preserve data
+[32m✓[0m POST voiceInterview/personas/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT voiceInterview/personas/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE voiceInterview/personas/delete — destructive operation - skipped to preserve data
+[33m⊘[0m POST voiceInterview/seed/seedPersonas — seed endpoint - skipped to preserve data
+[32m✓[0m POST imtaPrograms/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST imtaPrograms/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST imtaPrograms/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST interviewTips/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewTips/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST interviewTips/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST interviewQuestions/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST interviewQuestions/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST interviewQuestions/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST marketInsights/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST marketInsights/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST marketInsights/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST employers/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST employers/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST employers/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST skillLibrary/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST skillLibrary/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m POST skillLibrary/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST seed/imtaPrograms — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST seed/interviewTips — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST seed/interviewQuestions — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST seed/marketInsights — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST seed/employers — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST seed/skills — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiAnalyticsAdmin/getModelPerformance — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiAnalyticsAdmin/getFeatureUsage — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiAnalyticsAdmin/getCostAnalysis — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiAnalyticsAdmin/getQualityScores — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiAnalyticsAdmin/getStudentProgress — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiAnalyticsAdmin/getPredictiveInsights — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiAnalyticsAdmin/generateExport — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiTraining/listFeedback — 200 []
+[32m✓[0m GET aiTraining/getFeedback — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiTraining/curateTrainingSample — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiTraining/getTrainingSample — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PATCH aiTraining/updateTrainingSample — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiTraining/listTrainingSamples — 200 []
+[32m✓[0m POST aiTraining/exportTrainingData — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiTraining/analyzeImprovements — 200 {"totalFeedback":0,"totalWithEdits":0,"editRate":0,"avgEditDistance":0,"byFeatur
+[32m✓[0m GET aiTraining/getModelAccuracy — 200 {"totalGenerations":0,"accepted":0,"acceptanceRate":0,"positiveRating":0,"negati
+[32m✓[0m GET aiTraining/getCollectionStats — 200 {"totalFeedback":0,"totalTrainingSamples":0,"samplesByTier":{"gold":0,"silver":0
+[32m✓[0m POST aiTraining/runABTest — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiTraining/getABTest — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiTraining/listABTests — 200 []
+[32m✓[0m PATCH aiTraining/updateABTestStatus — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiTraining/recordComparisonResult — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiTraining/getComparisonResults — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiTraining/finalizeABTest — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiTraining/rateContentQuality — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiTraining/getQualityRatings — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiTraining/getQualityStats — 200 {"totalRatings":0,"avgByDimension":{},"overallAverage":0}
+[32m✓[0m POST cohortAnalytics/create — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET cohortAnalytics/get — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET cohortAnalytics/list — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT cohortAnalytics/update — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE cohortAnalytics/delete — destructive operation - skipped to preserve data
+[32m✓[0m POST cohortAnalytics/addMember — 400 needs input (endpoint reachable) Input validation failed
+[33m⊘[0m DELETE cohortAnalytics/removeMember — destructive operation - skipped to preserve data
+[32m✓[0m GET cohortAnalytics/getMembers — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET cohortAnalytics/getMetrics — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST cohortAnalytics/compareCohorts — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET cohortAnalytics/getTopPerformers — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET cohortAnalytics/getAtRisk — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET cohortAnalytics/predictOutcomes — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST cohortAnalytics/saveMetricsSnapshot — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET cohortAnalytics/getMetricsHistory — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST cohortAnalytics/setBenchmark — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET cohortAnalytics/getBenchmarks — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET cohortAnalytics/generateReport — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiMetrics/analytics/modelComparison — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiMetrics/analytics/featurePerformance — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiMetrics/analytics/costEfficiency — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiMetrics/analytics/errorRates — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiMetrics/analytics/optimalModel — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiMetrics/analytics/historical — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m GET aiMetrics/alerts/list — 200 [{"id":"019e6994-a482-7349-af83-710c3378ded0","provider":"gemini","model":"gemin
+[32m✓[0m POST aiMetrics/alerts/checkDegradation — 200 {"newAlerts":[],"checkedMetrics":{"latency":0,"errorRates":4,"quality":0}}
+[32m✓[0m PUT aiMetrics/alerts/acknowledge — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m PUT aiMetrics/alerts/resolve — 400 needs input (endpoint reachable) Input validation failed
+[32m✓[0m POST aiMetrics/aggregation/aggregateDaily — 400 needs input (endpoint reachable) Input validation failed
+
+[1m╔══════════════════════════════════════════════════════╗[0m
+[1m║                    TEST SUMMARY                      ║[0m
+[1m╚══════════════════════════════════════════════════════╝[0m
+  Total endpoints in catalog: 1094
+  Tests run: 1112
+  [32mPassed:  934[0m
+  [31mFailed:  8[0m
+  [33mSkipped: 170[0m
+  [35mErrors:  0[0m
+  Time: 33.6s
+
+[31m=== FAILURES (8) ===[0m
+  ✗ GET interviewRecording/recordings/list — 500 server error: Internal server error
+  ✗ GET interviewRecording/recordings/getStatistics — 500 server error: Internal server error
+  ✗ GET linkedinContent/listPosts — 500 server error: Internal server error
+  ✗ GET linkedinContent/listMessages — 500 server error: Internal server error
+  ✗ GET linkedinContent/listProfileAnalyses — 500 server error: Internal server error
+  ✗ GET linkedinContent/getLatestProfileAnalysis — 500 server error: Internal server error
+  ✗ GET linkedinContent/getStats — 500 server error: Internal server error
+  ✗ POST studentProgress/createWeeklySnapshot — 500 server error: Internal server error
+
+  Pass rate (excluding skips): 99.2% (934/942)

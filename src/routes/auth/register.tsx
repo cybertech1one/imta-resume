@@ -8,21 +8,39 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useToggle } from "usehooks-ts";
 import z from "zod";
+import { ErrorComponent } from "@/components/error-component";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { authClient } from "@/integrations/auth/client";
 import { SocialAuth } from "./-components/social-auth";
 
 export const Route = createFileRoute("/auth/register")({
 	component: RouteComponent,
+	errorComponent: ErrorComponent,
 	beforeLoad: async ({ context }) => {
 		if (context.session) throw redirect({ to: "/dashboard", replace: true });
 		if (context.flags.disableSignups) throw redirect({ to: "/auth/login", replace: true });
 		return { session: null };
 	},
 });
+
+const IMTA_PROGRAM_OPTIONS = [
+	{ value: "sage_femme", label: "Sage-Femme" },
+	{ value: "infirmier_polyvalent", label: "Infirmier Polyvalent" },
+	{ value: "aide_soignant", label: "Aide-Soignant" },
+	{ value: "infirmier_auxiliaire", label: "Infirmier Auxiliaire" },
+	{ value: "conducteur_engins", label: "Conducteur d'Engins" },
+	{ value: "mecanique_engins", label: "Mecanique d'Engins" },
+	{ value: "tourneur_industriel", label: "Tourneur Industriel" },
+	{ value: "cariste", label: "Cariste" },
+	{ value: "electromecanique", label: "Electromecanique" },
+	{ value: "soudure", label: "Soudure" },
+	{ value: "hse_specialist", label: "Specialiste HSE" },
+	{ value: "other", label: "Autre" },
+] as const;
 
 const formSchema = z.object({
 	name: z.string().min(3).max(64),
@@ -32,14 +50,41 @@ const formSchema = z.object({
 		.max(64)
 		.trim()
 		.toLowerCase()
-		.regex(/^[a-z0-9._-]+$/, {
-			message: "Username can only contain lowercase letters, numbers, dots, hyphens and underscores.",
-		}),
-	email: z.email().toLowerCase(),
+		.regex(/^[a-z0-9._-]+$/),
+	email: z.string().min(1).email().toLowerCase(),
 	password: z.string().min(6).max(64),
+	imtaProgram: z.string().min(1),
 });
 
 type FormValues = z.infer<typeof formSchema>;
+
+function getFormSchema() {
+	return z.object({
+		name: z
+			.string()
+			.min(3, { message: t`Name must be at least 3 characters` })
+			.max(64, { message: t`Name cannot exceed 64 characters` }),
+		username: z
+			.string()
+			.min(3, { message: t`Username must be at least 3 characters` })
+			.max(64, { message: t`Username cannot exceed 64 characters` })
+			.trim()
+			.toLowerCase()
+			.regex(/^[a-z0-9._-]+$/, {
+				message: t`Le nom d'utilisateur ne peut contenir que des lettres minuscules, chiffres, points, tirets et underscores.`,
+			}),
+		email: z
+			.string()
+			.min(1, { message: t`Email is required` })
+			.email({ message: t`Please enter a valid email address` })
+			.toLowerCase(),
+		password: z
+			.string()
+			.min(6, { message: t`Password must be at least 6 characters` })
+			.max(64, { message: t`Password cannot exceed 64 characters` }),
+		imtaProgram: z.string().min(1, { message: t`Please select your program` }),
+	});
+}
 
 function RouteComponent() {
 	const [submitted, setSubmitted] = useState(false);
@@ -47,13 +92,15 @@ function RouteComponent() {
 	const { flags } = Route.useRouteContext();
 
 	const form = useForm<FormValues>({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(getFormSchema()),
 		defaultValues: {
 			name: "",
 			username: "",
 			email: "",
 			password: "",
+			imtaProgram: "",
 		},
+		mode: "onBlur",
 	});
 
 	const onSubmit = async (data: FormValues) => {
@@ -65,11 +112,16 @@ function RouteComponent() {
 			password: data.password,
 			username: data.username,
 			displayUsername: data.username,
+			imtaProgram: data.imtaProgram,
 			callbackURL: "/dashboard",
 		});
 
 		if (error) {
-			toast.error(error.message, { id: toastId });
+			const message =
+				error.code === "FAILED_TO_CREATE_USER" || error.message?.includes("FAILED_TO_CREATE_USER")
+					? t`An account with this email already exists. Please sign in instead.`
+					: error.message;
+			toast.error(message, { id: toastId });
 			return;
 		}
 
@@ -100,7 +152,12 @@ function RouteComponent() {
 
 			{!flags.disableEmailAuth && (
 				<Form {...form}>
-					<form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+					<form
+						method="POST"
+						className="space-y-6"
+						onSubmit={form.handleSubmit(onSubmit)}
+						aria-label={t`Create account form`}
+					>
 						<FormField
 							control={form.control}
 							name="name"
@@ -110,7 +167,14 @@ function RouteComponent() {
 										<Trans>Name</Trans>
 									</FormLabel>
 									<FormControl>
-										<Input min={3} max={64} autoComplete="name" placeholder="John Doe" {...field} />
+										<Input
+											min={3}
+											max={64}
+											autoComplete="name"
+											placeholder={t`Mohammed El Alami`}
+											aria-required="true"
+											{...field}
+										/>
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -130,12 +194,16 @@ function RouteComponent() {
 											min={3}
 											max={64}
 											autoComplete="username"
-											placeholder="john.doe"
+											placeholder="mohammed.elalami"
 											className="lowercase"
+											aria-required="true"
 											{...field}
 										/>
 									</FormControl>
 									<FormMessage />
+									<FormDescription>
+										<Trans>Uniquement des lettres minuscules, chiffres, points, tirets et underscores</Trans>
+									</FormDescription>
 								</FormItem>
 							)}
 						/>
@@ -152,11 +220,39 @@ function RouteComponent() {
 										<Input
 											type="email"
 											autoComplete="email"
-											placeholder="john.doe@example.com"
+											placeholder="mohammed.elalami@exemple.ma"
 											className="lowercase"
+											aria-required="true"
 											{...field}
 										/>
 									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={form.control}
+							name="imtaProgram"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>
+										<Trans>Program / Formation</Trans>
+									</FormLabel>
+									<Select onValueChange={field.onChange} value={field.value}>
+										<FormControl>
+											<SelectTrigger aria-required="true">
+												<SelectValue placeholder={t`Select your program`} />
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											{IMTA_PROGRAM_OPTIONS.map((option) => (
+												<SelectItem key={option.value} value={option.value}>
+													{option.label}
+												</SelectItem>
+											))}
+										</SelectContent>
+									</Select>
 									<FormMessage />
 								</FormItem>
 							)}
@@ -177,15 +273,26 @@ function RouteComponent() {
 												max={64}
 												type={showPassword ? "text" : "password"}
 												autoComplete="new-password"
+												aria-required="true"
 												{...field}
 											/>
 										</FormControl>
 
-										<Button size="icon" variant="ghost" onClick={toggleShowPassword}>
+										<Button
+											type="button"
+											size="icon"
+											variant="ghost"
+											aria-label={showPassword ? t`Hide password` : t`Show password`}
+											aria-pressed={showPassword}
+											onClick={toggleShowPassword}
+										>
 											{showPassword ? <EyeIcon /> : <EyeSlashIcon />}
 										</Button>
 									</div>
 									<FormMessage />
+									<FormDescription>
+										<Trans>Doit contenir entre 6 et 64 caracteres</Trans>
+									</FormDescription>
 								</FormItem>
 							)}
 						/>

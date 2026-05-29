@@ -17,7 +17,11 @@ import {
 	PlusIcon,
 	RowsPlusBottomIcon,
 	RowsPlusTopIcon,
+	SparkleIcon,
+	SpinnerIcon,
+	StopIcon,
 	TableIcon,
+	TextAaIcon,
 	TextAlignCenterIcon,
 	TextAlignJustifyIcon,
 	TextAlignLeftIcon,
@@ -36,6 +40,7 @@ import {
 	TextUnderlineIcon,
 	TrashSimpleIcon,
 } from "@phosphor-icons/react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Highlight from "@tiptap/extension-highlight";
 import { TableKit } from "@tiptap/extension-table";
 import TextAlign from "@tiptap/extension-text-align";
@@ -48,7 +53,8 @@ import {
 	useEditorState,
 } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useMemo } from "react";
+import { debounce } from "es-toolkit";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { match } from "ts-pattern";
 import z from "zod";
@@ -62,6 +68,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { usePrompt } from "@/hooks/use-prompt";
+import { client, orpc } from "@/integrations/orpc/client";
 import { isRTL } from "@/utils/locale";
 import { sanitizeHtml } from "@/utils/sanitize";
 import { cn } from "@/utils/style";
@@ -98,11 +105,24 @@ type Props = UseEditorOptions & {
 	style?: React.CSSProperties;
 	className?: string;
 	editorClassName?: string;
+	aiContext?: string;
 };
 
-export function RichInput({ value, onChange, style, className, editorClassName, ...options }: Props) {
+export function RichInput({ value, onChange, style, className, editorClassName, aiContext, ...options }: Props) {
 	const { i18n } = useLingui();
 	const textDirection = isRTL(i18n.locale) ? "rtl" : undefined;
+	const isInternalUpdate = useRef(false);
+
+	// Debounce onChange to prevent excessive re-renders during typing
+	// 150ms provides a good balance between responsiveness and performance
+	const debouncedOnChange = useMemo(() => debounce((html: string) => onChange(html), 150), [onChange]);
+
+	// Cleanup debounce on unmount
+	useEffect(() => {
+		return () => {
+			debouncedOnChange.cancel();
+		};
+	}, [debouncedOnChange]);
 
 	const editor = useEditor({
 		...options,
@@ -127,9 +147,23 @@ export function RichInput({ value, onChange, style, className, editorClassName, 
 			},
 		},
 		onUpdate: ({ editor }) => {
-			onChange(editor.getHTML());
+			isInternalUpdate.current = true;
+			debouncedOnChange(editor.getHTML());
 		},
 	});
+
+	// Sync external value changes (e.g., from AI generation) to the editor
+	useEffect(() => {
+		if (!editor) return;
+		if (isInternalUpdate.current) {
+			isInternalUpdate.current = false;
+			return;
+		}
+		const currentContent = editor.getHTML();
+		if (value !== currentContent) {
+			editor.commands.setContent(value, { emitUpdate: false });
+		}
+	}, [editor, value]);
 
 	const providerValue = useMemo(() => ({ editor }), [editor]);
 
@@ -138,15 +172,121 @@ export function RichInput({ value, onChange, style, className, editorClassName, 
 	return (
 		<EditorContext value={providerValue}>
 			<div className={cn("rounded-md", className)} style={style}>
-				<EditorToolbar editor={editor} />
+				<EditorToolbar editor={editor} aiContext={aiContext} language={i18n.locale} />
 				<EditorContent editor={editor} />
 			</div>
 		</EditorContext>
 	);
 }
 
-function EditorToolbar({ editor }: { editor: Editor }) {
+function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiContext?: string; language?: string }) {
 	const prompt = usePrompt();
+	const [isAIStreaming, setIsAIStreaming] = useState(false);
+	const [aiStreamedContent, setAIStreamedContent] = useState("");
+	const aiAbortControllerRef = useRef<AbortController | null>(null);
+	const [isGrammarStreaming, setIsGrammarStreaming] = useState(false);
+	const [grammarStreamedContent, setGrammarStreamedContent] = useState("");
+	const grammarAbortControllerRef = useRef<AbortController | null>(null);
+	const { data: aiStatus } = useQuery(orpc.aiConfig.status.check.queryOptions());
+
+	const aiImproveMutation = useMutation({
+		mutationFn: async () => {
+			const content = editor.getHTML();
+			if (!content.trim() || content === "<p></p>") {
+				throw new Error(t`No content to improve`);
+			}
+
+			aiAbortControllerRef.current = new AbortController();
+			setIsAIStreaming(true);
+			setAIStreamedContent("");
+
+			let fullContent = "";
+
+			const stream = await client.ai.improveContent({
+				content,
+				context: aiContext,
+				language: language || "en",
+			});
+
+			for await (const chunk of stream) {
+				if (aiAbortControllerRef.current?.signal.aborted) break;
+				if (typeof chunk === "string") fullContent += chunk;
+				setAIStreamedContent(fullContent);
+			}
+
+			return fullContent;
+		},
+		onSuccess: (improvedContent) => {
+			editor.commands.setContent(improvedContent);
+			setIsAIStreaming(false);
+			setAIStreamedContent("");
+			toast.success(t`Content improved with AI`);
+		},
+		onError: (error) => {
+			setIsAIStreaming(false);
+			setAIStreamedContent("");
+			if (error.name !== "AbortError") {
+				toast.error(error.message || t`Failed to improve content`);
+			}
+		},
+	});
+
+	const handleAIStop = useCallback(() => {
+		aiAbortControllerRef.current?.abort();
+		setIsAIStreaming(false);
+		if (aiStreamedContent) {
+			editor.commands.setContent(aiStreamedContent);
+		}
+	}, [aiStreamedContent, editor]);
+
+	const fixGrammarMutation = useMutation({
+		mutationFn: async () => {
+			const content = editor.getHTML();
+			if (!content.trim() || content === "<p></p>") {
+				throw new Error(t`No content to fix`);
+			}
+
+			grammarAbortControllerRef.current = new AbortController();
+			setIsGrammarStreaming(true);
+			setGrammarStreamedContent("");
+
+			let fullContent = "";
+
+			const stream = await client.ai.fixGrammar({
+				content,
+				language: language || "en",
+			});
+
+			for await (const chunk of stream) {
+				if (grammarAbortControllerRef.current?.signal.aborted) break;
+				if (typeof chunk === "string") fullContent += chunk;
+				setGrammarStreamedContent(fullContent);
+			}
+
+			return fullContent;
+		},
+		onSuccess: (fixedContent) => {
+			editor.commands.setContent(fixedContent);
+			setIsGrammarStreaming(false);
+			setGrammarStreamedContent("");
+			toast.success(t`Grammar fixed with AI`);
+		},
+		onError: (error) => {
+			setIsGrammarStreaming(false);
+			setGrammarStreamedContent("");
+			if (error.name !== "AbortError") {
+				toast.error(error.message || t`Failed to fix grammar`);
+			}
+		},
+	});
+
+	const handleGrammarStop = useCallback(() => {
+		grammarAbortControllerRef.current?.abort();
+		setIsGrammarStreaming(false);
+		if (grammarStreamedContent) {
+			editor.commands.setContent(grammarStreamedContent);
+		}
+	}, [grammarStreamedContent, editor]);
 
 	const state = useEditorState({
 		editor,
@@ -311,17 +451,22 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 	});
 
 	return (
-		<div className="flex flex-wrap items-center gap-y-0.5 rounded-md rounded-b-none border border-b-0">
+		<div
+			role="toolbar"
+			aria-label={t`Text formatting toolbar`}
+			className="flex flex-wrap items-center gap-y-0.5 rounded-md rounded-b-none border border-b-0"
+		>
 			<Toggle
 				size="sm"
 				tabIndex={-1}
 				className="rounded-none"
 				title={t`Bold`}
+				aria-label={t`Bold`}
 				pressed={state.isBold}
 				disabled={!state.canBold}
 				onPressedChange={state.toggleBold}
 			>
-				<TextBolderIcon className="size-3.5" />
+				<TextBolderIcon className="size-3.5" aria-hidden="true" />
 			</Toggle>
 
 			<Toggle
@@ -329,11 +474,12 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 				tabIndex={-1}
 				className="rounded-none"
 				title={t`Italic`}
+				aria-label={t`Italic`}
 				pressed={state.isItalic}
 				disabled={!state.canItalic}
 				onPressedChange={state.toggleItalic}
 			>
-				<TextItalicIcon className="size-3.5" />
+				<TextItalicIcon className="size-3.5" aria-hidden="true" />
 			</Toggle>
 
 			<Toggle
@@ -341,11 +487,12 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 				tabIndex={-1}
 				className="rounded-none"
 				title={t`Underline`}
+				aria-label={t`Underline`}
 				pressed={state.isUnderline}
 				disabled={!state.canUnderline}
 				onPressedChange={state.toggleUnderline}
 			>
-				<TextUnderlineIcon className="size-3.5" />
+				<TextUnderlineIcon className="size-3.5" aria-hidden="true" />
 			</Toggle>
 
 			<Toggle
@@ -353,11 +500,12 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 				tabIndex={-1}
 				className="rounded-none"
 				title={t`Strike`}
+				aria-label={t`Strikethrough`}
 				pressed={state.isStrike}
 				disabled={!state.canStrike}
 				onPressedChange={state.toggleStrike}
 			>
-				<TextStrikethroughIcon className="size-3.5" />
+				<TextStrikethroughIcon className="size-3.5" aria-hidden="true" />
 			</Toggle>
 
 			<Toggle
@@ -365,28 +513,29 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 				tabIndex={-1}
 				className="rounded-none"
 				title={t`Highlight`}
+				aria-label={t`Highlight`}
 				pressed={state.isHighlight}
 				disabled={!state.canHighlight}
 				onPressedChange={state.toggleHighlight}
 			>
-				<HighlighterCircleIcon className="size-3.5" />
+				<HighlighterCircleIcon className="size-3.5" aria-hidden="true" />
 			</Toggle>
 
-			<div className="mx-1 h-5 w-px bg-border" />
+			<div className="mx-1 h-5 w-px bg-border" aria-hidden="true" />
 
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button size="sm" tabIndex={-1} variant="ghost" className="rounded-none">
+					<Button size="sm" tabIndex={-1} variant="ghost" className="rounded-none" aria-label={t`Text style`}>
 						{match(state)
-							.with({ isParagraph: true }, () => <ParagraphIcon className="size-3.5" />)
-							.with({ isHeading1: true }, () => <TextHOneIcon className="size-3.5" />)
-							.with({ isHeading2: true }, () => <TextHTwoIcon className="size-3.5" />)
-							.with({ isHeading3: true }, () => <TextHThreeIcon className="size-3.5" />)
-							.with({ isHeading4: true }, () => <TextHFourIcon className="size-3.5" />)
-							.with({ isHeading5: true }, () => <TextHFiveIcon className="size-3.5" />)
-							.with({ isHeading6: true }, () => <TextHSixIcon className="size-3.5" />)
+							.with({ isParagraph: true }, () => <ParagraphIcon className="size-3.5" aria-hidden="true" />)
+							.with({ isHeading1: true }, () => <TextHOneIcon className="size-3.5" aria-hidden="true" />)
+							.with({ isHeading2: true }, () => <TextHTwoIcon className="size-3.5" aria-hidden="true" />)
+							.with({ isHeading3: true }, () => <TextHThreeIcon className="size-3.5" aria-hidden="true" />)
+							.with({ isHeading4: true }, () => <TextHFourIcon className="size-3.5" aria-hidden="true" />)
+							.with({ isHeading5: true }, () => <TextHFiveIcon className="size-3.5" aria-hidden="true" />)
+							.with({ isHeading6: true }, () => <TextHSixIcon className="size-3.5" aria-hidden="true" />)
 							.otherwise(() => (
-								<ParagraphIcon className="size-3.5" />
+								<ParagraphIcon className="size-3.5" aria-hidden="true" />
 							))}
 					</Button>
 				</DropdownMenuTrigger>
@@ -446,14 +595,14 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button size="sm" tabIndex={-1} variant="ghost" className="rounded-none">
+					<Button size="sm" tabIndex={-1} variant="ghost" className="rounded-none" aria-label={t`Text alignment`}>
 						{match(state)
-							.with({ isLeftAlign: true }, () => <TextAlignLeftIcon className="size-3.5" />)
-							.with({ isCenterAlign: true }, () => <TextAlignCenterIcon className="size-3.5" />)
-							.with({ isRightAlign: true }, () => <TextAlignRightIcon className="size-3.5" />)
-							.with({ isJustifyAlign: true }, () => <TextAlignJustifyIcon className="size-3.5" />)
+							.with({ isLeftAlign: true }, () => <TextAlignLeftIcon className="size-3.5" aria-hidden="true" />)
+							.with({ isCenterAlign: true }, () => <TextAlignCenterIcon className="size-3.5" aria-hidden="true" />)
+							.with({ isRightAlign: true }, () => <TextAlignRightIcon className="size-3.5" aria-hidden="true" />)
+							.with({ isJustifyAlign: true }, () => <TextAlignJustifyIcon className="size-3.5" aria-hidden="true" />)
 							.otherwise(() => (
-								<TextAlignLeftIcon className="size-3.5" />
+								<TextAlignLeftIcon className="size-3.5" aria-hidden="true" />
 							))}
 					</Button>
 				</DropdownMenuTrigger>
@@ -489,18 +638,19 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 				</DropdownMenuContent>
 			</DropdownMenu>
 
-			<div className="mx-1 h-5 w-px bg-border" />
+			<div className="mx-1 h-5 w-px bg-border" aria-hidden="true" />
 
 			<Toggle
 				size="sm"
 				tabIndex={-1}
 				className="rounded-none"
 				title={t`Bullet List`}
+				aria-label={t`Bullet List`}
 				pressed={state.isBulletList}
 				disabled={!state.canBulletList}
 				onPressedChange={state.toggleBulletList}
 			>
-				<ListBulletsIcon className="size-3.5" />
+				<ListBulletsIcon className="size-3.5" aria-hidden="true" />
 			</Toggle>
 
 			<Toggle
@@ -508,11 +658,12 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 				tabIndex={-1}
 				className="rounded-none"
 				title={t`Ordered List`}
+				aria-label={t`Ordered List`}
 				pressed={state.isOrderedList}
 				disabled={!state.canOrderedList}
 				onPressedChange={state.toggleOrderedList}
 			>
-				<ListNumbersIcon className="size-3.5" />
+				<ListNumbersIcon className="size-3.5" aria-hidden="true" />
 			</Toggle>
 
 			<Button
@@ -520,10 +671,12 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 				tabIndex={-1}
 				variant="ghost"
 				className="rounded-none"
+				title={t`Decrease indent`}
+				aria-label={t`Decrease indent`}
 				disabled={!state.canLiftListItem}
 				onClick={state.liftListItem}
 			>
-				<TextOutdentIcon className="size-3.5" />
+				<TextOutdentIcon className="size-3.5" aria-hidden="true" />
 			</Button>
 
 			<Button
@@ -531,21 +684,39 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 				tabIndex={-1}
 				variant="ghost"
 				className="rounded-none"
+				title={t`Increase indent`}
+				aria-label={t`Increase indent`}
 				disabled={!state.canSinkListItem}
 				onClick={state.sinkListItem}
 			>
-				<TextIndentIcon className="size-3.5" />
+				<TextIndentIcon className="size-3.5" aria-hidden="true" />
 			</Button>
 
-			<div className="mx-1 h-5 w-px bg-border" />
+			<div className="mx-1 h-5 w-px bg-border" aria-hidden="true" />
 
 			{state.isLink ? (
-				<Button size="sm" tabIndex={-1} variant="ghost" className="rounded-none" onClick={state.unsetLink}>
-					<LinkBreakIcon className="size-3.5" />
+				<Button
+					size="sm"
+					tabIndex={-1}
+					variant="ghost"
+					className="rounded-none"
+					title={t`Remove link`}
+					aria-label={t`Remove link`}
+					onClick={state.unsetLink}
+				>
+					<LinkBreakIcon className="size-3.5" aria-hidden="true" />
 				</Button>
 			) : (
-				<Button size="sm" tabIndex={-1} variant="ghost" className="rounded-none" onClick={state.setLink}>
-					<LinkIcon className="size-3.5" />
+				<Button
+					size="sm"
+					tabIndex={-1}
+					variant="ghost"
+					className="rounded-none"
+					title={t`Add link`}
+					aria-label={t`Add link`}
+					onClick={state.setLink}
+				>
+					<LinkIcon className="size-3.5" aria-hidden="true" />
 				</Button>
 			)}
 
@@ -554,11 +725,12 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 				tabIndex={-1}
 				className="rounded-none"
 				title={t`Inline Code`}
+				aria-label={t`Inline Code`}
 				pressed={state.isInlineCode}
 				disabled={!state.canInlineCode}
 				onPressedChange={state.toggleInlineCode}
 			>
-				<CodeSimpleIcon className="size-3.5" />
+				<CodeSimpleIcon className="size-3.5" aria-hidden="true" />
 			</Toggle>
 
 			<Toggle
@@ -566,55 +738,63 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 				tabIndex={-1}
 				className="rounded-none"
 				title={t`Code Block`}
+				aria-label={t`Code Block`}
 				pressed={state.isCodeBlock}
 				disabled={!state.canCodeBlock}
 				onPressedChange={state.toggleCodeBlock}
 			>
-				<CodeBlockIcon className="size-3.5" />
+				<CodeBlockIcon className="size-3.5" aria-hidden="true" />
 			</Toggle>
 
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button size="sm" tabIndex={-1} variant="ghost" className="rounded-none" title={t`Table`}>
-						<TableIcon className="size-3.5" />
+					<Button
+						size="sm"
+						tabIndex={-1}
+						variant="ghost"
+						className="rounded-none"
+						title={t`Table`}
+						aria-label={t`Table options`}
+					>
+						<TableIcon className="size-3.5" aria-hidden="true" />
 					</Button>
 				</DropdownMenuTrigger>
 
 				<DropdownMenuContent>
 					<DropdownMenuItem disabled={!state.canInsertTable} onSelect={state.insertTable}>
-						<PlusIcon />
+						<PlusIcon aria-hidden="true" />
 						<Trans>Insert Table</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem disabled={!state.canAddColumnBefore} onSelect={state.addColumnBefore}>
-						<ColumnsPlusLeftIcon />
+						<ColumnsPlusLeftIcon aria-hidden="true" />
 						<Trans>Add Column Before</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuItem disabled={!state.canAddColumnAfter} onSelect={state.addColumnAfter}>
-						<ColumnsPlusRightIcon />
+						<ColumnsPlusRightIcon aria-hidden="true" />
 						<Trans>Add Column After</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem disabled={!state.canAddRowBefore} onSelect={state.addRowBefore}>
-						<RowsPlusTopIcon />
+						<RowsPlusTopIcon aria-hidden="true" />
 						<Trans>Add Row Before</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuItem disabled={!state.canAddRowAfter} onSelect={state.addRowAfter}>
-						<RowsPlusBottomIcon />
+						<RowsPlusBottomIcon aria-hidden="true" />
 						<Trans>Add Row After</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem disabled={!state.canDeleteColumn} onSelect={state.deleteColumn}>
-						<TrashSimpleIcon />
+						<TrashSimpleIcon aria-hidden="true" />
 						<Trans>Delete Column</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuItem disabled={!state.canDeleteRow} onSelect={state.deleteRow}>
-						<TrashSimpleIcon />
+						<TrashSimpleIcon aria-hidden="true" />
 						<Trans>Delete Row</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem variant="destructive" disabled={!state.canDeleteTable} onSelect={state.deleteTable}>
-						<TrashSimpleIcon />
+						<TrashSimpleIcon aria-hidden="true" />
 						<Trans>Delete Table</Trans>
 					</DropdownMenuItem>
 				</DropdownMenuContent>
@@ -626,9 +806,10 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 				variant="ghost"
 				className="rounded-none"
 				title={t`New Line`}
+				aria-label={t`Insert line break`}
 				onClick={state.setHardBreak}
 			>
-				<KeyReturnIcon className="size-3.5" />
+				<KeyReturnIcon className="size-3.5" aria-hidden="true" />
 			</Button>
 
 			<Button
@@ -637,10 +818,53 @@ function EditorToolbar({ editor }: { editor: Editor }) {
 				variant="ghost"
 				className="rounded-none"
 				title={t`Separator`}
+				aria-label={t`Insert horizontal rule`}
 				onClick={state.setHorizontalRule}
 			>
-				<MinusIcon className="size-3.5" />
+				<MinusIcon className="size-3.5" aria-hidden="true" />
 			</Button>
+
+			{aiStatus?.available && (
+				<>
+					<div className="mx-1 h-5 w-px bg-border" aria-hidden="true" />
+					<Button
+						size="sm"
+						tabIndex={-1}
+						variant="ghost"
+						className="rounded-none text-purple-600 hover:bg-purple-50 dark:text-purple-400 dark:hover:bg-purple-900/20"
+						title={isAIStreaming ? t`Stop AI` : t`Improve with AI`}
+						aria-label={isAIStreaming ? t`Stop AI improvement` : t`Improve content with AI`}
+						disabled={(aiImproveMutation.isPending && !isAIStreaming) || isGrammarStreaming}
+						onClick={isAIStreaming ? handleAIStop : () => aiImproveMutation.mutate()}
+					>
+						{isAIStreaming ? (
+							<StopIcon className="size-3.5" aria-hidden="true" />
+						) : aiImproveMutation.isPending ? (
+							<SpinnerIcon className="size-3.5 animate-spin" aria-hidden="true" />
+						) : (
+							<SparkleIcon className="size-3.5" aria-hidden="true" />
+						)}
+					</Button>
+					<Button
+						size="sm"
+						tabIndex={-1}
+						variant="ghost"
+						className="rounded-none text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/20"
+						title={isGrammarStreaming ? t`Stop` : t`Fix Grammar`}
+						aria-label={isGrammarStreaming ? t`Stop grammar fix` : t`Fix grammar with AI`}
+						disabled={(fixGrammarMutation.isPending && !isGrammarStreaming) || isAIStreaming}
+						onClick={isGrammarStreaming ? handleGrammarStop : () => fixGrammarMutation.mutate()}
+					>
+						{isGrammarStreaming ? (
+							<StopIcon className="size-3.5" aria-hidden="true" />
+						) : fixGrammarMutation.isPending ? (
+							<SpinnerIcon className="size-3.5 animate-spin" aria-hidden="true" />
+						) : (
+							<TextAaIcon className="size-3.5" aria-hidden="true" />
+						)}
+					</Button>
+				</>
+			)}
 		</div>
 	);
 }

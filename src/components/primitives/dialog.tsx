@@ -53,7 +53,7 @@ function DialogOverlay({ transition = { duration: 0.2, ease: "easeInOut" }, ...p
 		<DialogPrimitive.Overlay data-slot="dialog-overlay" asChild forceMount>
 			<motion.div
 				key="dialog-overlay"
-				initial={{ opacity: 0, filter: "blur(4px)" }}
+				initial={false}
 				animate={{ opacity: 1, filter: "blur(0px)" }}
 				exit={{ opacity: 0, filter: "blur(4px)" }}
 				transition={transition}

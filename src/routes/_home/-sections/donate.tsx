@@ -1,240 +1,126 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
+import type { Icon } from "@phosphor-icons/react";
 import {
-	GithubLogoIcon,
-	HeartIcon,
-	type IconProps,
-	RocketIcon,
+	BookOpenIcon,
+	BriefcaseIcon,
+	CheckCircleIcon,
+	GraduationCapIcon,
+	LockSimpleIcon,
+	ShieldCheckIcon,
 	SparkleIcon,
 	UsersIcon,
-	WrenchIcon,
 } from "@phosphor-icons/react";
-import { motion } from "motion/react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/utils/style";
 
-type FloatingIconProps = {
-	icon: React.ElementType;
-	className?: string;
-	delay?: number;
-};
+const PAPER = "oklch(0.985 0.008 90)";
 
-const FloatingIcon = ({ icon: Icon, className, delay = 0 }: FloatingIconProps) => (
-	<motion.div
-		className={cn("absolute text-primary/20", className)}
-		animate={{
-			y: [0, -12, 0],
-			rotate: [0, 5, -5, 0],
-			scale: [1, 1.1, 1],
-		}}
-		transition={{
-			duration: 4,
-			repeat: Infinity,
-			delay,
-			ease: "easeInOut",
-		}}
-	>
-		<Icon size={32} weight="duotone" />
-	</motion.div>
-);
-
-const PulsingHeart = () => (
-	<motion.div
-		className="relative inline-flex items-center justify-center"
-		animate={{
-			scale: [1, 1.15, 1],
-		}}
-		transition={{
-			duration: 1.5,
-			repeat: Infinity,
-			ease: "easeInOut",
-		}}
-	>
-		<HeartIcon size={48} weight="fill" className="text-rose-500" />
-		<motion.div
-			className="absolute inset-0 flex items-center justify-center"
-			animate={{
-				scale: [1, 1.8],
-				opacity: [0.6, 0],
-			}}
-			transition={{
-				duration: 1.5,
-				repeat: Infinity,
-				ease: "easeOut",
-			}}
-		>
-			<HeartIcon size={48} weight="fill" className="text-rose-500" />
-		</motion.div>
-	</motion.div>
-);
-
-type SparkleEffectProps = {
-	className?: string;
-};
-
-const SparkleEffect = ({ className }: SparkleEffectProps) => (
-	<motion.div
-		className={cn("absolute", className)}
-		animate={{
-			scale: [0, 1, 0],
-			opacity: [0, 1, 0],
-			rotate: [0, 180],
-		}}
-		transition={{
-			duration: 2,
-			repeat: Infinity,
-			ease: "easeInOut",
-		}}
-	>
-		<SparkleIcon size={16} weight="fill" className="text-amber-400" />
-	</motion.div>
-);
-
-type FeatureCardProps = {
-	icon: React.ElementType<IconProps>;
+type Reason = {
+	icon: Icon;
 	title: string;
 	description: string;
-	delay: number;
 };
 
-const FeatureCard = ({ icon: Icon, title, description, delay }: FeatureCardProps) => (
-	<motion.div
-		className="group relative flex flex-col items-center gap-3 rounded-2xl border border-border/50 bg-card/50 p-6 text-center backdrop-blur-sm transition-colors hover:border-primary/30 hover:bg-card/80"
-		initial={{ opacity: 0, y: 20 }}
-		whileInView={{ opacity: 1, y: 0 }}
-		viewport={{ once: true }}
-		transition={{ duration: 0.5, delay }}
-		whileHover={{ y: -4 }}
-	>
-		<motion.div
-			aria-hidden="true"
-			className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/20"
-			whileHover={{ rotate: [0, -10, 10, 0] }}
-			transition={{ duration: 0.4 }}
-		>
-			<Icon size={24} weight="light" />
-		</motion.div>
-		<h3 className="font-semibold tracking-tight">{title}</h3>
-		<p className="text-muted-foreground leading-relaxed">{description}</p>
-	</motion.div>
-);
+const getReasons = (): Reason[] => [
+	{
+		icon: BriefcaseIcon,
+		title: t`Spécialisé métiers`,
+		description: t`Des conseils adaptés aux filières, stages et compétences techniques.`,
+	},
+	{
+		icon: SparkleIcon,
+		title: t`Assistant IA intégré`,
+		description: t`Des suggestions pour améliorer le CV et préparer les entretiens.`,
+	},
+	{
+		icon: CheckCircleIcon,
+		title: t`100% gratuit`,
+		description: t`Toutes les fonctionnalités essentielles restent accessibles sans abonnement.`,
+	},
+	{
+		icon: ShieldCheckIcon,
+		title: t`Optimisé ATS`,
+		description: t`Des formats lisibles par les recruteurs et les outils de tri automatique.`,
+	},
+	{
+		icon: LockSimpleIcon,
+		title: t`Données protégées`,
+		description: t`Tes informations restent sous contrôle et ne sont pas revendues.`,
+	},
+	{
+		icon: UsersIcon,
+		title: t`Support étudiant`,
+		description: t`Un parcours simple pour créer, corriger, exporter et partager son CV.`,
+	},
+];
 
-export const DonationBanner = () => (
-	<section className="relative overflow-hidden bg-linear-to-b from-background via-primary/2 to-background py-24">
-		{/* Background decorative elements */}
-		<div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-			<FloatingIcon icon={HeartIcon} className="top-[20%] left-[10%]" delay={0} />
-			<FloatingIcon icon={SparkleIcon} className="top-[15%] right-[15%]" delay={0.5} />
-			<FloatingIcon icon={UsersIcon} className="bottom-[25%] left-[8%]" delay={1} />
-			<FloatingIcon icon={WrenchIcon} className="right-[12%] bottom-[30%]" delay={1.5} />
-			<FloatingIcon icon={RocketIcon} className="top-[35%] right-[25%]" delay={2} />
-			<FloatingIcon icon={HeartIcon} className="bottom-[20%] left-[20%]" delay={2.5} />
+function ReasonCard({ reason }: { reason: Reason }) {
+	const ReasonIcon = reason.icon;
 
-			{/* Gradient Orbs */}
-			<div className="absolute -start-32 top-1/4 size-64 rounded-full bg-primary/5 blur-3xl" />
-			<div className="absolute -end-32 bottom-1/4 size-64 rounded-full bg-rose-500/5 blur-3xl" />
-		</div>
+	return (
+		<article className="rounded-lg border border-zinc-200 bg-white p-5">
+			<div className="mb-5 flex size-11 items-center justify-center rounded-md bg-emerald-50 text-emerald-800">
+				<ReasonIcon aria-hidden="true" className="size-6" weight="duotone" />
+			</div>
+			<h3 className="mb-2 font-semibold text-lg text-zinc-950">{reason.title}</h3>
+			<p className="text-[15px] text-zinc-600 leading-6">{reason.description}</p>
+		</article>
+	);
+}
 
-		<div className="container relative px-8">
-			{/* Header */}
-			<motion.div
-				className="flex flex-col items-center text-center"
-				initial={{ opacity: 0, y: 20 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				viewport={{ once: true }}
-				transition={{ duration: 0.6 }}
-			>
-				<div aria-hidden="true" className="relative mb-6">
-					<PulsingHeart />
-					<SparkleEffect className="-end-4 -top-2" />
-					<SparkleEffect className="-start-3 bottom-0" />
+export const DonationBanner = () => {
+	const reasons = getReasons();
+
+	return (
+		<section id="why-imta" className="py-16 md:py-20" style={{ background: PAPER }}>
+			<div className="mx-auto max-w-7xl px-6 lg:px-10">
+				<div className="mx-auto mb-10 max-w-3xl text-center">
+					<div className="mx-auto mb-6 flex size-12 items-center justify-center rounded-md bg-emerald-800 text-white">
+						<GraduationCapIcon aria-hidden="true" className="size-7" weight="duotone" />
+					</div>
+					<p className="mb-4 font-semibold text-emerald-800 text-sm">
+						<Trans>Pourquoi choisir IMTA Resume ?</Trans>
+					</p>
+					<h2 className="font-display text-4xl text-zinc-950 leading-tight md:text-5xl">
+						<Trans>Un espace fait pour les étudiants et les métiers du terrain.</Trans>
+					</h2>
+					<p className="mx-auto mt-5 max-w-2xl text-zinc-600 leading-7">
+						<Trans>
+							IMTA Resume aide les étudiants et jeunes professionnels au Maroc à présenter leurs compétences avec un CV
+							propre, clair et adapté aux recruteurs.
+						</Trans>
+					</p>
 				</div>
 
-				<motion.h2
-					className="mb-6 font-semibold text-2xl tracking-tight md:text-4xl xl:text-5xl"
-					initial={{ opacity: 0, y: 20 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true }}
-					transition={{ duration: 0.6, delay: 0.1 }}
-				>
-					<Trans>Support Reactive Resume</Trans>
-				</motion.h2>
+				<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+					{reasons.map((reason) => (
+						<ReasonCard key={reason.title} reason={reason} />
+					))}
+				</div>
 
-				<motion.p
-					className="max-w-3xl text-base text-muted-foreground leading-relaxed"
-					initial={{ opacity: 0, y: 20 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true }}
-					transition={{ duration: 0.6, delay: 0.2 }}
-				>
-					<Trans>
-						Reactive Resume is a free and open-source project, built with love and maintained by me and a community of
-						contributors. Your donations help keep the lights on and the code flowing.
-					</Trans>
-				</motion.p>
-			</motion.div>
+				<div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+					<a
+						href="https://imta.ma"
+						target="_blank"
+						rel="noopener"
+						className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-emerald-800 px-6 font-semibold text-white hover:bg-emerald-900"
+					>
+						<GraduationCapIcon aria-hidden="true" weight="fill" />
+						<Trans>Visiter IMTA.ma</Trans>
+						<span className="sr-only"> ({t`s'ouvre dans un nouvel onglet`})</span>
+					</a>
 
-			{/* Feature cards */}
-			<div className="mx-auto my-12 grid max-w-5xl gap-8 sm:grid-cols-3">
-				<FeatureCard
-					icon={RocketIcon}
-					title={t`Long-term Sustainability`}
-					description={t`Your support ensures the project remains free and accessible for everyone, now and in the future.`}
-					delay={0.3}
-				/>
-				<FeatureCard
-					icon={WrenchIcon}
-					title={t`Ongoing Maintenance`}
-					description={t`Contributions fund bug fixes, security updates, and continuous improvements to keep the app running smoothly.`}
-					delay={0.4}
-				/>
-				<FeatureCard
-					icon={UsersIcon}
-					title={t`Grow the Team`}
-					description={t`Help me bring more experienced contributors on board, reducing the burden on a single maintainer and accelerating development.`}
-					delay={0.5}
-				/>
+					<a
+						href="https://imta.ma/programs"
+						target="_blank"
+						rel="noopener"
+						className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-zinc-300 bg-white px-6 font-semibold text-zinc-900 hover:border-emerald-800 hover:text-emerald-900"
+					>
+						<BookOpenIcon aria-hidden="true" weight="fill" />
+						<Trans>Découvrir les programmes</Trans>
+						<span className="sr-only"> ({t`s'ouvre dans un nouvel onglet`})</span>
+					</a>
+				</div>
 			</div>
-
-			{/* CTA Buttons */}
-			<motion.div
-				className="flex flex-col items-center justify-center gap-4 sm:flex-row"
-				initial={{ opacity: 0, y: 20 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				viewport={{ once: true }}
-				transition={{ duration: 0.6, delay: 0.6 }}
-			>
-				<Button asChild size="lg" className="h-11 gap-2 px-6">
-					<a href="https://opencollective.com/reactive-resume" target="_blank" rel="noopener">
-						<HeartIcon aria-hidden="true" weight="fill" className="text-rose-400 dark:text-rose-600" />
-						Open Collective
-						<span className="sr-only"> ({t`opens in new tab`})</span>
-					</a>
-				</Button>
-
-				<Button asChild size="lg" className="h-11 gap-2 px-6">
-					<a href="https://github.com/sponsors/AmruthPillai" target="_blank" rel="noopener">
-						<GithubLogoIcon aria-hidden="true" weight="fill" className="text-zinc-400 dark:text-zinc-600" />
-						GitHub Sponsors
-						<span className="sr-only"> ({t`opens in new tab`})</span>
-					</a>
-				</Button>
-			</motion.div>
-
-			{/* Footer note */}
-			<motion.p
-				className="mt-8 text-center text-muted-foreground leading-relaxed"
-				initial={{ opacity: 0 }}
-				whileInView={{ opacity: 1 }}
-				viewport={{ once: true }}
-				transition={{ duration: 0.6, delay: 0.8 }}
-			>
-				<Trans>
-					Every contribution, big or small, makes a huge difference to the project.
-					<br />
-					Thank you for your support!
-				</Trans>
-			</motion.p>
-		</div>
-	</section>
-);
+		</section>
+	);
+};

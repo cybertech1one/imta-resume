@@ -1,3 +1,4 @@
+import { sanitizeUrl } from "@/utils/sanitize";
 import { cn } from "@/utils/style";
 
 type Props = {
@@ -10,7 +11,12 @@ export function PageLink({ url, label, className }: Props) {
 	if (!url) return null;
 
 	return (
-		<a href={url} target="_blank" rel="noopener" className={cn("inline-block text-wrap break-all", className)}>
+		<a
+			href={sanitizeUrl(url)}
+			target="_blank"
+			rel="noopener noreferrer"
+			className={cn("inline-block text-wrap break-all", className)}
+		>
 			{label || url}
 		</a>
 	);

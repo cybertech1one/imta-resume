@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Command, CommandEmpty, CommandInput, CommandList } from "../ui/command";
+import { GlobalSearchResults, RecentSearchesGroup } from "./pages/global-search";
 import { NavigationCommandGroup } from "./pages/navigation";
 import { PreferencesCommandGroup } from "./pages/preferences";
 import { ResumesCommandGroup } from "./pages/resumes";
@@ -105,9 +106,16 @@ export function CommandPalette() {
 
 					<CommandList>
 						<CommandEmpty>
-							<Trans>The command you're looking for doesn't exist.</Trans>
+							<Trans>No results found. Try a different search term.</Trans>
 						</CommandEmpty>
 
+						{/* Recent searches - shown when search is empty */}
+						<RecentSearchesGroup />
+
+						{/* Global search results - shown when searching */}
+						<GlobalSearchResults />
+
+						{/* Existing command groups */}
 						<ResumesCommandGroup />
 						<PreferencesCommandGroup />
 						<NavigationCommandGroup />

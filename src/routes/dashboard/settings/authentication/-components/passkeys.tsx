@@ -35,11 +35,7 @@ export function PasskeysSection() {
 	};
 
 	return (
-		<motion.div
-			initial={{ opacity: 0, y: -20 }}
-			animate={{ opacity: 1, y: 0 }}
-			transition={{ duration: 0.3, delay: 0.3 }}
-		>
+		<motion.div initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.3 }}>
 			<Separator />
 
 			<div className="mt-4 flex items-center justify-between gap-x-4">
@@ -95,7 +91,7 @@ function PasskeyItem({ passkey }: PasskeyItemProps) {
 	return (
 		<motion.div
 			key={passkey.id}
-			initial={{ opacity: 0, y: -20 }}
+			initial={false}
 			animate={{ opacity: 1, y: 0 }}
 			exit={{ opacity: 0, y: -20 }}
 			className="mt-3 flex items-center"

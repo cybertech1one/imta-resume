@@ -72,7 +72,7 @@ export function BuilderDock() {
 	}, [resume?.data]);
 
 	const onDownloadPDF = useCallback(async () => {
-		if (!resume?.id) return;
+		if (!resume?.id || !resume?.data) return;
 
 		const filename = generateFilename(resume.data.basics.name, "pdf");
 		const toastId = toast.loading(t`Please wait while your PDF is being generated...`, {
@@ -88,12 +88,12 @@ export function BuilderDock() {
 		} finally {
 			toast.dismiss(toastId);
 		}
-	}, [resume?.id, resume?.data.basics.name, printResumeAsPDF]);
+	}, [resume?.id, resume?.data, printResumeAsPDF]);
 
 	return (
 		<div className="fixed inset-x-0 bottom-4 flex items-center justify-center">
 			<motion.div
-				initial={{ opacity: 0, y: -50 }}
+				initial={false}
 				animate={{ opacity: 0.5, y: 0 }}
 				whileHover={{ opacity: 1 }}
 				transition={{ duration: 0.2 }}
@@ -148,8 +148,15 @@ function DockIcon({ icon: Icon, title, disabled, onClick, iconClassName }: DockI
 	return (
 		<Tooltip>
 			<TooltipTrigger asChild>
-				<Button size="icon" variant="ghost" disabled={disabled} onClick={onClick}>
-					<Icon className={cn("size-4", iconClassName)} />
+				<Button
+					size="icon"
+					variant="ghost"
+					disabled={disabled}
+					onClick={onClick}
+					aria-label={title}
+					className="min-h-[44px] min-w-[44px]"
+				>
+					<Icon className={cn("size-5", iconClassName)} aria-hidden="true" />
 				</Button>
 			</TooltipTrigger>
 			<TooltipContent side="top" align="center" className="font-medium">

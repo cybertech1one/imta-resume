@@ -439,6 +439,12 @@ export class ReactiveResumeV4JSONImporter {
 						text: field.text ?? "",
 						link: "",
 					})),
+					// Morocco-specific fields (default values)
+					cin: "",
+					militaryServiceStatus: "not-applicable",
+					dateOfBirth: "",
+					nationality: "",
+					maritalStatus: "",
 				},
 				summary: {
 					title: v4Data.sections.summary?.name ?? "",
@@ -664,6 +670,13 @@ export class ReactiveResumeV4JSONImporter {
 								description: item.summary ?? "",
 							})),
 					},
+					// IMTA/Morocco-specific: Internships section (v4 doesn't have this, initialize empty)
+					internships: {
+						title: "",
+						columns: 1,
+						hidden: true,
+						items: [],
+					},
 				},
 				customSections: Object.entries(v4Data.sections.custom ?? {}).map(([sectionId, section]) => ({
 					id: section.id || sectionId,
@@ -713,7 +726,7 @@ export class ReactiveResumeV4JSONImporter {
 						marginX: nonNegative(v4Data.metadata.page?.margin ?? 14),
 						marginY: nonNegative(v4Data.metadata.page?.margin ?? 14),
 						format: v4Data.metadata.page?.format ?? "a4",
-						locale: "en-US",
+						locale: "fr-FR",
 						hideIcons: v4Data.metadata.typography?.hideIcons ?? false,
 					},
 					design: {

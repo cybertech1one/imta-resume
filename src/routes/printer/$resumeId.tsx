@@ -2,6 +2,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
 import { useEffect } from "react";
 import { z } from "zod";
+import { ErrorComponent } from "@/components/error-component";
 import { LoadingScreen } from "@/components/layout/loading-screen";
 import { ResumePreview } from "@/components/resume/preview";
 import { useResumeStore } from "@/components/resume/store/resume";
@@ -15,6 +16,7 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/printer/$resumeId")({
 	component: RouteComponent,
+	errorComponent: ErrorComponent,
 	validateSearch: zodValidator(searchSchema),
 	beforeLoad: async ({ params, search }) => {
 		if (env.FLAG_DEBUG_PRINTER) return;

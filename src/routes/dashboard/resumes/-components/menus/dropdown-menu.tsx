@@ -54,6 +54,13 @@ export function ResumeDropdownMenu({ resume, children, ...props }: Props) {
 		setLockedResume(
 			{ id: resume.id, isLocked: !resume.isLocked },
 			{
+				onSuccess: () => {
+					toast.success(
+						resume.isLocked
+							? t`Your resume has been unlocked successfully.`
+							: t`Your resume has been locked successfully.`,
+					);
+				},
 				onError: (error) => {
 					toast.error(error.message);
 				},

@@ -2,10 +2,11 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { TrashSimpleIcon, WarningIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { ErrorComponent } from "@/components/error-component";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -16,13 +17,13 @@ import { DashboardHeader } from "../-components/header";
 
 export const Route = createFileRoute("/dashboard/settings/danger-zone")({
 	component: RouteComponent,
+	errorComponent: ErrorComponent,
 });
 
 const CONFIRMATION_TEXT = "delete";
 
 function RouteComponent() {
 	const confirm = useConfirm();
-	const navigate = useNavigate();
 	const [confirmationText, setConfirmationText] = useState("");
 	const isConfirmationValid = confirmationText === CONFIRMATION_TEXT;
 
@@ -43,7 +44,7 @@ function RouteComponent() {
 			onSuccess: async () => {
 				toast.success(t`Your account has been deleted successfully.`, { id: toastId });
 				await authClient.signOut();
-				navigate({ to: "/" });
+				window.location.href = "/auth/login";
 			},
 			onError: (error) => {
 				toast.error(error.message, { id: toastId });
@@ -58,7 +59,7 @@ function RouteComponent() {
 			<Separator />
 
 			<motion.div
-				initial={{ opacity: 0, y: -20 }}
+				initial={false}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.3 }}
 				className="grid max-w-xl gap-6"

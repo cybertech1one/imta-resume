@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
+import { ErrorComponent } from "@/components/error-component";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -14,25 +15,36 @@ import { authClient } from "@/integrations/auth/client";
 
 export const Route = createFileRoute("/auth/forgot-password")({
 	component: RouteComponent,
+	errorComponent: ErrorComponent,
 	beforeLoad: async ({ context }) => {
 		if (context.flags.disableEmailAuth) throw redirect({ to: "/auth/login", replace: true });
 	},
 });
 
 const formSchema = z.object({
-	email: z.email(),
+	email: z.string().min(1).email(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
+
+function getFormSchema() {
+	return z.object({
+		email: z
+			.string()
+			.min(1, { message: t`Email is required` })
+			.email({ message: t`Please enter a valid email address` }),
+	});
+}
 
 function RouteComponent() {
 	const [submitted, setSubmitted] = useState(false);
 
 	const form = useForm<FormValues>({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(getFormSchema()),
 		defaultValues: {
 			email: "",
 		},
+		mode: "onBlur",
 	});
 
 	const onSubmit = async (data: FormValues) => {
@@ -74,7 +86,7 @@ function RouteComponent() {
 			</div>
 
 			<Form {...form}>
-				<form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+				<form method="POST" className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
 					<FormField
 						control={form.control}
 						name="email"

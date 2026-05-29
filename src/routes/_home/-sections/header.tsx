@@ -1,86 +1,103 @@
 import { t } from "@lingui/core/macro";
-import { ArrowRightIcon, TranslateIcon } from "@phosphor-icons/react";
+import { ArrowRightIcon, FileTextIcon, ListIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
-import { motion, useMotionValue, useSpring } from "motion/react";
-import { useEffect, useRef } from "react";
-import { GithubStarsButton } from "@/components/input/github-stars-button";
-import { LocaleCombobox } from "@/components/locale/combobox";
-import { ThemeToggleButton } from "@/components/theme/toggle-button";
-import { BrandIcon } from "@/components/ui/brand-icon";
-import { Button } from "@/components/ui/button";
-import { ProductHuntBanner } from "./product-hunt-banner";
 
 export function Header() {
-	const y = useMotionValue(0);
-	const lastScroll = useRef(0);
-	const ticking = useRef(false);
-	const springY = useSpring(y, { stiffness: 300, damping: 40 });
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: not required to be exhaustive
-	useEffect(() => {
-		if (typeof window === "undefined") return;
-
-		function onScroll() {
-			const current = window.scrollY ?? 0;
-			if (!ticking.current) {
-				window.requestAnimationFrame(() => {
-					if (current > 32 && current > lastScroll.current) {
-						// Scrolling down, hide
-						y.set(-100);
-					} else {
-						// Scrolling up, show
-						y.set(0);
-					}
-					lastScroll.current = current;
-					ticking.current = false;
-				});
-				ticking.current = true;
-			}
-		}
-
-		window.addEventListener("scroll", onScroll, { passive: true });
-		return () => window.removeEventListener("scroll", onScroll);
-	}, []);
-
 	return (
-		<motion.header
-			style={{ y: springY }}
-			className="fixed inset-x-0 top-0 z-50 border-transparent border-b bg-background/80 backdrop-blur-lg transition-colors"
-			initial={{ y: -100, opacity: 0 }}
-			animate={{ y: 0, opacity: 1 }}
-			transition={{ duration: 0.5, ease: "easeOut" }}
-		>
-			<ProductHuntBanner />
-
-			<nav aria-label={t`Main navigation`} className="container mx-auto flex items-center gap-x-4 p-3 lg:px-12">
-				<Link to="/" className="transition-opacity hover:opacity-80" aria-label={t`Reactive Resume - Go to homepage`}>
-					<BrandIcon className="size-10" />
+		<header className="fixed inset-x-0 top-0 z-50 border-zinc-200 border-b bg-white/92 text-zinc-950 backdrop-blur-md">
+			<nav
+				aria-label={t`Navigation principale`}
+				className="mx-auto flex max-w-7xl items-center gap-x-4 px-4 py-3.5 lg:px-10"
+			>
+				<Link
+					to="/"
+					className="group flex items-center gap-3 transition-opacity hover:opacity-90"
+					aria-label={t`IMTA Resume - Accueil`}
+				>
+					<div className="relative flex size-10 items-center justify-center rounded-md bg-emerald-800 text-white shadow-sm">
+						<FileTextIcon aria-hidden="true" className="size-5" weight="fill" />
+						<div className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full bg-teal-400 ring-2 ring-white" />
+					</div>
+					<span className="hidden font-bold font-display text-xl sm:block">
+						IMTA<span className="text-emerald-800"> Resume</span>
+					</span>
 				</Link>
 
-				<div className="ml-auto flex items-center gap-x-2">
-					<LocaleCombobox
-						buttonProps={{
-							size: "icon",
-							variant: "ghost",
-							className: "justify-center",
-							"aria-label": t`Change language`,
-							children: () => <TranslateIcon aria-hidden="true" />,
-						}}
-					/>
+				<div className="ml-8 hidden items-center gap-6 lg:flex">
+					<a href="#objectifs" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
+						Fonctionnalités
+					</a>
+					<a href="#guides" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
+						Guides
+					</a>
+					<a href="#stages" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
+						Stages & Emplois
+					</a>
+					<a href="#questions" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
+						Ressources
+					</a>
+					<a
+						href="https://imta.ma"
+						target="_blank"
+						rel="noopener"
+						className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800"
+					>
+						À propos d'IMTA
+					</a>
+				</div>
 
-					<ThemeToggleButton />
+				<div className="ml-auto flex items-center gap-x-2 sm:gap-x-3">
+					<Link
+						to="/dashboard"
+						className="hidden h-11 items-center gap-2 rounded-md bg-emerald-800 px-6 font-semibold text-white shadow-sm transition-colors hover:bg-emerald-900 sm:inline-flex"
+						aria-label={t`Aller au tableau de bord`}
+					>
+						Commencer maintenant
+						<ArrowRightIcon aria-hidden="true" className="size-4" />
+					</Link>
 
-					<div className="hidden items-center gap-x-4 sm:flex">
-						<GithubStarsButton />
-
-						<Button asChild size="icon" aria-label={t`Go to dashboard`}>
-							<Link to="/dashboard">
-								<ArrowRightIcon aria-hidden="true" />
-							</Link>
-						</Button>
-					</div>
+					<details className="relative lg:hidden">
+						<summary
+							className="inline-flex size-10 cursor-pointer list-none items-center justify-center rounded-md text-zinc-700 transition-colors hover:bg-emerald-50 hover:text-emerald-800 [&::-webkit-details-marker]:hidden"
+							aria-label={t`Menu`}
+						>
+							<ListIcon aria-hidden="true" />
+						</summary>
+						<div className="absolute top-12 right-0 w-[min(22rem,calc(100vw-2rem))] rounded-lg border border-zinc-200 bg-white p-4 shadow-xl">
+							<div className="flex flex-col gap-3">
+								<a href="#objectifs" className="py-2 font-medium text-sm text-zinc-700">
+									Fonctionnalités
+								</a>
+								<a href="#guides" className="py-2 font-medium text-sm text-zinc-700">
+									Guides
+								</a>
+								<a href="#stages" className="py-2 font-medium text-sm text-zinc-700">
+									Stages & Emplois
+								</a>
+								<a href="#questions" className="py-2 font-medium text-sm text-zinc-700">
+									Ressources
+								</a>
+								<a
+									href="https://imta.ma"
+									target="_blank"
+									rel="noopener"
+									className="py-2 font-medium text-sm text-zinc-700"
+								>
+									À propos d'IMTA
+								</a>
+								<div className="mt-2 border-zinc-200 border-t pt-3">
+									<Link
+										to="/dashboard"
+										className="inline-flex h-11 w-full items-center justify-center rounded-md bg-emerald-800 px-5 font-semibold text-white hover:bg-emerald-900"
+									>
+										Commencer gratuitement
+									</Link>
+								</div>
+							</div>
+						</div>
+					</details>
 				</div>
 			</nav>
-		</motion.header>
+		</header>
 	);
 }

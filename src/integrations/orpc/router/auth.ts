@@ -11,7 +11,7 @@ export const authRouter = {
 				tags: ["Authentication"],
 				summary: "List all auth providers",
 				description:
-					"A list of all authentication providers, and their display names, supported by the instance of Reactive Resume.",
+					"A list of all authentication providers, and their display names, supported by the instance of IMTA Resume.",
 			})
 			.handler((): ProviderList => {
 				return authService.providers.list();
@@ -52,5 +52,18 @@ export const authRouter = {
 		})
 		.handler(async ({ context }): Promise<void> => {
 			return await authService.deleteAccount({ userId: context.user.id });
+		}),
+
+	getUserRole: protectedProcedure
+		.route({
+			method: "GET",
+			path: "/auth/user-role",
+			tags: ["Authentication"],
+			summary: "Get user role",
+			description: "Get the authenticated user's role (user or admin).",
+		})
+		.output(z.object({ role: z.enum(["user", "admin", "partner"]) }))
+		.handler(async ({ context }) => {
+			return { role: context.user.role };
 		}),
 };

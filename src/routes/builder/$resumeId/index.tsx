@@ -4,14 +4,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useHotkeys } from "react-hotkeys-hook";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { toast } from "sonner";
+import { ErrorComponent } from "@/components/error-component";
 import { ResumePreview } from "@/components/resume/preview";
+import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { BuilderDock } from "./-components/dock";
 
 export const Route = createFileRoute("/builder/$resumeId/")({
 	component: RouteComponent,
+	errorComponent: ErrorComponent,
 });
 
-function RouteComponent() {
+function BuilderContent() {
 	useHotkeys(
 		["ctrl+s", "meta+s"],
 		() => {
@@ -37,5 +40,13 @@ function RouteComponent() {
 				<BuilderDock />
 			</TransformWrapper>
 		</div>
+	);
+}
+
+function RouteComponent() {
+	return (
+		<ErrorBoundary variant="default" showDetails>
+			<BuilderContent />
+		</ErrorBoundary>
 	);
 }

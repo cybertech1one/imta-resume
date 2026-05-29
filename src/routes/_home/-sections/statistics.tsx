@@ -1,104 +1,92 @@
 import { t } from "@lingui/core/macro";
-import type { Icon } from "@phosphor-icons/react";
-import { FileTextIcon, UsersIcon } from "@phosphor-icons/react";
-import { useQueries } from "@tanstack/react-query";
-import { motion } from "motion/react";
-import { CountUp } from "@/components/animation/count-up";
-import { orpc } from "@/integrations/orpc/client";
+import { Trans } from "@lingui/react/macro";
+import { animate, motion, useInView } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 
-type Statistic = {
-	id: string;
-	label: string;
-	value: number;
-	icon: Icon;
-};
+/* ================================================================== */
+/*  STATISTICS — bold full-bleed editorial "by the numbers" band       */
+/* ================================================================== */
 
-const getStatistics = (userCount: number, resumeCount: number): Statistic[] => [
-	{
-		id: "users",
-		label: t`Users`,
-		value: userCount,
-		icon: UsersIcon,
-	},
-	{
-		id: "resumes",
-		label: t`Resumes`,
-		value: resumeCount,
-		icon: FileTextIcon,
-	},
+const TERRACOTTA = "oklch(0.55 0.14 35)";
+const EMERALD = "oklch(0.4 0.13 160)";
+const EMERALD_DEEP = "oklch(0.32 0.11 162)";
+
+type Stat = { value: number; suffix: string; label: string };
+
+const getStats = (): Stat[] => [
+	{ value: 200, suffix: "+", label: t`étudiants accompagnés` },
+	{ value: 35, suffix: "", label: t`modèles professionnels` },
+	{ value: 95, suffix: "%", label: t`taux de satisfaction` },
+	{ value: 500, suffix: "+", label: t`CV créés` },
 ];
 
-type StatisticCardProps = {
-	statistic: Statistic;
-	index: number;
-};
+function StatCounter({ stat, index }: { stat: Stat; index: number }) {
+	const ref = useRef<HTMLDivElement>(null);
+	const isInView = useInView(ref, { once: true, margin: "-50px" });
+	const [count, setCount] = useState(0);
 
-function StatisticCard({ statistic, index }: StatisticCardProps) {
-	const Icon = statistic.icon;
+	useEffect(() => {
+		if (!isInView) return;
+		const controls = animate(0, stat.value, {
+			duration: 1.6,
+			delay: index * 0.12,
+			ease: "easeOut",
+			onUpdate: (v) => setCount(Math.round(v)),
+		});
+		return () => controls.stop();
+	}, [isInView, stat.value, index]);
 
 	return (
 		<motion.div
-			className="group relative flex flex-col items-center justify-center gap-y-4 border-r border-b p-8 transition-colors last:border-e-0 hover:bg-secondary/30 sm:border-b-0 xl:py-12"
+			ref={ref}
+			className="relative px-6 text-center"
 			initial={{ opacity: 0, y: 20 }}
 			whileInView={{ opacity: 1, y: 0 }}
-			viewport={{ once: true, margin: "-50px" }}
-			transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+			viewport={{ once: true }}
+			transition={{ duration: 0.5, delay: index * 0.1 }}
 		>
-			{/* Background decoration */}
-			<div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute start-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-primary/2"
-					initial={{ scale: 0.8, opacity: 0 }}
-					whileInView={{ scale: 1, opacity: 1 }}
-					viewport={{ once: true }}
-					transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
-				>
-					<Icon size={180} weight="thin" />
-				</motion.div>
+			<div className="font-display text-6xl text-white leading-none tracking-tight md:text-7xl">
+				{count}
+				<span style={{ color: TERRACOTTA }}>{stat.suffix}</span>
 			</div>
-
-			{/* Icon */}
-			<motion.div
-				aria-hidden="true"
-				className="relative rounded-full bg-primary/10 p-3 text-primary"
-				whileHover={{ scale: 1.05 }}
-				transition={{ type: "spring", stiffness: 400, damping: 20 }}
-			>
-				<Icon size={24} weight="thin" />
-			</motion.div>
-
-			{/* Value */}
-			<CountUp
-				key={statistic.id}
-				separator=","
-				duration={0.8}
-				to={statistic.value}
-				className="font-bold text-5xl tracking-tight md:text-6xl"
-			/>
-
-			{/* Label */}
-			<p className="relative font-medium text-base text-muted-foreground tracking-tight">{statistic.label}</p>
+			<div className="mt-3 text-white/60 text-xs uppercase tracking-[0.2em]">{stat.label}</div>
 		</motion.div>
 	);
 }
 
 export function Statistics() {
-	const [userCountResult, resumeCountResult] = useQueries({
-		queries: [orpc.statistics.user.getCount.queryOptions(), orpc.statistics.resume.getCount.queryOptions()],
-	});
-
-	if (!userCountResult.data || !resumeCountResult.data) return null;
-
 	return (
-		<section id="statistics" aria-labelledby="stats-heading">
-			<h2 id="stats-heading" className="sr-only">
-				{t`Application Statistics`}
-			</h2>
+		<section
+			id="statistics"
+			className="relative overflow-hidden py-20 md:py-28"
+			style={{ background: `linear-gradient(135deg, ${EMERALD_DEEP}, ${EMERALD})` }}
+		>
+			{/* Faint zellige texture */}
+			<div
+				aria-hidden="true"
+				className="pointer-events-none absolute inset-0 opacity-[0.06]"
+				style={{
+					backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
+					backgroundSize: "28px 28px",
+				}}
+			/>
 
-			<div className="grid grid-cols-1 sm:grid-cols-2">
-				{getStatistics(userCountResult.data, resumeCountResult.data).map((statistic, index) => (
-					<StatisticCard key={statistic.id} statistic={statistic} index={index} />
-				))}
+			<div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
+				<motion.p
+					initial={{ opacity: 0, y: 12 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true }}
+					transition={{ duration: 0.5 }}
+					className="mb-12 text-center font-medium text-white/50 text-xs uppercase tracking-[0.3em]"
+				>
+					<Trans>L'IMTA en chiffres</Trans>
+				</motion.p>
+
+				<div className="grid grid-cols-2 gap-y-12 md:grid-cols-4 md:divide-x md:divide-white/10">
+					{getStats().map((stat, index) => (
+						<StatCounter key={stat.label} stat={stat} index={index} />
+					))}
+				</div>
 			</div>
 		</section>
 	);

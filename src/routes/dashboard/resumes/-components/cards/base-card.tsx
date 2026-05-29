@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { CometCard } from "@/components/animation/comet-card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/utils/style";
@@ -10,7 +11,18 @@ type BaseCardProps = React.ComponentProps<"div"> & {
 	children?: React.ReactNode;
 };
 
-export function BaseCard({ title, description, tags, className, children, ...props }: BaseCardProps) {
+/**
+ * Memoized BaseCard component for resume cards.
+ * Prevents unnecessary re-renders when list updates but card data unchanged.
+ */
+export const BaseCard = memo(function BaseCard({
+	title,
+	description,
+	tags,
+	className,
+	children,
+	...props
+}: BaseCardProps) {
 	return (
 		<CometCard translateDepth={3} rotateDepth={6}>
 			<div
@@ -37,4 +49,5 @@ export function BaseCard({ title, description, tags, className, children, ...pro
 			</div>
 		</CometCard>
 	);
-}
+});
+BaseCard.displayName = "BaseCard";

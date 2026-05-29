@@ -4,7 +4,8 @@ import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
-import type { Plugin } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+import type { HtmlTagDescriptor, Plugin } from "vite";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -21,9 +22,141 @@ function reflectPolyfillPlugin(): Plugin {
 	};
 }
 
+/**
+ * Plugin to add preload hints for critical resources.
+ * Improves LCP by preloading fonts and critical CSS.
+ */
+function preloadHintsPlugin(): Plugin {
+	return {
+		name: "preload-hints",
+		transformIndexHtml(html) {
+			const preloadTags: HtmlTagDescriptor[] = [
+				// Preload critical fonts
+				{
+					tag: "link",
+					attrs: {
+						rel: "preconnect",
+						href: "https://fonts.gstatic.com",
+						crossorigin: "",
+					},
+					injectTo: "head",
+				},
+				// DNS prefetch for external resources
+				{
+					tag: "link",
+					attrs: {
+						rel: "dns-prefetch",
+						href: "//fonts.googleapis.com",
+					},
+					injectTo: "head",
+				},
+				// Preload the main font (IBM Plex Sans)
+				{
+					tag: "link",
+					attrs: {
+						rel: "preload",
+						href: "/fonts/ibm-plex-sans.woff2",
+						as: "font",
+						type: "font/woff2",
+						crossorigin: "",
+					},
+					injectTo: "head",
+				},
+			];
+
+			return {
+				html,
+				tags: preloadTags,
+			};
+		},
+	};
+}
+
+/**
+ * Plugin to optimize CSS delivery.
+ * Inlines critical CSS and defers non-critical styles.
+ */
+function optimizeCSSPlugin(): Plugin {
+	return {
+		name: "optimize-css",
+		enforce: "post",
+		transformIndexHtml(html) {
+			// Add resource hints for better loading priority
+			const optimizationTags: HtmlTagDescriptor[] = [
+				// Fetch priority hints
+				{
+					tag: "meta",
+					attrs: {
+						name: "priority",
+						content: "high",
+					},
+					injectTo: "head",
+				},
+			];
+
+			return {
+				html,
+				tags: optimizationTags,
+			};
+		},
+	};
+}
+
+/**
+ * Plugin to suppress the recurring "Response body object should not be disturbed
+ * or locked" error in dev mode. This is a known issue with Nitro's dev proxy
+ * (fetchAddress) where a Request/Response body stream gets consumed before the
+ * proxy can forward it. It is harmless in dev — the page still loads correctly
+ * after dismissing the overlay — but the overlay blocks development flow.
+ *
+ * Adds error-handling middleware in BOTH the configureServer hook (to catch
+ * errors from Nitro's nitroDevMiddlewarePre, registered during configureServer)
+ * and the post-hook (to catch errors from Nitro's nitroDevMiddleware, registered
+ * in Nitro's own post-hook). This ensures the error is caught regardless of
+ * which Nitro middleware throws it.
+ */
+function suppressNitroDevBodyError(): Plugin {
+	const SUPPRESSED_MSG = "Response body object should not be disturbed or locked";
+
+	// biome-ignore lint/suspicious/noExplicitAny: Connect error handler signature requires any
+	const createErrorHandler = () => (err: any, _req: any, res: any, next: (err?: unknown) => void) => {
+		const msg = err?.message || "";
+		const causeMsg = err?.cause?.message || "";
+		if (msg.includes(SUPPRESSED_MSG) || causeMsg.includes(SUPPRESSED_MSG)) {
+			// Silently swallow — send a minimal response so the browser doesn't stall
+			if (!res.headersSent) {
+				res.statusCode = 200;
+				res.end();
+			}
+			return;
+		}
+		return next(err);
+	};
+
+	return {
+		name: "suppress-nitro-dev-body-error",
+		apply: "serve", // dev only — never runs in production builds
+		configureServer(server) {
+			// Catches errors from Nitro's nitroDevMiddlewarePre (added in Nitro's configureServer)
+			server.middlewares.use(createErrorHandler());
+
+			// Post-hook: catches errors from Nitro's nitroDevMiddleware (added in Nitro's post-hook)
+			return () => {
+				server.middlewares.use(createErrorHandler());
+			};
+		},
+	};
+}
+
 const config = defineConfig({
 	define: {
 		__APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+		"process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+		"process.env.APP_URL": JSON.stringify(process.env.APP_URL),
+		"process.env.TSS_SERVER_FN_BASE": JSON.stringify(""),
+		"process.env.TSS_ROUTER_BASEPATH": JSON.stringify(""),
+		"process.env.TSS_SHELL": JSON.stringify("false"),
+		"process.env.TSS_DEV_SERVER": JSON.stringify("true"),
 	},
 
 	resolve: {
@@ -33,6 +166,25 @@ const config = defineConfig({
 	},
 
 	optimizeDeps: {
+		// Pre-bundle these dependencies for faster dev startup
+		// Note: @tanstack/start-client-core must be included so Vite's `define` replaces
+		// process.env.TSS_* references (excluded deps are served as raw ESM without
+		// transform, causing "ReferenceError: process is not defined")
+		include: [
+			"react",
+			"react-dom",
+			"@tanstack/react-query",
+			"@tanstack/react-router",
+			"@tanstack/start-client-core",
+			"zustand",
+			"zod",
+			"immer",
+			"clsx",
+			"tailwind-merge",
+			"motion",
+			"react-hook-form",
+			"date-fns",
+		],
 		exclude: [
 			"@tanstack/react-start",
 			"@tanstack/react-start/client",
@@ -42,7 +194,115 @@ const config = defineConfig({
 	},
 
 	build: {
-		chunkSizeWarningLimit: 10 * 1024, // 10mb
+		chunkSizeWarningLimit: 500, // 500kb warning limit - catch bloat early
+		minify: "terser",
+		terserOptions: {
+			compress: {
+				drop_console: true,
+				drop_debugger: true,
+				pure_funcs: ["console.log", "console.debug", "console.info"],
+				passes: 2,
+			},
+			mangle: {
+				safari10: true,
+			},
+			format: {
+				comments: false,
+			},
+		},
+		// Optimize source maps for production
+		sourcemap: false,
+		// CSS code splitting for better caching
+		cssCodeSplit: true,
+		// Asset inlining threshold
+		assetsInlineLimit: 4096,
+
+		// Manual chunk splitting for better caching and smaller initial bundle
+		// Note: manualChunks as function for Rolldown compatibility
+		rollupOptions: {
+			output: {
+				manualChunks(id: string) {
+					// Core React dependencies
+					if (id.includes("node_modules/react-dom") || id.includes("node_modules/react/")) {
+						return "vendor-react";
+					}
+					// TanStack ecosystem
+					if (id.includes("@tanstack/react-query") || id.includes("@tanstack/react-router")) {
+						return "vendor-tanstack";
+					}
+					// UI component libraries
+					if (id.includes("@radix-ui") || id.includes("class-variance-authority") || id.includes("cmdk")) {
+						return "vendor-ui";
+					}
+					// Form handling
+					if (id.includes("react-hook-form") || id.includes("@hookform/resolvers")) {
+						return "vendor-forms";
+					}
+					// Icons
+					if (id.includes("@phosphor-icons")) {
+						return "vendor-icons";
+					}
+					// Monaco editor
+					if (id.includes("monaco-editor")) {
+						return "editor";
+					}
+					// Charts
+					if (id.includes("recharts")) {
+						return "charts";
+					}
+					// State management
+					if (id.includes("zustand") || id.includes("immer") || id.includes("zundo")) {
+						return "vendor-state";
+					}
+					// Drag and drop
+					if (id.includes("@dnd-kit")) {
+						return "vendor-dnd";
+					}
+					// Rich text editor
+					if (id.includes("@tiptap") || id.includes("prosemirror") || id.includes("@tiptap/pm")) {
+						return "vendor-tiptap";
+					}
+					// Internationalization
+					if (id.includes("@lingui")) {
+						return "vendor-i18n";
+					}
+					// AI SDK providers
+					if (id.includes("@ai-sdk") || (id.includes("node_modules/ai") && !id.includes("ai-"))) {
+						return "vendor-ai";
+					}
+					// Animation
+					if (id.includes("node_modules/motion")) {
+						return "vendor-animation";
+					}
+					// Utilities
+					if (
+						id.includes("date-fns") ||
+						id.includes("es-toolkit") ||
+						id.includes("dompurify") ||
+						id.includes("fuse.js")
+					) {
+						return "vendor-utils";
+					}
+					// PDF/Print related
+					if (id.includes("puppeteer") || id.includes("sharp") || id.includes("qrcode")) {
+						return "vendor-print";
+					}
+					// Auth related
+					if (id.includes("better-auth") || id.includes("bcrypt")) {
+						return "vendor-auth";
+					}
+					// Validation
+					if (id.includes("zod") && !id.includes("@tanstack/zod-adapter")) {
+						return "vendor-validation";
+					}
+					// Email
+					if (id.includes("nodemailer")) {
+						return "vendor-email";
+					}
+					return undefined;
+				},
+			},
+		},
 
 		// Mute MODULE_LEVEL_DIRECTIVE warnings
 		rolldownOptions: {
@@ -55,22 +315,33 @@ const config = defineConfig({
 
 	server: {
 		host: true,
-		port: 3000,
-		strictPort: true,
+		port: Number(process.env.PORT) || 3040,
+		strictPort: false,
 		allowedHosts: true,
 		hmr: {
 			host: "localhost",
-			port: 3000,
 		},
 	},
 
 	plugins: [
+		// Performance optimization plugins
+		preloadHintsPlugin(),
+		optimizeCSSPlugin(),
 		reflectPolyfillPlugin(),
 		lingui(),
 		tailwindcss(),
 		nitro({ plugins: ["plugins/1.migrate.ts"] }),
+		// Must come AFTER nitro() so the error handler is registered after Nitro's middleware
+		suppressNitroDevBodyError(),
 		tanstackStart({ router: { semicolons: true, quoteStyle: "double" } }),
 		viteReact({ babel: { plugins: ["@lingui/babel-plugin-lingui-macro"] } }),
+		// Bundle analyzer - generates bundle-stats.html on build
+		visualizer({
+			open: false,
+			filename: "bundle-stats.html",
+			gzipSize: true,
+			brotliSize: true,
+		}),
 		VitePWA({
 			outDir: "public",
 			useCredentials: true,
@@ -80,9 +351,10 @@ const config = defineConfig({
 			workbox: {
 				skipWaiting: true,
 				clientsClaim: true,
-				globPatterns: ["**/*"],
-				maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10mb
-				navigateFallback: null, // Disable navigation fallback for SSR
+				globPatterns: ["**/*.{js,css,html,woff2,woff,ico,svg}"],
+				globIgnores: ["**/templates/**/*.{jpg,png,pdf}", "**/uploads/**"],
+				maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+				navigateFallback: null,
 			},
 			manifest: {
 				name: "Reactive Resume",

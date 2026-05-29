@@ -14,3 +14,44 @@ node_modules
 public/sw.js
 scripts/**/*.json
 public/workbox-*.js
+
+# Session/agent working artifacts (not for prod repo)
+*.log
+*.bak
+*.bak-*
+locales/fr-FR.po.bak*
+/*.png
+/*.jpg
+/*.jpeg
+/*.pdf
+/test-resume.pdf
+*cookie*.txt
+*cookies*.txt
+cookie*.txt
+cookies.txt
+admin_cookies.txt
+tests/**/screenshots/
+/nul
+bundle-stats.html
+.playwright-mcp/
+resume-maker-sdlc/
+.claude/
+/businessCard-
+/-w
+
+# QA / build / session junk
+qa-screenshots/
+qa-*.json
+/html/
+*.meta.json.gz
+phase-diagrams.md
+activation-prompts.md
+SKILL.md
+PERFORMANCE_OPTIMIZATIONS.md
+/metadata-*
+/e.message*
+/enabled
+/debug-*
+*.tmp
+# upstream CI workflows (not needed for Railway; needs gh 'workflow' scope to push)
+.github/workflows/

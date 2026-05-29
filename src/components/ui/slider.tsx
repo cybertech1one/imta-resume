@@ -2,14 +2,11 @@ import { Slider as SliderPrimitive } from "radix-ui";
 import * as React from "react";
 import { cn } from "@/utils/style";
 
-function Slider({
-	className,
-	defaultValue,
-	value,
-	min = 0,
-	max = 100,
-	...props
-}: React.ComponentProps<typeof SliderPrimitive.Root>) {
+type SliderProps = React.ComponentProps<typeof SliderPrimitive.Root> & {
+	label?: string;
+};
+
+function Slider({ className, defaultValue, value, min = 0, max = 100, label, ...props }: SliderProps) {
 	const _values = React.useMemo(
 		() => (Array.isArray(value) ? value : Array.isArray(defaultValue) ? defaultValue : [min, max]),
 		[value, defaultValue, min, max],
@@ -22,6 +19,7 @@ function Slider({
 			value={value}
 			min={min}
 			max={max}
+			aria-label={label}
 			className={cn(
 				"relative flex w-full touch-none select-none items-center data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col data-disabled:opacity-50",
 				className,

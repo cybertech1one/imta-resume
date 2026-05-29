@@ -1,12 +1,14 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
+	AddressBookIcon,
 	CaretDownIcon,
 	CopySimpleIcon,
 	HouseSimpleIcon,
 	LockSimpleIcon,
 	LockSimpleOpenIcon,
 	PencilSimpleLineIcon,
+	QuestionIcon,
 	SidebarSimpleIcon,
 	TrashSimpleIcon,
 } from "@phosphor-icons/react";
@@ -25,35 +27,64 @@ import {
 import { useDialogStore } from "@/dialogs/store";
 import { useConfirm } from "@/hooks/use-confirm";
 import { orpc } from "@/integrations/orpc/client";
+import { downloadVCard } from "@/utils/vcard";
 import { useBuilderSidebar } from "../-store/sidebar";
 
 export function BuilderHeader() {
 	const name = useResumeStore((state) => state.resume.name);
 	const isLocked = useResumeStore((state) => state.resume.isLocked);
-	const toggleSidebar = useBuilderSidebar((state) => state.toggleSidebar);
+	const { toggleSidebar, isCollapsed } = useBuilderSidebar((state) => ({
+		toggleSidebar: state.toggleSidebar,
+		isCollapsed: state.isCollapsed,
+	}));
+
+	const isLeftCollapsed = isCollapsed("left");
+	const isRightCollapsed = isCollapsed("right");
 
 	return (
-		<div className="absolute inset-x-0 top-0 z-10 flex h-14 items-center justify-between border-b bg-popover px-1.5">
-			<Button size="icon" variant="ghost" onClick={() => toggleSidebar("left")}>
-				<SidebarSimpleIcon />
+		<header className="absolute inset-x-0 top-0 z-10 flex h-14 items-center justify-between border-b bg-popover px-1.5">
+			<Button
+				size="icon"
+				variant="ghost"
+				onClick={() => toggleSidebar("left")}
+				aria-label={isLeftCollapsed ? t`Expand left sidebar` : t`Collapse left sidebar`}
+				aria-expanded={!isLeftCollapsed}
+				aria-controls="left"
+			>
+				<SidebarSimpleIcon aria-hidden="true" />
 			</Button>
 
-			<div className="flex items-center gap-x-1">
-				<Button asChild size="icon" variant="ghost">
+			<nav className="flex items-center gap-x-1" aria-label={t`Resume navigation`}>
+				<Button asChild size="icon" variant="ghost" aria-label={t`Go to dashboard`}>
 					<Link to="/dashboard/resumes" search={{ sort: "lastUpdatedAt", tags: [] }}>
-						<HouseSimpleIcon />
+						<HouseSimpleIcon aria-hidden="true" />
 					</Link>
 				</Button>
-				<span className="me-2.5 text-muted-foreground">/</span>
-				<h2 className="flex-1 truncate font-medium">{name}</h2>
-				{isLocked && <LockSimpleIcon className="ms-2 text-muted-foreground" />}
+				<span className="me-2.5 text-muted-foreground" aria-hidden="true">
+					/
+				</span>
+				<h1 className="flex-1 truncate font-medium">{name}</h1>
+				{isLocked && <LockSimpleIcon className="ms-2 text-muted-foreground" aria-label={t`Resume is locked`} />}
 				<BuilderHeaderDropdown />
-			</div>
+				<Button asChild size="icon" variant="ghost" aria-label={t`Help Center`}>
+					{/* biome-ignore lint/suspicious/noExplicitAny: Route path not in generated route tree */}
+					<Link to={"/dashboard/help" as any}>
+						<QuestionIcon aria-hidden="true" />
+					</Link>
+				</Button>
+			</nav>
 
-			<Button size="icon" variant="ghost" onClick={() => toggleSidebar("right")}>
-				<SidebarSimpleIcon className="-scale-x-100" />
+			<Button
+				size="icon"
+				variant="ghost"
+				onClick={() => toggleSidebar("right")}
+				aria-label={isRightCollapsed ? t`Expand right sidebar` : t`Collapse right sidebar`}
+				aria-expanded={!isRightCollapsed}
+				aria-controls="right"
+			>
+				<SidebarSimpleIcon className="-scale-x-100" aria-hidden="true" />
 			</Button>
-		</div>
+		</header>
 	);
 }
 
@@ -67,6 +98,7 @@ function BuilderHeaderDropdown() {
 	const slug = useResumeStore((state) => state.resume.slug);
 	const tags = useResumeStore((state) => state.resume.tags);
 	const isLocked = useResumeStore((state) => state.resume.isLocked);
+	const resumeData = useResumeStore((state) => state.resume.data);
 
 	const { mutate: deleteResume } = useMutation(orpc.resume.delete.mutationOptions());
 	const { mutate: setLockedResume } = useMutation(orpc.resume.setLocked.mutationOptions());
@@ -77,6 +109,11 @@ function BuilderHeaderDropdown() {
 
 	const handleDuplicate = () => {
 		openDialog("resume.duplicate", { id, name, slug, tags, shouldRedirect: true });
+	};
+
+	const handleDownloadVCard = () => {
+		downloadVCard(resumeData, name);
+		toast.success(t`vCard downloaded successfully.`);
 	};
 
 	const handleToggleLock = async () => {
@@ -124,8 +161,8 @@ function BuilderHeaderDropdown() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button size="icon" variant="ghost">
-					<CaretDownIcon />
+				<Button size="icon" variant="ghost" aria-label={t`Resume actions menu`}>
+					<CaretDownIcon aria-hidden="true" />
 				</Button>
 			</DropdownMenuTrigger>
 
@@ -138,6 +175,11 @@ function BuilderHeaderDropdown() {
 				<DropdownMenuItem onSelect={handleDuplicate}>
 					<CopySimpleIcon className="me-2" />
 					<Trans>Duplicate</Trans>
+				</DropdownMenuItem>
+
+				<DropdownMenuItem onSelect={handleDownloadVCard}>
+					<AddressBookIcon className="me-2" />
+					<Trans>Download vCard</Trans>
 				</DropdownMenuItem>
 
 				<DropdownMenuItem onSelect={handleToggleLock}>

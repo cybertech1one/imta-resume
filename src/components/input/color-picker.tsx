@@ -505,6 +505,11 @@ function ColorPickerArea(props: ColorPickerAreaProps) {
 	return (
 		<AreaPrimitive
 			data-slot="color-picker-area"
+			role="slider"
+			aria-label="Color saturation and brightness. Drag to select."
+			aria-valuemin={0}
+			aria-valuemax={100}
+			tabIndex={context.disabled ? -1 : 0}
 			{...areaProps}
 			className={cn(
 				"relative h-40 w-full cursor-crosshair touch-none rounded-md border",
@@ -575,6 +580,7 @@ function ColorPickerHueSlider(props: ColorPickerHueSliderProps) {
 			{...sliderProps}
 			max={360}
 			step={1}
+			aria-label="Color hue (0-360 degrees)"
 			className={cn("relative flex w-full touch-none select-none items-center", className)}
 			value={[hsv?.h ?? 0]}
 			onValueChange={onValueChange}
@@ -628,8 +634,9 @@ function ColorPickerEyeDropper(props: ColorPickerEyeDropperProps) {
 			size={buttonSize}
 			onClick={onEyeDropper}
 			disabled={context.disabled}
+			aria-label="Pick color from screen"
 		>
-			{children ?? <EyedropperIcon />}
+			{children ?? <EyedropperIcon aria-hidden="true" />}
 		</Button>
 	);
 }
@@ -661,6 +668,7 @@ function ColorPickerAlphaSlider(props: ColorPickerAlphaSliderProps) {
 			max={100}
 			step={1}
 			disabled={context.disabled}
+			aria-label="Color transparency (0-100%)"
 			className={cn("relative flex w-full touch-none select-none items-center", className)}
 			value={[Math.round((color?.a ?? 1) * 100)]}
 			onValueChange={onValueChange}

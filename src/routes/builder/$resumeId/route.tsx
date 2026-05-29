@@ -1,5 +1,7 @@
+import { Trans } from "@lingui/react/macro";
+import { FileXIcon, HouseIcon } from "@phosphor-icons/react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getCookie, setCookie } from "@tanstack/react-start/server";
 import type React from "react";
@@ -7,33 +9,92 @@ import { useEffect } from "react";
 import { type Layout, usePanelRef } from "react-resizable-panels";
 import { useDebounceCallback } from "usehooks-ts";
 import z from "zod";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { LoadingScreen } from "@/components/layout/loading-screen";
 import { useCSSVariables } from "@/components/resume/hooks/use-css-variables";
 import { useResumeStore } from "@/components/resume/store/resume";
+import { Button } from "@/components/ui/button";
 import { ResizableGroup, ResizablePanel, ResizableSeparator } from "@/components/ui/resizable";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { orpc } from "@/integrations/orpc/client";
+import { generateMetaTags } from "@/utils/seo";
 import { BuilderHeader } from "./-components/header";
 import { BuilderSidebarLeft } from "./-sidebar/left";
 import { BuilderSidebarRight } from "./-sidebar/right";
 import { useBuilderSidebar, useBuilderSidebarStore } from "./-store/sidebar";
 
+/**
+ * Builder-specific error component that shows a user-friendly message
+ * when a resume is not found or the user doesn't have access.
+ * Replaces the generic ErrorComponent to avoid showing raw 500 errors.
+ */
+function BuilderErrorComponent({ error }: { error: Error; reset: () => void }) {
+	const isNotFound = error.message?.includes("NOT_FOUND") || error.message?.includes("not found");
+
+	return (
+		<div className="flex min-h-svh flex-col items-center justify-center bg-background p-8">
+			<FileXIcon className="size-16 text-muted-foreground" />
+			<h1 className="mt-6 font-semibold text-2xl">
+				{isNotFound ? <Trans>Resume not found</Trans> : <Trans>Unable to load resume</Trans>}
+			</h1>
+			<p className="mt-2 max-w-md text-center text-muted-foreground">
+				{isNotFound ? (
+					<Trans>This resume does not exist or you do not have permission to view it.</Trans>
+				) : (
+					<Trans>An error occurred while loading this resume. Please try again or return to your dashboard.</Trans>
+				)}
+			</p>
+			<Button asChild className="mt-6">
+				<Link to="/dashboard/resumes">
+					<HouseIcon />
+					<Trans>Back to Dashboard</Trans>
+				</Link>
+			</Button>
+		</div>
+	);
+}
+
 export const Route = createFileRoute("/builder/$resumeId")({
 	component: RouteComponent,
+	errorComponent: BuilderErrorComponent,
 	beforeLoad: async ({ context }) => {
 		if (!context.session) throw redirect({ to: "/auth/login", replace: true });
 		return { session: context.session };
 	},
 	loader: async ({ params, context }) => {
-		const [layout, resume] = await Promise.all([
-			getBuilderLayoutServerFn(),
-			context.queryClient.ensureQueryData(orpc.resume.getById.queryOptions({ input: { id: params.resumeId } })),
-		]);
+		// Fetch layout and resume; catch access errors to redirect instead of returning 500.
+		const layout = await getBuilderLayoutServerFn();
 
-		return { layout, name: resume.name };
+		let resumeName: string;
+		try {
+			const resume = await context.queryClient.ensureQueryData(
+				orpc.resume.getById.queryOptions({ input: { id: params.resumeId } }),
+			);
+			resumeName = resume.name;
+		} catch (err) {
+			// ORPC throws ORPCError("NOT_FOUND") when the resume does not exist or
+			// belongs to another user. Re-throw as a redirect so TanStack Start
+			// returns a 3xx (not 500) for these expected access-denied cases.
+			const message = err instanceof Error ? err.message : String(err);
+			const isAccessError =
+				message.includes("NOT_FOUND") || message.includes("FORBIDDEN") || message.includes("not found");
+			if (isAccessError) {
+				throw redirect({ to: "/dashboard/resumes", replace: true });
+			}
+			// Genuine server errors bubble up to BuilderErrorComponent (HTTP 500 is correct there).
+			throw err;
+		}
+
+		return { layout, name: resumeName };
 	},
 	head: ({ loaderData }) => ({
-		meta: loaderData ? [{ title: `${loaderData.name} - Reactive Resume` }] : undefined,
+		meta: loaderData
+			? generateMetaTags({
+					title: `Editing: ${loaderData.name} - IMTA Resume`,
+					description: "Edit and customize your professional resume with the IMTA Resume builder.",
+					noIndex: true, // Builder pages should not be indexed
+				})
+			: undefined,
 	}),
 });
 
@@ -94,37 +155,47 @@ function BuilderLayout({ initialLayout, ...props }: BuilderLayoutProps) {
 		<div className="flex h-svh flex-col" {...props}>
 			<BuilderHeader />
 
-			<ResizableGroup orientation="horizontal" onLayoutChange={onLayoutChange} className="mt-14 flex-1">
-				<ResizablePanel
-					collapsible
-					id="left"
-					panelRef={leftSidebarRef}
-					maxSize={maxSidebarSize}
-					minSize={collapsedSidebarSize * 2}
-					collapsedSize={collapsedSidebarSize}
-					defaultSize={leftSidebarSize}
-					className="z-20 h-[calc(100svh-3.5rem)]"
-				>
-					<BuilderSidebarLeft />
-				</ResizablePanel>
-				<ResizableSeparator withHandle className="z-20 border-r" />
-				<ResizablePanel id="artboard" defaultSize={artboardSize} className="h-[calc(100svh-3.5rem)]">
-					<Outlet />
-				</ResizablePanel>
-				<ResizableSeparator withHandle className="z-20 border-l" />
-				<ResizablePanel
-					collapsible
-					id="right"
-					panelRef={rightSidebarRef}
-					maxSize={maxSidebarSize}
-					minSize={collapsedSidebarSize * 2}
-					collapsedSize={collapsedSidebarSize}
-					defaultSize={rightSidebarSize}
-					className="z-20 h-[calc(100svh-3.5rem)]"
-				>
-					<BuilderSidebarRight />
-				</ResizablePanel>
-			</ResizableGroup>
+			<main className="mt-14 flex-1">
+				<ErrorBoundary section="Resume Builder">
+					<ResizableGroup orientation="horizontal" onLayoutChange={onLayoutChange} className="h-full">
+						<ResizablePanel
+							collapsible
+							id="left"
+							panelRef={leftSidebarRef}
+							maxSize={maxSidebarSize}
+							minSize={collapsedSidebarSize * 2}
+							collapsedSize={collapsedSidebarSize}
+							defaultSize={leftSidebarSize}
+							className="z-20 h-[calc(100svh-3.5rem)]"
+						>
+							<ErrorBoundary section="Left Sidebar">
+								<BuilderSidebarLeft />
+							</ErrorBoundary>
+						</ResizablePanel>
+						<ResizableSeparator withHandle className="z-20 border-r" />
+						<ResizablePanel id="artboard" defaultSize={artboardSize} className="h-[calc(100svh-3.5rem)]">
+							<ErrorBoundary section="Resume Preview">
+								<Outlet />
+							</ErrorBoundary>
+						</ResizablePanel>
+						<ResizableSeparator withHandle className="z-20 border-l" />
+						<ResizablePanel
+							collapsible
+							id="right"
+							panelRef={rightSidebarRef}
+							maxSize={maxSidebarSize}
+							minSize={collapsedSidebarSize * 2}
+							collapsedSize={collapsedSidebarSize}
+							defaultSize={rightSidebarSize}
+							className="z-20 h-[calc(100svh-3.5rem)]"
+						>
+							<ErrorBoundary section="Right Sidebar">
+								<BuilderSidebarRight />
+							</ErrorBoundary>
+						</ResizablePanel>
+					</ResizableGroup>
+				</ErrorBoundary>
+			</main>
 		</div>
 	);
 }

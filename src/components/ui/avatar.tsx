@@ -22,10 +22,11 @@ function Avatar({
 	);
 }
 
-function AvatarImage({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Image>) {
+function AvatarImage({ className, alt = "", ...props }: React.ComponentProps<typeof AvatarPrimitive.Image>) {
 	return (
 		<AvatarPrimitive.Image
 			data-slot="avatar-image"
+			alt={alt}
 			className={cn("aspect-square size-full rounded-full object-cover", className)}
 			{...props}
 		/>

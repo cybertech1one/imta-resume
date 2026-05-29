@@ -99,8 +99,9 @@ function PictureSectionForm() {
 					>
 						{picture.url && (
 							<img
-								alt=""
+								alt={t`Profile picture preview`}
 								src={picture.url}
+								loading="lazy"
 								className="fade-in relative z-10 size-full animate-in rounded-md object-cover transition-opacity group-hover/picture:opacity-20"
 							/>
 						)}

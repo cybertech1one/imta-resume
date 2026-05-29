@@ -47,6 +47,7 @@ function getItemTitle(type: SectionType, item: CustomSectionItemType): string {
 		.with("publications", () => ("title" in item ? item.title : ""))
 		.with("volunteer", () => ("organization" in item ? item.organization : ""))
 		.with("references", () => ("name" in item ? item.name : ""))
+		.with("internships", () => ("company" in item ? item.company : ""))
 		.exhaustive();
 }
 
@@ -64,6 +65,7 @@ function getItemSubtitle(type: SectionType, item: CustomSectionItemType): string
 		.with("publications", () => ("publisher" in item ? item.publisher : undefined))
 		.with("volunteer", () => ("period" in item ? item.period : undefined))
 		.with("references", () => undefined)
+		.with("internships", () => ("position" in item ? item.position : undefined))
 		.exhaustive();
 }
 

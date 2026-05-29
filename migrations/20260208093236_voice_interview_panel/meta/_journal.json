@@ -1,0 +1,13 @@
+{
+	"version": "7",
+	"dialect": "postgresql",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "7",
+			"when": 1739008356000,
+			"tag": "20260208093236_voice_interview_panel",
+			"breakpoints": true
+		}
+	]
+}

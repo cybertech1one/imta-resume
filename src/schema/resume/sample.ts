@@ -37,6 +37,12 @@ export const sampleResumeData: ResumeData = {
 				link: "https://itch.io/dkowalski",
 			},
 		],
+		// Morocco-specific fields (empty for sample)
+		cin: "",
+		militaryServiceStatus: "not-applicable",
+		dateOfBirth: "",
+		nationality: "",
+		maritalStatus: "",
 	},
 	summary: {
 		title: "",
@@ -428,6 +434,12 @@ export const sampleResumeData: ResumeData = {
 				},
 			],
 		},
+		internships: {
+			title: "",
+			columns: 1,
+			hidden: true,
+			items: [],
+		},
 	},
 	customSections: [
 		{
@@ -500,7 +512,7 @@ export const sampleResumeData: ResumeData = {
 			marginX: 16,
 			marginY: 14,
 			format: "a4",
-			locale: "en-US",
+			locale: "fr-FR",
 			hideIcons: false,
 		},
 		design: {

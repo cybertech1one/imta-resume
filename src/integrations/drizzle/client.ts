@@ -14,7 +14,12 @@ declare global {
 
 function getPool() {
 	if (!globalThis.__pool) {
-		globalThis.__pool = new Pool({ connectionString: env.DATABASE_URL });
+		globalThis.__pool = new Pool({
+			connectionString: env.DATABASE_URL,
+			max: 20,
+			idleTimeoutMillis: 30_000,
+			connectionTimeoutMillis: 5_000,
+		});
 	}
 	return globalThis.__pool;
 }

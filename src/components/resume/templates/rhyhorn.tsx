@@ -1,4 +1,5 @@
 import { EnvelopeIcon, GlobeIcon, MapPinIcon, PhoneIcon } from "@phosphor-icons/react";
+import { memo } from "react";
 import { cn } from "@/utils/style";
 import { getSectionComponent } from "../shared/get-section-component";
 import { PageIcon } from "../shared/page-icon";
@@ -15,7 +16,7 @@ const sectionClassName = cn(
 /**
  * Template: Rhyhorn
  */
-export function RhyhornTemplate({ pageIndex, pageLayout }: TemplateProps) {
+export const RhyhornTemplate = memo(function RhyhornTemplate({ pageIndex, pageLayout }: TemplateProps) {
 	const isFirstPage = pageIndex === 0;
 	const { main, sidebar, fullWidth } = pageLayout;
 
@@ -40,7 +41,7 @@ export function RhyhornTemplate({ pageIndex, pageLayout }: TemplateProps) {
 			)}
 		</div>
 	);
-}
+});
 
 function Header() {
 	const basics = useResumeStore((state) => state.resume.data.basics);

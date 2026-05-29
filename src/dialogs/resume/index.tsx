@@ -36,6 +36,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export function CreateResumeDialog(_: DialogProps<"resume.create">) {
+	const navigate = useNavigate();
 	const closeDialog = useDialogStore((state) => state.closeDialog);
 
 	const { mutate: createResume, isPending } = useMutation(orpc.resume.create.mutationOptions());
@@ -60,9 +61,10 @@ export function CreateResumeDialog(_: DialogProps<"resume.create">) {
 		const toastId = toast.loading(t`Creating your resume...`);
 
 		createResume(data, {
-			onSuccess: () => {
+			onSuccess: (id) => {
 				toast.success(t`Your resume has been created successfully.`, { id: toastId });
 				closeDialog();
+				navigate({ to: "/builder/$resumeId", params: { resumeId: id } });
 			},
 			onError: (error) => {
 				if (error.message === "RESUME_SLUG_ALREADY_EXISTS") {
@@ -89,9 +91,10 @@ export function CreateResumeDialog(_: DialogProps<"resume.create">) {
 		const toastId = toast.loading(t`Creating your resume...`);
 
 		createResume(data, {
-			onSuccess: () => {
+			onSuccess: (id) => {
 				toast.success(t`Your resume has been created successfully.`, { id: toastId });
 				closeDialog();
+				navigate({ to: "/builder/$resumeId", params: { resumeId: id } });
 			},
 			onError: (error) => {
 				toast.error(error.message, { id: toastId });
@@ -117,13 +120,13 @@ export function CreateResumeDialog(_: DialogProps<"resume.create">) {
 
 					<DialogFooter>
 						<ButtonGroup aria-label="Create Resume with Options" className="gap-x-px rtl:flex-row-reverse">
-							<Button type="submit" disabled={isPending}>
+							<Button type="submit" loading={isPending} loadingText={t`Creating...`}>
 								<Trans>Create</Trans>
 							</Button>
 
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>
-									<Button size="icon" disabled={isPending}>
+									<Button size="icon" disabled={isPending} aria-label={t`More create options`}>
 										<CaretDownIcon />
 									</Button>
 								</DropdownMenuTrigger>
@@ -201,7 +204,7 @@ export function UpdateResumeDialog({ data }: DialogProps<"resume.update">) {
 					<ResumeForm />
 
 					<DialogFooter>
-						<Button type="submit" disabled={isPending}>
+						<Button type="submit" loading={isPending} loadingText={t`Saving...`}>
 							<Trans>Save Changes</Trans>
 						</Button>
 					</DialogFooter>
@@ -269,7 +272,7 @@ export function DuplicateResumeDialog({ data }: DialogProps<"resume.duplicate">)
 					<ResumeForm />
 
 					<DialogFooter>
-						<Button type="submit" disabled={isPending}>
+						<Button type="submit" loading={isPending} loadingText={t`Duplicating...`}>
 							<Trans>Duplicate</Trans>
 						</Button>
 					</DialogFooter>
@@ -306,7 +309,13 @@ function ResumeForm() {
 								<Input min={1} max={64} {...field} />
 							</FormControl>
 
-							<Button size="icon" variant="outline" title={t`Generate a random name`} onClick={onGenerateName}>
+							<Button
+								size="icon"
+								variant="outline"
+								title={t`Generate a random name`}
+								aria-label={t`Generate a random name`}
+								onClick={onGenerateName}
+							>
 								<MagicWandIcon />
 							</Button>
 						</div>

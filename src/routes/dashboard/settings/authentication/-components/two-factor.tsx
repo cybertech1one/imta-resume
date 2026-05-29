@@ -28,11 +28,7 @@ export function TwoFactorSection() {
 	if (!hasPassword) return null;
 
 	return (
-		<motion.div
-			initial={{ opacity: 0, y: -20 }}
-			animate={{ opacity: 1, y: 0 }}
-			transition={{ duration: 0.3, delay: 0.2 }}
-		>
+		<motion.div initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.2 }}>
 			<Separator />
 
 			<div className="mt-4 flex items-center justify-between gap-x-4">

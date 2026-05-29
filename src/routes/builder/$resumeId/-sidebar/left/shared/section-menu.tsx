@@ -106,7 +106,7 @@ export function SectionDropdownMenu({ type }: Props) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button size="icon" variant="ghost">
+				<Button size="icon" variant="ghost" aria-label={t`Section options`}>
 					<ListIcon />
 				</Button>
 			</DropdownMenuTrigger>

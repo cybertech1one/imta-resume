@@ -61,8 +61,11 @@ const getAuthConfig = () => {
 		} satisfies GenericOAuthConfig);
 	}
 
+	// Determine if running in production (HTTPS)
+	const isProduction = env.APP_URL.startsWith("https://");
+
 	return betterAuth({
-		appName: "Reactive Resume",
+		appName: "IMTA Resume",
 
 		baseURL: env.APP_URL,
 		secret: env.AUTH_SECRET,
@@ -70,24 +73,50 @@ const getAuthConfig = () => {
 		database: drizzleAdapter(db, { schema, provider: "pg" }),
 
 		telemetry: { enabled: false },
-		trustedOrigins: [env.APP_URL],
+		trustedOrigins: [
+			env.APP_URL,
+			...(env.APP_URL.includes("localhost") ? [env.APP_URL.replace("localhost", "127.0.0.1")] : []),
+		],
+
+		// Session security configuration
+		session: {
+			// Session expires after 7 days of inactivity
+			expiresIn: 60 * 60 * 24 * 7, // 7 days in seconds
+			// Update session expiry on each request to keep active sessions alive
+			updateAge: 60 * 60 * 24, // 24 hours - update session if older than this
+		},
+
 		advanced: {
 			database: { generateId },
-			useSecureCookies: env.APP_URL.startsWith("https://"),
+			// Security: Use secure cookies in production (HTTPS only)
+			useSecureCookies: isProduction,
+			// Security: Set SameSite to strict for CSRF protection
+			// 'lax' allows OAuth redirects to work while still providing CSRF protection
+			cookieOptions: {
+				sameSite: "lax",
+				httpOnly: true,
+				secure: isProduction,
+				path: "/",
+			},
 		},
 
 		emailAndPassword: {
 			enabled: !env.FLAG_DISABLE_EMAIL_AUTH,
 			autoSignIn: true,
-			minPasswordLength: 6,
+			// Security Policy: Minimum 12 characters required for password strength
+			// NIST SP 800-63B recommends minimum 8 characters, but 12+ provides better security
+			// against offline brute-force attacks and dictionary attacks
+			minPasswordLength: 12,
 			maxPasswordLength: 64,
-			requireEmailVerification: false,
+			// Security: Require email verification in production to prevent account abuse
+			// and ensure valid contact information for password recovery
+			requireEmailVerification: process.env.NODE_ENV === "production",
 			disableSignUp: env.FLAG_DISABLE_SIGNUPS || env.FLAG_DISABLE_EMAIL_AUTH,
 			sendResetPassword: async ({ user, url }) => {
 				await sendEmail({
 					to: user.email,
 					subject: "Reset your password",
-					text: `You requested a password reset for your Reactive Resume account.\n\nTo reset your password, please visit the following URL:\n${url}.\n\nIf you did not request a password reset, please ignore this email.`,
+					text: `You requested a password reset for your IMTA Resume account.\n\nTo reset your password, please visit the following URL:\n${url}.\n\nIf you did not request a password reset, please ignore this email.`,
 				});
 			},
 			password: {
@@ -103,7 +132,7 @@ const getAuthConfig = () => {
 				await sendEmail({
 					to: user.email,
 					subject: "Verify your email",
-					text: `You recently signed up for an account on Reactive Resume.\n\nTo verify your email, please visit the following URL:\n${url}`,
+					text: `You recently signed up for an account on IMTA Resume.\n\nTo verify your email, please visit the following URL:\n${url}`,
 				});
 			},
 		},
@@ -115,7 +144,7 @@ const getAuthConfig = () => {
 					await sendEmail({
 						to: newEmail,
 						subject: "Verify your new email",
-						text: `You recently requested to change your email on Reactive Resume from ${user.email} to ${newEmail}.\n\nTo verify this change, please visit the following URL:\n${url}\n\nIf you did not request this change, please ignore this email.`,
+						text: `You recently requested to change your email on IMTA Resume from ${user.email} to ${newEmail}.\n\nTo verify this change, please visit the following URL:\n${url}\n\nIf you did not request this change, please ignore this email.`,
 					});
 				},
 			},
@@ -123,6 +152,27 @@ const getAuthConfig = () => {
 				username: {
 					type: "string",
 					required: true,
+				},
+				role: {
+					type: "string",
+					required: false,
+					defaultValue: "user",
+					input: false,
+				},
+				imtaProgram: {
+					type: "string",
+					required: false,
+				},
+				onboardingCompleted: {
+					type: "boolean",
+					required: false,
+					defaultValue: false,
+					input: false,
+				},
+				preferredAiLanguage: {
+					type: "string",
+					required: false,
+					defaultValue: "fr",
 				},
 			},
 		},
@@ -224,11 +274,11 @@ const getAuthConfig = () => {
 				validationOrder: { username: "post-normalization", displayUsername: "post-normalization" },
 			}),
 			twoFactor({
-				issuer: "Reactive Resume",
+				issuer: "IMTA Resume",
 			}),
 			passkey({
 				origin: env.APP_URL,
-				rpName: "Reactive Resume",
+				rpName: "IMTA Resume",
 				rpID: new URL(env.APP_URL).hostname,
 			}),
 			genericOAuth({
