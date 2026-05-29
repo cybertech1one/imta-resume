@@ -13,6 +13,14 @@ const coreMarketingPages = [
 	"/imta-etudiants",
 ];
 
+const partnerMarketingPages = [
+	"/partenaires",
+	"/entreprises",
+	"/recruteurs",
+	"/publier-offre-stage",
+	"/recrutement-sante-maroc",
+];
+
 const sitemapEntries = [
 	{ path: "/", changefreq: "weekly", priority: "1.0" },
 	{ path: "/ressources-etudiants-maroc", changefreq: "weekly", priority: "0.95" },
@@ -24,6 +32,7 @@ const sitemapEntries = [
 	{ path: "/auth/login", changefreq: "monthly", priority: "0.3" },
 	{ path: "/auth/register", changefreq: "monthly", priority: "0.5" },
 	...coreMarketingPages.map((path) => ({ path, changefreq: "weekly", priority: "0.9" })),
+	...partnerMarketingPages.map((path) => ({ path, changefreq: "weekly", priority: "0.88" })),
 	...generatedTrafficLandingPages.map((page) => ({
 		path: page.path,
 		changefreq: "weekly",

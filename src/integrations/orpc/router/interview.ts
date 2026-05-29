@@ -1,6 +1,6 @@
 import { ORPCError } from "@orpc/server";
 import { generateText, Output, streamText } from "ai";
-import { and, eq, sql } from "drizzle-orm";
+import { and, asc, eq, sql } from "drizzle-orm";
 import z, { ZodError } from "zod";
 import evaluateInterviewResponsePrompt from "@/integrations/ai/prompts/evaluate-interview-response-system.md?raw";
 import generateInterviewQuestionsPrompt from "@/integrations/ai/prompts/generate-interview-questions-system.md?raw";
@@ -12,7 +12,9 @@ import {
 	type InterviewQuestion,
 	type InterviewResponse,
 	interviewAnalysis,
+	interviewCommonQuestion,
 	interviewSession,
+	mockAiSession,
 	type ResponseEvaluation,
 } from "@/integrations/drizzle/schema";
 import {
@@ -772,6 +774,99 @@ Provide comprehensive session analysis in JSON format.`,
 			return questions;
 		}),
 
+	// Get program-specific questions from the database, scoped to a precise IMTA
+	// program (e.g. "soudure", "cariste"). Falls back to field-wide questions when
+	// the program has no seeded questions yet, so the page is never empty.
+	getQuestionsByProgram: protectedProcedure
+		.input(
+			z.object({
+				program: z.string().optional(),
+				field: z.enum(["healthcare", "industrial", "hse", "general"]).optional(),
+				type: z.enum(["behavioral", "technical", "situational", "motivational", "general"]).optional(),
+			}),
+		)
+		.output(
+			z.object({
+				scope: z.enum(["program", "field", "none"]),
+				program: z.string().nullable(),
+				questions: z.array(
+					z.object({
+						id: z.string(),
+						question: z.string(),
+						questionFr: z.string(),
+						type: z.enum(["behavioral", "technical", "situational", "motivational", "general"]),
+						field: z.string(),
+						program: z.string().nullable(),
+						difficulty: z.enum(["beginner", "intermediate", "advanced"]),
+						sampleAnswer: z.string().nullable(),
+						sampleAnswerFr: z.string().nullable(),
+						tips: z.array(z.string()),
+						tipsFr: z.array(z.string()),
+					}),
+				),
+			}),
+		)
+		.handler(async ({ context, input }) => {
+			// Resolve the target program: explicit input wins, else the student's profile program.
+			const targetProgram = input.program || context.user.imtaProgram || undefined;
+
+			// Map DB type/difficulty conventions to the UI enum the question page expects.
+			const normalizeType = (t: string): "behavioral" | "technical" | "situational" | "motivational" | "general" => {
+				if (t === "competency") return "behavioral";
+				if (t === "motivation") return "motivational";
+				if (t === "behavioral" || t === "technical" || t === "situational" || t === "motivational") return t;
+				return "general";
+			};
+			const normalizeDifficulty = (d: string | null): "beginner" | "intermediate" | "advanced" => {
+				if (d === "easy" || d === "beginner") return "beginner";
+				if (d === "hard" || d === "advanced") return "advanced";
+				return "intermediate";
+			};
+			const mapRow = (row: typeof interviewCommonQuestion.$inferSelect) => ({
+				id: row.id,
+				question: row.question,
+				questionFr: row.questionFr,
+				type: normalizeType(row.type),
+				field: row.field,
+				program: row.program,
+				difficulty: normalizeDifficulty(row.difficulty),
+				sampleAnswer: row.sampleAnswer,
+				sampleAnswerFr: row.sampleAnswerFr,
+				tips: (row.tips as string[] | null) ?? [],
+				tipsFr: (row.tipsFr as string[] | null) ?? [],
+			});
+
+			// 1. Try program-scoped questions.
+			if (targetProgram) {
+				const programRows = await db
+					.select()
+					.from(interviewCommonQuestion)
+					.where(and(eq(interviewCommonQuestion.program, targetProgram), eq(interviewCommonQuestion.isActive, true)))
+					.orderBy(asc(interviewCommonQuestion.sortOrder));
+				let mapped = programRows.map(mapRow);
+				if (input.type) mapped = mapped.filter((q) => q.type === input.type);
+				if (mapped.length > 0) {
+					return { scope: "program" as const, program: targetProgram, questions: mapped };
+				}
+			}
+
+			// 2. Fall back to field-wide questions (no program scope).
+			if (input.field) {
+				const fieldRows = await db
+					.select()
+					.from(interviewCommonQuestion)
+					.where(and(eq(interviewCommonQuestion.field, input.field), eq(interviewCommonQuestion.isActive, true)))
+					.orderBy(asc(interviewCommonQuestion.sortOrder));
+				let mapped = fieldRows.map(mapRow);
+				if (input.type) mapped = mapped.filter((q) => q.type === input.type);
+				if (mapped.length > 0) {
+					return { scope: "field" as const, program: targetProgram ?? null, questions: mapped };
+				}
+			}
+
+			return { scope: "none" as const, program: targetProgram ?? null, questions: [] };
+		}),
+
 	...interviewFavoriteEndpoints,
 
 	// Chat with AI interviewer - streaming conversational interview
@@ -1421,6 +1516,166 @@ Please improve this answer while keeping it natural and authentic.`,
 					message: "Une erreur est survenue lors de l'amelioration de la reponse. Veuillez reessayer.",
 				});
 			}
+		}),
+
+	// Program-aware preparation plan: a concrete "what to practice next" plan built
+	// from the student's IMTA program, the program-specific question bank coverage,
+	// and their past mock-interview sessions. Pure database logic (no AI cost).
+	getPreparationPlan: protectedProcedure
+		.input(z.object({ program: z.string().optional() }).optional())
+		.output(
+			z.object({
+				program: z.string().nullable(),
+				hasProgramQuestions: z.boolean(),
+				questionCounts: z.object({
+					total: z.number(),
+					behavioral: z.number(),
+					technical: z.number(),
+					situational: z.number(),
+					motivational: z.number(),
+				}),
+				sessionsForProgram: z.number(),
+				averageScore: z.number().nullable(),
+				steps: z.array(
+					z.object({
+						id: z.string(),
+						title: z.string(),
+						description: z.string(),
+						type: z.enum(["behavioral", "technical", "situational", "motivational", "general"]).nullable(),
+						done: z.boolean(),
+						actionLabel: z.string(),
+					}),
+				),
+				focusAreas: z.array(z.string()),
+			}),
+		)
+		.handler(async ({ context, input }) => {
+			const program = input?.program || context.user.imtaProgram || null;
+
+			// Count program-specific questions per type from the DB.
+			const counts = { total: 0, behavioral: 0, technical: 0, situational: 0, motivational: 0 };
+			if (program) {
+				const rows = await db
+					.select({ type: interviewCommonQuestion.type })
+					.from(interviewCommonQuestion)
+					.where(and(eq(interviewCommonQuestion.program, program), eq(interviewCommonQuestion.isActive, true)));
+				for (const r of rows) {
+					counts.total += 1;
+					if (r.type === "behavioral" || r.type === "competency") counts.behavioral += 1;
+					else if (r.type === "technical") counts.technical += 1;
+					else if (r.type === "situational") counts.situational += 1;
+					else if (r.type === "motivation" || r.type === "motivational") counts.motivational += 1;
+				}
+			}
+
+			// Look at the student's past mock-interview sessions for this program.
+			const sessions = program
+				? await db
+						.select()
+						.from(mockAiSession)
+						.where(and(eq(mockAiSession.userId, context.user.id), eq(mockAiSession.program, program)))
+				: [];
+			const completed = sessions.filter((s) => s.completedAt !== null);
+			const scored = completed.filter((s) => s.overallScore !== null);
+			const averageScore =
+				scored.length > 0
+					? Math.round(scored.reduce((acc, s) => acc + (s.overallScore ?? 0), 0) / scored.length)
+					: null;
+
+			// Build an ordered, concrete preparation checklist.
+			const hasProgramQuestions = counts.total > 0;
+			const steps: Array<{
+				id: string;
+				title: string;
+				description: string;
+				type: "behavioral" | "technical" | "situational" | "motivational" | "general" | null;
+				done: boolean;
+				actionLabel: string;
+			}> = [];
+
+			steps.push({
+				id: "review-questions",
+				title: "Etudier les questions de votre metier",
+				description: hasProgramQuestions
+					? `${counts.total} questions specifiques a votre formation sont disponibles. Lisez-les et preparez vos reponses.`
+					: "Consultez la banque de questions de votre domaine pour vous familiariser.",
+				type: null,
+				done: completed.length > 0,
+				actionLabel: "Voir les questions",
+			});
+			steps.push({
+				id: "practice-technical",
+				title: "Maitriser les questions techniques",
+				description: `Entrainez-vous sur les ${counts.technical || ""} questions techniques: ce sont les plus discriminantes pour un recruteur de votre secteur.`,
+				type: "technical",
+				done: averageScore !== null && averageScore >= 60,
+				actionLabel: "Pratiquer",
+			});
+			steps.push({
+				id: "practice-situational",
+				title: "Preparer les mises en situation",
+				description:
+					"Travaillez les scenarios concrets du terrain (securite, pannes, urgences) que l'employeur vous posera.",
+				type: "situational",
+				done: completed.length >= 2,
+				actionLabel: "Pratiquer",
+			});
+			steps.push({
+				id: "star-behavioral",
+				title: "Structurer vos reponses comportementales (methode STAR)",
+				description: "Pour chaque experience, structurez: Situation, Tache, Action, Resultat.",
+				type: "behavioral",
+				done: false,
+				actionLabel: "Methode STAR",
+			});
+			steps.push({
+				id: "mock-interview",
+				title: "Passer un entretien simule complet",
+				description:
+					completed.length > 0
+						? `Vous avez complete ${completed.length} session(s). Refaites-en une pour viser un score superieur a ${averageScore ?? 60}%.`
+						: "Lancez votre premiere simulation d'entretien avec retour IA pour evaluer votre niveau.",
+				type: null,
+				done: completed.length >= 3,
+				actionLabel: "Entretien simule",
+			});
+			steps.push({
+				id: "motivation",
+				title: "Affiner votre discours de motivation",
+				description: "Preparez une reponse claire a 'Pourquoi ce metier ?' liee a votre formation et a votre projet.",
+				type: "motivational",
+				done: averageScore !== null && averageScore >= 75,
+				actionLabel: "Pratiquer",
+			});
+
+			// Focus areas: areas with the most room for improvement.
+			const focusAreas: string[] = [];
+			if (completed.length === 0) {
+				focusAreas.push("Commencez par une premiere simulation pour evaluer votre niveau.");
+			} else {
+				if (averageScore !== null && averageScore < 60) {
+					focusAreas.push("Renforcez vos reponses techniques: votre score moyen est encore faible.");
+				}
+				if (completed.length < 3) {
+					focusAreas.push("Multipliez les sessions de pratique (visez au moins 3 entretiens complets).");
+				}
+				if (averageScore !== null && averageScore >= 75) {
+					focusAreas.push("Excellent niveau! Travaillez les questions difficiles pour viser l'excellence.");
+				}
+			}
+			if (!hasProgramQuestions) {
+				focusAreas.push("Aucune question specifique a votre programme pour l'instant: utilisez la generation IA.");
+			}
+
+			return {
+				program,
+				hasProgramQuestions,
+				questionCounts: counts,
+				sessionsForProgram: sessions.length,
+				averageScore,
+				steps,
+				focusAreas,
+			};
 		}),
 
 	// Interview Readiness Score - calculated from session history (database query, NOT AI)

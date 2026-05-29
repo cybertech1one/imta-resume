@@ -6,6 +6,7 @@ export type ResumeGalleryItem = typeof schema.resumeGallery.$inferSelect;
 
 export interface ResumeGalleryListOptions {
 	field?: string;
+	subField?: string;
 	experienceMin?: number;
 	experienceMax?: number;
 	language?: string;
@@ -25,6 +26,9 @@ export const resumeGalleryService = {
 
 		if (options?.field) {
 			conditions.push(eq(schema.resumeGallery.field, options.field));
+		}
+		if (options?.subField) {
+			conditions.push(eq(schema.resumeGallery.subField, options.subField));
 		}
 		if (options?.experienceMin !== undefined) {
 			conditions.push(gte(schema.resumeGallery.experienceYears, options.experienceMin));
@@ -152,6 +156,19 @@ export const resumeGalleryService = {
 			.where(eq(schema.resumeGallery.isActive, true))
 			.orderBy(asc(schema.resumeGallery.field));
 		return result.map((r) => r.field);
+	},
+
+	// Distinct programs (subField), optionally scoped to a field. Powers the
+	// program-level filter so e.g. a welding student sees only welding examples.
+	getSubFields: async (field?: string) => {
+		const conditions = [eq(schema.resumeGallery.isActive, true)];
+		if (field) conditions.push(eq(schema.resumeGallery.field, field));
+		const result = await db
+			.selectDistinct({ subField: schema.resumeGallery.subField })
+			.from(schema.resumeGallery)
+			.where(and(...conditions))
+			.orderBy(asc(schema.resumeGallery.subField));
+		return result.map((r) => r.subField).filter((s): s is string => Boolean(s));
 	},
 
 	getTemplates: async () => {

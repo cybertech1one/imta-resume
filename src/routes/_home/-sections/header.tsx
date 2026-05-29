@@ -18,20 +18,23 @@ export function Header() {
 						<FileTextIcon aria-hidden="true" className="size-5" weight="fill" />
 						<div className="absolute -top-0.5 -right-0.5 size-3 rounded-full bg-cyan-300 ring-2 ring-white" />
 					</div>
-					<span className="hidden font-bold font-display text-xl sm:block">
+					<span className="font-bold font-display text-lg sm:text-xl">
 						IMTA<span className="text-emerald-800"> Resume</span>
 					</span>
 				</Link>
 
 				<div className="ml-8 hidden items-center gap-6 lg:flex">
-					<a href="#objectifs" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
+					<a href="/#objectifs" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
 						Fonctionnalités
 					</a>
-					<a href="#guides" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
+					<a href="/#guides" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
 						Guides
 					</a>
-					<a href="#stages" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
+					<a href="/#stages" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
 						Stages & Emplois
+					</a>
+					<a href="/partenaires" className="font-medium text-sm text-zinc-700 transition-colors hover:text-emerald-800">
+						Entreprises
 					</a>
 					<a
 						href="/ressources-etudiants-maroc"
@@ -68,14 +71,17 @@ export function Header() {
 						</summary>
 						<div className="absolute top-12 right-0 w-[min(22rem,calc(100vw-2rem))] rounded-lg border border-zinc-200 bg-white p-4 shadow-xl">
 							<div className="flex flex-col gap-3">
-								<a href="#objectifs" className="py-2 font-medium text-sm text-zinc-700">
+								<a href="/#objectifs" className="py-2 font-medium text-sm text-zinc-700">
 									Fonctionnalités
 								</a>
-								<a href="#guides" className="py-2 font-medium text-sm text-zinc-700">
+								<a href="/#guides" className="py-2 font-medium text-sm text-zinc-700">
 									Guides
 								</a>
-								<a href="#stages" className="py-2 font-medium text-sm text-zinc-700">
+								<a href="/#stages" className="py-2 font-medium text-sm text-zinc-700">
 									Stages & Emplois
+								</a>
+								<a href="/partenaires" className="py-2 font-medium text-sm text-zinc-700">
+									Entreprises
 								</a>
 								<a href="/ressources-etudiants-maroc" className="py-2 font-medium text-sm text-zinc-700">
 									Ressources

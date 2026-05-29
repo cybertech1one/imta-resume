@@ -44,6 +44,7 @@ import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resu
 import { Route as DashboardWikiIndexRouteImport } from "./routes/dashboard/wiki/index";
 import { Route as DashboardToolsIndexRouteImport } from "./routes/dashboard/tools/index";
 import { Route as DashboardTemplatesIndexRouteImport } from "./routes/dashboard/templates/index";
+import { Route as DashboardSupportIndexRouteImport } from "./routes/dashboard/support/index";
 import { Route as DashboardSettingsIndexRouteImport } from "./routes/dashboard/settings/index";
 import { Route as DashboardResumesIndexRouteImport } from "./routes/dashboard/resumes/index";
 import { Route as DashboardResourcesIndexRouteImport } from "./routes/dashboard/resources/index";
@@ -52,6 +53,7 @@ import { Route as DashboardProfileIndexRouteImport } from "./routes/dashboard/pr
 import { Route as DashboardPortfolioIndexRouteImport } from "./routes/dashboard/portfolio/index";
 import { Route as DashboardPartnerIndexRouteImport } from "./routes/dashboard/partner/index";
 import { Route as DashboardNetworkingIndexRouteImport } from "./routes/dashboard/networking/index";
+import { Route as DashboardMessagesIndexRouteImport } from "./routes/dashboard/messages/index";
 import { Route as DashboardLinkedinIndexRouteImport } from "./routes/dashboard/linkedin/index";
 import { Route as DashboardLearnIndexRouteImport } from "./routes/dashboard/learn/index";
 import { Route as DashboardJobsIndexRouteImport } from "./routes/dashboard/jobs/index";
@@ -178,6 +180,7 @@ import { Route as UsernameSlugCardRouteImport } from "./routes/$username/$slug.c
 import { Route as DashboardWikiCategorySlugIndexRouteImport } from "./routes/dashboard/wiki/$categorySlug/index";
 import { Route as DashboardSettingsAuthenticationIndexRouteImport } from "./routes/dashboard/settings/authentication/index";
 import { Route as DashboardAdminUsersIndexRouteImport } from "./routes/dashboard/admin/users/index";
+import { Route as DashboardAdminSupportIndexRouteImport } from "./routes/dashboard/admin/support/index";
 import { Route as DashboardAdminResumesIndexRouteImport } from "./routes/dashboard/admin/resumes/index";
 import { Route as DashboardAdminReferenceDataIndexRouteImport } from "./routes/dashboard/admin/reference-data/index";
 import { Route as DashboardAdminCohortsIndexRouteImport } from "./routes/dashboard/admin/cohorts/index";
@@ -369,6 +372,11 @@ const DashboardTemplatesIndexRoute = DashboardTemplatesIndexRouteImport.update({
   path: "/templates/",
   getParentRoute: () => DashboardRouteRoute,
 } as any);
+const DashboardSupportIndexRoute = DashboardSupportIndexRouteImport.update({
+  id: "/support/",
+  path: "/support/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
 const DashboardSettingsIndexRoute = DashboardSettingsIndexRouteImport.update({
   id: "/settings/",
   path: "/settings/",
@@ -412,6 +420,11 @@ const DashboardNetworkingIndexRoute =
   } as any).lazy(() =>
     import("./routes/dashboard/networking/index.lazy").then((d) => d.Route),
   );
+const DashboardMessagesIndexRoute = DashboardMessagesIndexRouteImport.update({
+  id: "/messages/",
+  path: "/messages/",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
 const DashboardLinkedinIndexRoute = DashboardLinkedinIndexRouteImport.update({
   id: "/linkedin/",
   path: "/linkedin/",
@@ -1121,6 +1134,12 @@ const DashboardAdminUsersIndexRoute =
     path: "/users/",
     getParentRoute: () => DashboardAdminRouteRoute,
   } as any);
+const DashboardAdminSupportIndexRoute =
+  DashboardAdminSupportIndexRouteImport.update({
+    id: "/support/",
+    path: "/support/",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
 const DashboardAdminResumesIndexRoute =
   DashboardAdminResumesIndexRouteImport.update({
     id: "/resumes/",
@@ -1355,6 +1374,7 @@ export interface FileRoutesByFullPath {
   "/dashboard/jobs/": typeof DashboardJobsIndexRoute;
   "/dashboard/learn/": typeof DashboardLearnIndexRoute;
   "/dashboard/linkedin/": typeof DashboardLinkedinIndexRoute;
+  "/dashboard/messages/": typeof DashboardMessagesIndexRoute;
   "/dashboard/networking/": typeof DashboardNetworkingIndexRoute;
   "/dashboard/partner/": typeof DashboardPartnerIndexRoute;
   "/dashboard/portfolio/": typeof DashboardPortfolioIndexRoute;
@@ -1363,6 +1383,7 @@ export interface FileRoutesByFullPath {
   "/dashboard/resources/": typeof DashboardResourcesIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
   "/dashboard/settings/": typeof DashboardSettingsIndexRoute;
+  "/dashboard/support/": typeof DashboardSupportIndexRoute;
   "/dashboard/templates/": typeof DashboardTemplatesIndexRoute;
   "/dashboard/tools/": typeof DashboardToolsIndexRoute;
   "/dashboard/wiki/": typeof DashboardWikiIndexRoute;
@@ -1379,6 +1400,7 @@ export interface FileRoutesByFullPath {
   "/dashboard/admin/cohorts/": typeof DashboardAdminCohortsIndexRoute;
   "/dashboard/admin/reference-data/": typeof DashboardAdminReferenceDataIndexRoute;
   "/dashboard/admin/resumes/": typeof DashboardAdminResumesIndexRoute;
+  "/dashboard/admin/support/": typeof DashboardAdminSupportIndexRoute;
   "/dashboard/admin/users/": typeof DashboardAdminUsersIndexRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
   "/dashboard/wiki/$categorySlug/": typeof DashboardWikiCategorySlugIndexRoute;
@@ -1533,6 +1555,7 @@ export interface FileRoutesByTo {
   "/dashboard/jobs": typeof DashboardJobsIndexRoute;
   "/dashboard/learn": typeof DashboardLearnIndexRoute;
   "/dashboard/linkedin": typeof DashboardLinkedinIndexRoute;
+  "/dashboard/messages": typeof DashboardMessagesIndexRoute;
   "/dashboard/networking": typeof DashboardNetworkingIndexRoute;
   "/dashboard/partner": typeof DashboardPartnerIndexRoute;
   "/dashboard/portfolio": typeof DashboardPortfolioIndexRoute;
@@ -1541,6 +1564,7 @@ export interface FileRoutesByTo {
   "/dashboard/resources": typeof DashboardResourcesIndexRoute;
   "/dashboard/resumes": typeof DashboardResumesIndexRoute;
   "/dashboard/settings": typeof DashboardSettingsIndexRoute;
+  "/dashboard/support": typeof DashboardSupportIndexRoute;
   "/dashboard/templates": typeof DashboardTemplatesIndexRoute;
   "/dashboard/tools": typeof DashboardToolsIndexRoute;
   "/dashboard/wiki": typeof DashboardWikiIndexRoute;
@@ -1557,6 +1581,7 @@ export interface FileRoutesByTo {
   "/dashboard/admin/cohorts": typeof DashboardAdminCohortsIndexRoute;
   "/dashboard/admin/reference-data": typeof DashboardAdminReferenceDataIndexRoute;
   "/dashboard/admin/resumes": typeof DashboardAdminResumesIndexRoute;
+  "/dashboard/admin/support": typeof DashboardAdminSupportIndexRoute;
   "/dashboard/admin/users": typeof DashboardAdminUsersIndexRoute;
   "/dashboard/settings/authentication": typeof DashboardSettingsAuthenticationIndexRoute;
   "/dashboard/wiki/$categorySlug": typeof DashboardWikiCategorySlugIndexRoute;
@@ -1718,6 +1743,7 @@ export interface FileRoutesById {
   "/dashboard/jobs/": typeof DashboardJobsIndexRoute;
   "/dashboard/learn/": typeof DashboardLearnIndexRoute;
   "/dashboard/linkedin/": typeof DashboardLinkedinIndexRoute;
+  "/dashboard/messages/": typeof DashboardMessagesIndexRoute;
   "/dashboard/networking/": typeof DashboardNetworkingIndexRoute;
   "/dashboard/partner/": typeof DashboardPartnerIndexRoute;
   "/dashboard/portfolio/": typeof DashboardPortfolioIndexRoute;
@@ -1726,6 +1752,7 @@ export interface FileRoutesById {
   "/dashboard/resources/": typeof DashboardResourcesIndexRoute;
   "/dashboard/resumes/": typeof DashboardResumesIndexRoute;
   "/dashboard/settings/": typeof DashboardSettingsIndexRoute;
+  "/dashboard/support/": typeof DashboardSupportIndexRoute;
   "/dashboard/templates/": typeof DashboardTemplatesIndexRoute;
   "/dashboard/tools/": typeof DashboardToolsIndexRoute;
   "/dashboard/wiki/": typeof DashboardWikiIndexRoute;
@@ -1742,6 +1769,7 @@ export interface FileRoutesById {
   "/dashboard/admin/cohorts/": typeof DashboardAdminCohortsIndexRoute;
   "/dashboard/admin/reference-data/": typeof DashboardAdminReferenceDataIndexRoute;
   "/dashboard/admin/resumes/": typeof DashboardAdminResumesIndexRoute;
+  "/dashboard/admin/support/": typeof DashboardAdminSupportIndexRoute;
   "/dashboard/admin/users/": typeof DashboardAdminUsersIndexRoute;
   "/dashboard/settings/authentication/": typeof DashboardSettingsAuthenticationIndexRoute;
   "/dashboard/wiki/$categorySlug/": typeof DashboardWikiCategorySlugIndexRoute;
@@ -1903,6 +1931,7 @@ export interface FileRouteTypes {
     | "/dashboard/jobs/"
     | "/dashboard/learn/"
     | "/dashboard/linkedin/"
+    | "/dashboard/messages/"
     | "/dashboard/networking/"
     | "/dashboard/partner/"
     | "/dashboard/portfolio/"
@@ -1911,6 +1940,7 @@ export interface FileRouteTypes {
     | "/dashboard/resources/"
     | "/dashboard/resumes/"
     | "/dashboard/settings/"
+    | "/dashboard/support/"
     | "/dashboard/templates/"
     | "/dashboard/tools/"
     | "/dashboard/wiki/"
@@ -1927,6 +1957,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/cohorts/"
     | "/dashboard/admin/reference-data/"
     | "/dashboard/admin/resumes/"
+    | "/dashboard/admin/support/"
     | "/dashboard/admin/users/"
     | "/dashboard/settings/authentication/"
     | "/dashboard/wiki/$categorySlug/";
@@ -2081,6 +2112,7 @@ export interface FileRouteTypes {
     | "/dashboard/jobs"
     | "/dashboard/learn"
     | "/dashboard/linkedin"
+    | "/dashboard/messages"
     | "/dashboard/networking"
     | "/dashboard/partner"
     | "/dashboard/portfolio"
@@ -2089,6 +2121,7 @@ export interface FileRouteTypes {
     | "/dashboard/resources"
     | "/dashboard/resumes"
     | "/dashboard/settings"
+    | "/dashboard/support"
     | "/dashboard/templates"
     | "/dashboard/tools"
     | "/dashboard/wiki"
@@ -2105,6 +2138,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/cohorts"
     | "/dashboard/admin/reference-data"
     | "/dashboard/admin/resumes"
+    | "/dashboard/admin/support"
     | "/dashboard/admin/users"
     | "/dashboard/settings/authentication"
     | "/dashboard/wiki/$categorySlug";
@@ -2265,6 +2299,7 @@ export interface FileRouteTypes {
     | "/dashboard/jobs/"
     | "/dashboard/learn/"
     | "/dashboard/linkedin/"
+    | "/dashboard/messages/"
     | "/dashboard/networking/"
     | "/dashboard/partner/"
     | "/dashboard/portfolio/"
@@ -2273,6 +2308,7 @@ export interface FileRouteTypes {
     | "/dashboard/resources/"
     | "/dashboard/resumes/"
     | "/dashboard/settings/"
+    | "/dashboard/support/"
     | "/dashboard/templates/"
     | "/dashboard/tools/"
     | "/dashboard/wiki/"
@@ -2289,6 +2325,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/cohorts/"
     | "/dashboard/admin/reference-data/"
     | "/dashboard/admin/resumes/"
+    | "/dashboard/admin/support/"
     | "/dashboard/admin/users/"
     | "/dashboard/settings/authentication/"
     | "/dashboard/wiki/$categorySlug/";
@@ -2556,6 +2593,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardTemplatesIndexRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
+    "/dashboard/support/": {
+      id: "/dashboard/support/";
+      path: "/support";
+      fullPath: "/dashboard/support/";
+      preLoaderRoute: typeof DashboardSupportIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
     "/dashboard/settings/": {
       id: "/dashboard/settings/";
       path: "/settings";
@@ -2610,6 +2654,13 @@ declare module "@tanstack/react-router" {
       path: "/networking";
       fullPath: "/dashboard/networking/";
       preLoaderRoute: typeof DashboardNetworkingIndexRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
+    "/dashboard/messages/": {
+      id: "/dashboard/messages/";
+      path: "/messages";
+      fullPath: "/dashboard/messages/";
+      preLoaderRoute: typeof DashboardMessagesIndexRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
     "/dashboard/linkedin/": {
@@ -3494,6 +3545,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardAdminUsersIndexRouteImport;
       parentRoute: typeof DashboardAdminRouteRoute;
     };
+    "/dashboard/admin/support/": {
+      id: "/dashboard/admin/support/";
+      path: "/support";
+      fullPath: "/dashboard/admin/support/";
+      preLoaderRoute: typeof DashboardAdminSupportIndexRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
     "/dashboard/admin/resumes/": {
       id: "/dashboard/admin/resumes/";
       path: "/resumes";
@@ -3669,6 +3727,7 @@ interface DashboardAdminRouteRouteChildren {
   DashboardAdminCohortsIndexRoute: typeof DashboardAdminCohortsIndexRoute;
   DashboardAdminReferenceDataIndexRoute: typeof DashboardAdminReferenceDataIndexRoute;
   DashboardAdminResumesIndexRoute: typeof DashboardAdminResumesIndexRoute;
+  DashboardAdminSupportIndexRoute: typeof DashboardAdminSupportIndexRoute;
   DashboardAdminUsersIndexRoute: typeof DashboardAdminUsersIndexRoute;
 }
 
@@ -3683,6 +3742,7 @@ const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
   DashboardAdminCohortsIndexRoute: DashboardAdminCohortsIndexRoute,
   DashboardAdminReferenceDataIndexRoute: DashboardAdminReferenceDataIndexRoute,
   DashboardAdminResumesIndexRoute: DashboardAdminResumesIndexRoute,
+  DashboardAdminSupportIndexRoute: DashboardAdminSupportIndexRoute,
   DashboardAdminUsersIndexRoute: DashboardAdminUsersIndexRoute,
 };
 
@@ -3819,6 +3879,7 @@ interface DashboardRouteRouteChildren {
   DashboardJobsIndexRoute: typeof DashboardJobsIndexRoute;
   DashboardLearnIndexRoute: typeof DashboardLearnIndexRoute;
   DashboardLinkedinIndexRoute: typeof DashboardLinkedinIndexRoute;
+  DashboardMessagesIndexRoute: typeof DashboardMessagesIndexRoute;
   DashboardNetworkingIndexRoute: typeof DashboardNetworkingIndexRoute;
   DashboardPartnerIndexRoute: typeof DashboardPartnerIndexRoute;
   DashboardPortfolioIndexRoute: typeof DashboardPortfolioIndexRoute;
@@ -3827,6 +3888,7 @@ interface DashboardRouteRouteChildren {
   DashboardResourcesIndexRoute: typeof DashboardResourcesIndexRoute;
   DashboardResumesIndexRoute: typeof DashboardResumesIndexRoute;
   DashboardSettingsIndexRoute: typeof DashboardSettingsIndexRoute;
+  DashboardSupportIndexRoute: typeof DashboardSupportIndexRoute;
   DashboardTemplatesIndexRoute: typeof DashboardTemplatesIndexRoute;
   DashboardToolsIndexRoute: typeof DashboardToolsIndexRoute;
   DashboardWikiIndexRoute: typeof DashboardWikiIndexRoute;
@@ -3955,6 +4017,7 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardJobsIndexRoute: DashboardJobsIndexRoute,
   DashboardLearnIndexRoute: DashboardLearnIndexRoute,
   DashboardLinkedinIndexRoute: DashboardLinkedinIndexRoute,
+  DashboardMessagesIndexRoute: DashboardMessagesIndexRoute,
   DashboardNetworkingIndexRoute: DashboardNetworkingIndexRoute,
   DashboardPartnerIndexRoute: DashboardPartnerIndexRoute,
   DashboardPortfolioIndexRoute: DashboardPortfolioIndexRoute,
@@ -3963,6 +4026,7 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardResourcesIndexRoute: DashboardResourcesIndexRoute,
   DashboardResumesIndexRoute: DashboardResumesIndexRoute,
   DashboardSettingsIndexRoute: DashboardSettingsIndexRoute,
+  DashboardSupportIndexRoute: DashboardSupportIndexRoute,
   DashboardTemplatesIndexRoute: DashboardTemplatesIndexRoute,
   DashboardToolsIndexRoute: DashboardToolsIndexRoute,
   DashboardWikiIndexRoute: DashboardWikiIndexRoute,

@@ -8,6 +8,7 @@ export const resumeGalleryRouter = {
 			z
 				.object({
 					field: z.string().optional(),
+					subField: z.string().optional(),
 					experienceMin: z.number().int().min(0).optional(),
 					experienceMax: z.number().int().min(0).optional(),
 					language: z.string().optional(),
@@ -41,6 +42,12 @@ export const resumeGalleryRouter = {
 	getFields: publicProcedure.handler(async () => {
 		return resumeGalleryService.getFields();
 	}),
+
+	getSubFields: publicProcedure
+		.input(z.object({ field: z.string().optional() }).optional())
+		.handler(async ({ input }) => {
+			return resumeGalleryService.getSubFields(input?.field);
+		}),
 
 	getTemplates: publicProcedure.handler(async () => {
 		return resumeGalleryService.getTemplates();

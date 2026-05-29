@@ -24,6 +24,10 @@ export const user = pg.pgTable(
 		imtaProgram: pg.text("imta_program"),
 		onboardingCompleted: pg.boolean("onboarding_completed").notNull().default(false),
 		preferredAiLanguage: pg.text("preferred_ai_language").default("fr"),
+		// Admin moderation: ban / suspension
+		banned: pg.boolean("banned").notNull().default(false),
+		banReason: pg.text("ban_reason"),
+		banExpiresAt: pg.timestamp("ban_expires_at", { withTimezone: true }),
 		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 		updatedAt: pg
 			.timestamp("updated_at", { withTimezone: true })
@@ -6999,6 +7003,7 @@ export const interviewCommonQuestion = pg.pgTable(
 		questionFr: pg.text("question_fr").notNull(),
 		type: pg.text("type").notNull(), // behavioral, technical, situational, motivational, general
 		field: pg.text("field").notNull(), // healthcare, industrial, hse, general
+		program: pg.text("program"), // specific IMTA program id (e.g. soudure, cariste); null = field-wide
 		sampleAnswer: pg.text("sample_answer"),
 		sampleAnswerFr: pg.text("sample_answer_fr"),
 		tips: pg.jsonb("tips").notNull().$type<string[]>(),
@@ -7009,7 +7014,7 @@ export const interviewCommonQuestion = pg.pgTable(
 		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 		updatedAt: pg.timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 	},
-	(t) => [pg.index().on(t.type), pg.index().on(t.field), pg.index().on(t.isActive)],
+	(t) => [pg.index().on(t.type), pg.index().on(t.field), pg.index().on(t.program), pg.index().on(t.isActive)],
 );
 
 // Career Market Insights - market statistics for career guidance
@@ -11901,3 +11906,155 @@ export const jobResource = pg.pgTable(
 
 export type JobResourceRow = typeof jobResource.$inferSelect;
 export type NewJobResourceRow = typeof jobResource.$inferInsert;
+
+// ============================================
+// SUPPORT / HELPDESK TICKET SYSTEM
+// ============================================
+
+export const supportTicket = pg.pgTable(
+	"support_ticket",
+	{
+		id: pg
+			.uuid("id")
+			.notNull()
+			.primaryKey()
+			.$defaultFn(() => generateId()),
+		userId: pg
+			.uuid("user_id")
+			.notNull()
+			.references(() => user.id, { onDelete: "cascade" }),
+		subject: pg.text("subject").notNull(),
+		// category: account | technical | billing | ai | resume | other
+		category: pg.text("category").notNull().default("other"),
+		// status: open | in_progress | resolved | closed
+		status: pg.text("status").notNull().default("open"),
+		// priority: low | normal | high
+		priority: pg.text("priority").notNull().default("normal"),
+		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+		updatedAt: pg
+			.timestamp("updated_at", { withTimezone: true })
+			.notNull()
+			.defaultNow()
+			.$onUpdate(() => new Date()),
+		lastMessageAt: pg.timestamp("last_message_at", { withTimezone: true }).notNull().defaultNow(),
+	},
+	(t) => [
+		pg.index("support_ticket_user_idx").on(t.userId),
+		pg.index("support_ticket_status_idx").on(t.status),
+		pg.index("support_ticket_last_message_idx").on(t.lastMessageAt),
+	],
+);
+
+export type SupportTicketRow = typeof supportTicket.$inferSelect;
+export type NewSupportTicketRow = typeof supportTicket.$inferInsert;
+
+export const supportMessage = pg.pgTable(
+	"support_message",
+	{
+		id: pg
+			.uuid("id")
+			.notNull()
+			.primaryKey()
+			.$defaultFn(() => generateId()),
+		ticketId: pg
+			.uuid("ticket_id")
+			.notNull()
+			.references(() => supportTicket.id, { onDelete: "cascade" }),
+		senderUserId: pg
+			.uuid("sender_user_id")
+			.notNull()
+			.references(() => user.id, { onDelete: "cascade" }),
+		isAdmin: pg.boolean("is_admin").notNull().default(false),
+		body: pg.text("body").notNull(),
+		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+	},
+	(t) => [
+		pg.index("support_message_ticket_idx").on(t.ticketId),
+		pg.index("support_message_created_idx").on(t.createdAt),
+	],
+);
+
+export type SupportMessageRow = typeof supportMessage.$inferSelect;
+export type NewSupportMessageRow = typeof supportMessage.$inferInsert;
+
+// ============================================
+// DIRECT MESSAGING (Conversations between users)
+// ============================================
+// Normalized 1:1 (and group-ready) direct messaging core.
+// A 1:1 DM is a conversation with exactly two participants.
+// Strictly participant-scoped: callers may only access conversations
+// they participate in (enforced in the service layer).
+
+export const conversation = pg.pgTable(
+	"conversation",
+	{
+		id: pg
+			.uuid("id")
+			.notNull()
+			.primaryKey()
+			.$defaultFn(() => generateId()),
+		subject: pg.text("subject"),
+		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+		updatedAt: pg
+			.timestamp("updated_at", { withTimezone: true })
+			.notNull()
+			.defaultNow()
+			.$onUpdate(() => new Date()),
+		lastMessageAt: pg.timestamp("last_message_at", { withTimezone: true }).notNull().defaultNow(),
+	},
+	(t) => [pg.index("conversation_last_message_idx").on(t.lastMessageAt.desc())],
+);
+
+export const conversationParticipant = pg.pgTable(
+	"conversation_participant",
+	{
+		id: pg
+			.uuid("id")
+			.notNull()
+			.primaryKey()
+			.$defaultFn(() => generateId()),
+		conversationId: pg
+			.uuid("conversation_id")
+			.notNull()
+			.references(() => conversation.id, { onDelete: "cascade" }),
+		userId: pg
+			.uuid("user_id")
+			.notNull()
+			.references(() => user.id, { onDelete: "cascade" }),
+		lastReadAt: pg.timestamp("last_read_at", { withTimezone: true }),
+		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+	},
+	(t) => [
+		pg.uniqueIndex("conversation_participant_unique_idx").on(t.conversationId, t.userId),
+		pg.index("conversation_participant_user_idx").on(t.userId),
+	],
+);
+
+export const message = pg.pgTable(
+	"message",
+	{
+		id: pg
+			.uuid("id")
+			.notNull()
+			.primaryKey()
+			.$defaultFn(() => generateId()),
+		conversationId: pg
+			.uuid("conversation_id")
+			.notNull()
+			.references(() => conversation.id, { onDelete: "cascade" }),
+		senderUserId: pg
+			.uuid("sender_user_id")
+			.notNull()
+			.references(() => user.id, { onDelete: "cascade" }),
+		body: pg.text("body").notNull(),
+		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+	},
+	(t) => [pg.index("message_conversation_created_idx").on(t.conversationId, t.createdAt)],
+);
+
+export type ConversationRow = typeof conversation.$inferSelect;
+export type NewConversationRow = typeof conversation.$inferInsert;
+export type ConversationParticipantRow = typeof conversationParticipant.$inferSelect;
+export type NewConversationParticipantRow = typeof conversationParticipant.$inferInsert;
+export type MessageRow = typeof message.$inferSelect;
+export type NewMessageRow = typeof message.$inferInsert;

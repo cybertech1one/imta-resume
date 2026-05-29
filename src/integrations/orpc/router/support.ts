@@ -1,7 +1,55 @@
 import { z } from "zod";
 import { isSmtpEnabled, sendEmail } from "@/integrations/email/service";
 import { env } from "@/utils/env";
-import { publicProcedure } from "../context";
+import { adminProcedure, protectedProcedure, publicProcedure } from "../context";
+import { supportTicketService } from "../services/support-tickets";
+
+// ---------------------------------------------------------------------------
+// Helpdesk ticket schemas
+// ---------------------------------------------------------------------------
+
+const ticketCategorySchema = z.enum(["account", "technical", "billing", "ai", "resume", "other"]);
+const ticketStatusSchema = z.enum(["open", "in_progress", "resolved", "closed"]);
+const ticketPrioritySchema = z.enum(["low", "normal", "high"]);
+
+const ticketRowSchema = z.object({
+	id: z.string().uuid(),
+	userId: z.string().uuid(),
+	subject: z.string(),
+	category: z.string(),
+	status: z.string(),
+	priority: z.string(),
+	createdAt: z.coerce.date(),
+	updatedAt: z.coerce.date(),
+	lastMessageAt: z.coerce.date(),
+});
+
+const ticketWithUserSchema = ticketRowSchema.extend({
+	userName: z.string(),
+	userEmail: z.string(),
+});
+
+const ticketMessageSchema = z.object({
+	id: z.string().uuid(),
+	ticketId: z.string().uuid(),
+	senderUserId: z.string().uuid(),
+	isAdmin: z.boolean(),
+	body: z.string(),
+	createdAt: z.coerce.date(),
+});
+
+const statusCountsSchema = z.object({
+	open: z.number(),
+	in_progress: z.number(),
+	resolved: z.number(),
+	closed: z.number(),
+	total: z.number(),
+});
+
+// Plain-text body validation: trim + length caps to prevent abuse and stored XSS
+// is mitigated by rendering bodies as text (never dangerouslySetInnerHTML).
+const messageBodySchema = z.string().trim().min(1).max(5000);
+const subjectSchema = z.string().trim().min(3).max(200);
 
 // Contact form input schema
 const contactFormSchema = z.object({
@@ -325,5 +373,184 @@ This request was submitted from the IMTA Resume Builder application.
 					message: "An error occurred while sending the request.",
 				};
 			}
+		}),
+
+	// =========================================================================
+	// HELPDESK TICKETS — USER ENDPOINTS (strictly scoped to context.user.id)
+	// =========================================================================
+
+	createTicket: protectedProcedure
+		.route({
+			method: "POST",
+			path: "/support/tickets",
+			tags: ["Support"],
+			summary: "Open a new support ticket",
+		})
+		.input(
+			z.object({
+				subject: subjectSchema,
+				category: ticketCategorySchema,
+				message: messageBodySchema,
+			}),
+		)
+		.output(ticketRowSchema)
+		.handler(async ({ context, input }) => {
+			return supportTicketService.createTicket({
+				userId: context.user.id,
+				subject: input.subject,
+				category: input.category,
+				message: input.message,
+			});
+		}),
+
+	listMyTickets: protectedProcedure
+		.route({
+			method: "GET",
+			path: "/support/tickets",
+			tags: ["Support"],
+			summary: "List my support tickets",
+		})
+		.output(z.array(ticketRowSchema))
+		.handler(async ({ context }) => {
+			return supportTicketService.listMyTickets(context.user.id);
+		}),
+
+	getMyTicket: protectedProcedure
+		.route({
+			method: "GET",
+			path: "/support/tickets/{ticketId}",
+			tags: ["Support"],
+			summary: "Get one of my tickets with its thread",
+		})
+		.input(z.object({ ticketId: z.string().uuid() }))
+		.output(z.object({ ticket: ticketRowSchema, messages: z.array(ticketMessageSchema) }))
+		.handler(async ({ context, input }) => {
+			// Ownership is verified inside the service (throws FORBIDDEN otherwise).
+			return supportTicketService.getMyTicket(input.ticketId, context.user.id);
+		}),
+
+	replyToMyTicket: protectedProcedure
+		.route({
+			method: "POST",
+			path: "/support/tickets/{ticketId}/reply",
+			tags: ["Support"],
+			summary: "Reply to one of my tickets",
+		})
+		.input(z.object({ ticketId: z.string().uuid(), body: messageBodySchema }))
+		.output(ticketMessageSchema)
+		.handler(async ({ context, input }) => {
+			return supportTicketService.replyToMyTicket(input.ticketId, context.user.id, input.body);
+		}),
+
+	closeMyTicket: protectedProcedure
+		.route({
+			method: "POST",
+			path: "/support/tickets/{ticketId}/close",
+			tags: ["Support"],
+			summary: "Close one of my tickets",
+		})
+		.input(z.object({ ticketId: z.string().uuid() }))
+		.output(z.object({ success: z.boolean() }))
+		.handler(async ({ context, input }) => {
+			await supportTicketService.closeMyTicket(input.ticketId, context.user.id);
+			return { success: true };
+		}),
+
+	// =========================================================================
+	// HELPDESK TICKETS — ADMIN ENDPOINTS (adminProcedure: role === "admin")
+	// =========================================================================
+
+	listAllTickets: adminProcedure
+		.route({
+			method: "GET",
+			path: "/support/admin/tickets",
+			tags: ["Support"],
+			summary: "List all support tickets (admin)",
+		})
+		.input(
+			z
+				.object({
+					status: ticketStatusSchema.optional(),
+					search: z.string().trim().max(200).optional(),
+					page: z.number().int().min(1).optional(),
+				})
+				.optional()
+				.default({}),
+		)
+		.output(
+			z.object({
+				tickets: z.array(ticketWithUserSchema),
+				total: z.number(),
+				page: z.number(),
+				pageSize: z.number(),
+				counts: statusCountsSchema,
+			}),
+		)
+		.handler(async ({ input }) => {
+			return supportTicketService.listAllTickets({
+				status: input.status,
+				search: input.search,
+				page: input.page,
+			});
+		}),
+
+	getTicket: adminProcedure
+		.route({
+			method: "GET",
+			path: "/support/admin/tickets/{ticketId}",
+			tags: ["Support"],
+			summary: "Get any support ticket with its thread (admin)",
+		})
+		.input(z.object({ ticketId: z.string().uuid() }))
+		.output(z.object({ ticket: ticketWithUserSchema, messages: z.array(ticketMessageSchema) }))
+		.handler(async ({ input }) => {
+			return supportTicketService.getTicket(input.ticketId);
+		}),
+
+	replyToTicket: adminProcedure
+		.route({
+			method: "POST",
+			path: "/support/admin/tickets/{ticketId}/reply",
+			tags: ["Support"],
+			summary: "Reply to any support ticket as admin",
+		})
+		.input(z.object({ ticketId: z.string().uuid(), body: messageBodySchema }))
+		.output(ticketMessageSchema)
+		.handler(async ({ context, input }) => {
+			return supportTicketService.replyToTicket(input.ticketId, context.user.id, input.body);
+		}),
+
+	updateTicket: adminProcedure
+		.route({
+			method: "PUT",
+			path: "/support/admin/tickets/{ticketId}",
+			tags: ["Support"],
+			summary: "Update a ticket's status/priority (admin)",
+		})
+		.input(
+			z.object({
+				ticketId: z.string().uuid(),
+				status: ticketStatusSchema.optional(),
+				priority: ticketPrioritySchema.optional(),
+			}),
+		)
+		.output(ticketRowSchema)
+		.handler(async ({ input }) => {
+			return supportTicketService.updateTicket(input.ticketId, {
+				status: input.status,
+				priority: input.priority,
+			});
+		}),
+
+	getStats: adminProcedure
+		.route({
+			method: "GET",
+			path: "/support/admin/stats",
+			tags: ["Support"],
+			summary: "Ticket counts by status (admin)",
+		})
+		.output(statusCountsSchema)
+		.handler(async () => {
+			return supportTicketService.getStats();
 		}),
 };

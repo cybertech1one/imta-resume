@@ -37,8 +37,10 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { authClient } from "@/integrations/auth/client";
 import { client, orpc } from "@/integrations/orpc/client";
 import { DashboardHeader } from "../../-components/header";
+import { AccountAdminPanel } from "./-components/account-admin-panel";
 
 export const Route = createFileRoute("/dashboard/admin/users/$userId")({
 	component: RouteComponent,
@@ -88,6 +90,8 @@ function RouteComponent() {
 	const user = Route.useLoaderData();
 	const navigate = useNavigate();
 	const router = useRouter();
+	const { data: session } = authClient.useSession();
+	const isSelf = session?.user?.id === user.id;
 
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 	const [roleChangeTarget, setRoleChangeTarget] = useState<"user" | "admin" | null>(null);
@@ -358,6 +362,22 @@ function RouteComponent() {
 						</div>
 					)}
 				</div>
+
+				{/* Account / Administration Panel */}
+				<AccountAdminPanel
+					user={{
+						id: user.id,
+						name: user.name,
+						email: user.email,
+						username: user.username,
+						emailVerified: user.emailVerified,
+						imtaProgram: user.imtaProgram,
+						banned: user.banned,
+						banReason: user.banReason,
+						banExpiresAt: user.banExpiresAt,
+					}}
+					isSelf={isSelf}
+				/>
 			</div>
 
 			{/* Delete Confirmation */}

@@ -1,0 +1,11 @@
+import pg from "pg";
+const { Client } = pg;
+const c = new Client({ connectionString: process.env.PG_PUBLIC_URL, ssl: { rejectUnauthorized: false } });
+await c.connect();
+const r = await c.query("SELECT program, count(*)::int n FROM interview_common_question WHERE program IS NOT NULL GROUP BY program ORDER BY program");
+console.table(r.rows);
+const tot = await c.query("SELECT count(*)::int n FROM interview_common_question WHERE program IS NOT NULL");
+console.log("Total program-scoped:", tot.rows[0].n);
+const types = await c.query("SELECT type, count(*)::int n FROM interview_common_question WHERE program IS NOT NULL GROUP BY type ORDER BY type");
+console.table(types.rows);
+await c.end();

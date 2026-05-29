@@ -5,6 +5,7 @@ import {
 	CheckCircleIcon,
 	EyeIcon,
 	MagnifyingGlassIcon,
+	ProhibitIcon,
 	ShieldCheckIcon,
 	TrashIcon,
 	UserCircleIcon,
@@ -43,6 +44,7 @@ type AdminUser = {
 	username: string;
 	role: "user" | "admin";
 	emailVerified: boolean;
+	banned: boolean;
 	createdAt: Date;
 	resumeCount: number;
 };
@@ -186,6 +188,36 @@ function RouteComponent() {
 	const { mutate: updateRole } = useMutation(orpc.admin.users.updateRole.mutationOptions());
 	const { mutate: bulkDeleteUsers } = useMutation(orpc.admin.users.bulkDelete.mutationOptions());
 	const { mutate: bulkUpdateRole } = useMutation(orpc.admin.users.bulkUpdateRole.mutationOptions());
+	const { mutate: banUser } = useMutation(orpc.admin.users.ban.mutationOptions());
+	const { mutate: unbanUser } = useMutation(orpc.admin.users.unban.mutationOptions());
+
+	const handleToggleBan = (target: AdminUser) => {
+		if (target.banned) {
+			const toastId = toast.loading(t`Unbanning user...`);
+			unbanUser(
+				{ userId: target.id },
+				{
+					onSuccess: () => {
+						toast.success(t`User unbanned`, { id: toastId });
+						router.invalidate();
+					},
+					onError: (error) => toast.error(error.message || t`Failed to unban user`, { id: toastId }),
+				},
+			);
+		} else {
+			const toastId = toast.loading(t`Banning user...`);
+			banUser(
+				{ userId: target.id },
+				{
+					onSuccess: () => {
+						toast.success(t`User banned`, { id: toastId });
+						router.invalidate();
+					},
+					onError: (error) => toast.error(error.message || t`Failed to ban user`, { id: toastId }),
+				},
+			);
+		}
+	};
 
 	const handleSearch = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -409,6 +441,11 @@ function RouteComponent() {
 											)}
 											{user.role}
 										</Badge>
+										{user.banned && (
+											<Badge variant="destructive" className="ml-1 gap-1">
+												<ProhibitIcon size={12} /> <Trans>Banni</Trans>
+											</Badge>
+										)}
 									</TableCell>
 									<TableCell>
 										{user.emailVerified ? (
@@ -446,6 +483,17 @@ function RouteComponent() {
 													<SelectItem value="admin">Admin</SelectItem>
 												</SelectContent>
 											</Select>
+											<Button
+												variant="ghost"
+												size="icon"
+												className={
+													user.banned ? "text-green-600 hover:text-green-700" : "text-amber-600 hover:text-amber-700"
+												}
+												title={user.banned ? t`Unban` : t`Ban`}
+												onClick={() => handleToggleBan(user)}
+											>
+												{user.banned ? <CheckCircleIcon size={18} /> : <ProhibitIcon size={18} />}
+											</Button>
 											<Button
 												variant="ghost"
 												size="icon"

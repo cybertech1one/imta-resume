@@ -114,6 +114,10 @@ async function getUserFromHeaders(headers: Headers): Promise<UserWithRole | null
 		const [userWithRole] = await db.select().from(user).where(eq(user.id, result.user.id)).limit(1);
 		if (!userWithRole) return null;
 
+		// Ban enforcement: reject banned users (treat as unauthenticated).
+		// A ban with no expiry is permanent; a ban with a future expiry is active.
+		if (isUserBanned(userWithRole.banned, userWithRole.banExpiresAt)) return null;
+
 		return {
 			...result.user,
 			role: userWithRole.role,
@@ -123,6 +127,22 @@ async function getUserFromHeaders(headers: Headers): Promise<UserWithRole | null
 	} catch {
 		return null;
 	}
+}
+
+/**
+ * Determines whether a user is currently banned.
+ * A ban is active when `banned` is true and either there is no expiry,
+ * or the expiry is in the future. Expired bans are treated as not banned.
+ *
+ * @param banned - The user's banned flag
+ * @param banExpiresAt - Optional ban expiry timestamp
+ * @returns true if the user is currently banned
+ * @internal
+ */
+function isUserBanned(banned: boolean | null, banExpiresAt: Date | null): boolean {
+	if (!banned) return false;
+	if (banExpiresAt && banExpiresAt.getTime() <= Date.now()) return false;
+	return true;
 }
 
 /**
@@ -140,6 +160,9 @@ async function getUserFromApiKey(apiKey: string): Promise<UserWithRole | null> {
 
 		const [userResult] = await db.select().from(user).where(eq(user.id, result.key.userId)).limit(1);
 		if (!userResult) return null;
+
+		// Ban enforcement also applies to API-key authenticated requests.
+		if (isUserBanned(userResult.banned, userResult.banExpiresAt)) return null;
 
 		return {
 			...userResult,

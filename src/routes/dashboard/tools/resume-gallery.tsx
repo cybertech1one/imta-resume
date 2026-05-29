@@ -63,6 +63,25 @@ const LANGUAGE_LABELS: Record<string, string> = {
 	de: "Deutsch",
 };
 
+// French labels for IMTA vocational programs (gallery subField values).
+const PROGRAM_LABELS: Record<string, string> = {
+	infirmier_polyvalent: "Infirmier Polyvalent",
+	sage_femme: "Sage-Femme",
+	aide_soignant: "Aide-Soignant",
+	infirmier_auxiliaire: "Infirmier Auxiliaire",
+	soudure: "Soudure",
+	cariste: "Cariste",
+	conducteur_engins: "Conducteur d'Engins",
+	mecanique_engins: "Mécanique d'Engins",
+	tourneur_industriel: "Tourneur Industriel",
+	electromecanique: "Électromécanique",
+	hse_specialist: "Technicien HSE",
+};
+
+function formatProgram(subField: string): string {
+	return PROGRAM_LABELS[subField] || formatFieldName(subField);
+}
+
 // ---- Detail View ----
 
 interface DetailViewProps {
@@ -129,7 +148,7 @@ function GalleryDetailView({ itemId, onBack }: DetailViewProps) {
 						<CardContent className="space-y-4">
 							<div className="flex flex-wrap gap-2">
 								<Badge variant="secondary">{formatFieldName(item.field)}</Badge>
-								{item.subField && <Badge variant="outline">{formatFieldName(item.subField)}</Badge>}
+								{item.subField && <Badge variant="outline">{formatProgram(item.subField)}</Badge>}
 								<Badge variant="outline">{LANGUAGE_LABELS[item.language] || item.language}</Badge>
 							</div>
 
@@ -224,6 +243,7 @@ function ResumeGalleryPage() {
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const [search, setSearch] = useState("");
 	const [fieldFilter, setFieldFilter] = useState<string>("");
+	const [subFieldFilter, setSubFieldFilter] = useState<string>("");
 	const [languageFilter, setLanguageFilter] = useState<string>("");
 	const [templateFilter, setTemplateFilter] = useState<string>("");
 	const [experienceFilter, setExperienceFilter] = useState<string>("");
@@ -251,6 +271,7 @@ function ResumeGalleryPage() {
 		orpc.resumeGallery.list.queryOptions({
 			input: {
 				field: fieldFilter || undefined,
+				subField: subFieldFilter || undefined,
 				language: languageFilter || undefined,
 				templateName: templateFilter || undefined,
 				search: search || undefined,
@@ -260,6 +281,11 @@ function ResumeGalleryPage() {
 			},
 		}),
 	);
+
+	const { data: subFields } = useQuery({
+		...orpc.resumeGallery.getSubFields.queryOptions({ input: { field: fieldFilter || undefined } }),
+		staleTime: 60 * 60 * 1000,
+	});
 
 	const { data: fields } = useQuery({
 		...orpc.resumeGallery.getFields.queryOptions(),
@@ -278,11 +304,12 @@ function ResumeGalleryPage() {
 		staleTime: 30 * 60 * 1000,
 	});
 
-	const hasFilters = search || fieldFilter || languageFilter || templateFilter || experienceFilter;
+	const hasFilters = search || fieldFilter || subFieldFilter || languageFilter || templateFilter || experienceFilter;
 
 	const clearFilters = useCallback(() => {
 		setSearch("");
 		setFieldFilter("");
+		setSubFieldFilter("");
 		setLanguageFilter("");
 		setTemplateFilter("");
 		setExperienceFilter("");
@@ -331,10 +358,11 @@ function ResumeGalleryPage() {
 							value={fieldFilter}
 							onValueChange={(v) => {
 								setFieldFilter(v === "all" ? "" : v);
+								setSubFieldFilter(""); // reset program when the field (sector) changes
 								setPage(1);
 							}}
 						>
-							<SelectTrigger className="w-full md:w-[180px]">
+							<SelectTrigger className="w-full md:w-[160px]">
 								<SelectValue placeholder={t`All Fields`} />
 							</SelectTrigger>
 							<SelectContent>
@@ -344,6 +372,28 @@ function ResumeGalleryPage() {
 								{fields?.map((f) => (
 									<SelectItem key={f} value={f}>
 										{formatFieldName(f)}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+
+						<Select
+							value={subFieldFilter}
+							onValueChange={(v) => {
+								setSubFieldFilter(v === "all" ? "" : v);
+								setPage(1);
+							}}
+						>
+							<SelectTrigger className="w-full md:w-[200px]">
+								<SelectValue placeholder={t`All Programs`} />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="all">
+									<Trans>All Programs</Trans>
+								</SelectItem>
+								{subFields?.map((sf) => (
+									<SelectItem key={sf} value={sf}>
+										{formatProgram(sf)}
 									</SelectItem>
 								))}
 							</SelectContent>

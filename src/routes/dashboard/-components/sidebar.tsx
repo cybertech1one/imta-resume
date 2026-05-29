@@ -108,6 +108,7 @@ type SidebarItem = {
 	subItems?: readonly SidebarSubItem[];
 	badge?: number;
 	showNotificationBadge?: boolean;
+	showMessagesBadge?: boolean;
 	roles?: readonly UserRole[];
 };
 
@@ -359,6 +360,12 @@ const appSidebarItems: SidebarItem[] = [
 		],
 	},
 	{
+		icon: <EnvelopeSimpleIcon />,
+		label: msg`Messages`,
+		href: "/dashboard/messages",
+		showMessagesBadge: true,
+	},
+	{
 		icon: <ChartBarIcon />,
 		label: msg`Analytics`,
 		href: "/dashboard/analytics",
@@ -375,6 +382,11 @@ const appSidebarItems: SidebarItem[] = [
 				roles: ["admin"],
 			},
 		],
+	},
+	{
+		icon: <ChatCircleDotsIcon />,
+		label: msg`Support / Aide`,
+		href: "/dashboard/support",
 	},
 	{
 		icon: <QuestionIcon />,
@@ -528,6 +540,11 @@ const adminSidebarItems: SidebarItem[] = [
 				label: msg`Cohort Analytics`,
 				href: "/dashboard/admin/cohorts",
 			},
+			{
+				icon: <ChatCircleDotsIcon />,
+				label: msg`Support`,
+				href: "/dashboard/admin/support",
+			},
 		],
 	},
 ];
@@ -610,7 +627,17 @@ function filterItemsByProgram(items: SidebarItem[], program: string | null | und
 
 // Memoized CollapsibleSidebarItem for better performance with long sidebar lists
 const CollapsibleSidebarItem = memo(
-	({ item, index, notificationCount }: { item: SidebarItem; index: number; notificationCount?: number }) => {
+	({
+		item,
+		index,
+		notificationCount,
+		messagesCount,
+	}: {
+		item: SidebarItem;
+		index: number;
+		notificationCount?: number;
+		messagesCount?: number;
+	}) => {
 		const { i18n } = useLingui();
 		const location = useLocation();
 		const [isOpen, setIsOpen] = useState(() => {
@@ -619,8 +646,13 @@ const CollapsibleSidebarItem = memo(
 
 		const isActive = location.pathname === item.href || location.pathname.startsWith(`${item.href}/`);
 
-		// Calculate badge count (notification count for items with showNotificationBadge, or custom badge)
-		const badgeCount = item.showNotificationBadge ? notificationCount : item.badge;
+		// Calculate badge count (notification count for items with showNotificationBadge,
+		// messaging unread count for items with showMessagesBadge, or custom badge)
+		const badgeCount = item.showNotificationBadge
+			? notificationCount
+			: item.showMessagesBadge
+				? messagesCount
+				: item.badge;
 		const showBadge = badgeCount !== undefined && badgeCount > 0;
 
 		if (!item.subItems || item.subItems.length === 0) {
@@ -760,7 +792,11 @@ const CollapsibleSidebarItem = memo(
 );
 CollapsibleSidebarItem.displayName = "CollapsibleSidebarItem";
 
-function SidebarItemList({ items, notificationCount }: SidebarItemListProps & { notificationCount?: number }) {
+function SidebarItemList({
+	items,
+	notificationCount,
+	messagesCount,
+}: SidebarItemListProps & { notificationCount?: number; messagesCount?: number }) {
 	const menuRef = useRef<HTMLUListElement>(null);
 	const [focusedIndex, setFocusedIndex] = useState<number>(-1);
 
@@ -808,7 +844,12 @@ function SidebarItemList({ items, notificationCount }: SidebarItemListProps & { 
 		<SidebarMenu ref={menuRef}>
 			{items.map((item, index) => (
 				<div key={item.href as string} onFocus={() => handleItemFocus(index)}>
-					<CollapsibleSidebarItem item={item} index={index} notificationCount={notificationCount} />
+					<CollapsibleSidebarItem
+						item={item}
+						index={index}
+						notificationCount={notificationCount}
+						messagesCount={messagesCount}
+					/>
 				</div>
 			))}
 		</SidebarMenu>
@@ -943,6 +984,15 @@ export function DashboardSidebar() {
 		enabled: !!session?.user,
 	});
 
+	// Fetch unread direct-message count for the Messages sidebar badge
+	const { data: messagesCount } = useQuery({
+		...orpc.messaging.getUnreadCount.queryOptions(),
+		staleTime: 1 * 60 * 1000,
+		gcTime: 5 * 60 * 1000,
+		refetchInterval: 15 * 1000,
+		enabled: !!session?.user,
+	});
+
 	const userRole = (roleData?.role ?? "user") as UserRole;
 	const isAdmin = userRole === "admin";
 	const roleLabels = getRoleLabels();
@@ -1016,7 +1066,11 @@ export function DashboardSidebar() {
 								)}
 							</SidebarGroupLabel>
 							<SidebarGroupContent>
-								<SidebarItemList items={filteredAppItems} notificationCount={notificationCount} />
+								<SidebarItemList
+									items={filteredAppItems}
+									notificationCount={notificationCount}
+									messagesCount={messagesCount}
+								/>
 							</SidebarGroupContent>
 						</SidebarGroup>
 

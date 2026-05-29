@@ -246,23 +246,23 @@ const popularSearchClusters = [
 export function StudentLanding() {
 	return (
 		<>
-			<section className="relative isolate min-h-[760px] overflow-hidden bg-[#f7fbfa] pt-20">
+			<section className="relative isolate overflow-hidden bg-[#f7fbfa] pt-16 sm:pt-20">
 				<div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_18%_18%,rgba(0,199,170,0.12),transparent_28%),linear-gradient(180deg,#ffffff_0%,#f6fbfa_72%,#ffffff_100%)]" />
-				<div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:px-10 lg:py-20">
+				<div className="mx-auto grid max-w-7xl gap-8 px-6 pt-8 pb-12 sm:py-14 lg:grid-cols-[0.96fr_1.04fr] lg:px-10 lg:py-20">
 					<div className="flex items-center">
 						<div className="max-w-3xl">
-							<div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-900/10 bg-white px-4 py-2 font-semibold text-emerald-900 text-sm shadow-sm">
+							<div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-900/10 bg-white px-4 py-2 font-semibold text-emerald-900 text-sm shadow-sm">
 								<SparkleIcon aria-hidden="true" className="size-4 text-cyan-600" weight="fill" />
 								La plateforme carrière nouvelle génération pour les étudiants
 							</div>
-							<h1 className="font-display text-5xl text-zinc-950 leading-[0.98] md:text-6xl lg:text-[5.5rem]">
+							<h1 className="font-display text-[2.55rem] text-zinc-950 leading-[0.98] sm:text-6xl lg:text-[4.65rem]">
 								Ton CV ouvre <span className="block text-emerald-800">les bonnes portes.</span>
 							</h1>
-							<p className="mt-7 max-w-2xl text-lg text-zinc-600 leading-8">
+							<p className="mt-5 max-w-2xl text-base text-zinc-600 leading-7 sm:mt-7 sm:text-lg sm:leading-8">
 								IMTA Resume aide les étudiants et jeunes diplômés au Maroc à créer un CV professionnel, préparer leurs
 								entretiens et transformer leur formation en opportunité concrète.
 							</p>
-							<div className="mt-7 flex flex-wrap gap-2.5">
+							<div className="mt-7 hidden flex-wrap gap-2.5 sm:flex">
 								{trustSignals.map((signal) => (
 									<span
 										key={signal}
@@ -273,7 +273,7 @@ export function StudentLanding() {
 									</span>
 								))}
 							</div>
-							<div className="mt-9 flex flex-col gap-4 sm:flex-row">
+							<div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:gap-4">
 								<Link
 									to="/dashboard"
 									className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#006b53,#00a88a)] px-7 font-semibold text-white shadow-[0_22px_44px_-26px_rgba(0,107,83,0.95)] transition-transform hover:-translate-y-0.5"
@@ -288,7 +288,7 @@ export function StudentLanding() {
 									Préparer mon entretien
 								</a>
 							</div>
-							<div className="mt-8 flex items-center gap-3">
+							<div className="mt-6 hidden items-center gap-3 sm:mt-8 sm:flex">
 								<div className="flex -space-x-2">
 									{["A", "M", "Y", "S"].map((name) => (
 										<span
@@ -304,7 +304,7 @@ export function StudentLanding() {
 						</div>
 					</div>
 
-					<div className="relative min-h-[560px]">
+					<div className="relative min-h-[256px] sm:mb-8 sm:min-h-[460px] lg:mb-0 lg:min-h-[640px]">
 						<img
 							src={HEALTH_HERO_IMAGE}
 							alt=""
@@ -313,25 +313,31 @@ export function StudentLanding() {
 							decoding="async"
 							width={1792}
 							height={1024}
-							className="absolute inset-0 size-full rounded-[2rem] object-cover object-center shadow-[0_34px_90px_-58px_rgba(0,56,44,0.8)]"
+							className="absolute inset-0 size-full rounded-[1.7rem] object-cover object-[56%_center] shadow-[0_34px_90px_-58px_rgba(0,56,44,0.8)] sm:rounded-[2rem] lg:rounded-[2.25rem]"
 						/>
 						<div
 							aria-hidden="true"
-							className="absolute inset-y-0 left-0 w-2/5 rounded-l-[2rem] bg-gradient-to-r from-[#f7fbfa] via-[#f7fbfa]/74 to-transparent"
+							className="absolute inset-y-0 left-0 hidden w-2/5 rounded-l-[2.25rem] bg-gradient-to-r from-[#f7fbfa] via-[#f7fbfa]/74 to-transparent lg:block"
 						/>
-						<div className="absolute right-5 bottom-5 grid w-[min(28rem,calc(100%-2.5rem))] gap-3 sm:grid-cols-3">
+						<div className="absolute inset-x-3 bottom-3 grid grid-cols-3 gap-2 lg:inset-x-auto lg:top-8 lg:right-8 lg:bottom-auto lg:w-52 lg:grid-cols-1 lg:gap-3">
 							{productSignals.map((signal) => {
 								const Icon = signal.icon;
 
 								return (
 									<div
 										key={signal.label}
-										className="rounded-2xl border border-white/70 bg-white/88 p-4 shadow-[0_18px_50px_-30px_rgba(0,42,35,0.7)] backdrop-blur-xl"
+										className="rounded-2xl border border-white/70 bg-white/90 p-3 shadow-[0_18px_50px_-30px_rgba(0,42,35,0.7)] backdrop-blur-xl lg:p-4"
 									>
-										<Icon aria-hidden="true" className="mb-3 size-5 text-emerald-800" weight="duotone" />
-										<p className="font-bold text-2xl text-zinc-950">{signal.value}</p>
-										<p className="font-semibold text-emerald-900 text-xs">{signal.label}</p>
-										<p className="mt-1 text-[11px] text-zinc-500">{signal.text}</p>
+										<Icon
+											aria-hidden="true"
+											className="mb-2 size-4 text-emerald-800 lg:mb-3 lg:size-5"
+											weight="duotone"
+										/>
+										<p className="font-bold text-xl text-zinc-950 lg:text-2xl">{signal.value}</p>
+										<p className="font-semibold text-[10px] text-emerald-900 leading-tight lg:text-xs">
+											{signal.label}
+										</p>
+										<p className="mt-1 hidden text-[11px] text-zinc-500 lg:block">{signal.text}</p>
 									</div>
 								);
 							})}
@@ -339,7 +345,7 @@ export function StudentLanding() {
 					</div>
 				</div>
 
-				<div className="border-emerald-950/10 border-y bg-white/82 backdrop-blur">
+				<div className="hidden border-emerald-950/10 border-y bg-white/82 backdrop-blur sm:block">
 					<div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-12 gap-y-4 px-6 py-6 text-sm text-zinc-400 lg:px-10">
 						<span className="font-medium text-zinc-500">Ils recrutent nos talents</span>
 						{partners.map((partner) => (
@@ -351,7 +357,7 @@ export function StudentLanding() {
 				</div>
 			</section>
 
-			<section className="bg-white py-14 md:py-20">
+			<section className="hidden bg-white py-14 md:block md:py-20">
 				<div className="mx-auto max-w-7xl px-6 lg:px-10">
 					<div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
 						<div className="rounded-[2rem] bg-[linear-gradient(135deg,#063b32,#008d78)] p-7 text-white shadow-[0_28px_88px_-58px_rgba(0,56,44,0.9)] md:p-8">
@@ -392,10 +398,7 @@ export function StudentLanding() {
 
 			<section id="objectifs" className="bg-white py-16 md:py-20">
 				<div className="mx-auto max-w-7xl px-6 lg:px-10">
-					<SectionTitle
-						label="Choisis ton objectif"
-						title="Un parcours clair pour passer de l'idée à la candidature."
-					/>
+					<SectionTitle label="Choisis ton objectif" title="Des solutions adaptées à chaque étape de ton parcours." />
 					<div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
 						{objectives.map((objective) => {
 							const Icon = objective.icon;
@@ -446,7 +449,7 @@ export function StudentLanding() {
 
 							return (
 								<a
-									key={resource.href}
+									key={`${resource.href}-${resource.title}`}
 									href={resource.href}
 									className="rounded-2xl border border-emerald-950/10 bg-white p-5 shadow-[0_18px_48px_-46px_rgba(0,42,35,0.65)] transition-all hover:-translate-y-1 hover:border-emerald-700/35"
 								>

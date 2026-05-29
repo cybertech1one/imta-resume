@@ -82,16 +82,16 @@ const EXPERIENCE_LEVELS = [
 	{ value: "entry", label: "Debutant / Stagiaire" },
 ] as const;
 
+// IMTA vocational fields — aligned with the IMTA programs and the jobs board taxonomy
+// (healthcare / industrial / hse), so a company hiring a nurse, welder, forklift operator
+// or HSE technician finds a matching domain instead of "Autre".
 const FIELDS = [
-	{ value: "engineering", label: "Ingenierie" },
-	{ value: "it", label: "Informatique / IT" },
-	{ value: "finance", label: "Finance" },
-	{ value: "marketing", label: "Marketing" },
-	{ value: "management", label: "Management" },
-	{ value: "logistics", label: "Logistique" },
-	{ value: "hr", label: "Ressources Humaines" },
-	{ value: "sales", label: "Commercial" },
-	{ value: "research", label: "Recherche & Developpement" },
+	{ value: "healthcare", label: "Santé / Paramédical" },
+	{ value: "industrial", label: "Industrie / Technique" },
+	{ value: "hse", label: "HSE (Hygiène, Sécurité, Environnement)" },
+	{ value: "logistics", label: "Logistique / Magasinage" },
+	{ value: "construction", label: "BTP / Construction" },
+	{ value: "maintenance", label: "Maintenance industrielle" },
 	{ value: "other", label: "Autre" },
 ] as const;
 
@@ -219,7 +219,7 @@ function PostJobPage() {
 						</Label>
 						<Input
 							id="titleFr"
-							placeholder={t`e.g. Ingenieur Logiciel Senior`}
+							placeholder={t`ex. Infirmier Polyvalent, Soudeur, Cariste...`}
 							value={formData.titleFr}
 							onChange={(e) => updateField("titleFr", e.target.value)}
 						/>
@@ -230,7 +230,7 @@ function PostJobPage() {
 						</Label>
 						<Input
 							id="title"
-							placeholder={t`e.g. Senior Software Engineer`}
+							placeholder={t`e.g. General Care Nurse, Welder, Forklift Operator...`}
 							value={formData.title}
 							onChange={(e) => updateField("title", e.target.value)}
 						/>
@@ -380,7 +380,7 @@ function PostJobPage() {
 						</Label>
 						<Input
 							id="skills"
-							placeholder={t`e.g. React, Node.js, PostgreSQL (comma-separated)`}
+							placeholder={t`ex. Soudage TIG, CACES R489, Soins infirmiers (séparés par des virgules)`}
 							value={formData.skills}
 							onChange={(e) => updateField("skills", e.target.value)}
 						/>

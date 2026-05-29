@@ -1,6 +1,8 @@
-import { count, desc, eq, gte, ilike, or, sql, sum } from "drizzle-orm";
+import { and, count, desc, eq, gte, ilike, ne, or, sql, sum } from "drizzle-orm";
 import { schema } from "@/integrations/drizzle";
 import { db } from "@/integrations/drizzle/client";
+import { hashPassword } from "@/utils/password";
+import { generateId } from "@/utils/string";
 import { getStorageService } from "./storage";
 
 // Analytics functions
@@ -302,6 +304,7 @@ const users = {
 					username: schema.user.username,
 					role: schema.user.role,
 					emailVerified: schema.user.emailVerified,
+					banned: schema.user.banned,
 					createdAt: schema.user.createdAt,
 					resumeCount: sql<number>`(SELECT COUNT(*) FROM resume WHERE resume.user_id = ${schema.user.id})`,
 				})
@@ -322,6 +325,7 @@ const users = {
 				username: u.username,
 				role: u.role,
 				emailVerified: u.emailVerified,
+				banned: u.banned,
 				createdAt: u.createdAt instanceof Date ? u.createdAt : new Date(u.createdAt),
 				resumeCount: Number(u.resumeCount) || 0,
 			})),
@@ -344,6 +348,10 @@ const users = {
 					emailVerified: schema.user.emailVerified,
 					twoFactorEnabled: schema.user.twoFactorEnabled,
 					image: schema.user.image,
+					imtaProgram: schema.user.imtaProgram,
+					banned: schema.user.banned,
+					banReason: schema.user.banReason,
+					banExpiresAt: schema.user.banExpiresAt,
 					createdAt: schema.user.createdAt,
 					updatedAt: schema.user.updatedAt,
 				})
@@ -441,6 +449,160 @@ const users = {
 		});
 
 		return { updated: idsToUpdate.length };
+	},
+
+	/**
+	 * Checks whether a user exists. Returns the user's id and email or null.
+	 */
+	exists: async (userId: string): Promise<{ id: string; email: string; name: string } | null> => {
+		const [row] = await db
+			.select({ id: schema.user.id, email: schema.user.email, name: schema.user.name })
+			.from(schema.user)
+			.where(eq(schema.user.id, userId))
+			.limit(1);
+		return row ?? null;
+	},
+
+	/**
+	 * Admin sets/resets a user's credential password.
+	 * Hashes with bcrypt (matching src/utils/password.ts) and upserts the
+	 * `credential` account row, creating it if the user has none.
+	 */
+	setPassword: async (userId: string, newPassword: string) => {
+		const passwordHash = await hashPassword(newPassword);
+
+		const updated = await db
+			.update(schema.account)
+			.set({ password: passwordHash, updatedAt: new Date() })
+			.where(and(eq(schema.account.userId, userId), eq(schema.account.providerId, "credential")))
+			.returning({ id: schema.account.id });
+
+		if (updated.length === 0) {
+			// No credential account yet — create one (mirrors scripts/harden-accounts.mjs).
+			await db.insert(schema.account).values({
+				id: generateId(),
+				accountId: userId,
+				providerId: "credential",
+				userId,
+				password: passwordHash,
+			});
+		}
+	},
+
+	/**
+	 * Deletes all sessions for a user, forcing logout everywhere.
+	 * Returns the number of sessions revoked.
+	 */
+	revokeSessions: async (userId: string): Promise<number> => {
+		const deleted = await db
+			.delete(schema.session)
+			.where(eq(schema.session.userId, userId))
+			.returning({ id: schema.session.id });
+		return deleted.length;
+	},
+
+	/**
+	 * Marks a user's email as verified.
+	 */
+	verifyEmail: async (userId: string) => {
+		await db.update(schema.user).set({ emailVerified: true, updatedAt: new Date() }).where(eq(schema.user.id, userId));
+	},
+
+	/**
+	 * Bans a user. Optionally with a reason and an expiry timestamp.
+	 * Also revokes all active sessions so the ban takes effect immediately.
+	 * Returns the number of revoked sessions.
+	 */
+	ban: async (userId: string, reason: string | null, expiresAt: Date | null): Promise<number> => {
+		await db
+			.update(schema.user)
+			.set({ banned: true, banReason: reason, banExpiresAt: expiresAt, updatedAt: new Date() })
+			.where(eq(schema.user.id, userId));
+		// Force logout so the ban is enforced right away.
+		const deleted = await db
+			.delete(schema.session)
+			.where(eq(schema.session.userId, userId))
+			.returning({ id: schema.session.id });
+		return deleted.length;
+	},
+
+	/**
+	 * Lifts a ban from a user, clearing reason and expiry.
+	 */
+	unban: async (userId: string) => {
+		await db
+			.update(schema.user)
+			.set({ banned: false, banReason: null, banExpiresAt: null, updatedAt: new Date() })
+			.where(eq(schema.user.id, userId));
+	},
+
+	/**
+	 * Admin edits a user's profile fields. Enforces email & username uniqueness
+	 * (case-insensitive for email) before applying changes. Throws an Error with
+	 * a clean message when a value is already taken; the router maps it to a
+	 * CONFLICT response.
+	 */
+	updateProfile: async (
+		userId: string,
+		input: { name?: string; email?: string; username?: string; imtaProgram?: string | null },
+	) => {
+		// Uniqueness checks against other users.
+		if (input.email !== undefined) {
+			const [taken] = await db
+				.select({ id: schema.user.id })
+				.from(schema.user)
+				.where(and(ilike(schema.user.email, input.email), ne(schema.user.id, userId)))
+				.limit(1);
+			if (taken) throw new Error("EMAIL_TAKEN");
+		}
+
+		if (input.username !== undefined) {
+			const [taken] = await db
+				.select({ id: schema.user.id })
+				.from(schema.user)
+				.where(
+					and(
+						or(eq(schema.user.username, input.username), eq(schema.user.displayUsername, input.username)),
+						ne(schema.user.id, userId),
+					),
+				)
+				.limit(1);
+			if (taken) throw new Error("USERNAME_TAKEN");
+		}
+
+		const updates: Partial<typeof schema.user.$inferInsert> = { updatedAt: new Date() };
+		if (input.name !== undefined) updates.name = input.name;
+		if (input.email !== undefined) updates.email = input.email.toLowerCase();
+		if (input.username !== undefined) {
+			updates.username = input.username;
+			updates.displayUsername = input.username;
+		}
+		if (input.imtaProgram !== undefined) updates.imtaProgram = input.imtaProgram;
+
+		await db.update(schema.user).set(updates).where(eq(schema.user.id, userId));
+	},
+
+	/**
+	 * Lists a user's sessions (most recent first), with active/expired status.
+	 */
+	listSessions: async (userId: string) => {
+		const now = new Date();
+		const rows = await db
+			.select({
+				id: schema.session.id,
+				createdAt: schema.session.createdAt,
+				expiresAt: schema.session.expiresAt,
+				ipAddress: schema.session.ipAddress,
+				userAgent: schema.session.userAgent,
+			})
+			.from(schema.session)
+			.where(eq(schema.session.userId, userId))
+			.orderBy(desc(schema.session.createdAt));
+
+		return rows.map((s) => ({
+			...s,
+			isActive: s.expiresAt.getTime() > now.getTime(),
+		}));
 	},
 };
 

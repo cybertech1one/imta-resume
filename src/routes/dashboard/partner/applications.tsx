@@ -2,6 +2,7 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
 	CalendarIcon,
+	ChatCircleDotsIcon,
 	CheckCircleIcon,
 	ClipboardTextIcon,
 	EnvelopeSimpleIcon,
@@ -14,15 +15,24 @@ import {
 	XCircleIcon,
 } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { ErrorComponent } from "@/components/error-component";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Textarea } from "@/components/ui/textarea";
 import { authClient } from "@/integrations/auth/client";
 import { orpc } from "@/integrations/orpc/client";
 import { DashboardHeader } from "../-components/header";
@@ -113,6 +123,73 @@ function MatchScoreBadge({ score }: { score: number }) {
 	);
 }
 
+// Dialog that lets a partner start (or reuse) a direct conversation with an applicant.
+function ContactApplicantDialog({
+	open,
+	onOpenChange,
+	recipientUserId,
+}: {
+	open: boolean;
+	onOpenChange: (open: boolean) => void;
+	recipientUserId: string;
+}) {
+	const navigate = useNavigate();
+	const [body, setBody] = useState("");
+	const startConversation = useMutation(orpc.messaging.startConversation.mutationOptions());
+
+	const handleSend = async () => {
+		const trimmed = body.trim();
+		if (trimmed.length === 0) return;
+		try {
+			const result = await startConversation.mutateAsync({
+				recipientUserId,
+				body: trimmed,
+			});
+			toast.success(t`Message envoyé`);
+			onOpenChange(false);
+			setBody("");
+			navigate({
+				// biome-ignore lint/suspicious/noExplicitAny: route path not in generated tree
+				to: "/dashboard/messages" as any,
+				// biome-ignore lint/suspicious/noExplicitAny: search params not in generated tree
+				search: { conversation: result.conversationId } as any,
+			});
+		} catch {
+			toast.error(t`Échec de l'envoi du message`);
+		}
+	};
+
+	return (
+		<Dialog open={open} onOpenChange={onOpenChange}>
+			<DialogContent>
+				<DialogHeader>
+					<DialogTitle>
+						<Trans>Contacter le candidat</Trans>
+					</DialogTitle>
+					<DialogDescription>
+						<Trans>Envoyez un message direct à ce candidat. Il pourra vous répondre dans sa messagerie.</Trans>
+					</DialogDescription>
+				</DialogHeader>
+				<Textarea
+					value={body}
+					onChange={(e) => setBody(e.target.value)}
+					placeholder={t`Écrivez votre message...`}
+					maxLength={5000}
+					rows={5}
+				/>
+				<DialogFooter>
+					<Button variant="outline" onClick={() => onOpenChange(false)}>
+						<Trans>Annuler</Trans>
+					</Button>
+					<Button onClick={handleSend} disabled={startConversation.isPending || body.trim().length === 0}>
+						<Trans>Envoyer</Trans>
+					</Button>
+				</DialogFooter>
+			</DialogContent>
+		</Dialog>
+	);
+}
+
 function ApplicationCard({
 	application,
 	onReview,
@@ -128,6 +205,7 @@ function ApplicationCard({
 	onReject: (id: string) => void;
 	onHire: (id: string) => void;
 }) {
+	const [contactOpen, setContactOpen] = useState(false);
 	return (
 		<Card className="transition-shadow hover:shadow-md">
 			<CardHeader className="pb-3">
@@ -170,6 +248,17 @@ function ApplicationCard({
 				)}
 
 				<div className="flex flex-wrap items-center gap-2 border-t pt-3">
+					<Button variant="outline" size="sm" className="gap-1.5" onClick={() => setContactOpen(true)}>
+						<ChatCircleDotsIcon className="size-3.5" />
+						<Trans>Contacter</Trans>
+					</Button>
+
+					<ContactApplicantDialog
+						open={contactOpen}
+						onOpenChange={setContactOpen}
+						recipientUserId={application.userId}
+					/>
+
 					{application.status === "submitted" && (
 						<Button variant="outline" size="sm" className="gap-1.5" onClick={() => onReview(application.id)}>
 							<EyeIcon className="size-3.5" />

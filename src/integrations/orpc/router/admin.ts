@@ -210,6 +210,7 @@ const usersRouter = {
 						username: z.string(),
 						role: z.enum(["user", "admin", "partner"]),
 						emailVerified: z.boolean(),
+						banned: z.boolean(),
 						createdAt: z.coerce.date(),
 						resumeCount: z.number(),
 					}),
@@ -244,6 +245,10 @@ const usersRouter = {
 					emailVerified: z.boolean(),
 					twoFactorEnabled: z.boolean(),
 					image: z.string().nullable(),
+					imtaProgram: z.string().nullable(),
+					banned: z.boolean(),
+					banReason: z.string().nullable(),
+					banExpiresAt: z.coerce.date().nullable(),
 					createdAt: z.coerce.date(),
 					updatedAt: z.coerce.date(),
 					sessionCount: z.number(),
@@ -393,6 +398,247 @@ const usersRouter = {
 			});
 
 			return result;
+		}),
+
+	setPassword: adminProcedure
+		.route({
+			method: "POST",
+			path: "/admin/users/{userId}/set-password",
+			tags: ["Admin", "Users"],
+			summary: "Set user password",
+			description: "Admin sets or resets a user's credential password.",
+		})
+		.input(
+			z.object({
+				userId: z.string().uuid(),
+				newPassword: z.string().min(12).max(128),
+			}),
+		)
+		.output(z.object({ success: z.boolean() }))
+		.handler(async ({ input, context }) => {
+			const target = await adminService.users.exists(input.userId);
+			if (!target) throw new ORPCError("NOT_FOUND", { message: "User not found" });
+
+			await adminService.users.setPassword(input.userId, input.newPassword);
+
+			await adminService.audit.log({
+				adminId: context.user.id,
+				action: "set_user_password",
+				targetType: "user",
+				targetId: input.userId,
+				metadata: { targetEmail: target.email },
+			});
+
+			return { success: true };
+		}),
+
+	revokeSessions: adminProcedure
+		.route({
+			method: "POST",
+			path: "/admin/users/{userId}/revoke-sessions",
+			tags: ["Admin", "Users"],
+			summary: "Revoke user sessions",
+			description: "Delete all sessions for a user, forcing logout everywhere.",
+		})
+		.input(z.object({ userId: z.string().uuid() }))
+		.output(z.object({ revoked: z.number() }))
+		.handler(async ({ input, context }) => {
+			const target = await adminService.users.exists(input.userId);
+			if (!target) throw new ORPCError("NOT_FOUND", { message: "User not found" });
+
+			const revoked = await adminService.users.revokeSessions(input.userId);
+
+			await adminService.audit.log({
+				adminId: context.user.id,
+				action: "revoke_user_sessions",
+				targetType: "user",
+				targetId: input.userId,
+				metadata: { targetEmail: target.email, revoked },
+			});
+
+			return { revoked };
+		}),
+
+	verifyEmail: adminProcedure
+		.route({
+			method: "POST",
+			path: "/admin/users/{userId}/verify-email",
+			tags: ["Admin", "Users"],
+			summary: "Verify user email",
+			description: "Mark a user's email address as verified.",
+		})
+		.input(z.object({ userId: z.string().uuid() }))
+		.output(z.object({ success: z.boolean() }))
+		.handler(async ({ input, context }) => {
+			const target = await adminService.users.exists(input.userId);
+			if (!target) throw new ORPCError("NOT_FOUND", { message: "User not found" });
+
+			await adminService.users.verifyEmail(input.userId);
+
+			await adminService.audit.log({
+				adminId: context.user.id,
+				action: "verify_user_email",
+				targetType: "user",
+				targetId: input.userId,
+				metadata: { targetEmail: target.email },
+			});
+
+			return { success: true };
+		}),
+
+	ban: adminProcedure
+		.route({
+			method: "POST",
+			path: "/admin/users/{userId}/ban",
+			tags: ["Admin", "Users"],
+			summary: "Ban user",
+			description: "Ban a user with an optional reason and expiry; revokes their sessions.",
+		})
+		.input(
+			z.object({
+				userId: z.string().uuid(),
+				reason: z.string().max(500).optional(),
+				expiresAt: z.coerce.date().optional(),
+			}),
+		)
+		.output(z.object({ success: z.boolean(), revoked: z.number() }))
+		.handler(async ({ input, context }) => {
+			// Self-protection: an admin cannot ban themselves.
+			if (input.userId === context.user.id) {
+				throw new ORPCError("BAD_REQUEST", { message: "You cannot ban your own account" });
+			}
+
+			const target = await adminService.users.exists(input.userId);
+			if (!target) throw new ORPCError("NOT_FOUND", { message: "User not found" });
+
+			// Reject past expiry dates — a ban that is already expired is meaningless.
+			if (input.expiresAt && input.expiresAt.getTime() <= Date.now()) {
+				throw new ORPCError("BAD_REQUEST", { message: "Ban expiry must be in the future" });
+			}
+
+			const revoked = await adminService.users.ban(input.userId, input.reason ?? null, input.expiresAt ?? null);
+
+			await adminService.audit.log({
+				adminId: context.user.id,
+				action: "ban_user",
+				targetType: "user",
+				targetId: input.userId,
+				metadata: {
+					targetEmail: target.email,
+					reason: input.reason ?? null,
+					expiresAt: input.expiresAt ? input.expiresAt.toISOString() : null,
+					revoked,
+				},
+			});
+
+			return { success: true, revoked };
+		}),
+
+	unban: adminProcedure
+		.route({
+			method: "POST",
+			path: "/admin/users/{userId}/unban",
+			tags: ["Admin", "Users"],
+			summary: "Unban user",
+			description: "Lift a ban from a user.",
+		})
+		.input(z.object({ userId: z.string().uuid() }))
+		.output(z.object({ success: z.boolean() }))
+		.handler(async ({ input, context }) => {
+			const target = await adminService.users.exists(input.userId);
+			if (!target) throw new ORPCError("NOT_FOUND", { message: "User not found" });
+
+			await adminService.users.unban(input.userId);
+
+			await adminService.audit.log({
+				adminId: context.user.id,
+				action: "unban_user",
+				targetType: "user",
+				targetId: input.userId,
+				metadata: { targetEmail: target.email },
+			});
+
+			return { success: true };
+		}),
+
+	updateProfile: adminProcedure
+		.route({
+			method: "PUT",
+			path: "/admin/users/{userId}/profile",
+			tags: ["Admin", "Users"],
+			summary: "Update user profile",
+			description: "Admin edits a user's name, email, username, and program.",
+		})
+		.input(
+			z.object({
+				userId: z.string().uuid(),
+				name: z.string().min(1).max(100).optional(),
+				email: z.string().email().max(255).optional(),
+				username: z
+					.string()
+					.min(2)
+					.max(64)
+					.regex(
+						/^[a-z0-9._-]+$/,
+						"Username may only contain lowercase letters, digits, dots, hyphens, and underscores",
+					)
+					.optional(),
+				imtaProgram: z.string().max(100).nullable().optional(),
+			}),
+		)
+		.output(z.object({ success: z.boolean() }))
+		.handler(async ({ input, context }) => {
+			const target = await adminService.users.exists(input.userId);
+			if (!target) throw new ORPCError("NOT_FOUND", { message: "User not found" });
+
+			const { userId, ...fields } = input;
+			try {
+				await adminService.users.updateProfile(userId, fields);
+			} catch (error) {
+				const code = error instanceof Error ? error.message : "";
+				if (code === "EMAIL_TAKEN") {
+					throw new ORPCError("CONFLICT", { message: "This email is already in use" });
+				}
+				if (code === "USERNAME_TAKEN") {
+					throw new ORPCError("CONFLICT", { message: "This username is already in use" });
+				}
+				throw new ORPCError("INTERNAL_SERVER_ERROR", { message: "Failed to update profile" });
+			}
+
+			await adminService.audit.log({
+				adminId: context.user.id,
+				action: "update_user_profile",
+				targetType: "user",
+				targetId: input.userId,
+				metadata: { changedFields: Object.keys(fields) },
+			});
+
+			return { success: true };
+		}),
+
+	listSessions: adminProcedure
+		.route({
+			method: "GET",
+			path: "/admin/users/{userId}/sessions",
+			tags: ["Admin", "Users"],
+			summary: "List user sessions",
+			description: "List a user's sessions with active/expired status.",
+		})
+		.input(z.object({ userId: z.string().uuid() }))
+		.output(
+			z.array(
+				z.object({
+					id: z.string().uuid(),
+					createdAt: z.coerce.date(),
+					expiresAt: z.coerce.date(),
+					ipAddress: z.string().nullable(),
+					userAgent: z.string().nullable(),
+					isActive: z.boolean(),
+				}),
+			),
+		)
+		.handler(async ({ input }) => {
+			return await adminService.users.listSessions(input.userId);
 		}),
 };
 

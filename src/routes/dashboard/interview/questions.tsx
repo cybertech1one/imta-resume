@@ -454,6 +454,9 @@ function CommonQuestionsPage() {
 	const { data: session } = authClient.useSession();
 	const { field, type, difficulty } = Route.useSearch() as SearchParams;
 
+	// The student's specific IMTA program (e.g. "soudure"), if set on their profile.
+	const userProgram = (session?.user as Record<string, unknown> | undefined)?.imtaProgram as string | null | undefined;
+
 	// State
 	const [selectedField, setSelectedField] = useState<string>(field || "general");
 	const [selectedType, setSelectedType] = useState<string | undefined>(type);
@@ -473,6 +476,41 @@ function CommonQuestionsPage() {
 		enabled: !!session?.user,
 	});
 
+	// Fetch program-specific questions scoped precisely to the student's program.
+	const { data: programData } = useQuery({
+		...orpc.interview.getQuestionsByProgram.queryOptions({
+			input: {
+				program: userProgram ?? undefined,
+				field: selectedField as "healthcare" | "industrial" | "hse" | "general",
+			},
+		}),
+		enabled: !!session?.user && !!userProgram,
+	});
+
+	// Only show program-scoped questions on the page when they are truly program-specific.
+	const programQuestions = useMemo<CommonQuestion[]>(() => {
+		if (!programData || programData.scope !== "program") return [];
+		return programData.questions.map((q) => ({
+			id: q.id,
+			question: q.questionFr || q.question,
+			type: q.type,
+			field: q.field as CommonQuestion["field"],
+			sampleAnswer: q.sampleAnswerFr ?? q.sampleAnswer ?? "",
+			tips: q.tipsFr.length > 0 ? q.tipsFr : q.tips,
+		}));
+	}, [programData]);
+
+	const hasProgramQuestions = programQuestions.length > 0;
+
+	// Map of real (DB-backed) difficulties for program questions.
+	const programDifficultyMap = useMemo(() => {
+		const map = new Map<string, "beginner" | "intermediate" | "advanced">();
+		if (programData?.scope === "program") {
+			for (const q of programData.questions) map.set(q.id, q.difficulty);
+		}
+		return map;
+	}, [programData]);
+
 	const fallbackQuestions = useMemo(
 		() =>
 			getFallbackQuestions(
@@ -482,19 +520,29 @@ function CommonQuestionsPage() {
 		[selectedField, selectedType],
 	);
 
-	const availableQuestions = useMemo(
-		() => mergeQuestions(questions as CommonQuestion[], fallbackQuestions),
-		[questions, fallbackQuestions],
-	);
+	const availableQuestions = useMemo(() => {
+		const base = mergeQuestions(questions as CommonQuestion[], fallbackQuestions);
+		// Prepend program-specific questions (filtered by the active type) so the
+		// student sees questions tailored to their exact metier first.
+		const scopedProgram = selectedType ? programQuestions.filter((q) => q.type === selectedType) : programQuestions;
+		if (scopedProgram.length === 0) return base;
+		const programIds = new Set(scopedProgram.map((q) => q.id));
+		return [...scopedProgram, ...base.filter((q) => !programIds.has(q.id))];
+	}, [questions, fallbackQuestions, programQuestions, selectedType]);
 
-	// Difficulty mapping (simulated since API doesn't have it)
-	const getDifficulty = useCallback((questionId: string): "beginner" | "intermediate" | "advanced" => {
-		// General questions are usually beginner
-		if (questionId.startsWith("gen-1") || questionId.startsWith("gen-2")) return "beginner";
-		if (questionId.includes("-1") || questionId.includes("-2")) return "beginner";
-		if (questionId.includes("-3") || questionId.includes("-4")) return "intermediate";
-		return "advanced";
-	}, []);
+	// Difficulty mapping (DB-backed for program questions, heuristic otherwise)
+	const getDifficulty = useCallback(
+		(questionId: string): "beginner" | "intermediate" | "advanced" => {
+			const real = programDifficultyMap.get(questionId);
+			if (real) return real;
+			// General questions are usually beginner
+			if (questionId.startsWith("gen-1") || questionId.startsWith("gen-2")) return "beginner";
+			if (questionId.includes("-1") || questionId.includes("-2")) return "beginner";
+			if (questionId.includes("-3") || questionId.includes("-4")) return "intermediate";
+			return "advanced";
+		},
+		[programDifficultyMap],
+	);
 
 	// Filter questions
 	const filteredQuestions = useMemo(() => {
@@ -694,6 +742,32 @@ function CommonQuestionsPage() {
 					</motion.div>
 				</div>
 			</motion.div>
+
+			{/* Program-specific banner: shown when the student's program has its own bank */}
+			{hasProgramQuestions && (
+				<motion.div
+					className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-4"
+					initial={false}
+					animate={{ opacity: 1 }}
+				>
+					<TargetIcon className="size-5 text-emerald-600 dark:text-emerald-400" weight="duotone" />
+					<div className="flex-1">
+						<p className="font-semibold text-emerald-700 text-sm dark:text-emerald-300">
+							<Trans>Questions adaptées à votre formation</Trans>
+						</p>
+						<p className="text-muted-foreground text-xs">
+							<Trans>
+								{programQuestions.length} questions spécifiques à votre métier apparaissent en premier, suivies des
+								questions générales du domaine.
+							</Trans>
+						</p>
+					</div>
+					<Badge className="bg-emerald-600 hover:bg-emerald-700">
+						<StarIcon className="mr-1 size-3" weight="fill" />
+						{programQuestions.length} <Trans>ciblées</Trans>
+					</Badge>
+				</motion.div>
+			)}
 
 			{/* Field Tabs */}
 			<Tabs value={selectedField} onValueChange={handleFieldChange} className="space-y-6">

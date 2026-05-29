@@ -67,6 +67,7 @@ import { marketIntelligenceRouter } from "./market-intelligence";
 import { mentorMessagingRouter } from "./mentor-messaging";
 import { mentorsRouter } from "./mentors";
 import { messageTemplateRouter } from "./message-template";
+import { messagingRouter } from "./messaging";
 import { mockAiRouter } from "./mock-ai";
 import { networkingRouter } from "./networking";
 import { networkingEventsRouter } from "./networking-events";
@@ -173,6 +174,7 @@ export default {
 	mentorMessaging: mentorMessagingRouter,
 	mentors: mentorsRouter,
 	messageTemplate: messageTemplateRouter,
+	messaging: messagingRouter,
 	mockAi: mockAiRouter,
 	networking: networkingRouter,
 	networkingEvents: networkingEventsRouter,
