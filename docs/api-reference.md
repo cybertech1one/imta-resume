@@ -1,6 +1,6 @@
 # AI API Reference
 
-This document provides detailed API documentation for all AI-related endpoints in Reactive Resume.
+This document provides detailed API documentation for all AI-related endpoints in IMTA Resume.
 
 ## Table of Contents
 

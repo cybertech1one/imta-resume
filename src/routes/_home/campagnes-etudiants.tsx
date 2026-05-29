@@ -175,11 +175,13 @@ export const Route = createFileRoute("/_home/campagnes-etudiants")({
 
 function RouteComponent() {
 	return (
-		<main id="main-content" className="bg-white pt-16">
-			<section className="grid overflow-hidden bg-white lg:min-h-[650px] lg:grid-cols-[0.9fr_1.1fr]">
+		<main id="main-content" className="bg-white pt-20">
+			<section className="grid overflow-hidden bg-[#f7fbfa] lg:min-h-[650px] lg:grid-cols-[0.9fr_1.1fr]">
 				<div className="flex items-center px-6 py-16 md:px-10 lg:px-14">
 					<div className="max-w-2xl">
-						<p className="font-semibold text-emerald-800 text-sm">Campagnes publiques</p>
+						<p className="inline-flex items-center rounded-full border border-emerald-900/10 bg-white px-3 py-1.5 font-semibold text-emerald-900 text-sm shadow-sm">
+							Campagnes publiques
+						</p>
 						<h1 className="mt-5 font-display text-5xl text-zinc-950 leading-[1.02] md:text-6xl">
 							Des hooks prêts à partager pour attirer plus d'étudiants.
 						</h1>
@@ -190,19 +192,19 @@ function RouteComponent() {
 						<div className="mt-9 flex flex-col gap-4 sm:flex-row">
 							<Link
 								to="/dashboard"
-								className="inline-flex h-14 items-center justify-center rounded-md bg-emerald-800 px-7 font-semibold text-white transition-colors hover:bg-emerald-900"
+								className="inline-flex h-14 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#006b53,#00a88a)] px-7 font-semibold text-white shadow-[0_22px_44px_-26px_rgba(0,107,83,0.95)] transition-transform hover:-translate-y-0.5"
 							>
 								Créer mon CV gratuitement
 							</Link>
 							<a
 								href="/ressources-etudiants-maroc"
-								className="inline-flex h-14 items-center justify-center rounded-md border border-zinc-200 bg-white px-7 font-semibold text-zinc-900 transition-colors hover:border-emerald-800 hover:text-emerald-800"
+								className="inline-flex h-14 items-center justify-center rounded-xl border border-emerald-950/15 bg-white px-7 font-semibold text-zinc-900 shadow-sm transition-colors hover:border-emerald-800 hover:text-emerald-800"
 							>
 								Voir les ressources
 							</a>
 							<a
 								href="/plan-marketing-etudiants"
-								className="inline-flex h-14 items-center justify-center rounded-md border border-zinc-200 bg-white px-7 font-semibold text-zinc-900 transition-colors hover:border-emerald-800 hover:text-emerald-800"
+								className="inline-flex h-14 items-center justify-center rounded-xl border border-emerald-950/15 bg-white px-7 font-semibold text-zinc-900 shadow-sm transition-colors hover:border-emerald-800 hover:text-emerald-800"
 							>
 								Plan 30 jours
 							</a>
@@ -211,7 +213,7 @@ function RouteComponent() {
 				</div>
 				<div className="relative min-h-[430px] overflow-hidden lg:min-h-full">
 					<img
-						src="/home/public-pages-morocco-hub.webp"
+						src="/home/healthtech-student-hero.png"
 						alt=""
 						aria-hidden="true"
 						fetchPriority="high"
@@ -229,7 +231,7 @@ function RouteComponent() {
 
 			<section className="bg-white py-16 md:py-20">
 				<div className="mx-auto max-w-7xl px-6 lg:px-10">
-					<div className="mb-10 grid gap-6 rounded-lg border border-emerald-900/15 bg-emerald-50/45 p-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
+					<div className="mb-10 grid gap-6 rounded-2xl border border-emerald-900/15 bg-[#f3faf8] p-6 shadow-[0_18px_56px_-50px_rgba(0,74,59,0.66)] lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
 						<div>
 							<p className="font-semibold text-emerald-800 text-sm">Plan de diffusion</p>
 							<h2 className="mt-3 font-display text-4xl text-zinc-950 leading-tight">
@@ -239,14 +241,14 @@ function RouteComponent() {
 						<div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
 							<a
 								href="/plan-marketing-etudiants"
-								className="inline-flex h-13 items-center justify-center gap-3 rounded-md bg-emerald-800 px-6 font-semibold text-white transition-colors hover:bg-emerald-900"
+								className="inline-flex h-13 items-center justify-center gap-3 rounded-xl bg-[linear-gradient(135deg,#006b53,#00a88a)] px-6 font-semibold text-white shadow-[0_18px_38px_-24px_rgba(0,107,83,0.9)] transition-transform hover:-translate-y-0.5"
 							>
 								Ouvrir le plan marketing
 								<ArrowRightIcon aria-hidden="true" className="size-4" />
 							</a>
 							<a
 								href="/ressources-etudiants-maroc"
-								className="inline-flex h-13 items-center justify-center gap-3 rounded-md border border-zinc-200 bg-white px-6 font-semibold text-zinc-900 transition-colors hover:border-emerald-800 hover:text-emerald-800"
+								className="inline-flex h-13 items-center justify-center gap-3 rounded-xl border border-emerald-950/15 bg-white px-6 font-semibold text-zinc-900 shadow-sm transition-colors hover:border-emerald-800 hover:text-emerald-800"
 							>
 								Catalogue des pages
 								<ArrowRightIcon aria-hidden="true" className="size-4" />
@@ -269,7 +271,7 @@ function RouteComponent() {
 				</div>
 			</section>
 
-			<section className="bg-zinc-950 py-16 text-white md:py-20">
+			<section className="bg-[linear-gradient(135deg,#063b32,#008d78)] py-16 text-white md:py-20">
 				<div className="mx-auto max-w-7xl px-6 lg:px-10">
 					<div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr]">
 						<div>
@@ -333,7 +335,7 @@ function RouteComponent() {
 				</div>
 			</section>
 
-			<section className="grid overflow-hidden bg-emerald-950 text-white lg:grid-cols-[0.95fr_1.05fr]">
+			<section className="grid overflow-hidden bg-[linear-gradient(135deg,#063b32,#008d78)] text-white lg:grid-cols-[0.95fr_1.05fr]">
 				<div className="flex items-center px-6 py-14 md:px-10 lg:px-14">
 					<div className="max-w-xl">
 						<h2 className="font-display text-4xl leading-tight md:text-5xl">
@@ -352,7 +354,7 @@ function RouteComponent() {
 					</div>
 				</div>
 				<img
-					src="/home/home-hero-students-career.webp"
+					src="/home/healthtech-student-hero.png"
 					alt=""
 					aria-hidden="true"
 					loading="lazy"

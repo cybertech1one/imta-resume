@@ -191,7 +191,7 @@ describe("user journey - new user onboarding", () => {
 		it("should send welcome email", () => {
 			const emailSent = {
 				to: "newuser@example.com",
-				subject: "Welcome to Reactive Resume",
+				subject: "Welcome to IMTA Resume",
 				template: "welcome",
 			};
 

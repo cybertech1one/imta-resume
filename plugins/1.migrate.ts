@@ -37,5 +37,10 @@ async function migrateDatabase() {
 }
 
 export default definePlugin(async () => {
+	if (process.env.NODE_ENV === "development" || process.env.SKIP_DB_MIGRATIONS === "true") {
+		console.log("Skipping database migrations for local dev startup.");
+		return;
+	}
+
 	await migrateDatabase();
 });

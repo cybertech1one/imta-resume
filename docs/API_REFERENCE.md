@@ -1,6 +1,6 @@
-# Reactive Resume - Complete API Reference
+# IMTA Resume - Complete API Reference
 
-This document provides comprehensive API documentation for all ORPC endpoints in Reactive Resume.
+This document provides comprehensive API documentation for all ORPC endpoints in IMTA Resume.
 
 ## Table of Contents
 
@@ -23,7 +23,7 @@ This document provides comprehensive API documentation for all ORPC endpoints in
 
 ### Overview
 
-Reactive Resume uses **Better Auth** for authentication with the following supported methods:
+IMTA Resume uses **Better Auth** for authentication with the following supported methods:
 
 | Method | Description |
 |--------|-------------|
@@ -340,7 +340,7 @@ string[]  // All unique tags used by user's resumes
 
 ## AI Endpoints
 
-Reactive Resume provides comprehensive AI-powered features for resume optimization, content generation, and career assistance.
+IMTA Resume provides comprehensive AI-powered features for resume optimization, content generation, and career assistance.
 
 ### AI Configuration
 
@@ -1821,5 +1821,5 @@ The current API version is **v1** (implicit). Breaking changes will be communica
 ## Support
 
 For API issues or questions:
-- GitHub Issues: [reactive-resume/issues](https://github.com/amruthpillai/reactive-resume/issues)
+- GitHub Issues: [Support](https://imta.ma)
 - Discord: [Join our server](https://discord.gg/EE8yFqW4)

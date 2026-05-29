@@ -123,10 +123,53 @@ const listPublishedJobs = publicProcedure
 
 		const offset = (input.page - 1) * input.limit;
 
-		const [jobs, totalResult] = await Promise.all([
+		const [rows, totalResult] = await Promise.all([
 			db
-				.select()
+				.select({
+					// All job posting columns
+					id: partnerJobPosting.id,
+					partnerId: partnerJobPosting.partnerId,
+					title: partnerJobPosting.title,
+					titleFr: partnerJobPosting.titleFr,
+					description: partnerJobPosting.description,
+					descriptionFr: partnerJobPosting.descriptionFr,
+					location: partnerJobPosting.location,
+					region: partnerJobPosting.region,
+					jobType: partnerJobPosting.jobType,
+					experienceLevel: partnerJobPosting.experienceLevel,
+					field: partnerJobPosting.field,
+					requirements: partnerJobPosting.requirements,
+					skills: partnerJobPosting.skills,
+					education: partnerJobPosting.education,
+					certifications: partnerJobPosting.certifications,
+					salaryMin: partnerJobPosting.salaryMin,
+					salaryMax: partnerJobPosting.salaryMax,
+					salaryPeriod: partnerJobPosting.salaryPeriod,
+					salaryCurrency: partnerJobPosting.salaryCurrency,
+					benefits: partnerJobPosting.benefits,
+					applicationDeadline: partnerJobPosting.applicationDeadline,
+					startDate: partnerJobPosting.startDate,
+					positions: partnerJobPosting.positions,
+					applicationUrl: partnerJobPosting.applicationUrl,
+					applicationEmail: partnerJobPosting.applicationEmail,
+					applicationInstructions: partnerJobPosting.applicationInstructions,
+					status: partnerJobPosting.status,
+					publishedAt: partnerJobPosting.publishedAt,
+					expiresAt: partnerJobPosting.expiresAt,
+					viewCount: partnerJobPosting.viewCount,
+					applicationCount: partnerJobPosting.applicationCount,
+					saveCount: partnerJobPosting.saveCount,
+					isFeatured: partnerJobPosting.isFeatured,
+					isUrgent: partnerJobPosting.isUrgent,
+					createdAt: partnerJobPosting.createdAt,
+					updatedAt: partnerJobPosting.updatedAt,
+					// Partner profile columns for company info
+					companyName: partnerProfile.companyName,
+					companyNameFr: partnerProfile.companyNameFr,
+					companyLogo: partnerProfile.logo,
+				})
 				.from(partnerJobPosting)
+				.leftJoin(partnerProfile, eq(partnerJobPosting.partnerId, partnerProfile.id))
 				.where(and(...conditions))
 				.orderBy(desc(partnerJobPosting.publishedAt))
 				.limit(input.limit)
@@ -138,7 +181,7 @@ const listPublishedJobs = publicProcedure
 		]);
 
 		return {
-			jobs,
+			jobs: rows,
 			total: Number(totalResult[0]?.count ?? 0),
 			page: input.page,
 			totalPages: Math.ceil(Number(totalResult[0]?.count ?? 0) / input.limit),

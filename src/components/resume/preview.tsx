@@ -1,6 +1,5 @@
 import { Trans } from "@lingui/react/macro";
 import {
-	ArrowRightIcon,
 	CaretDownIcon,
 	CaretUpIcon,
 	IconContext,
@@ -186,16 +185,13 @@ function PageContainer({ pageIndex, pageLayout, pageClassName, showPageNumbers =
 									</span>
 								</div>
 
-								{/* Link to documentation */}
-								<a
-									rel="noopener"
-									target="_blank"
-									className="group/link inline-flex items-center text-sm underline-offset-2 hover:underline"
-									href="https://docs.rxresu.me/guides/fitting-content-on-a-page"
-								>
-									<Trans>Learn more about how to fit content on a page</Trans>
-									<ArrowRightIcon color="currentColor" className="ms-1 inline size-3" />
-								</a>
+								{/* In-app guidance (no external link) */}
+								<p className="inline-flex items-center text-sm">
+									<Trans>
+										Try reducing the font size, trimming long descriptions, or moving sections to a new page to fit your
+										content.
+									</Trans>
+								</p>
 							</AlertDescription>
 						</Alert>
 

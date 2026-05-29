@@ -1,5 +1,5 @@
 import { ORPCError } from "@orpc/client";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import { schema } from "@/integrations/drizzle";
 import { db } from "@/integrations/drizzle/client";
 import { generateId } from "@/utils/string";
@@ -38,8 +38,50 @@ export type UpdatePreferencesInput = {
 };
 
 export const notificationService = {
-	// Create a new notification
+	// Create a new notification, skipping duplicates:
+	// - announcements: deduped by metadata.announcementId (per user, all-time)
+	// - tips: deduped by title+type within the current calendar day (per user)
+	// Returns the existing id when a duplicate is detected (no new row written).
 	create: async (input: CreateNotificationInput): Promise<string> => {
+		// --- Announcement dedup ---
+		if (input.type === "announcement" && typeof input.metadata?.announcementId === "string") {
+			const announcementId = input.metadata.announcementId;
+			const [existing] = await db
+				.select({ id: schema.notification.id })
+				.from(schema.notification)
+				.where(
+					and(
+						eq(schema.notification.userId, input.userId),
+						eq(schema.notification.type, "announcement"),
+						sql`${schema.notification.metadata}->>'announcementId' = ${announcementId}`,
+					),
+				)
+				.limit(1);
+			if (existing) return existing.id;
+		}
+
+		// --- Daily tip dedup: one tip per user per calendar day ---
+		if (input.type === "tip") {
+			const todayStart = new Date();
+			todayStart.setHours(0, 0, 0, 0);
+			const todayEnd = new Date();
+			todayEnd.setHours(23, 59, 59, 999);
+			const [existing] = await db
+				.select({ id: schema.notification.id })
+				.from(schema.notification)
+				.where(
+					and(
+						eq(schema.notification.userId, input.userId),
+						eq(schema.notification.type, "tip"),
+						eq(schema.notification.title, input.title),
+						sql`${schema.notification.createdAt} >= ${todayStart.toISOString()}`,
+						sql`${schema.notification.createdAt} <= ${todayEnd.toISOString()}`,
+					),
+				)
+				.limit(1);
+			if (existing) return existing.id;
+		}
+
 		const id = generateId();
 
 		await db.insert(schema.notification).values({

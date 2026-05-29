@@ -1,6 +1,6 @@
 # AI Enhancement System Architecture
 
-This document describes the comprehensive AI-powered features integrated into Reactive Resume, including resume parsing, content improvement, interview preparation, and career mentorship.
+This document describes the comprehensive AI-powered features integrated into IMTA Resume, including resume parsing, content improvement, interview preparation, and career mentorship.
 
 ## Table of Contents
 

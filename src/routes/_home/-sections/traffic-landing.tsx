@@ -8,6 +8,7 @@ import {
 	ChatsCircleIcon,
 	CheckCircleIcon,
 	FileTextIcon,
+	FirstAidKitIcon,
 	GraduationCapIcon,
 	LightbulbIcon,
 	MagicWandIcon,
@@ -25,9 +26,10 @@ import {
 } from "@/utils/seo";
 import { generatedTrafficLandingPages } from "./traffic-generated-pages";
 
-const HERO_IMAGE = "/home/home-hero-students-career.webp";
-const PAPER = "oklch(0.985 0.008 90)";
-const EMERALD = "oklch(0.42 0.13 160)";
+const HERO_IMAGE = "/home/healthtech-student-hero.png";
+const PAPER = "#f6fbfa";
+const EMERALD = "#006b53";
+const CYAN = "#00a8a6";
 
 export type TrafficLandingPageConfig = {
 	path: string;
@@ -509,8 +511,8 @@ const campaignHooks = [
 		icon: ChatsCircleIcon,
 	},
 	{
-		title: `Je choisis mon orientation apres le bac`,
-		text: `Compare les formations, les metiers et les stages avant de t'engager.`,
+		title: `Je choisis mon orientation après le bac`,
+		text: `Compare les formations, les métiers et les stages avant de t'engager.`,
 		image: "/home/student-career-workshop.webp",
 		href: "/orientation-apres-bac",
 		icon: GraduationCapIcon,
@@ -518,7 +520,7 @@ const campaignHooks = [
 ];
 
 const studentObjectives = [
-	{ title: `Orientation apres bac`, href: "/orientation-apres-bac", image: "/home/student-career-workshop.webp" },
+	{ title: `Orientation après bac`, href: "/orientation-apres-bac", image: "/home/student-career-workshop.webp" },
 	{ title: `CV étudiant`, href: "/cv-etudiant", image: "/home/tool-cv-intelligent.webp" },
 	{ title: `Trouver un stage`, href: "/stage-maroc", image: "/home/tool-job-offers.webp" },
 	{ title: `Préparer l'entretien`, href: "/preparation-entretien", image: "/home/tool-interview-prep.webp" },
@@ -527,52 +529,117 @@ const studentObjectives = [
 	{ title: `IMTA aide ses étudiants`, href: "/imta-etudiants", image: HERO_IMAGE },
 ];
 
+const heroSignals = [`CV prêt recruteur`, `Entretien guidé`, `Marché marocain`];
+const heroMetrics = [
+	{ label: `Score ATS`, value: `92`, text: `Lisibilité forte`, icon: ShieldCheckIcon },
+	{ label: `Plan entretien`, value: `8/10`, text: `Réponses prêtes`, icon: ChatsCircleIcon },
+	{ label: `Parcours`, value: `4 étapes`, text: `Action claire`, icon: TargetIcon },
+];
+
 function LandingHero({ page }: { page: TrafficLandingPageConfig }) {
 	const secondaryHref = page.path === "/preparation-entretien" ? "#plan" : "/preparation-entretien";
 
 	return (
-		<section className="relative min-h-[640px] overflow-hidden bg-zinc-950 text-white">
-			<img
-				src={HERO_IMAGE}
-				alt=""
-				aria-hidden="true"
-				className="absolute inset-0 size-full object-cover object-[62%_center]"
-				fetchPriority="high"
-				decoding="async"
-				width={1672}
-				height={941}
-			/>
+		<section className="relative isolate overflow-hidden bg-[#f7fbfa] pt-20">
+			<div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_18%_18%,rgba(0,168,166,0.13),transparent_30%),radial-gradient(circle_at_78%_12%,rgba(0,107,83,0.1),transparent_26%),linear-gradient(180deg,#ffffff_0%,#f6fbfa_70%,#ffffff_100%)]" />
 			<div
 				aria-hidden="true"
-				className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,19,14,0.96)_0%,rgba(5,24,17,0.8)_38%,rgba(5,24,17,0.24)_78%,rgba(5,24,17,0.04)_100%)]"
-			/>
-			<div
-				aria-hidden="true"
-				className="absolute inset-x-0 bottom-0 h-28"
-				style={{ background: `linear-gradient(180deg, transparent, ${PAPER})` }}
+				className="absolute inset-x-0 top-20 -z-10 h-px bg-gradient-to-r from-transparent via-emerald-700/20 to-transparent"
 			/>
 
-			<div className="relative z-10 mx-auto flex min-h-[640px] max-w-7xl items-center px-6 pt-28 pb-16 lg:px-10">
-				<div className="max-w-3xl">
-					<h1 className="font-display text-5xl text-white leading-[0.98] sm:text-6xl lg:text-[5.4rem]">{page.hero}</h1>
-					<p className="mt-7 max-w-2xl text-lg text-white/84 leading-8 md:text-xl">{page.heroTone}</p>
+			<div className="mx-auto grid min-h-[690px] max-w-7xl gap-10 px-6 py-14 lg:grid-cols-[0.92fr_1.08fr] lg:px-10 lg:py-20">
+				<div className="flex items-center">
+					<div className="max-w-3xl">
+						<div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-950/10 bg-white px-4 py-2 font-semibold text-emerald-950 text-sm shadow-sm">
+							<FirstAidKitIcon aria-hidden="true" className="size-4 text-cyan-600" weight="duotone" />
+							<span>{page.audience}</span>
+						</div>
+						<h1 className="font-display text-5xl text-zinc-950 leading-[0.98] sm:text-6xl lg:text-[5.35rem]">
+							{page.hero}
+						</h1>
+						<p className="mt-7 max-w-2xl text-lg text-zinc-600 leading-8 md:text-xl">{page.heroTone}</p>
 
-					<div className="mt-10 flex flex-col gap-4 sm:flex-row">
-						<Link
-							to="/dashboard"
-							className="inline-flex h-14 items-center justify-center gap-2 rounded-md px-7 font-semibold text-base text-white shadow-[0_16px_36px_rgba(0,0,0,0.22)] transition-transform hover:-translate-y-0.5"
-							style={{ backgroundColor: EMERALD }}
-						>
-							<Trans>Créer mon CV</Trans>
-							<ArrowRightIcon className="size-5" aria-hidden="true" />
-						</Link>
+						<div className="mt-7 flex flex-wrap gap-2.5">
+							{heroSignals.map((signal) => (
+								<span
+									key={signal}
+									className="inline-flex items-center gap-2 rounded-full border border-emerald-950/10 bg-white px-3 py-2 font-medium text-emerald-950 text-sm"
+								>
+									<CheckCircleIcon aria-hidden="true" className="size-4 text-cyan-600" weight="fill" />
+									{signal}
+								</span>
+							))}
+						</div>
 
-						<a
-							href={secondaryHref}
-							className="inline-flex h-14 items-center justify-center rounded-md border border-white/60 bg-white/8 px-7 font-semibold text-base text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-zinc-950"
-						>
-							<Trans>Préparer mon entretien</Trans>
-						</a>
+						<div className="mt-10 flex flex-col gap-4 sm:flex-row">
+							<Link
+								to="/dashboard"
+								className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#006b53,#00a88a)] px-7 font-semibold text-base text-white shadow-[0_22px_44px_-26px_rgba(0,107,83,0.95)] transition-transform hover:-translate-y-0.5"
+							>
+								<Trans>Créer mon CV</Trans>
+								<ArrowRightIcon className="size-5" aria-hidden="true" />
+							</Link>
+
+							<a
+								href={secondaryHref}
+								className="inline-flex h-14 items-center justify-center rounded-xl border border-emerald-950/15 bg-white px-7 font-semibold text-base text-zinc-900 shadow-sm transition-colors hover:border-emerald-700 hover:text-emerald-800"
+							>
+								<Trans>Préparer mon entretien</Trans>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div className="relative min-h-[520px]">
+					<img
+						src={HERO_IMAGE}
+						alt=""
+						aria-hidden="true"
+						className="absolute inset-0 size-full rounded-[2rem] object-cover object-center shadow-[0_34px_90px_-58px_rgba(0,56,44,0.8)]"
+						fetchPriority="high"
+						decoding="async"
+						width={1792}
+						height={1024}
+					/>
+					<div
+						aria-hidden="true"
+						className="absolute inset-y-0 left-0 w-2/5 rounded-l-[2rem] bg-gradient-to-r from-[#f7fbfa] via-[#f7fbfa]/74 to-transparent"
+					/>
+					<div className="absolute top-5 left-5 max-w-[18rem] rounded-2xl border border-white/75 bg-white/90 p-4 shadow-[0_20px_56px_-34px_rgba(0,42,35,0.72)] backdrop-blur-xl">
+						<div className="mb-3 flex items-center justify-between gap-4">
+							<p className="font-semibold text-zinc-950">
+								<Trans>Career health score</Trans>
+							</p>
+							<span className="rounded-full bg-cyan-50 px-2 py-1 font-semibold text-[11px] text-cyan-700">
+								<Trans>Live</Trans>
+							</span>
+						</div>
+						<div className="flex items-end gap-3">
+							<p className="font-display text-5xl text-emerald-800 leading-none">94</p>
+							<p className="pb-1 text-sm text-zinc-500 leading-5">
+								<Trans>Dossier clair, ciblé et prêt à envoyer.</Trans>
+							</p>
+						</div>
+						<div className="mt-4 h-2 rounded-full bg-emerald-50">
+							<div className="h-2 w-[84%] rounded-full bg-[linear-gradient(90deg,#006b53,#00a8a6)]" />
+						</div>
+					</div>
+					<div className="absolute right-5 bottom-5 hidden w-[min(30rem,calc(100%-2.5rem))] gap-3 sm:grid sm:grid-cols-3">
+						{heroMetrics.map((metric) => {
+							const MetricIcon = metric.icon;
+
+							return (
+								<div
+									key={metric.label}
+									className="rounded-2xl border border-white/70 bg-white/88 p-4 shadow-[0_18px_50px_-30px_rgba(0,42,35,0.7)] backdrop-blur-xl"
+								>
+									<MetricIcon aria-hidden="true" className="mb-3 size-5 text-emerald-800" weight="duotone" />
+									<p className="font-bold text-2xl text-zinc-950">{metric.value}</p>
+									<p className="font-semibold text-emerald-900 text-xs">{metric.label}</p>
+									<p className="mt-1 text-[11px] text-zinc-500">{metric.text}</p>
+								</div>
+							);
+						})}
 					</div>
 				</div>
 			</div>
@@ -589,10 +656,10 @@ function LandingSearchIntent({ page }: { page: TrafficLandingPageConfig }) {
 	];
 
 	return (
-		<section className="border-zinc-200 border-b bg-white py-9">
-			<div className="mx-auto grid max-w-7xl gap-6 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:px-10">
+		<section className="border-emerald-950/10 border-y bg-white/90 py-8 backdrop-blur">
+			<div className="mx-auto grid max-w-7xl gap-6 px-6 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:px-10">
 				<div>
-					<p className="font-semibold text-emerald-800 text-sm">
+					<p className="font-semibold text-emerald-900 text-sm">
 						<Trans>Ce que les étudiants cherchent vraiment</Trans>
 					</p>
 					<p className="mt-2 max-w-xl text-zinc-600 leading-7">
@@ -605,8 +672,9 @@ function LandingSearchIntent({ page }: { page: TrafficLandingPageConfig }) {
 					{intents.map((intent) => (
 						<span
 							key={intent}
-							className="inline-flex min-h-11 items-center rounded-md border border-emerald-900/15 bg-emerald-50 px-4 font-semibold text-emerald-950 text-sm"
+							className="inline-flex min-h-11 items-center rounded-full border border-emerald-900/12 bg-[#f3faf8] px-4 font-semibold text-emerald-950 text-sm shadow-sm"
 						>
+							<span className="mr-2 size-1.5 rounded-full" style={{ backgroundColor: CYAN }} />
 							{intent}
 						</span>
 					))}
@@ -618,10 +686,10 @@ function LandingSearchIntent({ page }: { page: TrafficLandingPageConfig }) {
 
 function HookCards() {
 	return (
-		<section className="relative py-16 md:py-20" style={{ background: PAPER }}>
+		<section className="relative overflow-hidden py-16 md:py-20" style={{ background: PAPER }}>
 			<div
 				aria-hidden="true"
-				className="pointer-events-none absolute inset-y-0 left-0 w-36 opacity-[0.05]"
+				className="pointer-events-none absolute inset-y-0 left-0 w-40 opacity-[0.04]"
 				style={{
 					backgroundImage:
 						"linear-gradient(45deg, transparent 46%, currentColor 47%, currentColor 53%, transparent 54%)",
@@ -647,7 +715,7 @@ function HookCards() {
 							<a
 								key={hook.href}
 								href={hook.href}
-								className="group overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-[0_18px_48px_-40px_rgba(18,43,30,0.55)]"
+								className="group overflow-hidden rounded-2xl border border-emerald-950/10 bg-white shadow-[0_24px_64px_-52px_rgba(0,74,59,0.74)] transition-all hover:-translate-y-1 hover:border-emerald-700/35"
 							>
 								<div className="aspect-[16/10] overflow-hidden bg-zinc-100">
 									<img
@@ -662,7 +730,7 @@ function HookCards() {
 									/>
 								</div>
 								<div className="p-5">
-									<div className="mb-4 flex size-10 items-center justify-center rounded-md bg-emerald-50 text-emerald-800">
+									<div className="mb-4 flex size-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-800">
 										<HookIcon aria-hidden="true" className="size-5" weight="duotone" />
 									</div>
 									<h3 className="font-semibold text-xl text-zinc-950">{hook.title}</h3>
@@ -687,7 +755,10 @@ function LandingJourney({ page }: { page: TrafficLandingPageConfig }) {
 			<div className="mx-auto max-w-7xl px-6 lg:px-10">
 				<div className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
 					<div className="max-w-3xl">
-						<p className="mb-4 font-semibold text-emerald-800 text-sm">{page.audience}</p>
+						<p className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-900/10 bg-[#f3faf8] px-3 py-1.5 font-semibold text-emerald-900 text-sm">
+							<FirstAidKitIcon aria-hidden="true" className="size-4 text-cyan-600" weight="duotone" />
+							{page.audience}
+						</p>
 						<h2 className="font-display text-4xl text-zinc-950 leading-tight md:text-5xl">
 							<Trans>De la formation à la candidature, sans rester bloqué.</Trans>
 						</h2>
@@ -697,9 +768,12 @@ function LandingJourney({ page }: { page: TrafficLandingPageConfig }) {
 
 				<div className="grid gap-5 md:grid-cols-4">
 					{page.steps.map((step, index) => (
-						<article key={step.title} className="rounded-lg border border-zinc-200 bg-white p-5">
+						<article
+							key={step.title}
+							className="rounded-2xl border border-emerald-950/10 bg-white p-5 shadow-[0_18px_56px_-50px_rgba(0,74,59,0.66)]"
+						>
 							<div className="mb-6 flex items-start justify-between gap-4">
-								<div className="flex size-11 items-center justify-center rounded-md bg-emerald-50 text-emerald-800">
+								<div className="flex size-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-800">
 									<CheckCircleIcon aria-hidden="true" className="size-6" weight="duotone" />
 								</div>
 								<span className="font-display text-4xl text-zinc-200 leading-none">
@@ -718,10 +792,10 @@ function LandingJourney({ page }: { page: TrafficLandingPageConfig }) {
 
 function LandingBenefits({ page }: { page: TrafficLandingPageConfig }) {
 	return (
-		<section className="bg-zinc-950 py-16 text-white md:py-20">
+		<section className="bg-[linear-gradient(135deg,#063b32,#007963)] py-16 text-white md:py-20">
 			<div className="mx-auto max-w-7xl px-6 lg:px-10">
 				<div className="mb-10 max-w-3xl">
-					<p className="mb-4 font-semibold text-emerald-300 text-sm">
+					<p className="mb-4 font-semibold text-cyan-100 text-sm">
 						<Trans>Ce que l'étudiant gagne</Trans>
 					</p>
 					<h2 className="font-display text-4xl leading-tight md:text-5xl">
@@ -734,8 +808,11 @@ function LandingBenefits({ page }: { page: TrafficLandingPageConfig }) {
 						const BenefitIcon = benefit.icon;
 
 						return (
-							<article key={benefit.title} className="rounded-lg border border-white/15 bg-white/5 p-6">
-								<div className="mb-5 flex size-11 items-center justify-center rounded-md bg-white/10 text-emerald-200">
+							<article
+								key={benefit.title}
+								className="rounded-2xl border border-white/16 bg-white/10 p-6 shadow-[0_24px_70px_-50px_rgba(0,0,0,0.55)] backdrop-blur"
+							>
+								<div className="mb-5 flex size-11 items-center justify-center rounded-xl bg-white/12 text-cyan-100">
 									<BenefitIcon aria-hidden="true" className="size-6" weight="duotone" />
 								</div>
 								<h3 className="mb-3 font-semibold text-lg text-white">{benefit.title}</h3>
@@ -754,7 +831,7 @@ export function StudentHookLinks() {
 		<section id="student-hooks" className="bg-white py-16 md:py-20">
 			<div className="mx-auto max-w-7xl px-6 lg:px-10">
 				<div className="mx-auto mb-10 max-w-3xl text-center">
-					<p className="mb-4 font-semibold text-emerald-800 text-sm">
+					<p className="mb-4 font-semibold text-emerald-900 text-sm">
 						<Trans>Choisis ton objectif</Trans>
 					</p>
 					<h2 className="font-display text-4xl text-zinc-950 leading-tight md:text-5xl">
@@ -767,7 +844,7 @@ export function StudentHookLinks() {
 						<a
 							key={objective.href}
 							href={objective.href}
-							className="group grid grid-cols-[7rem_1fr] overflow-hidden rounded-lg border border-zinc-200 bg-white hover:border-emerald-800/35"
+							className="group grid grid-cols-[7rem_1fr] overflow-hidden rounded-2xl border border-emerald-950/10 bg-white shadow-[0_16px_52px_-48px_rgba(0,74,59,0.62)] transition-all hover:-translate-y-0.5 hover:border-emerald-800/35"
 						>
 							<img
 								src={objective.image}
@@ -781,7 +858,10 @@ export function StudentHookLinks() {
 							/>
 							<div className="flex items-center justify-between gap-3 p-4">
 								<p className="font-semibold text-zinc-950">{objective.title}</p>
-								<ArrowRightIcon aria-hidden="true" className="size-4 shrink-0 text-emerald-800" />
+								<ArrowRightIcon
+									aria-hidden="true"
+									className="size-4 shrink-0 text-emerald-800 transition-transform group-hover:translate-x-1"
+								/>
 							</div>
 						</a>
 					))}
@@ -793,23 +873,24 @@ export function StudentHookLinks() {
 
 export function PublicPageDiscovery() {
 	return (
-		<section className="bg-zinc-950 py-16 text-white md:py-20">
+		<section className="bg-[#f6fbfa] py-16 md:py-20">
 			<div className="mx-auto max-w-7xl px-6 lg:px-10">
 				<div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
 					<div>
-						<p className="mb-4 font-semibold text-emerald-300 text-sm">
+						<p className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-900/10 bg-white px-3 py-1.5 font-semibold text-emerald-900 text-sm shadow-sm">
+							<MagicWandIcon aria-hidden="true" className="size-4 text-cyan-600" weight="duotone" />
 							<Trans>Pages publiques pour attirer les étudiants</Trans>
 						</p>
-						<h2 className="font-display text-4xl leading-tight md:text-5xl">
+						<h2 className="font-display text-4xl text-zinc-950 leading-tight md:text-5xl">
 							<Trans>Des portes d'entrée pour chaque recherche importante.</Trans>
 						</h2>
-						<p className="mt-5 text-white/70 leading-7">
+						<p className="mt-5 text-zinc-600 leading-7">
 							<Trans>
 								CV sans expérience, stage par ville, entretien par métier, lettre de motivation et profil LinkedIn :
 								chaque page répond à une intention concrète.
 							</Trans>
 						</p>
-						<div className="mt-8 overflow-hidden rounded-lg border border-white/12 bg-white/5">
+						<div className="mt-8 overflow-hidden rounded-2xl border border-emerald-950/10 bg-white shadow-[0_24px_64px_-52px_rgba(0,74,59,0.72)]">
 							<img
 								src="/home/public-pages-morocco-hub.webp"
 								alt=""
@@ -828,7 +909,7 @@ export function PublicPageDiscovery() {
 							<a
 								key={page.path}
 								href={page.path}
-								className="group grid grid-cols-[4.75rem_1fr] overflow-hidden rounded-lg border border-white/12 bg-white/[0.06] transition-colors hover:bg-white/[0.1]"
+								className="group grid grid-cols-[4.75rem_1fr] overflow-hidden rounded-2xl border border-emerald-950/10 bg-white shadow-[0_16px_52px_-48px_rgba(0,74,59,0.62)] transition-all hover:-translate-y-0.5 hover:border-emerald-700/35"
 							>
 								<img
 									src={page.image}
@@ -842,19 +923,22 @@ export function PublicPageDiscovery() {
 								/>
 								<div className="flex items-center justify-between gap-3 p-4">
 									<div>
-										<p className="font-semibold text-white">{page.title}</p>
-										<p className="mt-1 line-clamp-1 text-white/55 text-xs">{page.audience}</p>
+										<p className="font-semibold text-zinc-950">{page.title}</p>
+										<p className="mt-1 line-clamp-1 text-xs text-zinc-500">{page.audience}</p>
 									</div>
-									<ArrowRightIcon aria-hidden="true" className="size-4 shrink-0 text-emerald-300" />
+									<ArrowRightIcon
+										aria-hidden="true"
+										className="size-4 shrink-0 text-emerald-800 transition-transform group-hover:translate-x-1"
+									/>
 								</div>
 							</a>
 						))}
 					</div>
 				</div>
 
-				<div className="mt-9 rounded-lg border border-emerald-300/20 bg-emerald-300/8 p-5 text-sm text-white/74 leading-6">
-					Le systeme regroupe {trafficLandingPages.length}+ pages utiles sans copier-coller: pages par objectif, ville,
-					metier, orientation, entretien et stage local.
+				<div className="mt-9 rounded-2xl border border-emerald-950/10 bg-white p-5 text-sm text-zinc-600 leading-6 shadow-[0_16px_52px_-48px_rgba(0,74,59,0.62)]">
+					Le système regroupe {trafficLandingPages.length}+ pages utiles sans copier-coller: pages par objectif, ville,
+					métier, orientation, entretien et stage local.
 				</div>
 			</div>
 		</section>
@@ -865,7 +949,7 @@ function LandingProof({ page }: { page: TrafficLandingPageConfig }) {
 	return (
 		<section className="bg-white py-16 md:py-20">
 			<div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-10">
-				<div className="overflow-hidden rounded-lg border border-zinc-200 bg-zinc-100">
+				<div className="overflow-hidden rounded-[2rem] border border-emerald-950/10 bg-zinc-100 shadow-[0_28px_78px_-58px_rgba(0,74,59,0.72)]">
 					<img
 						src={page.image}
 						alt=""
@@ -878,15 +962,16 @@ function LandingProof({ page }: { page: TrafficLandingPageConfig }) {
 					/>
 				</div>
 				<div>
-					<p className="mb-4 font-semibold text-emerald-800 text-sm">
+					<p className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-900/10 bg-[#f3faf8] px-3 py-1.5 font-semibold text-emerald-900 text-sm">
+						<ShieldCheckIcon aria-hidden="true" className="size-4 text-cyan-600" weight="duotone" />
 						<Trans>La preuve IMTA</Trans>
 					</p>
 					<h2 className="font-display text-4xl text-zinc-950 leading-tight md:text-5xl">
 						<Trans>On montre aux étudiants que l'école les aide vraiment à avancer.</Trans>
 					</h2>
-					<blockquote className="mt-8 rounded-lg border border-zinc-200 bg-zinc-50 p-6">
+					<blockquote className="mt-8 rounded-2xl border border-emerald-950/10 bg-[#f6fbfa] p-6">
 						<p className="text-lg text-zinc-700 leading-8">"{page.testimonial.quote}"</p>
-						<footer className="mt-5 border-zinc-200 border-t pt-4">
+						<footer className="mt-5 border-emerald-950/10 border-t pt-4">
 							<p className="font-semibold text-zinc-950">{page.testimonial.name}</p>
 							<p className="text-sm text-zinc-500">{page.testimonial.role}</p>
 						</footer>
@@ -902,7 +987,8 @@ function LandingTools({ page }: { page: TrafficLandingPageConfig }) {
 		<section className="py-16 md:py-20" style={{ background: PAPER }}>
 			<div className="mx-auto max-w-7xl px-6 lg:px-10">
 				<div className="mb-10 max-w-3xl">
-					<p className="mb-4 font-semibold text-emerald-800 text-sm">
+					<p className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-900/10 bg-white px-3 py-1.5 font-semibold text-emerald-900 text-sm shadow-sm">
+						<MagicWandIcon aria-hidden="true" className="size-4 text-cyan-600" weight="duotone" />
 						<Trans>Outils liés</Trans>
 					</p>
 					<h2 className="font-display text-4xl text-zinc-950 leading-tight md:text-5xl">
@@ -915,7 +1001,7 @@ function LandingTools({ page }: { page: TrafficLandingPageConfig }) {
 						<a
 							key={tool.title}
 							href={tool.href}
-							className="rounded-lg border border-zinc-200 bg-white p-6 hover:border-emerald-800/35"
+							className="rounded-2xl border border-emerald-950/10 bg-white p-6 shadow-[0_18px_56px_-50px_rgba(0,74,59,0.66)] transition-all hover:-translate-y-1 hover:border-emerald-800/35"
 						>
 							<h3 className="mb-3 font-semibold text-lg text-zinc-950">{tool.title}</h3>
 							<p className="text-[15px] text-zinc-600 leading-6">{tool.text}</p>
@@ -936,7 +1022,8 @@ function LandingFAQ({ page }: { page: TrafficLandingPageConfig }) {
 		<section className="bg-white py-16 md:py-20">
 			<div className="mx-auto max-w-7xl px-6 lg:px-10">
 				<div className="mb-10 max-w-3xl">
-					<p className="mb-4 font-semibold text-emerald-800 text-sm">
+					<p className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-900/10 bg-[#f3faf8] px-3 py-1.5 font-semibold text-emerald-900 text-sm">
+						<LightbulbIcon aria-hidden="true" className="size-4 text-cyan-600" weight="duotone" />
 						<Trans>Questions fréquentes</Trans>
 					</p>
 					<h2 className="font-display text-4xl text-zinc-950 leading-tight md:text-5xl">
@@ -946,7 +1033,10 @@ function LandingFAQ({ page }: { page: TrafficLandingPageConfig }) {
 
 				<div className="grid gap-4 lg:grid-cols-3">
 					{page.faqs.map((faq) => (
-						<article key={faq.question} className="rounded-lg border border-zinc-200 bg-white p-5">
+						<article
+							key={faq.question}
+							className="rounded-2xl border border-emerald-950/10 bg-white p-5 shadow-[0_16px_52px_-48px_rgba(0,74,59,0.62)]"
+						>
 							<h3 className="mb-3 font-semibold text-zinc-950">{faq.question}</h3>
 							<p className="text-[15px] text-zinc-600 leading-6">{faq.answer}</p>
 						</article>
@@ -959,22 +1049,38 @@ function LandingFAQ({ page }: { page: TrafficLandingPageConfig }) {
 
 function LandingCTA() {
 	return (
-		<section className="relative overflow-hidden bg-emerald-900 py-16 text-white md:py-20">
-			<div className="mx-auto max-w-4xl px-6 text-center">
-				<h2 className="font-display text-4xl leading-tight md:text-6xl">
-					<Trans>Ton prochain entretien peut commencer par ce CV.</Trans>
-				</h2>
-				<p className="mx-auto mt-5 max-w-2xl text-lg text-white/74 leading-8">
-					<Trans>Crée ton CV, prépare tes réponses et montre ce que ta formation t'a déjà appris.</Trans>
-				</p>
-				<div className="mt-9 flex justify-center">
+		<section className="bg-white px-6 py-16 lg:px-10">
+			<div className="mx-auto grid max-w-7xl overflow-hidden rounded-[2rem] bg-[linear-gradient(135deg,#063b32,#008d78)] text-white shadow-[0_28px_88px_-58px_rgba(0,56,44,0.9)] lg:grid-cols-[0.92fr_1.08fr]">
+				<div className="p-8 md:p-10">
+					<p className="font-semibold text-cyan-100 text-sm">
+						<Trans>Prêt à envoyer une candidature plus forte ?</Trans>
+					</p>
+					<h2 className="mt-4 font-display text-4xl leading-tight md:text-5xl">
+						<Trans>Ton prochain entretien peut commencer par ce CV.</Trans>
+					</h2>
+					<p className="mt-5 max-w-2xl text-lg text-white/76 leading-8">
+						<Trans>Crée ton CV, prépare tes réponses et montre ce que ta formation t'a déjà appris.</Trans>
+					</p>
 					<Link
 						to="/dashboard"
-						className="inline-flex h-14 items-center justify-center gap-2 rounded-md bg-white px-8 font-semibold text-base text-emerald-900 shadow-[0_18px_42px_rgba(0,0,0,0.22)]"
+						className="mt-8 inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-white px-8 font-semibold text-base text-emerald-950 shadow-[0_18px_42px_rgba(0,0,0,0.22)]"
 					>
 						<Trans>Créer mon CV gratuitement</Trans>
 						<ArrowRightIcon aria-hidden="true" className="size-5" />
 					</Link>
+				</div>
+				<div className="grid grid-cols-2 gap-3 p-6 sm:grid-cols-4 lg:p-8">
+					{[
+						[`50k+`, `étudiants`],
+						[`35`, `modèles CV`],
+						[`92`, `score ATS`],
+						[`4.8/5`, `expérience`],
+					].map(([value, label]) => (
+						<div key={value} className="rounded-2xl border border-white/14 bg-white/10 p-4 backdrop-blur">
+							<p className="font-bold text-2xl">{value}</p>
+							<p className="mt-2 text-white/72 text-xs leading-5">{label}</p>
+						</div>
+					))}
 				</div>
 			</div>
 		</section>

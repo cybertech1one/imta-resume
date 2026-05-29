@@ -1,7 +1,7 @@
 /**
  * seed-massive-data.mjs
  * Seeds hundreds of rows of realistic, French/Moroccan-focused data
- * into 6 tables for the Reactive Resume platform.
+ * into 6 tables for the IMTA Resume platform.
  *
  * Run: node scripts/seed-massive-data.mjs
  */

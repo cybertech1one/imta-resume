@@ -68,6 +68,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { usePrompt } from "@/hooks/use-prompt";
+import { stripMarkdownFences } from "@/integrations/ai/sanitize";
 import { client, orpc } from "@/integrations/orpc/client";
 import { isRTL } from "@/utils/locale";
 import { sanitizeHtml } from "@/utils/sanitize";
@@ -217,7 +218,7 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 			return fullContent;
 		},
 		onSuccess: (improvedContent) => {
-			editor.commands.setContent(improvedContent);
+			editor.commands.setContent(stripMarkdownFences(improvedContent));
 			setIsAIStreaming(false);
 			setAIStreamedContent("");
 			toast.success(t`Content improved with AI`);
@@ -266,7 +267,7 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 			return fullContent;
 		},
 		onSuccess: (fixedContent) => {
-			editor.commands.setContent(fixedContent);
+			editor.commands.setContent(stripMarkdownFences(fixedContent));
 			setIsGrammarStreaming(false);
 			setGrammarStreamedContent("");
 			toast.success(t`Grammar fixed with AI`);

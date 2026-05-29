@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ru\n"
-"Project-Id-Version: reactive-resume\n"
+"Project-Id-Version: imta-resume\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2026-01-28 10:58\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
-"X-Crowdin-Project: reactive-resume\n"
+"X-Crowdin-Project: imta-resume\n"
 "X-Crowdin-Project-ID: 503410\n"
 "X-Crowdin-Language: ru\n"
 "X-Crowdin-File: /main/locales/en-US.po\n"
@@ -633,8 +633,8 @@ msgid "<0>Salary:</0> {0}"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "<0>Thank you for using Reactive Resume! This app is a labor of love, created mostly in my spare time, with wonderful support from open-source contributors around the world.</0><1>If Reactive Resume has been helpful to you, and you'd like to help keep it free and open for everyone, please consider making a donation. Every little bit is appreciated!</1>"
-msgstr "<0>Спасибо, что пользуетесь Reactive Resume! Это приложение — дело любви, созданное в основном в мое свободное время при замечательной поддержке участников сообщества с открытым исходным кодом со всего мира.</0><1>Если Reactive Resume оказалось для вас полезно и вы хотите помочь сохранить его бесплатным и открытым для всех, рассмотрите возможность сделать пожертвование. Любой вклад важен!</1>"
+msgid "<0>Thank you for using IMTA Resume! This app is a labor of love, created mostly in my spare time, with wonderful support from open-source contributors around the world.</0><1>If IMTA Resume has been helpful to you, and you'd like to help keep it free and open for everyone, please consider making a donation. Every little bit is appreciated!</1>"
+msgstr "<0>Спасибо, что пользуетесь IMTA Resume! Это приложение — дело любви, созданное в основном в мое свободное время при замечательной поддержке участников сообщества с открытым исходным кодом со всего мира.</0><1>Если IMTA Resume оказалось для вас полезно и вы хотите помочь сохранить его бесплатным и открытым для всех, рассмотрите возможность сделать пожертвование. Любой вклад важен!</1>"
 
 #: src/routes/_home/-sections/hero.tsx
 #~ msgid "<0>Trusted by recruiters at</0>"
@@ -1128,8 +1128,8 @@ msgid "A link to your resume has been copied to clipboard."
 msgstr "Ссылка на ваше резюме скопирована в буфер обмена."
 
 #: src/routes/_home/-sections/testimonials.tsx
-#~ msgid "A lot of people have written to me over the years to share their experiences with Reactive Resume and how it has helped them, and I never get tired of reading them. If you have a story to share, let me know by sending me an email at <0>{email}</0>."
-#~ msgstr "За последние годы многие люди писали мне о своем опыте использования Reactive Resume и о том, как оно им помогло, и мне никогда не надоедает это читать. Если у вас есть история, которой вы хотите поделиться, напишите мне по адресу <0>{email}</0>."
+#~ msgid "A lot of people have written to me over the years to share their experiences with IMTA Resume and how it has helped them, and I never get tired of reading them. If you have a story to share, let me know by sending me an email at <0>{email}</0>."
+#~ msgstr "За последние годы многие люди писали мне о своем опыте использования IMTA Resume и о том, как оно им помогло, и мне никогда не надоедает это читать. Если у вас есть история, которой вы хотите поделиться, напишите мне по адресу <0>{email}</0>."
 
 #: src/routes/dashboard/resources/compare.tsx
 #~ msgid "a mes formations"
@@ -13265,8 +13265,8 @@ msgid "Continue where you left off"
 msgstr "Продолжить с того места, где вы остановились"
 
 #: src/dialogs/resume/import.tsx
-msgid "Continue where you left off by importing an existing resume you created using Reactive Resume or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from Reactive Resume."
-msgstr "Продолжите с того места, где остановились, импортировав существующее резюме, созданное в Reactive Resume или любом другом конструкторе резюме. Поддерживаемые форматы: PDF, Microsoft Word, а также файлы JSON из Reactive Resume."
+msgid "Continue where you left off by importing an existing resume you created using IMTA Resume or any another resume builder. Supported formats include PDF, Microsoft Word, as well as JSON files from IMTA Resume."
+msgstr "Продолжите с того места, где остановились, импортировав существующее резюме, созданное в IMTA Resume или любом другом конструкторе резюме. Поддерживаемые форматы: PDF, Microsoft Word, а также файлы JSON из IMTA Resume."
 
 #: src/routes/dashboard/interview/-components/question-bank-components.tsx
 msgid "Continue your Preparation"
@@ -17922,8 +17922,8 @@ msgid "Don't wear wrinkled or stained clothes"
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/information.tsx
-msgid "Donate to Reactive Resume"
-msgstr "Пожертвовать Reactive Resume"
+msgid "Donate to IMTA Resume"
+msgstr "Пожертвовать IMTA Resume"
 
 #: src/components/keyboard-shortcuts-modal.tsx
 #: src/routes/dashboard/career/-components/roadmap-components.tsx
@@ -22891,8 +22891,8 @@ msgid "Explore our comprehensive guides organized by topic."
 msgstr ""
 
 #: src/routes/_home/-sections/templates.tsx
-#~ msgid "Explore our diverse selection of templates, each designed to fit different styles, professions, and personalities. Reactive Resume currently offers 12 templates, with more on the way."
-#~ msgstr "Ознакомьтесь с нашим разнообразием шаблонов, каждый из которых разработан для разных стилей, профессий и личностей. В Reactive Resume сейчас доступно 12 шаблонов, и вскоре появятся новые."
+#~ msgid "Explore our diverse selection of templates, each designed to fit different styles, professions, and personalities. IMTA Resume currently offers 12 templates, with more on the way."
+#~ msgstr "Ознакомьтесь с нашим разнообразием шаблонов, каждый из которых разработан для разных стилей, профессий и личностей. В IMTA Resume сейчас доступно 12 шаблонов, и вскоре появятся новые."
 
 #: src/routes/dashboard/learn/-components/recommendations-components.tsx
 msgid "Explore our full catalog of courses, tutorials, and certifications to advance your career."
@@ -22939,8 +22939,8 @@ msgid "Explore projects in depth with methodology and results"
 msgstr ""
 
 #: src/routes/dashboard/settings/api-keys.tsx
-msgid "Explore the API documentation to learn how to integrate Reactive Resume with your applications. Find detailed endpoints, request examples, and authentication methods."
-msgstr "Ознакомьтесь с документацией по API, чтобы узнать, как интегрировать Reactive Resume в свои приложения. Найдите подробные конечные точки, примеры запросов и методы аутентификации."
+msgid "Explore the API documentation to learn how to integrate IMTA Resume with your applications. Find detailed endpoints, request examples, and authentication methods."
+msgstr "Ознакомьтесь с документацией по API, чтобы узнать, как интегрировать IMTA Resume в свои приложения. Найдите подробные конечные точки, примеры запросов и методы аутентификации."
 
 #: src/routes/dashboard/resources/-components/programs-components.tsx
 msgid "Explore the catalog"
@@ -30284,12 +30284,12 @@ msgstr ""
 #~ msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
-#~ msgid "Is Reactive Resume available in multiple languages?"
-#~ msgstr "Доступно ли Reactive Resume на нескольких языках?"
+#~ msgid "Is IMTA Resume available in multiple languages?"
+#~ msgstr "Доступно ли IMTA Resume на нескольких языках?"
 
 #: src/routes/_home/-sections/faq.tsx
-#~ msgid "Is Reactive Resume really free?"
-#~ msgstr "Действительно ли Reactive Resume бесплатен?"
+#~ msgid "Is IMTA Resume really free?"
+#~ msgstr "Действительно ли IMTA Resume бесплатен?"
 
 #: src/routes/dashboard/help/-components/help-config.ts
 msgid "Is the platform free?"
@@ -44172,12 +44172,12 @@ msgid "Reach Out"
 msgstr ""
 
 #: src/routes/_home/-sections/product-hunt-banner.tsx
-#~ msgid "Reactive Resume is launching on Product Hunt today, head over to show some love!"
-#~ msgstr "Сегодня Reactive Resume запускается на Product Hunt — заходите и поддержите нас!"
+#~ msgid "IMTA Resume is launching on Product Hunt today, head over to show some love!"
+#~ msgstr "Сегодня IMTA Resume запускается на Product Hunt — заходите и поддержите нас!"
 
 #: src/routes/_home/-sections/faq.tsx
-#~ msgid "Reactive Resume is open-source, privacy-focused, and completely free. Unlike other resume builders, it doesn't show ads, track your data, or limit your features behind a paywall."
-#~ msgstr "Reactive Resume — это проект с открытым исходным кодом, ориентированный на конфиденциальность и полностью бесплатный. В отличие от других конструкторов резюме, он не показывает рекламу, не отслеживает ваши данные и не ограничивает функции платной подпиской."
+#~ msgid "IMTA Resume is open-source, privacy-focused, and completely free. Unlike other resume builders, it doesn't show ads, track your data, or limit your features behind a paywall."
+#~ msgstr "IMTA Resume — это проект с открытым исходным кодом, ориентированный на конфиденциальность и полностью бесплатный. В отличие от других конструкторов резюме, он не показывает рекламу, не отслеживает ваши данные и не ограничивает функции платной подпиской."
 
 #: src/routes/_home/wiki/-components/wiki-article-card.tsx
 #: src/routes/dashboard/wiki/-components/wiki-article-card.tsx
@@ -49792,7 +49792,7 @@ msgid ""
 msgstr ""
 
 #: src/data/wiki/categories/resume-formats.ts
-msgid "Several tools can help you create professional creative resumes. Resume builders like Reactive Resume offer beautifully designed templates that balance creativity with ATS compatibility. For more custom designs, tools like Canva, Figma, and Adobe InDesign provide full creative control. If you are comfortable with web technologies, you can build your resume as a responsive web page using HTML and CSS. Choose a tool that matches your design skill level to avoid creating something that looks amateur."
+msgid "Several tools can help you create professional creative resumes. Resume builders like IMTA Resume offer beautifully designed templates that balance creativity with ATS compatibility. For more custom designs, tools like Canva, Figma, and Adobe InDesign provide full creative control. If you are comfortable with web technologies, you can build your resume as a responsive web page using HTML and CSS. Choose a tool that matches your design skill level to avoid creating something that looks amateur."
 msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/left/sections/picture.tsx
@@ -55509,8 +55509,8 @@ msgid "This will also remove all associated resources and tasks."
 msgstr ""
 
 #: src/dialogs/api-key/create.tsx
-msgid "This will generate a new API key to access the Reactive Resume API to allow machines to interact with your resume data."
-msgstr "Будет сгенерирован новый API-ключ для доступа к API Reactive Resume, позволяющий программам взаимодействовать с вашими данными резюме."
+msgid "This will generate a new API key to access the IMTA Resume API to allow machines to interact with your resume data."
+msgstr "Будет сгенерирован новый API-ключ для доступа к API IMTA Resume, позволяющий программам взаимодействовать с вашими данными резюме."
 
 #: src/data/wiki/categories/networking-linkedin.ts
 msgid ""
@@ -60904,8 +60904,8 @@ msgid "What Makes Engineering Resumes Different"
 msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
-#~ msgid "What makes Reactive Resume different from other resume builders?"
-#~ msgstr "Чем Reactive Resume отличается от других конструкторов резюме?"
+#~ msgid "What makes IMTA Resume different from other resume builders?"
+#~ msgstr "Чем IMTA Resume отличается от других конструкторов резюме?"
 
 #: src/data/wiki/categories/cover-letters.ts
 msgid "What margins should I use for a cover letter?"
@@ -61789,8 +61789,8 @@ msgid "Yes, particularly if the courses are from recognized institutions or plat
 msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
-#~ msgid "Yes, Reactive Resume is available in multiple languages. You can choose your preferred language in the settings page, or using the language switcher in the top right corner. If you don't see your language, or you would like to improve the existing translations, you can <0>contribute to the translations on Crowdin<1> (opens in new tab)</1></0>."
-#~ msgstr "Да, Reactive Resume доступен на нескольких языках. Вы можете выбрать предпочитаемый язык на странице настроек или с помощью переключателя языка в правом верхнем углу. Если вы не видите свой язык или хотите улучшить существующие переводы, вы можете <0>поучаствовать в переводах на Crowdin<1> (открывается в новой вкладке)</1></0>."
+#~ msgid "Yes, IMTA Resume is available in multiple languages. You can choose your preferred language in the settings page, or using the language switcher in the top right corner. If you don't see your language, or you would like to improve the existing translations, you can <0>contribute to the translations on Crowdin<1> (opens in new tab)</1></0>."
+#~ msgstr "Да, IMTA Resume доступен на нескольких языках. Вы можете выбрать предпочитаемый язык на странице настроек или с помощью переключателя языка в правом верхнем углу. Если вы не видите свой язык или хотите улучшить существующие переводы, вы можете <0>поучаствовать в переводах на Crowdin<1> (открывается в новой вкладке)</1></0>."
 
 #: src/data/wiki/categories/cover-letters.ts
 msgid "Yes, stating that you will follow up is generally appropriate and demonstrates initiative. A line such as \"I will follow up next week to confirm you received my application\" shows proactive interest without being aggressive. However, if the job posting explicitly states \"no phone calls\" or \"we will contact qualified candidates,\" respect those boundaries and instead express your availability without committing to a specific follow-up action."
@@ -61845,8 +61845,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
-#~ msgid "Yes! Reactive Resume is completely free to use, with no hidden costs, premium tiers, or subscription fees. It's open-source and will always remain free."
-#~ msgstr "Да! Reactive Resume полностью бесплатен, без скрытых платежей, премиум-уровней или абонентской платы. Это проект с открытым исходным кодом и он всегда останется бесплатным."
+#~ msgid "Yes! IMTA Resume is completely free to use, with no hidden costs, premium tiers, or subscription fees. It's open-source and will always remain free."
+#~ msgstr "Да! IMTA Resume полностью бесплатен, без скрытых платежей, премиум-уровней или абонентской платы. Это проект с открытым исходным кодом и он всегда останется бесплатным."
 
 #: src/routes/dashboard/help/-components/help-config.ts
 msgid "Yes! The platform is completely free for all IMTA students and graduates. All features, including resume creation, interview preparation, and access to resources, are available at no cost."
@@ -62297,8 +62297,8 @@ msgid "Your Data"
 msgstr ""
 
 #: src/routes/_home/-sections/faq.tsx
-#~ msgid "Your data is stored securely and is never shared with third parties. You can also self-host Reactive Resume on your own servers for complete control over your data."
-#~ msgstr "Ваши данные надежно хранятся и никогда не передаются третьим лицам. Вы также можете развернуть Reactive Resume на своих серверах, чтобы полностью контролировать свои данные."
+#~ msgid "Your data is stored securely and is never shared with third parties. You can also self-host IMTA Resume on your own servers for complete control over your data."
+#~ msgstr "Ваши данные надежно хранятся и никогда не передаются третьим лицам. Вы также можете развернуть IMTA Resume на своих серверах, чтобы полностью контролировать свои данные."
 
 #: src/data/wiki/categories/networking-linkedin.ts
 msgid ""

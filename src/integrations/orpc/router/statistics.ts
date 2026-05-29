@@ -9,7 +9,7 @@ const userRouter = {
 			path: "/statistics/user/count",
 			tags: ["Statistics"],
 			summary: "Get total number of users",
-			description: "Get the total number of users for the Reactive Resume.",
+			description: "Get the total number of users for IMTA Resume.",
 		})
 		.output(z.number())
 		.handler(async (): Promise<number> => {
@@ -24,7 +24,7 @@ const resumeRouter = {
 			path: "/statistics/resume/count",
 			tags: ["Statistics"],
 			summary: "Get total number of resumes",
-			description: "Get the total number of resumes for the Reactive Resume.",
+			description: "Get the total number of resumes for IMTA Resume.",
 		})
 		.output(z.number())
 		.handler(async (): Promise<number> => {
@@ -39,7 +39,7 @@ const githubRouter = {
 			path: "/statistics/github/stars",
 			tags: ["Statistics"],
 			summary: "Get GitHub Repository stargazers count",
-			description: "Get the stargazers count for the Reactive Resume GitHub repository, at the time of writing.",
+			description: "Get the stargazers count for the IMTA Resume GitHub repository, at the time of writing.",
 		})
 		.output(z.number())
 		.handler(async (): Promise<number> => {

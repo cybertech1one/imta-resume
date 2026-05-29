@@ -1,14 +1,14 @@
 {
 	"$schema": "https://mintlify.com/docs.json",
 	"theme": "mint",
-	"name": "Reactive Resume",
+	"name": "IMTA Resume",
 	"favicon": "/favicon.svg",
-	"description": "A one-of-a-kind resume builder that keeps your privacy in mind. Completely secure, customizable, portable, open-source and free forever. Try it out today!",
+	"description": "The official resume builder for IMTA Trade School. Secure, customizable, and built for students.",
 	"seo": {
 		"indexing": "all",
 		"metatags": {
-			"canonical": "https://docs.rxresu.me",
-			"og:image": "https://rxresu.me/opengraph/banner.jpg"
+			"canonical": "https://imta.ma",
+			"og:image": "https://imta.ma/opengraph/banner.jpg"
 		}
 	},
 	"fonts": {
@@ -103,13 +103,8 @@
 			"anchors": [
 				{
 					"icon": "link",
-					"anchor": "Reactive Resume",
-					"href": "https://rxresu.me"
-				},
-				{
-					"icon": "github",
-					"anchor": "Source Code",
-					"href": "https://github.com/amruthpillai/reactive-resume"
+					"anchor": "IMTA Resume",
+					"href": "https://imta.ma"
 				}
 			]
 		}
@@ -122,13 +117,13 @@
 		"links": [
 			{
 				"label": "Support",
-				"href": "https://github.com/amruthpillai/reactive-resume/issues"
+				"href": "https://imta.ma"
 			}
 		],
 		"primary": {
 			"type": "button",
 			"label": "Get Started",
-			"href": "https://rxresu.me"
+			"href": "https://imta.ma"
 		}
 	},
 	"contextual": {
@@ -136,8 +131,7 @@
 	},
 	"footer": {
 		"socials": {
-			"website": "https://rxresu.me",
-			"github": "https://github.com/amruthpillai/reactive-resume"
+			"website": "https://imta.ma"
 		}
 	}
 }

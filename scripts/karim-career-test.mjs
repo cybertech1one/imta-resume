@@ -1163,7 +1163,7 @@ function step7_assessment() {
 	console.log("\x1b[36m");
 	console.log("╔══════════════════════════════════════════════════════════════╗");
 	console.log("║  RAPPORT D'ÉVALUATION — Karim Bouzidi, Spécialiste HSE     ║");
-	console.log("║  Plateforme: Reactive Resume v5 (IMTA Career Platform)     ║");
+	console.log("║  Plateforme: IMTA Resume v5 (IMTA Career Platform)     ║");
 	console.log("╚══════════════════════════════════════════════════════════════╝");
 	console.log("\x1b[0m");
 

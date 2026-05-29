@@ -1,6 +1,6 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { ArrowRightIcon, GearSixIcon, GlobeIcon, KeyboardIcon, PaletteIcon, RobotIcon } from "@phosphor-icons/react";
+import { GearSixIcon, GlobeIcon, KeyboardIcon, PaletteIcon, RobotIcon } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
@@ -95,17 +95,6 @@ function RouteComponent() {
 								<Trans>Language</Trans>
 							</Label>
 							<LocaleCombobox />
-							<Button
-								asChild
-								size="sm"
-								variant="link"
-								className="h-5 justify-start text-muted-foreground text-xs active:scale-100"
-							>
-								<a href="https://crowdin.com/project/reactive-resume" target="_blank" rel="noopener">
-									<Trans>Help translate the application</Trans>
-									<ArrowRightIcon className="size-3" />
-								</a>
-							</Button>
 						</div>
 					</CardContent>
 				</Card>

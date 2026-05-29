@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Reactive Resume is a free, open-source resume builder built with TanStack Start (React 19 + Vite), using ORPC for type-safe RPC APIs, Drizzle ORM with PostgreSQL, and Better Auth for authentication.
+IMTA Resume is a free, open-source resume builder built with TanStack Start (React 19 + Vite), using ORPC for type-safe RPC APIs, Drizzle ORM with PostgreSQL, and Better Auth for authentication.
 
 ## Development Commands
 

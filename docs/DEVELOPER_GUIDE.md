@@ -1,6 +1,6 @@
-# Reactive Resume - Developer Guide
+# IMTA Resume - Developer Guide
 
-A comprehensive guide for developers contributing to or building on Reactive Resume.
+A comprehensive guide for developers contributing to or building on IMTA Resume.
 
 ## Table of Contents
 
@@ -32,8 +32,8 @@ A comprehensive guide for developers contributing to or building on Reactive Res
 
 ```bash
 # Clone the repository
-git clone https://github.com/amruthpillai/reactive-resume.git
-cd reactive-resume
+git clone https://imta.ma/imta-resume.git
+cd imta-resume
 
 # Install dependencies
 pnpm install
@@ -134,7 +134,7 @@ PRINTER_ENDPOINT=http://localhost:4000
 S3_ENDPOINT=http://localhost:8333
 S3_ACCESS_KEY=your-access-key
 S3_SECRET_KEY=your-secret-key
-S3_BUCKET=reactive-resume
+S3_BUCKET=imta-resume
 
 # Email (Mailpit for development)
 SMTP_HOST=localhost
@@ -180,7 +180,7 @@ pnpm lingui:extract   # Extract translatable strings
 ## Project Structure
 
 ```
-reactive-resume/
+imta-resume/
 ├── docs/                    # Documentation
 ├── locales/                 # i18n translation files
 ├── migrations/              # Drizzle database migrations
@@ -222,7 +222,7 @@ reactive-resume/
 
 ### Overview
 
-Reactive Resume uses **Better Auth** for authentication, configured in `src/integrations/auth/config.ts`.
+IMTA Resume uses **Better Auth** for authentication, configured in `src/integrations/auth/config.ts`.
 
 ### Supported Authentication Methods
 
@@ -533,7 +533,7 @@ const itemsWithUser = await db
 
 ### Overview
 
-Reactive Resume supports multiple AI providers through a unified interface:
+IMTA Resume supports multiple AI providers through a unified interface:
 
 - OpenAI
 - Anthropic (Claude)
@@ -713,7 +713,7 @@ function MyComponent() {
   return (
     <div>
       {/* Static text */}
-      <Trans>Welcome to Reactive Resume</Trans>
+      <Trans>Welcome to IMTA Resume</Trans>
 
       {/* With variables */}
       <Trans>Hello, {name}!</Trans>
@@ -891,7 +891,7 @@ docs: update API reference for auth endpoints
 
 ## Support
 
-- **Documentation**: [docs.rxresu.me](https://docs.rxresu.me)
-- **GitHub Issues**: [Report bugs or request features](https://github.com/amruthpillai/reactive-resume/issues)
+- **Documentation**: [imta.ma](https://imta.ma)
+- **GitHub Issues**: [Report bugs or request features](https://imta.ma)
 - **Discord**: [Join the community](https://discord.gg/EE8yFqW4)
-- **Email**: hello@amruthpillai.com
+- **Email**: contact@imta.ma

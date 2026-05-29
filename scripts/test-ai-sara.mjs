@@ -1,6 +1,6 @@
 /**
  * Sara Mernissi's Comprehensive AI Feature Test
- * Tests every AI endpoint in the Reactive Resume platform
+ * Tests every AI endpoint in the IMTA Resume platform
  */
 
 const BASE = "http://localhost:3040";
@@ -680,7 +680,7 @@ async function createInterviewSessions(questions) {
 async function main() {
   console.log("========================================================");
   console.log("  SARA MERNISSI - AI FEATURE COMPREHENSIVE TEST");
-  console.log("  Testing Every AI Endpoint in Reactive Resume");
+  console.log("  Testing Every AI Endpoint in IMTA Resume");
   console.log("========================================================");
 
   // Sign in

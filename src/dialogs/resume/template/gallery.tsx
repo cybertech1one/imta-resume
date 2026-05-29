@@ -34,13 +34,12 @@ export function TemplateGalleryDialog(_: DialogProps<"resume.template.gallery">)
 			<DialogHeader className="gap-2">
 				<DialogTitle className="flex items-center gap-3 text-xl">
 					<SlideshowIcon size={20} />
-					<Trans>Template Gallery</Trans>
+					<Trans>Galerie de modèles CV</Trans>
 				</DialogTitle>
 				<DialogDescription className="leading-relaxed">
 					<Trans>
-						Here's a range of resume templates for different professions and personalities. Whether you prefer modern or
-						classic, bold or simple, there is a design to match you. Look through the options below and choose a
-						template that fits your style.
+						Choisis un modèle réaliste selon ton objectif : stage, premier emploi, profil technique, administration,
+						hôtellerie, digital ou direction. Les aperçus ci-dessous montrent les vrais designs exportés en PDF.
 					</Trans>
 				</DialogDescription>
 			</DialogHeader>

@@ -1,4 +1,4 @@
-# Security Audit Report - Reactive Resume
+# Security Audit Report - IMTA Resume
 
 **Audit Date:** 2026-02-10
 **Auditor:** SecureSentinel (Claude Code)
@@ -6,7 +6,7 @@
 
 ## Executive Summary
 
-This document provides a comprehensive security audit of the Reactive Resume application, including implemented protections, remaining vulnerabilities, and recommendations for further hardening.
+This document provides a comprehensive security audit of the IMTA Resume application, including implemented protections, remaining vulnerabilities, and recommendations for further hardening.
 
 ## Security Controls Implemented
 

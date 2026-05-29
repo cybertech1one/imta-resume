@@ -77,6 +77,19 @@ export function sanitizeResumeInput(data: Record<string, unknown>, maxFieldLengt
 }
 
 /**
+ * Strip markdown code fences from AI-generated text that should be plain HTML/text.
+ * Handles fences like ```html, ```json, ``` at the start and ``` at the end.
+ * Applied to text output before it is committed to the resume or returned to the client.
+ */
+export function stripMarkdownFences(text: string): string {
+	return text
+		.trim()
+		.replace(/^```[\w]*\s*/i, "")
+		.replace(/\s*```\s*$/, "")
+		.trim();
+}
+
+/**
  * Validate AI output doesn't contain harmful content.
  * Check for potential data exfiltration or instruction leaks.
  */

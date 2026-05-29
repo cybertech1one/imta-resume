@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { RichInput } from "@/components/input/rich-input";
 import { useResumeStore } from "@/components/resume/store/resume";
 import { Button } from "@/components/ui/button";
+import { stripMarkdownFences } from "@/integrations/ai/sanitize";
 import { client, orpc } from "@/integrations/orpc/client";
 import { SectionBase } from "../shared/section-base";
 
@@ -67,7 +68,7 @@ export function SummarySectionBuilder() {
 		},
 		onSuccess: (summary) => {
 			updateResumeData((draft) => {
-				draft.summary.content = summary;
+				draft.summary.content = stripMarkdownFences(summary);
 			});
 			setIsGenerating(false);
 			setStreamedContent("");

@@ -45,7 +45,6 @@ import {
 	resumeTemplates,
 	sampleReviews,
 	styleColors,
-	styleGradients,
 	styleIcons,
 } from "./gallery-config";
 import type {
@@ -98,120 +97,81 @@ interface HeroSectionProps {
 export function HeroSection({ searchQuery, onSearchChange, trendingCount }: HeroSectionProps) {
 	return (
 		<motion.div
-			className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-8 md:p-12"
+			className="mb-8 overflow-hidden rounded-2xl border bg-background shadow-sm"
 			initial={false}
 			animate={{ opacity: 1, y: 0 }}
-			transition={{ duration: 0.6, ease: "easeOut" }}
+			transition={{ duration: 0.35, ease: "easeOut" }}
 		>
-			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-primary/10 blur-3xl"
-					animate={{
-						scale: [1, 1.2, 1],
-						opacity: [0.5, 0.3, 0.5],
-					}}
-					transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute -bottom-32 -left-32 size-96 rounded-full bg-purple-500/10 blur-3xl"
-					animate={{
-						scale: [1.2, 1, 1.2],
-						opacity: [0.3, 0.5, 0.3],
-					}}
-					transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-				/>
-			</div>
+			<div className="grid gap-6 p-6 lg:grid-cols-[1fr_22rem] lg:p-8">
+				<div className="min-w-0">
+					<div className="mb-3 flex items-center gap-2 text-primary">
+						<PaletteIcon className="size-5" weight="duotone" />
+						<span className="font-semibold text-sm uppercase tracking-wider">
+							<Trans>Galerie de modèles</Trans>
+						</span>
+					</div>
 
-			<div className="relative z-10">
-				<motion.div
-					className="mb-3 flex items-center gap-2"
-					initial={false}
-					animate={{ opacity: 1, x: 0 }}
-					transition={{ delay: 0.2 }}
-				>
-					<PaletteIcon className="size-5 text-primary" weight="fill" />
-					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>Template Gallery</Trans>
-					</span>
-				</motion.div>
+					<h2 className="max-w-3xl font-bold text-3xl tracking-tight md:text-4xl">
+						<Trans>Choisis un CV professionnel qui passe vraiment auprès des recruteurs.</Trans>
+					</h2>
+					<p className="mt-3 max-w-2xl text-muted-foreground leading-7">
+						<Trans>
+							Des modèles réalistes pour étudiants, stages, profils techniques et jeunes diplômés au Maroc. Chaque
+							aperçu montre le vrai design exporté en PDF.
+						</Trans>
+					</p>
 
-				<motion.h2
-					className="mb-4 font-bold text-3xl tracking-tight md:text-4xl lg:text-5xl"
-					initial={false}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ delay: 0.3 }}
-				>
-					<Trans>Find Your Perfect Resume Template</Trans>
-				</motion.h2>
-
-				<motion.p
-					className="mb-8 max-w-2xl text-lg text-muted-foreground"
-					initial={false}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ delay: 0.4 }}
-				>
-					<Trans>
-						Browse our collection of professionally designed resume templates. Filter by style, industry, and experience
-						level to find the perfect match for your career.
-					</Trans>
-				</motion.p>
-
-				<motion.div
-					className="relative max-w-xl"
-					initial={false}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ delay: 0.5 }}
-				>
-					<MagnifyingGlassIcon className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground" />
-					<Input
-						type="search"
-						placeholder={t`Search templates by name, style, or tags...`}
-						value={searchQuery}
-						onChange={(e) => onSearchChange(e.target.value)}
-						className="h-14 rounded-2xl border-border/50 bg-background/80 pr-4 pl-12 text-lg backdrop-blur-sm transition-all focus:border-primary/50 focus:bg-background focus:shadow-lg focus:shadow-primary/10"
-					/>
-				</motion.div>
-
-				<motion.div
-					className="mt-8 flex flex-wrap items-center gap-6"
-					initial={false}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 0.6 }}
-				>
-					<div className="flex items-center gap-2">
-						<div className="flex size-10 items-center justify-center rounded-full bg-primary/10">
-							<PaletteIcon className="size-5 text-primary" weight="duotone" />
+					<div className="mt-6 grid gap-3 md:grid-cols-[minmax(0,1fr)_auto]">
+						<div className="relative">
+							<MagnifyingGlassIcon className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground" />
+							<Input
+								type="search"
+								placeholder={t`Rechercher par métier, ville, ATS, stage...`}
+								value={searchQuery}
+								onChange={(e) => onSearchChange(e.target.value)}
+								className="h-12 rounded-lg border-border bg-background pr-4 pl-12"
+							/>
 						</div>
-						<div>
-							<p className="font-bold text-xl">{resumeTemplates.length}</p>
-							<p className="text-muted-foreground text-sm">
-								<Trans>Templates</Trans>
-							</p>
+						<div className="flex flex-wrap gap-2">
+							{["Étudiant", "Stage", "Technique", "ATS", "FR/AR"].map((label) => (
+								<span key={label} className="rounded-full border bg-muted/40 px-3 py-2 font-medium text-xs">
+									{label}
+								</span>
+							))}
 						</div>
 					</div>
-					<div className="flex items-center gap-2">
-						<div className="flex size-10 items-center justify-center rounded-full bg-amber-500/10">
-							<TrendUpIcon className="size-5 text-amber-500" weight="duotone" />
-						</div>
-						<div>
-							<p className="font-bold text-xl">{trendingCount}</p>
-							<p className="text-muted-foreground text-sm">
-								<Trans>Trending</Trans>
-							</p>
-						</div>
+				</div>
+
+				<div className="grid grid-cols-2 gap-3 rounded-xl border bg-muted/25 p-3">
+					<div className="rounded-lg bg-background p-4">
+						<PaletteIcon className="mb-3 size-5 text-primary" weight="duotone" />
+						<p className="font-bold text-2xl">{resumeTemplates.length}</p>
+						<p className="text-muted-foreground text-sm">
+							<Trans>modèles CV</Trans>
+						</p>
 					</div>
-					<div className="flex items-center gap-2">
-						<div className="flex size-10 items-center justify-center rounded-full bg-green-500/10">
-							<UsersIcon className="size-5 text-green-500" weight="duotone" />
-						</div>
-						<div>
-							<p className="font-bold text-xl">50K+</p>
-							<p className="text-muted-foreground text-sm">
-								<Trans>Downloads</Trans>
-							</p>
-						</div>
+					<div className="rounded-lg bg-background p-4">
+						<TrendUpIcon className="mb-3 size-5 text-amber-500" weight="duotone" />
+						<p className="font-bold text-2xl">{trendingCount}</p>
+						<p className="text-muted-foreground text-sm">
+							<Trans>populaires</Trans>
+						</p>
 					</div>
-				</motion.div>
+					<div className="rounded-lg bg-background p-4">
+						<UsersIcon className="mb-3 size-5 text-emerald-600" weight="duotone" />
+						<p className="font-bold text-2xl">FR</p>
+						<p className="text-muted-foreground text-sm">
+							<Trans>CV français</Trans>
+						</p>
+					</div>
+					<div className="rounded-lg bg-background p-4">
+						<CheckCircleIcon className="mb-3 size-5 text-emerald-600" weight="fill" />
+						<p className="font-bold text-2xl">PDF</p>
+						<p className="text-muted-foreground text-sm">
+							<Trans>export propre</Trans>
+						</p>
+					</div>
+				</div>
 			</div>
 		</motion.div>
 	);
@@ -238,7 +198,7 @@ export function CompareBar({ compareTemplates, onRemove, onCompare, onClear }: C
 						<div className="flex items-center gap-2">
 							<ArrowsLeftRightIcon className="size-5 text-primary" />
 							<span className="font-medium">
-								<Trans>Comparing {compareTemplates.length}/3 templates</Trans>
+								<Trans>Comparaison {compareTemplates.length}/3 modèles</Trans>
 							</span>
 						</div>
 						<div className="flex items-center gap-2">
@@ -252,10 +212,10 @@ export function CompareBar({ compareTemplates, onRemove, onCompare, onClear }: C
 							))}
 						</div>
 						<Button size="sm" onClick={onCompare} disabled={compareTemplates.length < 2}>
-							<Trans>Compare</Trans>
+							<Trans>Comparer</Trans>
 						</Button>
 						<Button size="sm" variant="ghost" onClick={onClear}>
-							<Trans>Clear</Trans>
+							<Trans>Effacer</Trans>
 						</Button>
 					</Card>
 				</motion.div>
@@ -298,7 +258,7 @@ export function TemplateFilters({
 			<div className="flex items-center gap-2">
 				<FunnelIcon className="size-4 text-muted-foreground" />
 				<span className="font-medium text-muted-foreground text-sm">
-					<Trans>Filters:</Trans>
+					<Trans>Filtres :</Trans>
 				</span>
 			</div>
 
@@ -308,7 +268,7 @@ export function TemplateFilters({
 				</SelectTrigger>
 				<SelectContent>
 					<SelectItem value="all">
-						<Trans>All Styles</Trans>
+						<Trans>Tous les styles</Trans>
 					</SelectItem>
 					{(Object.keys(styleLabels) as StyleCategory[]).map((style) => (
 						<SelectItem key={style} value={style}>
@@ -324,7 +284,7 @@ export function TemplateFilters({
 				</SelectTrigger>
 				<SelectContent>
 					<SelectItem value="all">
-						<Trans>All Industries</Trans>
+						<Trans>Tous les secteurs</Trans>
 					</SelectItem>
 					{(Object.keys(industryLabels) as IndustryCategory[]).map((industry) => (
 						<SelectItem key={industry} value={industry}>
@@ -340,7 +300,7 @@ export function TemplateFilters({
 				</SelectTrigger>
 				<SelectContent>
 					<SelectItem value="all">
-						<Trans>All Levels</Trans>
+						<Trans>Tous les niveaux</Trans>
 					</SelectItem>
 					{(Object.keys(experienceLevelLabels) as ExperienceLevel[]).map((level) => (
 						<SelectItem key={level} value={level}>
@@ -352,17 +312,17 @@ export function TemplateFilters({
 
 			<Select value={sortBy} onValueChange={(v) => onSortChange(v as "popular" | "rating" | "newest")}>
 				<SelectTrigger className="w-36">
-					<SelectValue placeholder={t`Sort by`} />
+					<SelectValue placeholder={t`Trier par`} />
 				</SelectTrigger>
 				<SelectContent>
 					<SelectItem value="popular">
-						<Trans>Most Popular</Trans>
+						<Trans>Les plus utilisés</Trans>
 					</SelectItem>
 					<SelectItem value="rating">
-						<Trans>Highest Rated</Trans>
+						<Trans>Les mieux notés</Trans>
 					</SelectItem>
 					<SelectItem value="newest">
-						<Trans>Newest</Trans>
+						<Trans>Nouveautés</Trans>
 					</SelectItem>
 				</SelectContent>
 			</Select>
@@ -370,7 +330,7 @@ export function TemplateFilters({
 			{hasActiveFilters && (
 				<Button variant="ghost" size="sm" className="gap-1" onClick={onClearFilters}>
 					<XIcon className="size-4" />
-					<Trans>Clear Filters</Trans>
+					<Trans>Réinitialiser</Trans>
 				</Button>
 			)}
 		</div>
@@ -404,7 +364,7 @@ export function TemplatePreviewDialog({
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
-			<DialogContent className="max-h-[90vh] max-w-4xl overflow-hidden">
+			<DialogContent className="max-h-[90vh] max-w-5xl overflow-hidden">
 				{template && (
 					<>
 						<DialogHeader>
@@ -420,7 +380,7 @@ export function TemplatePreviewDialog({
 									<div className="flex items-center gap-2">
 										{template.isNew && (
 											<Badge className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
-												<Trans>New</Trans>
+												<Trans>Nouveau</Trans>
 											</Badge>
 										)}
 										{template.isPremium && (
@@ -442,16 +402,15 @@ export function TemplatePreviewDialog({
 							</DialogDescription>
 						</DialogHeader>
 
-						<div className="grid gap-6 md:grid-cols-2">
-							<div className="relative aspect-[3/4] overflow-hidden rounded-xl border bg-muted">
-								<div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/5 to-transparent">
-									<div className="text-center">
-										<PaletteIcon className="mx-auto mb-2 size-16 text-muted-foreground/50" />
-										<p className="text-muted-foreground text-sm">
-											<Trans>Template Preview</Trans>
-										</p>
-									</div>
-								</div>
+						<div className="grid gap-6 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+							<div className="relative overflow-hidden rounded-xl border bg-zinc-100 p-3 dark:bg-zinc-900">
+								<img
+									src={template.previewImage}
+									alt={template.name}
+									loading="lazy"
+									decoding="async"
+									className="mx-auto aspect-page max-h-[64vh] w-full rounded-md bg-white object-contain object-top shadow-xl"
+								/>
 								<div className="absolute bottom-3 left-3 flex gap-1">
 									{template.colors.map((color) => (
 										<div
@@ -473,7 +432,7 @@ export function TemplatePreviewDialog({
 										{renderStars(template.rating, "md")}
 										<span className="font-semibold">{template.rating}</span>
 										<span className="text-muted-foreground text-sm">
-											({template.reviewCount} <Trans>reviews</Trans>)
+											({template.reviewCount} <Trans>avis</Trans>)
 										</span>
 									</div>
 
@@ -481,14 +440,14 @@ export function TemplatePreviewDialog({
 										<div>
 											<p className="font-bold text-2xl">{template.downloadCount.toLocaleString()}</p>
 											<p className="text-muted-foreground text-sm">
-												<Trans>Downloads</Trans>
+												<Trans>Utilisations</Trans>
 											</p>
 										</div>
 									</div>
 
 									<div>
 										<h4 className="mb-3 font-semibold">
-											<Trans>Features</Trans>
+											<Trans>Points forts</Trans>
 										</h4>
 										<div className="space-y-2">
 											{template.features.map((feature) => (
@@ -502,7 +461,7 @@ export function TemplatePreviewDialog({
 
 									<div>
 										<h4 className="mb-3 font-semibold">
-											<Trans>Best For</Trans>
+											<Trans>Idéal pour</Trans>
 										</h4>
 										<div className="flex flex-wrap gap-2">
 											{template.experienceLevel.map((level) => (
@@ -528,7 +487,7 @@ export function TemplatePreviewDialog({
 
 									<div>
 										<h4 className="mb-3 font-semibold">
-											<Trans>Recent Reviews</Trans>
+											<Trans>Avis récents</Trans>
 										</h4>
 										<div className="space-y-4">
 											{getTemplateReviews(template.id)
@@ -549,7 +508,7 @@ export function TemplatePreviewDialog({
 												))}
 											{getTemplateReviews(template.id).length === 0 && (
 												<p className="text-muted-foreground text-sm">
-													<Trans>No reviews yet. Be the first to review!</Trans>
+													<Trans>Aucun avis pour le moment.</Trans>
 												</p>
 											)}
 										</div>
@@ -561,7 +520,7 @@ export function TemplatePreviewDialog({
 						<DialogFooter className="gap-2 sm:gap-0">
 							<DialogClose asChild>
 								<Button variant="outline">
-									<Trans>Close</Trans>
+									<Trans>Fermer</Trans>
 								</Button>
 							</DialogClose>
 							<Button variant="outline" className="gap-2" onClick={() => onToggleFavorite(template.id)}>
@@ -569,11 +528,11 @@ export function TemplatePreviewDialog({
 									className={cn("size-4", favorites.has(template.id) && "text-red-500")}
 									weight={favorites.has(template.id) ? "fill" : "regular"}
 								/>
-								{favorites.has(template.id) ? <Trans>Saved</Trans> : <Trans>Save</Trans>}
+								{favorites.has(template.id) ? <Trans>Enregistré</Trans> : <Trans>Enregistrer</Trans>}
 							</Button>
 							<Button className="gap-2" onClick={() => onApplyTemplate(template)}>
 								<CheckCircleIcon className="size-4" />
-								<Trans>Use Template</Trans>
+								<Trans>Utiliser ce modèle</Trans>
 							</Button>
 						</DialogFooter>
 					</>
@@ -609,10 +568,10 @@ export function CompareDialog({
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
 						<ArrowsLeftRightIcon className="size-5" />
-						<Trans>Compare Templates</Trans>
+						<Trans>Comparer les modèles</Trans>
 					</DialogTitle>
 					<DialogDescription>
-						<Trans>Compare up to 3 templates side by side to find the best match</Trans>
+						<Trans>Compare jusqu'à 3 modèles pour choisir le plus adapté à ta candidature.</Trans>
 					</DialogDescription>
 				</DialogHeader>
 
@@ -627,12 +586,18 @@ export function CompareDialog({
 											<XIcon className="size-4" />
 										</Button>
 									</div>
-									<div className="aspect-[3/4] rounded-lg bg-muted" />
+									<img
+										src={template.previewImage}
+										alt={template.name}
+										loading="lazy"
+										decoding="async"
+										className="aspect-page w-full rounded-lg border bg-white object-cover object-top"
+									/>
 								</div>
 
 								<div className="rounded-lg border p-4">
 									<p className="mb-2 font-medium text-muted-foreground text-sm">
-										<Trans>Rating</Trans>
+										<Trans>Note</Trans>
 									</p>
 									<div className="flex items-center gap-2">
 										{renderStars(template.rating)}
@@ -642,7 +607,7 @@ export function CompareDialog({
 
 								<div className="rounded-lg border p-4">
 									<p className="mb-2 font-medium text-muted-foreground text-sm">
-										<Trans>Downloads</Trans>
+										<Trans>Utilisations</Trans>
 									</p>
 									<p className="font-semibold">{template.downloadCount.toLocaleString()}</p>
 								</div>
@@ -656,7 +621,7 @@ export function CompareDialog({
 
 								<div className="rounded-lg border p-4">
 									<p className="mb-2 font-medium text-muted-foreground text-sm">
-										<Trans>Industries</Trans>
+										<Trans>Secteurs</Trans>
 									</p>
 									<div className="flex flex-wrap gap-1">
 										{template.industries.map((industry) => (
@@ -669,7 +634,7 @@ export function CompareDialog({
 
 								<div className="rounded-lg border p-4">
 									<p className="mb-2 font-medium text-muted-foreground text-sm">
-										<Trans>Features</Trans>
+										<Trans>Points forts</Trans>
 									</p>
 									<div className="space-y-1">
 										{template.features.map((feature) => (
@@ -682,7 +647,7 @@ export function CompareDialog({
 								</div>
 
 								<Button className="w-full gap-2" onClick={() => onApplyTemplate(template)}>
-									<Trans>Use Template</Trans>
+									<Trans>Utiliser ce modèle</Trans>
 								</Button>
 							</div>
 						))}
@@ -692,7 +657,7 @@ export function CompareDialog({
 				<DialogFooter>
 					<DialogClose asChild>
 						<Button variant="outline">
-							<Trans>Close</Trans>
+							<Trans>Fermer</Trans>
 						</Button>
 					</DialogClose>
 				</DialogFooter>
@@ -724,28 +689,22 @@ export function TemplateCard({
 			transition={{ delay: index * 0.05 }}
 			layout
 		>
-			<Card
-				className={cn(
-					"group h-full overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
-					"border-2 hover:border-primary/50",
-					"bg-gradient-to-br",
-					styleGradients[template.style],
-				)}
-			>
-				<div className="relative aspect-[3/4] overflow-hidden bg-muted">
-					<div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/5 to-transparent transition-all group-hover:scale-105">
-						<div className="text-center">
-							<StyleIcon
-								className="mx-auto mb-2 size-12 text-muted-foreground/50 transition-transform group-hover:scale-110"
-								weight="duotone"
-							/>
-						</div>
+			<Card className="group h-full overflow-hidden border bg-background transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl">
+				<div className="relative bg-zinc-100 p-3 dark:bg-zinc-900">
+					<div className="overflow-hidden rounded-lg border bg-white shadow-sm">
+						<img
+							src={template.previewImage}
+							alt={template.name}
+							loading="lazy"
+							decoding="async"
+							className="aspect-page w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.025]"
+						/>
 					</div>
 
-					<div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/50 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
+					<div className="absolute inset-3 flex items-center justify-center gap-2 rounded-lg bg-black/50 opacity-0 backdrop-blur-[2px] transition-opacity group-hover:opacity-100">
 						<Button size="sm" variant="secondary" className="gap-1" onClick={onPreview}>
 							<EyeIcon className="size-4" />
-							<Trans>Preview</Trans>
+							<Trans>Aperçu</Trans>
 						</Button>
 					</div>
 
@@ -753,13 +712,13 @@ export function TemplateCard({
 						{(template.isTrending || showTrendingBadge) && (
 							<Badge className="bg-amber-500 text-white">
 								<TrendUpIcon className="mr-1 size-3" />
-								<Trans>Trending</Trans>
+								<Trans>Populaire</Trans>
 							</Badge>
 						)}
 						{template.isNew && (
 							<Badge className="bg-green-500 text-white">
 								<SparkleIcon className="mr-1 size-3" />
-								<Trans>New</Trans>
+								<Trans>Nouveau</Trans>
 							</Badge>
 						)}
 						{template.isPremium && (
@@ -786,7 +745,7 @@ export function TemplateCard({
 							</button>
 						</TooltipTrigger>
 						<TooltipContent>
-							{isFavorite ? <Trans>Remove from favorites</Trans> : <Trans>Add to favorites</Trans>}
+							{isFavorite ? <Trans>Retirer des favoris</Trans> : <Trans>Ajouter aux favoris</Trans>}
 						</TooltipContent>
 					</Tooltip>
 
@@ -802,9 +761,17 @@ export function TemplateCard({
 				</div>
 
 				<CardHeader className="pb-2">
-					<div className="mb-1 flex items-start justify-between">
-						<CardTitle className="text-lg transition-colors group-hover:text-primary">{template.name}</CardTitle>
-						<Badge className={cn("shrink-0", styleColors[template.style])}>{styleLabels[template.style]}</Badge>
+					<div className="mb-1 flex min-w-0 items-start justify-between gap-3">
+						<div className="min-w-0">
+							<CardTitle className="truncate text-lg transition-colors group-hover:text-primary">
+								{template.name}
+							</CardTitle>
+							<div className="mt-1 flex items-center gap-1.5 text-muted-foreground text-xs">
+								<StyleIcon className="size-3.5" weight="duotone" />
+								<span>{styleLabels[template.style]}</span>
+							</div>
+						</div>
+						<Badge className={cn("shrink-0", styleColors[template.style])}>CV</Badge>
 					</div>
 					<CardDescription className="line-clamp-2">{template.description}</CardDescription>
 				</CardHeader>
@@ -834,11 +801,11 @@ export function TemplateCard({
 				<CardFooter className="gap-2 pt-0">
 					<Button variant="outline" size="sm" className="flex-1 gap-1" onClick={onAddToCompare} disabled={isInCompare}>
 						<ArrowsLeftRightIcon className="size-4" />
-						{isInCompare ? <Trans>Added</Trans> : <Trans>Compare</Trans>}
+						{isInCompare ? <Trans>Ajouté</Trans> : <Trans>Comparer</Trans>}
 					</Button>
 					<Button size="sm" className="flex-1 gap-1" onClick={onUse}>
 						<CheckCircleIcon className="size-4" />
-						<Trans>Use</Trans>
+						<Trans>Utiliser</Trans>
 					</Button>
 				</CardFooter>
 			</Card>

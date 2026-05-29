@@ -1,6 +1,6 @@
-# Comprehensive Testing Strategy for Reactive Resume
+# Comprehensive Testing Strategy for IMTA Resume
 
-This document outlines the complete testing strategy for the Reactive Resume application, following QualityGate principles and test-driven development (TDD) practices.
+This document outlines the complete testing strategy for the IMTA Resume application, following QualityGate principles and test-driven development (TDD) practices.
 
 ## Table of Contents
 
@@ -30,7 +30,7 @@ This document outlines the complete testing strategy for the Reactive Resume app
 ### Configuration Files
 
 ```
-reactive-resume/
+imta-resume/
 ├── vitest.config.ts          # Vitest configuration
 ├── playwright.config.ts      # Playwright E2E configuration
 ├── tests/

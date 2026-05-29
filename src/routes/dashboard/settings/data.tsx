@@ -151,7 +151,7 @@ function RouteComponent() {
 			const a = document.createElement("a");
 			const timestamp = new Date().toISOString().split("T")[0];
 			a.href = url;
-			a.download = `reactive-resume-export-${timestamp}.json`;
+			a.download = `imta-resume-export-${timestamp}.json`;
 			document.body.appendChild(a);
 			a.click();
 			document.body.removeChild(a);

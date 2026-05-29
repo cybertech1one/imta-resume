@@ -1,6 +1,6 @@
 # AI System Database Schema
 
-This document describes all database tables related to the AI enhancement system in Reactive Resume.
+This document describes all database tables related to the AI enhancement system in IMTA Resume.
 
 ## Table of Contents
 

@@ -103,4 +103,4 @@ Chaque programme dispose d'une interface adaptée avec les fonctionnalités pert
 
 ## Licence
 
-Ce projet est un fork de [Reactive Resume](https://github.com/amruthpillai/reactive-resume) par Amruth Pillai, distribué sous licence [MIT](./LICENSE). Les modifications apportées pour la plateforme IMTA Resume sont également sous licence MIT.
+IMTA Resume est distribué sous licence [MIT](./LICENSE). Ce projet s'appuie sur un créateur de CV open-source, dont les portions d'origine restent couvertes par la licence MIT (voir le fichier [LICENSE](./LICENSE)).

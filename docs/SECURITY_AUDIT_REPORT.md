@@ -2,13 +2,13 @@
 
 **Date:** 2026-02-10
 **Auditor:** SecureSentinel Agent
-**Project:** Reactive Resume
+**Project:** IMTA Resume
 
 ---
 
 ## Executive Summary
 
-This security audit examined the Reactive Resume application for common web vulnerabilities including XSS, CSRF, SQL injection, rate limiting coverage, authentication middleware, and sensitive data exposure. Overall, the application demonstrates **strong security practices** with proper sanitization, rate limiting infrastructure, and authentication controls.
+This security audit examined the IMTA Resume application for common web vulnerabilities including XSS, CSRF, SQL injection, rate limiting coverage, authentication middleware, and sensitive data exposure. Overall, the application demonstrates **strong security practices** with proper sanitization, rate limiting infrastructure, and authentication controls.
 
 ### Risk Summary
 
@@ -254,7 +254,7 @@ grep -r "DOMPurify" src/ --include="*.ts" --include="*.tsx"
 
 ## Conclusion
 
-The Reactive Resume application demonstrates **strong security practices** for a modern web application. The use of:
+The IMTA Resume application demonstrates **strong security practices** for a modern web application. The use of:
 - DOMPurify for HTML sanitization
 - Drizzle ORM (no raw SQL with user input)
 - Better Auth with built-in CSRF protection

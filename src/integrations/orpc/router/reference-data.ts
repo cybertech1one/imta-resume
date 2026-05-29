@@ -7,7 +7,7 @@ import { adminProcedure, publicProcedure } from "../context";
 // ============================================================================
 
 const imtaProgramCreateSchema = z.object({
-	id: z.string().min(1),
+	id: z.string().optional(), // ignored — server always generates a UUID
 	name: z.string().min(1),
 	nameFr: z.string().min(1),
 	field: z.string().min(1),
@@ -29,7 +29,7 @@ const imtaProgramCreateSchema = z.object({
 const imtaProgramUpdateSchema = imtaProgramCreateSchema.partial().omit({ id: true });
 
 const interviewTipCreateSchema = z.object({
-	id: z.string().min(1),
+	id: z.string().optional(), // ignored — server always generates a UUID
 	title: z.string().min(1),
 	titleFr: z.string().min(1),
 	content: z.string().min(1),
@@ -46,7 +46,7 @@ const interviewTipCreateSchema = z.object({
 const interviewTipUpdateSchema = interviewTipCreateSchema.partial().omit({ id: true });
 
 const interviewQuestionCreateSchema = z.object({
-	id: z.string().min(1),
+	id: z.string().optional(), // ignored — server always generates a UUID
 	question: z.string().min(1),
 	questionFr: z.string().min(1),
 	type: z.string().min(1),
@@ -127,7 +127,8 @@ export const imtaProgramsRouter = {
 			return referenceDataService.imtaPrograms.list(input);
 		}),
 
-	getById: publicProcedure.input(z.object({ id: z.string().uuid() })).handler(async ({ input }) => {
+	// id is text in DB — accept any non-empty string (not UUID-only) so seeded records are also reachable
+	getById: publicProcedure.input(z.object({ id: z.string().min(1) })).handler(async ({ input }) => {
 		return referenceDataService.imtaPrograms.getById(input.id);
 	}),
 
@@ -138,7 +139,7 @@ export const imtaProgramsRouter = {
 	update: adminProcedure
 		.input(
 			z.object({
-				id: z.string().uuid(),
+				id: z.string().min(1),
 				data: imtaProgramUpdateSchema,
 			}),
 		)
@@ -146,7 +147,7 @@ export const imtaProgramsRouter = {
 			return referenceDataService.imtaPrograms.update(input.id, input.data);
 		}),
 
-	delete: adminProcedure.input(z.object({ id: z.string().uuid() })).handler(async ({ input }) => {
+	delete: adminProcedure.input(z.object({ id: z.string().min(1) })).handler(async ({ input }) => {
 		await referenceDataService.imtaPrograms.delete(input.id);
 		return { success: true };
 	}),
@@ -172,7 +173,8 @@ export const interviewTipsRouter = {
 			return referenceDataService.interviewTips.list(input);
 		}),
 
-	getById: publicProcedure.input(z.object({ id: z.string().uuid() })).handler(async ({ input }) => {
+	// id is text in DB — accept any non-empty string so seeded records (e.g. "prep-1") are also reachable
+	getById: publicProcedure.input(z.object({ id: z.string().min(1) })).handler(async ({ input }) => {
 		return referenceDataService.interviewTips.getById(input.id);
 	}),
 
@@ -187,7 +189,7 @@ export const interviewTipsRouter = {
 	update: adminProcedure
 		.input(
 			z.object({
-				id: z.string().uuid(),
+				id: z.string().min(1),
 				data: interviewTipUpdateSchema,
 			}),
 		)
@@ -195,7 +197,7 @@ export const interviewTipsRouter = {
 			return referenceDataService.interviewTips.update(input.id, input.data);
 		}),
 
-	delete: adminProcedure.input(z.object({ id: z.string().uuid() })).handler(async ({ input }) => {
+	delete: adminProcedure.input(z.object({ id: z.string().min(1) })).handler(async ({ input }) => {
 		await referenceDataService.interviewTips.delete(input.id);
 		return { success: true };
 	}),
@@ -221,7 +223,8 @@ export const interviewQuestionsRouter = {
 			return referenceDataService.interviewQuestions.list(input);
 		}),
 
-	getById: publicProcedure.input(z.object({ id: z.string().uuid() })).handler(async ({ input }) => {
+	// id is text in DB — accept any non-empty string so seeded records (e.g. "q-hc-1") are also reachable
+	getById: publicProcedure.input(z.object({ id: z.string().min(1) })).handler(async ({ input }) => {
 		return referenceDataService.interviewQuestions.getById(input.id);
 	}),
 
@@ -236,7 +239,7 @@ export const interviewQuestionsRouter = {
 	update: adminProcedure
 		.input(
 			z.object({
-				id: z.string().uuid(),
+				id: z.string().min(1),
 				data: interviewQuestionUpdateSchema,
 			}),
 		)
@@ -244,7 +247,7 @@ export const interviewQuestionsRouter = {
 			return referenceDataService.interviewQuestions.update(input.id, input.data);
 		}),
 
-	delete: adminProcedure.input(z.object({ id: z.string().uuid() })).handler(async ({ input }) => {
+	delete: adminProcedure.input(z.object({ id: z.string().min(1) })).handler(async ({ input }) => {
 		await referenceDataService.interviewQuestions.delete(input.id);
 		return { success: true };
 	}),

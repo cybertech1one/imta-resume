@@ -103,10 +103,10 @@ function TemplateGalleryPage() {
 			const newFavorites = new Set(prev);
 			if (newFavorites.has(templateId)) {
 				newFavorites.delete(templateId);
-				toast.success(t`Template removed from favorites`);
+				toast.success(t`Modèle retiré des favoris`);
 			} else {
 				newFavorites.add(templateId);
-				toast.success(t`Template added to favorites`);
+				toast.success(t`Modèle ajouté aux favoris`);
 			}
 			return newFavorites;
 		});
@@ -115,15 +115,15 @@ function TemplateGalleryPage() {
 	const addToCompare = useCallback(
 		(template: ResumeTemplate) => {
 			if (compareTemplates.length >= 3) {
-				toast.error(t`You can only compare up to 3 templates`);
+				toast.error(t`Tu peux comparer jusqu'à 3 modèles`);
 				return;
 			}
 			if (compareTemplates.find((t) => t.id === template.id)) {
-				toast.error(t`Template already in comparison`);
+				toast.error(t`Ce modèle est déjà dans la comparaison`);
 				return;
 			}
 			setCompareTemplates((prev) => [...prev, template]);
-			toast.success(t`Template added to comparison`);
+			toast.success(t`Modèle ajouté à la comparaison`);
 		},
 		[compareTemplates],
 	);
@@ -134,7 +134,7 @@ function TemplateGalleryPage() {
 
 	const applyTemplate = useCallback(
 		(template: ResumeTemplate) => {
-			toast.success(t`Template "${template.name}" selected! Create a new resume to use it.`);
+			toast.success(t`Modèle "${template.name}" sélectionné. Crée un CV pour l'utiliser.`);
 			navigate({ to: "/dashboard/resumes" });
 		},
 		[navigate],
@@ -162,7 +162,7 @@ function TemplateGalleryPage() {
 
 	return (
 		<>
-			<DashboardHeader icon={PaletteIcon} title={t`Resume Templates Gallery`} />
+			<DashboardHeader icon={PaletteIcon} title={t`Galerie de modèles CV`} />
 
 			<HeroSection searchQuery={searchQuery} onSearchChange={setSearchQuery} trendingCount={trendingTemplates.length} />
 
@@ -180,35 +180,35 @@ function TemplateGalleryPage() {
 						className="gap-2 rounded-full border border-transparent bg-muted/50 px-4 py-2 data-[state=active]:border-primary/30 data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
 					>
 						<SparkleIcon className="size-4" />
-						<Trans>All Templates</Trans>
+						<Trans>Tous les modèles</Trans>
 					</TabsTrigger>
 					<TabsTrigger
 						value="trending"
 						className="gap-2 rounded-full border border-transparent bg-muted/50 px-4 py-2 data-[state=active]:border-primary/30 data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
 					>
 						<TrendUpIcon className="size-4" />
-						<Trans>Trending</Trans>
+						<Trans>Populaires</Trans>
 					</TabsTrigger>
 					<TabsTrigger
 						value="by-style"
 						className="gap-2 rounded-full border border-transparent bg-muted/50 px-4 py-2 data-[state=active]:border-primary/30 data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
 					>
 						<PaletteIcon className="size-4" />
-						<Trans>By Style</Trans>
+						<Trans>Par style</Trans>
 					</TabsTrigger>
 					<TabsTrigger
 						value="by-industry"
 						className="gap-2 rounded-full border border-transparent bg-muted/50 px-4 py-2 data-[state=active]:border-primary/30 data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
 					>
 						<BriefcaseIcon className="size-4" />
-						<Trans>By Industry</Trans>
+						<Trans>Par secteur</Trans>
 					</TabsTrigger>
 					<TabsTrigger
 						value="favorites"
 						className="gap-2 rounded-full border border-transparent bg-muted/50 px-4 py-2 data-[state=active]:border-primary/30 data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
 					>
 						<HeartIcon className="size-4" />
-						<Trans>Favorites</Trans>
+						<Trans>Favoris</Trans>
 						{favorites.size > 0 && (
 							<Badge variant="secondary" className="ml-1 px-1.5 py-0 text-xs">
 								{favorites.size}
@@ -232,7 +232,7 @@ function TemplateGalleryPage() {
 					/>
 
 					<p className="text-muted-foreground text-sm">
-						{filteredTemplates.length} <Trans>template(s) found</Trans>
+						{filteredTemplates.length} <Trans>modèle(s) trouvé(s)</Trans>
 					</p>
 
 					<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -258,10 +258,10 @@ function TemplateGalleryPage() {
 						<div className="flex flex-col items-center justify-center py-12 text-center">
 							<MagnifyingGlassIcon className="mb-4 size-12 text-muted-foreground" />
 							<h3 className="mb-2 font-semibold text-lg">
-								<Trans>No templates found</Trans>
+								<Trans>Aucun modèle trouvé</Trans>
 							</h3>
 							<p className="text-muted-foreground">
-								<Trans>Try adjusting your filters or search query</Trans>
+								<Trans>Essaie de modifier la recherche ou les filtres.</Trans>
 							</p>
 						</div>
 					)}
@@ -270,10 +270,10 @@ function TemplateGalleryPage() {
 				<TabsContent value="trending" className="space-y-8">
 					<div className="mb-6">
 						<h3 className="mb-2 font-semibold text-xl">
-							<Trans>Trending Now</Trans>
+							<Trans>Les plus demandés en ce moment</Trans>
 						</h3>
 						<p className="text-muted-foreground">
-							<Trans>The most popular templates this week based on downloads and ratings</Trans>
+							<Trans>Les modèles les plus utilisés par les étudiants et jeunes diplômés cette semaine.</Trans>
 						</p>
 					</div>
 
@@ -312,7 +312,7 @@ function TemplateGalleryPage() {
 									<div>
 										<h3 className="font-semibold text-xl">{styleLabels[style]}</h3>
 										<p className="text-muted-foreground text-sm">
-											{styleTemplates.length} <Trans>template(s)</Trans>
+											{styleTemplates.length} <Trans>modèle(s)</Trans>
 										</p>
 									</div>
 								</div>
@@ -354,7 +354,7 @@ function TemplateGalleryPage() {
 									<div>
 										<h3 className="font-semibold text-xl">{industryLabels[industry]}</h3>
 										<p className="text-muted-foreground text-sm">
-											{industryTemplates.length} <Trans>template(s)</Trans>
+											{industryTemplates.length} <Trans>modèle(s)</Trans>
 										</p>
 									</div>
 								</div>
@@ -385,13 +385,13 @@ function TemplateGalleryPage() {
 						<div className="flex flex-col items-center justify-center py-12 text-center">
 							<HeartIcon className="mb-4 size-12 text-muted-foreground" />
 							<h3 className="mb-2 font-semibold text-lg">
-								<Trans>No favorite templates yet</Trans>
+								<Trans>Aucun favori pour le moment</Trans>
 							</h3>
 							<p className="mb-4 text-muted-foreground">
-								<Trans>Browse templates and click the heart icon to save them here</Trans>
+								<Trans>Parcours la galerie et clique sur le coeur pour garder tes modèles préférés.</Trans>
 							</p>
 							<Button onClick={() => setActiveTab("all")}>
-								<Trans>Browse Templates</Trans>
+								<Trans>Voir les modèles</Trans>
 							</Button>
 						</div>
 					) : (

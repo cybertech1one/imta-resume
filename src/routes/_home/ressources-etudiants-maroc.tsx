@@ -153,11 +153,13 @@ export const Route = createFileRoute("/_home/ressources-etudiants-maroc")({
 
 function RouteComponent() {
 	return (
-		<main id="main-content" className="bg-white pt-16">
-			<section className="grid overflow-hidden bg-white lg:min-h-[660px] lg:grid-cols-[0.92fr_1.08fr]">
+		<main id="main-content" className="bg-white pt-20">
+			<section className="grid overflow-hidden bg-[#f7fbfa] lg:min-h-[660px] lg:grid-cols-[0.92fr_1.08fr]">
 				<div className="flex items-center px-6 py-16 md:px-10 lg:px-14">
 					<div className="max-w-2xl">
-						<p className="font-semibold text-emerald-800 text-sm">Ressources publiques IMTA Resume</p>
+						<p className="inline-flex items-center rounded-full border border-emerald-900/10 bg-white px-3 py-1.5 font-semibold text-emerald-900 text-sm shadow-sm">
+							Ressources publiques IMTA Resume
+						</p>
 						<h1 className="mt-5 font-display text-5xl text-zinc-950 leading-[1.02] md:text-6xl">
 							Des pages qui attirent les étudiants au bon moment.
 						</h1>
@@ -168,25 +170,25 @@ function RouteComponent() {
 						<div className="mt-9 flex flex-col gap-4 sm:flex-row">
 							<Link
 								to="/dashboard"
-								className="inline-flex h-14 items-center justify-center rounded-md bg-emerald-800 px-7 font-semibold text-white transition-colors hover:bg-emerald-900"
+								className="inline-flex h-14 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#006b53,#00a88a)] px-7 font-semibold text-white shadow-[0_22px_44px_-26px_rgba(0,107,83,0.95)] transition-transform hover:-translate-y-0.5"
 							>
 								Créer mon CV gratuitement
 							</Link>
 							<a
 								href="#catalogue"
-								className="inline-flex h-14 items-center justify-center rounded-md border border-zinc-200 bg-white px-7 font-semibold text-zinc-900 transition-colors hover:border-emerald-800 hover:text-emerald-800"
+								className="inline-flex h-14 items-center justify-center rounded-xl border border-emerald-950/15 bg-white px-7 font-semibold text-zinc-900 shadow-sm transition-colors hover:border-emerald-800 hover:text-emerald-800"
 							>
 								Explorer les pages
 							</a>
 							<a
 								href="/campagnes-etudiants"
-								className="inline-flex h-14 items-center justify-center rounded-md border border-zinc-200 bg-white px-7 font-semibold text-zinc-900 transition-colors hover:border-emerald-800 hover:text-emerald-800"
+								className="inline-flex h-14 items-center justify-center rounded-xl border border-emerald-950/15 bg-white px-7 font-semibold text-zinc-900 shadow-sm transition-colors hover:border-emerald-800 hover:text-emerald-800"
 							>
 								Voir les campagnes
 							</a>
 							<a
 								href="/plan-marketing-etudiants"
-								className="inline-flex h-14 items-center justify-center rounded-md border border-zinc-200 bg-white px-7 font-semibold text-zinc-900 transition-colors hover:border-emerald-800 hover:text-emerald-800"
+								className="inline-flex h-14 items-center justify-center rounded-xl border border-emerald-950/15 bg-white px-7 font-semibold text-zinc-900 shadow-sm transition-colors hover:border-emerald-800 hover:text-emerald-800"
 							>
 								Plan 30 jours
 							</a>
@@ -200,7 +202,7 @@ function RouteComponent() {
 				</div>
 				<div className="relative min-h-[430px] overflow-hidden lg:min-h-full">
 					<img
-						src="/home/public-pages-morocco-hub.webp"
+						src="/home/healthtech-student-hero.png"
 						alt=""
 						aria-hidden="true"
 						fetchPriority="high"
@@ -236,7 +238,7 @@ function RouteComponent() {
 				</div>
 			</section>
 
-			<section id="catalogue" className="bg-zinc-950 py-16 text-white md:py-20">
+			<section id="catalogue" className="bg-[linear-gradient(135deg,#063b32,#008d78)] py-16 text-white md:py-20">
 				<div className="mx-auto max-w-7xl px-6 lg:px-10">
 					<div className="mx-auto max-w-3xl text-center">
 						<h2 className="font-display text-4xl leading-tight md:text-5xl">
@@ -291,7 +293,7 @@ function RouteComponent() {
 				</div>
 			</section>
 
-			<section className="grid overflow-hidden bg-emerald-950 text-white lg:grid-cols-[0.95fr_1.05fr]">
+			<section className="grid overflow-hidden bg-[linear-gradient(135deg,#063b32,#008d78)] text-white lg:grid-cols-[0.95fr_1.05fr]">
 				<div className="flex items-center px-6 py-14 md:px-10 lg:px-14">
 					<div className="max-w-xl">
 						<h2 className="font-display text-4xl leading-tight md:text-5xl">
@@ -310,7 +312,7 @@ function RouteComponent() {
 					</div>
 				</div>
 				<img
-					src="/home/home-hero-students-career.webp"
+					src="/home/healthtech-student-hero.png"
 					alt=""
 					aria-hidden="true"
 					loading="lazy"

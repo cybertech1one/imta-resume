@@ -4,19 +4,19 @@ import { Link } from "@tanstack/react-router";
 
 export function Header() {
 	return (
-		<header className="fixed inset-x-0 top-0 z-50 border-zinc-200 border-b bg-white/92 text-zinc-950 backdrop-blur-md">
+		<header className="fixed inset-x-0 top-0 z-50 border-emerald-950/10 border-b bg-white/88 text-zinc-950 shadow-[0_10px_40px_-30px_rgba(0,56,44,0.5)] backdrop-blur-xl">
 			<nav
 				aria-label={t`Navigation principale`}
-				className="mx-auto flex max-w-7xl items-center gap-x-4 px-4 py-3.5 lg:px-10"
+				className="mx-auto flex max-w-7xl items-center gap-x-4 px-4 py-3 lg:px-10"
 			>
 				<Link
 					to="/"
 					className="group flex items-center gap-3 transition-opacity hover:opacity-90"
 					aria-label={t`IMTA Resume - Accueil`}
 				>
-					<div className="relative flex size-10 items-center justify-center rounded-md bg-emerald-800 text-white shadow-sm">
+					<div className="relative flex size-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#006b53,#00a88a)] text-white shadow-[0_14px_28px_-18px_rgba(0,107,83,0.9)]">
 						<FileTextIcon aria-hidden="true" className="size-5" weight="fill" />
-						<div className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full bg-teal-400 ring-2 ring-white" />
+						<div className="absolute -top-0.5 -right-0.5 size-3 rounded-full bg-cyan-300 ring-2 ring-white" />
 					</div>
 					<span className="hidden font-bold font-display text-xl sm:block">
 						IMTA<span className="text-emerald-800"> Resume</span>
@@ -52,7 +52,7 @@ export function Header() {
 				<div className="ml-auto flex items-center gap-x-2 sm:gap-x-3">
 					<Link
 						to="/dashboard"
-						className="hidden h-11 items-center gap-2 rounded-md bg-emerald-800 px-6 font-semibold text-white shadow-sm transition-colors hover:bg-emerald-900 sm:inline-flex"
+						className="hidden h-11 items-center gap-2 rounded-xl bg-[linear-gradient(135deg,#006b53,#009d86)] px-6 font-semibold text-white shadow-[0_16px_32px_-20px_rgba(0,107,83,0.85)] transition-transform hover:-translate-y-0.5 sm:inline-flex"
 						aria-label={t`Aller au tableau de bord`}
 					>
 						Commencer maintenant
@@ -91,7 +91,7 @@ export function Header() {
 								<div className="mt-2 border-zinc-200 border-t pt-3">
 									<Link
 										to="/dashboard"
-										className="inline-flex h-11 w-full items-center justify-center rounded-md bg-emerald-800 px-5 font-semibold text-white hover:bg-emerald-900"
+										className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-emerald-800 px-5 font-semibold text-white hover:bg-emerald-900"
 									>
 										Commencer gratuitement
 									</Link>

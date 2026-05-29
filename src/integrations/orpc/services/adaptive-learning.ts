@@ -486,17 +486,19 @@ Profil étudiant :
 Crée un parcours d'apprentissage structuré avec :
 1. Un titre accrocheur et une description motivante (en français)
 2. 4 à 6 modules d'apprentissage, chacun contenant :
-   - Titre (en français pour titleFr, en anglais pour title)
+   - Titre en français (champ title ET titleFr doivent être en français)
    - Compétences à acquérir
    - Heures estimées
    - 3 à 5 ressources pédagogiques (mix vidéos, articles, quiz, exercices)
 3. Durée totale estimée
 4. Jalons clés
 
+IMPORTANT : Les champs "title" et "titleFr" doivent TOUS LES DEUX être en français. Ne mets PAS d'anglais dans "title".
+
 Réponds au format JSON :
 {
-  "title": "string",
-  "titleFr": "string",
+  "title": "string (en français)",
+  "titleFr": "string (en français)",
   "description": "string",
   "descriptionFr": "string",
   "estimatedDuration": "string",
@@ -505,8 +507,8 @@ Réponds au format JSON :
   "modules": [
     {
       "id": "string (uuid)",
-      "title": "string",
-      "titleFr": "string",
+      "title": "string (en français)",
+      "titleFr": "string (en français)",
       "description": "string",
       "order": number,
       "estimatedHours": number,

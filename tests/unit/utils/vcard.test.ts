@@ -304,7 +304,7 @@ describe("vcard utilities", () => {
 			it("should include PRODID", () => {
 				const data = createMockResumeData();
 				const vcard = generateVCard(data);
-				expect(vcard).toContain("PRODID:-//Reactive Resume//EN");
+				expect(vcard).toContain("PRODID:-//IMTA Resume//EN");
 			});
 
 			it("should include REV (revision date)", () => {

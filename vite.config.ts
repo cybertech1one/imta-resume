@@ -400,9 +400,9 @@ const config = defineConfig({
 				navigateFallback: null,
 			},
 			manifest: {
-				name: "Reactive Resume",
-				short_name: "Reactive Resume",
-				description: "A free and open-source resume builder.",
+				name: "IMTA Resume",
+				short_name: "IMTA Resume",
+				description: "Official resume builder for IMTA Trade School.",
 				id: "/?source=pwa",
 				start_url: "/?source=pwa",
 				display: "standalone",

@@ -179,7 +179,7 @@ function PathCard({
 					<div className="flex flex-col gap-4 sm:flex-row sm:items-start">
 						<div className="min-w-0 flex-1 space-y-2">
 							<div className="flex flex-wrap items-center gap-2">
-								<h3 className="font-semibold text-sm leading-tight">{path.title}</h3>
+								<h3 className="font-semibold text-sm leading-tight">{path.titleFr || path.title}</h3>
 								{path.isPrimary && (
 									<Badge variant="default" className="text-xs">
 										<Trans>Primary</Trans>

@@ -48,6 +48,7 @@ export const Route = createFileRoute("/dashboard/learn/" as any)({
 type DashboardPath = {
 	id: string;
 	title: string;
+	titleFr?: string | null;
 	field?: string | null;
 	status: string;
 	completionPercentage?: number | null;
@@ -286,7 +287,7 @@ function LearningDashboard() {
 										<div key={path.id} className="rounded-lg border p-4">
 											<div className="mb-2 flex items-start justify-between gap-2">
 												<div className="min-w-0 flex-1">
-													<p className="truncate font-medium text-sm">{path.title}</p>
+													<p className="truncate font-medium text-sm">{path.titleFr || path.title}</p>
 													{path.field && <p className="text-muted-foreground text-xs capitalize">{path.field}</p>}
 												</div>
 												<PathStatusBadge status={path.status} />

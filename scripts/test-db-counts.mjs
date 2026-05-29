@@ -12,7 +12,7 @@ try {
 
 if (!dbUrl) {
   // fallback
-  dbUrl = 'postgresql://postgres:postgres@localhost:5432/reactive_resume';
+  dbUrl = 'postgresql://postgres:postgres@localhost:5432/postgres';
 }
 
 console.log('Using DB:', dbUrl.replace(/:[^:@]+@/, ':***@'));

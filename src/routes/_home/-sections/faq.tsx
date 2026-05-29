@@ -3,8 +3,6 @@ import { Trans } from "@lingui/react/macro";
 import { CaretRightIcon } from "@phosphor-icons/react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-const crowdinUrl = "https://crowdin.com/project/reactive-resume";
-
 type FAQItemData = {
 	question: string;
 	answer: React.ReactNode;
@@ -25,22 +23,7 @@ const getFaqItems = (): FAQItemData[] => [
 	},
 	{
 		question: t`IMTA Resume est-il disponible en plusieurs langues ?`,
-		answer: (
-			<Trans>
-				Oui, IMTA Resume est disponible en plusieurs langues, notamment le français, l'anglais et l'arabe. Vous pouvez
-				choisir votre langue préférée dans les paramètres. Si vous souhaitez améliorer les traductions, vous pouvez{" "}
-				<a
-					href={crowdinUrl}
-					target="_blank"
-					rel="noopener"
-					className="font-semibold text-emerald-800 underline underline-offset-4"
-				>
-					contribuer sur Crowdin
-					<span className="sr-only"> (s'ouvre dans un nouvel onglet)</span>
-				</a>
-				.
-			</Trans>
-		),
+		answer: t`Oui, IMTA Resume est disponible en plusieurs langues, notamment le français, l'anglais et l'arabe. Vous pouvez choisir votre langue préférée dans les paramètres.`,
 	},
 	{
 		question: t`Qu'est-ce qui différencie IMTA Resume des autres créateurs de CV ?`,

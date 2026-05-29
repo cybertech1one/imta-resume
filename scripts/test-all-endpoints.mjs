@@ -1,7 +1,7 @@
 /**
  * Comprehensive ORPC API Endpoint Test Script
  *
- * Tests ALL discovered endpoints in the Reactive Resume application.
+ * Tests ALL discovered endpoints in the IMTA Resume application.
  * ORPC wire protocol:
  *   - POST body: {"json": <input>}
  *   - GET query: ?data={"json": <input>}

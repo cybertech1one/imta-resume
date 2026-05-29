@@ -93,7 +93,7 @@ async function testPage(label, path, cookie) {
 
 async function testDatabase() {
   console.log("\n=== STEP 4: DATABASE TABLE COUNTS ===");
-  const client = new Client({ connectionString: process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/reactive_resume" });
+  const client = new Client({ connectionString: process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/postgres" });
   try {
     await client.connect();
     const tables = [

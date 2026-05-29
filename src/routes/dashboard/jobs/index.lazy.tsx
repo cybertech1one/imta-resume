@@ -51,15 +51,20 @@ function JobBoard() {
 	const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 	const [isJobDetailOpen, setIsJobDetailOpen] = useState(false);
 
-	// Database queries
+	// Database queries — fetch published partner jobs (not per-user aggregator)
 	const {
-		data: dbJobs = [],
+		data: dbJobsData,
 		isLoading: isLoadingJobs,
 		isError: isJobsError,
 	} = useQuery({
-		...orpc.jobAggregator.jobs.list.queryOptions({ input: {} }),
+		...orpc.partner.listPublishedJobs.queryOptions({
+			input: { page: 1, limit: 100 },
+		}),
 		enabled: !!session?.user,
+		staleTime: 2 * 60 * 1000,
 	});
+	// biome-ignore lint/suspicious/noExplicitAny: ORPC response shape varies at runtime
+	const dbJobs: unknown[] = (dbJobsData as any)?.jobs ?? [];
 	const { data: dbEmployers } = useQuery({
 		...orpc.employers.list.queryOptions({ input: { activeOnly: true } }),
 		enabled: !!session?.user,
@@ -97,7 +102,7 @@ function JobBoard() {
 		}));
 	}, [dbMarketInsights]);
 
-	// Transform aggregated jobs from the database into the Job interface
+	// Transform partner job postings into the Job interface
 	const allJobs: Job[] = useMemo(() => {
 		if (!dbJobs || dbJobs.length === 0) return [];
 		const fieldMap: Record<string, Job["field"]> = {
@@ -115,25 +120,49 @@ function JobBoard() {
 			senior: "senior",
 			lead: "senior",
 		};
-		return dbJobs.map((j) => ({
+		return (
+			dbJobs as Array<{
+				id: string;
+				title: string;
+				titleFr: string | null;
+				companyName: string | null;
+				companyLogo: string | null;
+				location: string;
+				region: string | null;
+				field: string | null;
+				experienceLevel: string;
+				salaryMin: number | null;
+				salaryMax: number | null;
+				salaryCurrency: string | null;
+				publishedAt: Date | string | null;
+				createdAt: Date | string;
+				description: string;
+				requirements: string[] | null;
+				skills: string[] | null;
+				applicationUrl: string | null;
+				applicationEmail: string | null;
+				isFeatured: boolean;
+				isUrgent: boolean;
+			}>
+		).map((j) => ({
 			id: j.id,
-			title: j.title,
-			company: j.company,
+			title: j.titleFr || j.title,
+			company: j.companyName ?? "Entreprise partenaire",
 			companyLogo: j.companyLogo ?? undefined,
 			location: j.location,
-			region: j.location,
-			field: fieldMap[j.industry] ?? "general",
+			region: j.region ?? j.location,
+			field: fieldMap[j.field ?? ""] ?? "general",
 			experienceLevel: expMap[j.experienceLevel] ?? "mid",
 			salaryMin: j.salaryMin ?? undefined,
 			salaryMax: j.salaryMax ?? undefined,
-			currency: j.currency,
-			postedDate: j.postedDate,
+			currency: j.salaryCurrency ?? "MAD",
+			postedDate: new Date(j.publishedAt ?? j.createdAt).toISOString().split("T")[0],
 			description: j.description,
-			requirements: j.requirements,
-			skills: j.skills,
-			howToApply: j.sourceUrl,
-			featured: j.isSaved,
-			urgent: false,
+			requirements: (j.requirements as string[]) ?? [],
+			skills: (j.skills as string[]) ?? [],
+			howToApply: j.applicationUrl ?? j.applicationEmail ?? "",
+			featured: j.isFeatured,
+			urgent: j.isUrgent,
 		}));
 	}, [dbJobs]);
 

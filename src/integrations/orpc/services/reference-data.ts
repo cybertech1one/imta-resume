@@ -1,6 +1,7 @@
 import { and, asc, desc, eq, sql } from "drizzle-orm";
 import { schema } from "@/integrations/drizzle";
 import { db } from "@/integrations/drizzle/client";
+import { generateId } from "@/utils/string";
 
 // Type exports for use in routers
 export type ImtaProgram = typeof schema.imtaProgram.$inferSelect;
@@ -37,8 +38,12 @@ export const referenceDataService = {
 			return program;
 		},
 
-		create: async (data: Omit<typeof schema.imtaProgram.$inferInsert, "createdAt" | "updatedAt">) => {
-			const [program] = await db.insert(schema.imtaProgram).values(data).returning();
+		create: async (data: Omit<typeof schema.imtaProgram.$inferInsert, "id" | "createdAt" | "updatedAt">) => {
+			// Always generate a server-side UUID so records are always deletable via the UUID-gated delete endpoint
+			const [program] = await db
+				.insert(schema.imtaProgram)
+				.values({ ...data, id: generateId() })
+				.returning();
 			return program;
 		},
 
@@ -86,8 +91,12 @@ export const referenceDataService = {
 			return tip;
 		},
 
-		create: async (data: Omit<typeof schema.interviewTip.$inferInsert, "createdAt" | "updatedAt">) => {
-			const [tip] = await db.insert(schema.interviewTip).values(data).returning();
+		create: async (data: Omit<typeof schema.interviewTip.$inferInsert, "id" | "createdAt" | "updatedAt">) => {
+			// Always generate a server-side UUID so records are always deletable via the UUID-gated delete endpoint
+			const [tip] = await db
+				.insert(schema.interviewTip)
+				.values({ ...data, id: generateId() })
+				.returning();
 			return tip;
 		},
 
@@ -148,8 +157,14 @@ export const referenceDataService = {
 			return question;
 		},
 
-		create: async (data: Omit<typeof schema.interviewCommonQuestion.$inferInsert, "createdAt" | "updatedAt">) => {
-			const [question] = await db.insert(schema.interviewCommonQuestion).values(data).returning();
+		create: async (
+			data: Omit<typeof schema.interviewCommonQuestion.$inferInsert, "id" | "createdAt" | "updatedAt">,
+		) => {
+			// Always generate a server-side UUID so records are always deletable via the UUID-gated delete endpoint
+			const [question] = await db
+				.insert(schema.interviewCommonQuestion)
+				.values({ ...data, id: generateId() })
+				.returning();
 			return question;
 		},
 
@@ -372,19 +387,24 @@ export const referenceDataService = {
 	// ============================================================================
 
 	bulkSeed: {
-		imtaPrograms: async (programs: (typeof schema.imtaProgram.$inferInsert)[]) => {
+		imtaPrograms: async (programs: (Omit<typeof schema.imtaProgram.$inferInsert, "id"> & { id?: string })[]) => {
 			if (programs.length === 0) return [];
-			return db.insert(schema.imtaProgram).values(programs).onConflictDoNothing().returning();
+			const rows = programs.map((p) => ({ ...p, id: p.id ?? generateId() }));
+			return db.insert(schema.imtaProgram).values(rows).onConflictDoNothing().returning();
 		},
 
-		interviewTips: async (tips: (typeof schema.interviewTip.$inferInsert)[]) => {
+		interviewTips: async (tips: (Omit<typeof schema.interviewTip.$inferInsert, "id"> & { id?: string })[]) => {
 			if (tips.length === 0) return [];
-			return db.insert(schema.interviewTip).values(tips).onConflictDoNothing().returning();
+			const rows = tips.map((t) => ({ ...t, id: t.id ?? generateId() }));
+			return db.insert(schema.interviewTip).values(rows).onConflictDoNothing().returning();
 		},
 
-		interviewQuestions: async (questions: (typeof schema.interviewCommonQuestion.$inferInsert)[]) => {
+		interviewQuestions: async (
+			questions: (Omit<typeof schema.interviewCommonQuestion.$inferInsert, "id"> & { id?: string })[],
+		) => {
 			if (questions.length === 0) return [];
-			return db.insert(schema.interviewCommonQuestion).values(questions).onConflictDoNothing().returning();
+			const rows = questions.map((q) => ({ ...q, id: q.id ?? generateId() }));
+			return db.insert(schema.interviewCommonQuestion).values(rows).onConflictDoNothing().returning();
 		},
 
 		marketInsights: async (insights: (typeof schema.careerMarketInsight.$inferInsert)[]) => {

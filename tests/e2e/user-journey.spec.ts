@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 /**
- * User Journey E2E Tests for Reactive Resume
+ * User Journey E2E Tests for IMTA Resume
  *
  * These tests cover the complete user journey from landing page
  * through authentication, dashboard, and resume creation.
@@ -9,7 +9,7 @@ import { expect, test } from "@playwright/test";
  * Run with: npx playwright test tests/e2e/user-journey.spec.ts --headed
  */
 
-// Override base URL for this test file - Reactive Resume runs on port 3040
+// Override base URL for this test file - IMTA Resume runs on port 3040
 test.use({ baseURL: "http://localhost:3040" });
 
 test.describe("User Journey - Homepage and Navigation", () => {

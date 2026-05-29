@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { AIFeedbackButtons } from "@/components/ai/ai-feedback-buttons";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { stripMarkdownFences } from "@/integrations/ai/sanitize";
 import { client, orpc } from "@/integrations/orpc/client";
 import { cn } from "@/utils/style";
 
@@ -68,7 +69,7 @@ export function AIImproveButton({
 			return { output: fullContent, startTime };
 		},
 		onSuccess: ({ output, startTime }) => {
-			onImproved(output);
+			onImproved(stripMarkdownFences(output));
 			setIsStreaming(false);
 			setStreamedContent("");
 			setLastResult({ input: content, output, startTime });

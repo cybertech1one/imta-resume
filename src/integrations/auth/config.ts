@@ -152,8 +152,11 @@ const getAuthConfig = () => {
 			},
 			additionalFields: {
 				username: {
+					// Not strictly required as input: when omitted (e.g. a minimal
+					// email + password + name signup), the databaseHooks.user.create.before
+					// hook below auto-derives a unique username from the email/name.
 					type: "string",
-					required: true,
+					required: false,
 				},
 				role: {
 					type: "string",
@@ -183,6 +186,56 @@ const getAuthConfig = () => {
 			accountLinking: {
 				enabled: true,
 				trustedProviders: ["google", "github"],
+			},
+		},
+
+		databaseHooks: {
+			user: {
+				create: {
+					// Ensure username/displayUsername are always populated and unique.
+					// The `user` table has NOT NULL + UNIQUE constraints on both columns.
+					// A minimal signup (email + password + name) does not supply a username,
+					// which previously caused the INSERT to fail -> FAILED_TO_CREATE_USER.
+					// Here we derive a valid, unique username from the supplied username,
+					// the email local-part, or the name as a fallback.
+					before: async (userData) => {
+						const data = userData as Record<string, unknown> & { email?: string; name?: string };
+
+						const rawCandidate =
+							(typeof data.username === "string" && data.username) ||
+							(typeof data.email === "string" && data.email.split("@")[0]) ||
+							(typeof data.name === "string" && data.name) ||
+							"user";
+
+						let base = toUsername(rawCandidate);
+						if (base.length < 3) base = toUsername(`${base}user${Math.floor(Math.random() * 1000)}`);
+
+						// Resolve collisions against existing usernames / displayUsernames.
+						const candidate = base;
+						let attempt = candidate;
+						for (let i = 0; i < 50; i++) {
+							const [existing] = await db
+								.select({ id: schema.user.id })
+								.from(schema.user)
+								.where(or(eq(schema.user.username, attempt), eq(schema.user.displayUsername, attempt)))
+								.limit(1);
+
+							if (!existing) break;
+
+							const suffix = Math.floor(1000 + Math.random() * 9000);
+							attempt = toUsername(`${candidate}.${suffix}`);
+						}
+
+						return {
+							data: {
+								...data,
+								username: attempt,
+								displayUsername:
+									typeof data.displayUsername === "string" && data.displayUsername ? data.displayUsername : attempt,
+							},
+						};
+					},
+				},
 			},
 		},
 

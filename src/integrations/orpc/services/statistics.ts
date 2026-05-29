@@ -5,7 +5,9 @@ import { schema } from "@/integrations/drizzle";
 import { db } from "@/integrations/drizzle/client";
 
 const CACHE_DURATION_MS = 6 * 60 * 60 * 1000; // 6 hours
-const GITHUB_API_URL = "https://api.github.com/repos/amruthpillai/reactive-resume";
+// Optionally configure a GitHub repository to read stargazer counts from.
+// When unset, the last-known value is used instead.
+const GITHUB_API_URL = process.env.GITHUB_STARS_API_URL ?? "";
 
 const LAST_KNOWN = {
 	users: 978_528,
@@ -66,6 +68,8 @@ const getCountFromDatabase = async (table: typeof schema.user | typeof schema.re
 };
 
 const getGitHubStars = async (): Promise<number | null> => {
+	if (!GITHUB_API_URL) return null;
+
 	const response = await fetch(GITHUB_API_URL, { headers: { Accept: "application/vnd.github+json" } });
 	if (!response.ok) return null;
 
