@@ -97,15 +97,6 @@ async function ensureUser({ email, name, username, role, imtaProgram, onboarding
 }
 
 const accounts = [
-	{
-		email: "etudiant@imta.ma",
-		name: "Étudiant IMTA",
-		username: "etudiant",
-		role: "user",
-		imtaProgram: "infirmier_polyvalent",
-		onboardingCompleted: true,
-		emailVerified: true,
-	},
 	{ email: "seoranker2019@gmail.com", name: "Owner Admin", role: "admin", imtaProgram: null, onboardingCompleted: true, emailVerified: true },
 	{ email: "admin@test.com", name: "Admin Test", role: "admin", imtaProgram: null, onboardingCompleted: false, emailVerified: true },
 	{ email: "student1@test.com", name: "Student One", role: "user", imtaProgram: "infirmier_polyvalent", onboardingCompleted: true, emailVerified: true },

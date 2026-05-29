@@ -33,14 +33,12 @@ RUN pnpm run build
 # ---------- Runtime Layer ----------
 FROM node:24-slim AS runtime
 
-LABEL maintainer="amruthpillai"
+LABEL maintainer="cybertech1one"
 LABEL org.opencontainers.image.licenses="MIT"
-LABEL org.opencontainers.image.title="Reactive Resume"
-LABEL org.opencontainers.image.description="A free and open-source resume builder."
-LABEL org.opencontainers.image.vendor="Amruth Pillai"
-LABEL org.opencontainers.image.url="https://rxresu.me"
-LABEL org.opencontainers.image.documentation="https://docs.rxresu.me"
-LABEL org.opencontainers.image.source="https://github.com/amruthpillai/reactive-resume"
+LABEL org.opencontainers.image.title="IMTA Resume"
+LABEL org.opencontainers.image.description="Constructeur de CV pour les étudiants de l'IMTA Maroc."
+LABEL org.opencontainers.image.vendor="IMTA Morocco"
+LABEL org.opencontainers.image.source="https://github.com/cybertech1one/imta-resume"
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl \
     && rm -rf /var/lib/apt/lists/*
