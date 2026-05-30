@@ -73,13 +73,19 @@ import type {
 	WorkType,
 } from "./aggregator-types";
 
-const formatCurrency = (amount: number) => `${amount.toLocaleString()} MAD`;
+const MAD_FORMATTER = new Intl.NumberFormat("fr-FR", {
+	maximumFractionDigits: 0,
+	style: "currency",
+	currency: "MAD",
+});
+
+const formatCurrency = (amount: number) => MAD_FORMATTER.format(amount);
 
 const getDaysAgo = (dateString: string) => {
 	const days = Math.floor((Date.now() - new Date(dateString).getTime()) / (1000 * 60 * 60 * 24));
-	if (days === 0) return t`Today`;
-	if (days === 1) return t`Yesterday`;
-	return t`${days} days ago`;
+	if (days === 0) return t`Aujourd'hui`;
+	if (days === 1) return t`Hier`;
+	return t`Il y a ${days} jours`;
 };
 
 // Hero Section
@@ -95,28 +101,14 @@ export function HeroSection({
 }) {
 	return (
 		<motion.div
-			className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 p-8 md:p-12"
+			className="relative mb-8 overflow-hidden rounded-lg border border-primary/20 bg-[linear-gradient(135deg,hsl(var(--primary)/0.12),hsl(var(--background)),hsl(var(--chart-2)/0.10))] p-6 md:p-8"
 			style={{
-				background:
-					"linear-gradient(135deg, oklch(0.65 0.18 240 / 0.15) 0%, oklch(0.6 0.2 280 / 0.1) 50%, oklch(0.7 0.15 200 / 0.08) 100%)",
+				boxShadow: "inset 0 1px 0 hsl(var(--background) / 0.7)",
 			}}
 			initial={false}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.6, ease: "easeOut" }}
 		>
-			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/10 blur-3xl"
-					animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.3, 0.5] }}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute -bottom-32 -left-32 size-96 rounded-full bg-gradient-to-tr from-blue-500/15 to-cyan-500/10 blur-3xl"
-					animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3] }}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-			</div>
-
 			<div className="relative z-10">
 				<motion.div
 					className="mb-3 flex items-center gap-2"
@@ -124,30 +116,30 @@ export function HeroSection({
 					animate={{ opacity: 1, x: 0 }}
 					transition={{ delay: 0.2 }}
 				>
-					<GlobeIcon className="size-5 text-primary" weight="fill" />
-					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>Unified Search</Trans>
+					<GlobeIcon aria-hidden="true" className="size-5 text-primary" weight="fill" />
+					<span className="font-semibold text-primary text-sm uppercase tracking-[0.08em]">
+						<Trans>Recherche centralisée</Trans>
 					</span>
 				</motion.div>
 
 				<motion.h2
-					className="mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text font-bold text-3xl text-transparent tracking-tight md:text-4xl lg:text-5xl"
+					className="mb-3 max-w-3xl font-bold text-2xl tracking-tight md:text-3xl"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.3 }}
 				>
-					<Trans>Job Listings Aggregator</Trans>
+					<Trans>Trouve, compare et suis les offres qui comptent</Trans>
 				</motion.h2>
 
 				<motion.p
-					className="mb-8 max-w-2xl text-lg text-muted-foreground"
+					className="mb-6 max-w-2xl text-muted-foreground text-sm md:text-base"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.4 }}
 				>
 					<Trans>
-						Search LinkedIn, Indeed, and Glassdoor in one interface. Compare listings, track your applications, and save
-						your searches.
+						Recherche dans les offres disponibles, enregistre les meilleures pistes et compare rapidement les
+						opportunités avant de postuler.
 					</Trans>
 				</motion.p>
 
@@ -158,29 +150,29 @@ export function HeroSection({
 					animate={{ opacity: 1 }}
 					transition={{ delay: 0.5 }}
 				>
-					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
+					<div className="rounded-lg border bg-background/80 p-4 shadow-sm">
 						<p className="font-bold text-2xl">{stats.total}</p>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Listings found</Trans>
+							<Trans>Offres trouvées</Trans>
 						</p>
 					</div>
-					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
+					<div className="rounded-lg border bg-background/80 p-4 shadow-sm">
 						<div className="flex items-center gap-2">
-							<LinkedinLogoIcon className="size-5 text-blue-600" weight="fill" />
+							<LinkedinLogoIcon aria-hidden="true" className="size-5 text-blue-600" weight="fill" />
 							<p className="font-bold text-2xl">{stats.bySource.linkedin}</p>
 						</div>
 						<p className="text-muted-foreground text-sm">LinkedIn</p>
 					</div>
-					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
+					<div className="rounded-lg border bg-background/80 p-4 shadow-sm">
 						<p className="font-bold text-2xl text-green-600 dark:text-green-400">{stats.saved}</p>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Saved</Trans>
+							<Trans>Enregistrées</Trans>
 						</p>
 					</div>
-					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
+					<div className="rounded-lg border bg-background/80 p-4 shadow-sm">
 						<p className="font-bold text-2xl text-purple-600 dark:text-purple-400">{stats.applied}</p>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Applications</Trans>
+							<Trans>Candidatures</Trans>
 						</p>
 					</div>
 				</motion.div>
@@ -216,9 +208,15 @@ export function SearchBar({
 			<CardContent className="p-4">
 				<div className="flex flex-col gap-4 md:flex-row md:items-center">
 					<div className="relative flex-1">
-						<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-muted-foreground" />
+						<MagnifyingGlassIcon
+							aria-hidden="true"
+							className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-muted-foreground"
+						/>
 						<Input
-							placeholder={t`Search for a position, company, skill...`}
+							aria-label={t`Rechercher une offre`}
+							name="aggregatedJobSearch"
+							autoComplete="off"
+							placeholder={t`Rechercher par poste, entreprise ou compétence…`}
 							value={searchQuery}
 							onChange={(e) => {
 								setSearchQuery(e.target.value);
@@ -240,6 +238,7 @@ export function SearchBar({
 									variant={isActive ? "default" : "outline"}
 									size="sm"
 									className={cn("gap-2", isActive && config.bgColor, isActive && config.color)}
+									aria-pressed={isActive}
 									onClick={() => {
 										setFilters((prev) => ({
 											...prev,
@@ -248,7 +247,7 @@ export function SearchBar({
 										setCurrentPage(1);
 									}}
 								>
-									<SourceIcon className="size-4" weight={isActive ? "fill" : "regular"} />
+									<SourceIcon aria-hidden="true" className="size-4" weight={isActive ? "fill" : "regular"} />
 									{config.label}
 								</Button>
 							);
@@ -257,8 +256,8 @@ export function SearchBar({
 
 					<div className="flex gap-2">
 						<Button variant="outline" className="gap-2" onClick={() => setIsFilterSheetOpen(true)}>
-							<FunnelIcon className="size-4" />
-							<Trans>Filters</Trans>
+							<FunnelIcon aria-hidden="true" className="size-4" />
+							<Trans>Filtres</Trans>
 							{hasActiveFilters && (
 								<Badge className="ml-1 size-5 rounded-full bg-primary p-0 text-primary-foreground text-xs">!</Badge>
 							)}
@@ -269,8 +268,8 @@ export function SearchBar({
 							onClick={() => setIsSaveSearchOpen(true)}
 							disabled={!searchQuery && !hasActiveFilters}
 						>
-							<FloppyDiskIcon className="size-4" />
-							<Trans>Save</Trans>
+							<FloppyDiskIcon aria-hidden="true" className="size-4" />
+							<Trans>Enregistrer</Trans>
 						</Button>
 					</div>
 				</div>
@@ -279,64 +278,80 @@ export function SearchBar({
 				{hasActiveFilters && (
 					<div className="mt-4 flex flex-wrap items-center gap-2">
 						<span className="text-muted-foreground text-sm">
-							<Trans>Active filters:</Trans>
+							<Trans>Filtres actifs :</Trans>
 						</span>
 						{filters.industries.map((ind) => (
 							<Badge key={ind} variant="secondary" className="gap-1">
 								{industryConfig[ind].label}
-								<XIcon
-									className="size-3 cursor-pointer"
+								<button
+									type="button"
+									className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+									aria-label={t`Retirer le filtre ${industryConfig[ind].label}`}
 									onClick={() =>
 										setFilters((prev) => ({
 											...prev,
 											industries: prev.industries.filter((i) => i !== ind),
 										}))
 									}
-								/>
+								>
+									<XIcon aria-hidden="true" className="size-3" />
+								</button>
 							</Badge>
 						))}
 						{filters.locations.map((loc) => (
 							<Badge key={loc} variant="secondary" className="gap-1">
-								<MapPinIcon className="size-3" />
+								<MapPinIcon aria-hidden="true" className="size-3" />
 								{loc}
-								<XIcon
-									className="size-3 cursor-pointer"
+								<button
+									type="button"
+									className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+									aria-label={t`Retirer le filtre ${loc}`}
 									onClick={() =>
 										setFilters((prev) => ({
 											...prev,
 											locations: prev.locations.filter((l) => l !== loc),
 										}))
 									}
-								/>
+								>
+									<XIcon aria-hidden="true" className="size-3" />
+								</button>
 							</Badge>
 						))}
 						{filters.workTypes.map((wt) => (
 							<Badge key={wt} variant="secondary" className="gap-1">
 								{workTypeConfig[wt].label}
-								<XIcon
-									className="size-3 cursor-pointer"
+								<button
+									type="button"
+									className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+									aria-label={t`Retirer le filtre ${workTypeConfig[wt].label}`}
 									onClick={() =>
 										setFilters((prev) => ({
 											...prev,
 											workTypes: prev.workTypes.filter((w) => w !== wt),
 										}))
 									}
-								/>
+								>
+									<XIcon aria-hidden="true" className="size-3" />
+								</button>
 							</Badge>
 						))}
 						{(filters.salaryMin > 0 || filters.salaryMax < 30000) && (
 							<Badge variant="secondary" className="gap-1">
-								<CurrencyCircleDollarIcon className="size-3" />
+								<CurrencyCircleDollarIcon aria-hidden="true" className="size-3" />
 								{formatCurrency(filters.salaryMin)} - {formatCurrency(filters.salaryMax)}
-								<XIcon
-									className="size-3 cursor-pointer"
+								<button
+									type="button"
+									className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+									aria-label={t`Retirer le filtre salaire`}
 									onClick={() => setFilters((prev) => ({ ...prev, salaryMin: 0, salaryMax: 30000 }))}
-								/>
+								>
+									<XIcon aria-hidden="true" className="size-3" />
+								</button>
 							</Badge>
 						)}
 						<Button variant="ghost" size="sm" className="h-6 gap-1 text-xs" onClick={clearFilters}>
-							<XIcon className="size-3" />
-							<Trans>Clear all</Trans>
+							<XIcon aria-hidden="true" className="size-3" />
+							<Trans>Tout effacer</Trans>
 						</Button>
 					</div>
 				)}
@@ -380,17 +395,16 @@ function JobCard({
 		>
 			<Card
 				className={cn(
-					"group h-full cursor-pointer transition-all duration-300 hover:shadow-lg",
+					"group h-full transition-shadow duration-300 hover:shadow-lg",
 					isInCompare && "ring-2 ring-primary",
 					job.isSaved && "border-amber-500/30",
 				)}
-				onClick={() => setSelectedJob(job)}
 			>
 				<CardHeader className="pb-2">
 					<div className="mb-2 flex items-start justify-between">
 						{/* Source badge */}
 						<Badge className={cn("gap-1", sourceConf.bgColor, sourceConf.color)}>
-							<SourceIcon className="size-3" weight="fill" />
+							<SourceIcon aria-hidden="true" className="size-3" weight="fill" />
 							{sourceConf.label}
 						</Badge>
 						<div className="flex items-center gap-1">
@@ -404,6 +418,7 @@ function JobCard({
 								variant="ghost"
 								size="icon"
 								className="size-8"
+								aria-label={job.isSaved ? t`Retirer des offres enregistrées` : t`Enregistrer cette offre`}
 								onClick={(e) => {
 									e.stopPropagation();
 									toggleSaveJob(job.id);
@@ -411,6 +426,7 @@ function JobCard({
 								disabled={isSavePending}
 							>
 								<BookmarkSimpleIcon
+									aria-hidden="true"
 									className={cn("size-4", job.isSaved && "text-amber-500")}
 									weight={job.isSaved ? "fill" : "regular"}
 								/>
@@ -420,7 +436,7 @@ function JobCard({
 
 					<CardTitle className="line-clamp-1 text-lg group-hover:text-primary">{job.title}</CardTitle>
 					<CardDescription className="flex items-center gap-2">
-						<BuildingsIcon className="size-4" />
+						<BuildingsIcon aria-hidden="true" className="size-4" />
 						{job.company}
 					</CardDescription>
 				</CardHeader>
@@ -428,56 +444,58 @@ function JobCard({
 				<CardContent className="space-y-3 pb-2">
 					<div className="flex flex-wrap gap-2">
 						<Badge className={industryConf.color}>
-							<IndustryIcon className="mr-1 size-3" />
+							<IndustryIcon aria-hidden="true" className="mr-1 size-3" />
 							{industryConf.label}
 						</Badge>
 						<Badge variant="outline" className="gap-1">
 							{(() => {
 								const WTIcon = workTypeConfig[job.workType].icon;
-								return <WTIcon className="size-3" />;
+								return <WTIcon aria-hidden="true" className="size-3" />;
 							})()}
 							{workTypeConfig[job.workType].label}
 						</Badge>
 					</div>
 
 					<div className="flex items-center gap-2 text-muted-foreground text-sm">
-						<MapPinIcon className="size-4" />
+						<MapPinIcon aria-hidden="true" className="size-4" />
 						{job.location}
 					</div>
 
 					{job.salaryMin && job.salaryMax && (
 						<div className="flex items-center gap-2 font-medium text-green-600 text-sm dark:text-green-400">
-							<CurrencyCircleDollarIcon className="size-4" />
+							<CurrencyCircleDollarIcon aria-hidden="true" className="size-4" />
 							{formatCurrency(job.salaryMin)} - {formatCurrency(job.salaryMax)}
 						</div>
 					)}
 
 					<div className="flex items-center gap-2 text-muted-foreground text-xs">
-						<CalendarIcon className="size-3" />
+						<CalendarIcon aria-hidden="true" className="size-3" />
 						{getDaysAgo(job.postedDate)}
 					</div>
 				</CardContent>
 
-				<CardFooter className="flex items-center justify-between pt-2">
+				<CardFooter className="flex flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:justify-between">
 					<Badge className={cn("text-xs", statusConf.color)}>
 						{(() => {
 							const StatusIcon = statusConf.icon;
-							return <StatusIcon className="mr-1 size-3" />;
+							return <StatusIcon aria-hidden="true" className="mr-1 size-3" />;
 						})()}
 						{statusConf.label}
 					</Badge>
-					<Button
-						variant="ghost"
-						size="sm"
-						className={cn("gap-1", isInCompare && "text-primary")}
-						onClick={(e) => {
-							e.stopPropagation();
-							toggleCompareJob(job);
-						}}
-					>
-						<ArrowsLeftRightIcon className="size-4" />
-						{isInCompare ? <Trans>Remove</Trans> : <Trans>Compare</Trans>}
-					</Button>
+					<div className="flex w-full gap-2 sm:w-auto">
+						<Button variant="outline" size="sm" className="flex-1 sm:flex-none" onClick={() => setSelectedJob(job)}>
+							<Trans>Détails</Trans>
+						</Button>
+						<Button
+							variant="ghost"
+							size="sm"
+							className={cn("flex-1 gap-1 sm:flex-none", isInCompare && "text-primary")}
+							onClick={() => toggleCompareJob(job)}
+						>
+							<ArrowsLeftRightIcon aria-hidden="true" className="size-4" />
+							{isInCompare ? <Trans>Retirer</Trans> : <Trans>Comparer</Trans>}
+						</Button>
+					</div>
 				</CardFooter>
 			</Card>
 		</motion.div>
@@ -517,12 +535,12 @@ export function JobCardsGrid({
 			{/* Results count */}
 			<div className="flex items-center justify-between">
 				<p className="text-muted-foreground text-sm">
-					{filteredJobsCount} <Trans>offers found</Trans>
+					{filteredJobsCount} <Trans>offres trouvées</Trans>
 				</p>
 				{compareJobs.length > 0 && (
 					<Button variant="outline" size="sm" className="gap-2" onClick={() => setIsCompareOpen(true)}>
-						<ArrowsLeftRightIcon className="size-4" />
-						<Trans>Compare</Trans> ({compareJobs.length})
+						<ArrowsLeftRightIcon aria-hidden="true" className="size-4" />
+						<Trans>Comparer</Trans> ({compareJobs.length})
 					</Button>
 				)}
 			</div>
@@ -548,15 +566,19 @@ export function JobCardsGrid({
 			{filteredJobsCount === 0 && (
 				<Card className="border-dashed">
 					<CardContent className="flex flex-col items-center justify-center py-16">
-						<MagnifyingGlassIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
+						<MagnifyingGlassIcon
+							aria-hidden="true"
+							className="mb-4 size-16 text-muted-foreground/50"
+							weight="duotone"
+						/>
 						<h3 className="mb-2 font-semibold text-lg">
-							<Trans>No offers found</Trans>
+							<Trans>Aucune offre trouvée</Trans>
 						</h3>
 						<p className="mb-4 text-center text-muted-foreground">
-							<Trans>Try changing your search criteria</Trans>
+							<Trans>Essaie de modifier la recherche ou les filtres.</Trans>
 						</p>
 						<Button variant="outline" onClick={clearFilters}>
-							<Trans>Clear filters</Trans>
+							<Trans>Effacer les filtres</Trans>
 						</Button>
 					</CardContent>
 				</Card>
@@ -582,21 +604,28 @@ function Pagination({
 }) {
 	return (
 		<div className="flex items-center justify-center gap-2">
-			<Button variant="outline" size="icon" disabled={currentPage === 1} onClick={() => setCurrentPage((p) => p - 1)}>
-				<CaretLeftIcon className="size-4" />
+			<Button
+				variant="outline"
+				size="icon"
+				aria-label={t`Page précédente`}
+				disabled={currentPage === 1}
+				onClick={() => setCurrentPage((p) => p - 1)}
+			>
+				<CaretLeftIcon aria-hidden="true" className="size-4" />
 			</Button>
 			<span className="text-muted-foreground text-sm">
 				<Trans>
-					Page {currentPage} of {totalPages}
+					Page {currentPage} sur {totalPages}
 				</Trans>
 			</span>
 			<Button
 				variant="outline"
 				size="icon"
+				aria-label={t`Page suivante`}
 				disabled={currentPage === totalPages}
 				onClick={() => setCurrentPage((p) => p + 1)}
 			>
-				<CaretRightIcon className="size-4" />
+				<CaretRightIcon aria-hidden="true" className="size-4" />
 			</Button>
 		</div>
 	);
@@ -617,28 +646,29 @@ export function SavedSearchesSection({
 	return (
 		<section>
 			<h3 className="mb-4 flex items-center gap-2 font-semibold text-xl">
-				<FloppyDiskIcon className="size-5 text-primary" weight="duotone" />
-				<Trans>Saved Searches</Trans>
+				<FloppyDiskIcon aria-hidden="true" className="size-5 text-primary" weight="duotone" />
+				<Trans>Recherches enregistrées</Trans>
 			</h3>
 
 			{savedSearches.length > 0 ? (
 				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 					{savedSearches.map((search) => (
-						<Card key={search.id} className="transition-all hover:shadow-md">
+						<Card key={search.id} className="transition-shadow hover:shadow-md">
 							<CardContent className="p-4">
 								<div className="mb-3 flex items-start justify-between">
 									<div>
 										<h4 className="font-semibold">{search.name}</h4>
-										<p className="text-muted-foreground text-sm">{search.query || "All positions"}</p>
+										<p className="text-muted-foreground text-sm">{search.query || t`Tous les postes`}</p>
 									</div>
 									<Button
 										variant="ghost"
 										size="icon"
 										className="size-8 text-red-500 hover:text-red-600"
+										aria-label={t`Supprimer cette recherche`}
 										onClick={() => deleteSavedSearch(search.id)}
 										disabled={isDeletePending}
 									>
-										<XIcon className="size-4" />
+										<XIcon aria-hidden="true" className="size-4" />
 									</Button>
 								</div>
 								<div className="mb-3 flex flex-wrap gap-1">
@@ -654,10 +684,12 @@ export function SavedSearchesSection({
 									))}
 								</div>
 								<div className="flex items-center justify-between">
-									<span className="text-muted-foreground text-xs">{search.resultsCount} results</span>
+									<span className="text-muted-foreground text-xs">
+										{search.resultsCount} <Trans>résultats</Trans>
+									</span>
 									<Button size="sm" variant="outline" className="gap-1" onClick={() => loadSavedSearch(search)}>
-										<MagnifyingGlassIcon className="size-3" />
-										<Trans>Load</Trans>
+										<MagnifyingGlassIcon aria-hidden="true" className="size-3" />
+										<Trans>Charger</Trans>
 									</Button>
 								</div>
 							</CardContent>
@@ -667,9 +699,13 @@ export function SavedSearchesSection({
 			) : (
 				<Card className="border-dashed">
 					<CardContent className="py-8 text-center">
-						<FloppyDiskIcon className="mx-auto mb-4 size-12 text-muted-foreground/50" weight="duotone" />
+						<FloppyDiskIcon
+							aria-hidden="true"
+							className="mx-auto mb-4 size-12 text-muted-foreground/50"
+							weight="duotone"
+						/>
 						<p className="text-muted-foreground">
-							<Trans>No saved searches</Trans>
+							<Trans>Aucune recherche enregistrée</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -693,8 +729,8 @@ export function SavedJobsSection({
 	return (
 		<section>
 			<h3 className="mb-4 flex items-center gap-2 font-semibold text-xl">
-				<BookmarkSimpleIcon className="size-5 text-amber-500" weight="fill" />
-				<Trans>Saved Listings</Trans> ({savedJobs.length})
+				<BookmarkSimpleIcon aria-hidden="true" className="size-5 text-amber-500" weight="fill" />
+				<Trans>Offres enregistrées</Trans> ({savedJobs.length})
 			</h3>
 
 			{savedJobs.length > 0 ? (
@@ -703,15 +739,11 @@ export function SavedJobsSection({
 						const sourceConf = sourceConfig[job.source];
 						const SourceIcon = sourceConf.icon;
 						return (
-							<Card
-								key={job.id}
-								className="cursor-pointer transition-all hover:shadow-md"
-								onClick={() => setSelectedJob(job)}
-							>
+							<Card key={job.id} className="transition-shadow hover:shadow-md">
 								<CardContent className="p-4">
 									<div className="flex items-start gap-4">
 										<div className={cn("flex size-12 items-center justify-center rounded-xl", sourceConf.bgColor)}>
-											<SourceIcon className={cn("size-6", sourceConf.color)} weight="fill" />
+											<SourceIcon aria-hidden="true" className={cn("size-6", sourceConf.color)} weight="fill" />
 										</div>
 										<div className="min-w-0 flex-1">
 											<div className="flex items-start justify-between gap-2">
@@ -723,18 +755,16 @@ export function SavedJobsSection({
 													variant="ghost"
 													size="icon"
 													className="size-8"
-													onClick={(e) => {
-														e.stopPropagation();
-														toggleSaveJob(job.id);
-													}}
+													aria-label={t`Retirer des offres enregistrées`}
+													onClick={() => toggleSaveJob(job.id)}
 													disabled={isSavePending}
 												>
-													<BookmarkSimpleIcon className="size-4 text-amber-500" weight="fill" />
+													<BookmarkSimpleIcon aria-hidden="true" className="size-4 text-amber-500" weight="fill" />
 												</Button>
 											</div>
 											<div className="mt-2 flex flex-wrap gap-2">
 												<Badge variant="outline" className="text-xs">
-													<MapPinIcon className="mr-1 size-3" />
+													<MapPinIcon aria-hidden="true" className="mr-1 size-3" />
 													{job.location}
 												</Badge>
 												{job.salaryMin && job.salaryMax && (
@@ -743,6 +773,9 @@ export function SavedJobsSection({
 													</Badge>
 												)}
 											</div>
+											<Button variant="outline" size="sm" className="mt-3" onClick={() => setSelectedJob(job)}>
+												<Trans>Voir les détails</Trans>
+											</Button>
 										</div>
 									</div>
 								</CardContent>
@@ -753,9 +786,13 @@ export function SavedJobsSection({
 			) : (
 				<Card className="border-dashed">
 					<CardContent className="py-8 text-center">
-						<BookmarkSimpleIcon className="mx-auto mb-4 size-12 text-muted-foreground/50" weight="duotone" />
+						<BookmarkSimpleIcon
+							aria-hidden="true"
+							className="mx-auto mb-4 size-12 text-muted-foreground/50"
+							weight="duotone"
+						/>
 						<p className="text-muted-foreground">
-							<Trans>No saved offers</Trans>
+							<Trans>Aucune offre enregistrée</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -787,16 +824,16 @@ export function CompareTabContent({
 			<div className="flex items-center justify-between">
 				<div>
 					<h3 className="flex items-center gap-2 font-semibold text-xl">
-						<ArrowsLeftRightIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Job Comparison</Trans>
+						<ArrowsLeftRightIcon aria-hidden="true" className="size-5 text-primary" weight="duotone" />
+						<Trans>Comparaison des offres</Trans>
 					</h3>
 					<p className="text-muted-foreground text-sm">
-						<Trans>Select up to 3 listings to compare them</Trans>
+						<Trans>Sélectionne jusqu'à 3 offres pour comparer les conditions importantes.</Trans>
 					</p>
 				</div>
 				{compareJobs.length > 0 && (
 					<Button variant="outline" size="sm" onClick={() => setCompareJobs([])}>
-						<XIcon className="mr-2 size-4" />
+						<XIcon aria-hidden="true" className="mr-2 size-4" />
 						<Trans>Tout effacer</Trans>
 					</Button>
 				)}
@@ -808,7 +845,7 @@ export function CompareTabContent({
 						<thead>
 							<tr>
 								<th className="p-3 text-left font-medium text-muted-foreground text-sm">
-									<Trans>Criteria</Trans>
+									<Trans>Critère</Trans>
 								</th>
 								{compareJobs.map((job) => (
 									<th key={job.id} className="p-3 text-left">
@@ -817,8 +854,14 @@ export function CompareTabContent({
 												<p className="font-semibold">{job.title}</p>
 												<p className="font-normal text-muted-foreground text-sm">{job.company}</p>
 											</div>
-											<Button variant="ghost" size="icon" className="size-6" onClick={() => toggleCompareJob(job)}>
-												<XIcon className="size-3" />
+											<Button
+												variant="ghost"
+												size="icon"
+												className="size-6"
+												aria-label={t`Retirer cette offre de la comparaison`}
+												onClick={() => toggleCompareJob(job)}
+											>
+												<XIcon aria-hidden="true" className="size-3" />
 											</Button>
 										</div>
 									</th>
@@ -836,7 +879,7 @@ export function CompareTabContent({
 									return (
 										<td key={job.id} className="p-3">
 											<Badge className={cn("gap-1", conf.bgColor, conf.color)}>
-												<Icon className="size-3" weight="fill" />
+												<Icon aria-hidden="true" className="size-3" weight="fill" />
 												{conf.label}
 											</Badge>
 										</td>
@@ -845,7 +888,7 @@ export function CompareTabContent({
 							</tr>
 							<tr>
 								<td className="p-3 font-medium">
-									<Trans>Salary</Trans>
+									<Trans>Salaire</Trans>
 								</td>
 								{compareJobs.map((job) => (
 									<td key={job.id} className="p-3">
@@ -855,7 +898,7 @@ export function CompareTabContent({
 											</span>
 										) : (
 											<span className="text-muted-foreground">
-												<Trans>Not disclosed</Trans>
+												<Trans>Non indiqué</Trans>
 											</span>
 										)}
 									</td>
@@ -863,12 +906,12 @@ export function CompareTabContent({
 							</tr>
 							<tr className="bg-muted/30">
 								<td className="p-3 font-medium">
-									<Trans>Location</Trans>
+									<Trans>Ville</Trans>
 								</td>
 								{compareJobs.map((job) => (
 									<td key={job.id} className="p-3">
 										<div className="flex items-center gap-2">
-											<MapPinIcon className="size-4 text-muted-foreground" />
+											<MapPinIcon aria-hidden="true" className="size-4 text-muted-foreground" />
 											{job.location}
 										</div>
 									</td>
@@ -876,7 +919,7 @@ export function CompareTabContent({
 							</tr>
 							<tr>
 								<td className="p-3 font-medium">
-									<Trans>Work type</Trans>
+									<Trans>Mode de travail</Trans>
 								</td>
 								{compareJobs.map((job) => (
 									<td key={job.id} className="p-3">
@@ -886,7 +929,7 @@ export function CompareTabContent({
 							</tr>
 							<tr className="bg-muted/30">
 								<td className="p-3 font-medium">
-									<Trans>Experience</Trans>
+									<Trans>Expérience</Trans>
 								</td>
 								{compareJobs.map((job) => (
 									<td key={job.id} className="p-3">
@@ -896,7 +939,7 @@ export function CompareTabContent({
 							</tr>
 							<tr>
 								<td className="p-3 font-medium">
-									<Trans>Sector</Trans>
+									<Trans>Secteur</Trans>
 								</td>
 								{compareJobs.map((job) => {
 									const conf = industryConfig[job.industry];
@@ -909,7 +952,7 @@ export function CompareTabContent({
 							</tr>
 							<tr className="bg-muted/30">
 								<td className="p-3 font-medium">
-									<Trans>Match</Trans>
+									<Trans>Score</Trans>
 								</td>
 								{compareJobs.map((job) => (
 									<td key={job.id} className="p-3">
@@ -924,7 +967,7 @@ export function CompareTabContent({
 															: "bg-gray-100 text-gray-700 dark:bg-gray-800/30 dark:text-gray-400",
 												)}
 											>
-												<SparkleIcon className="size-3" weight="fill" />
+												<SparkleIcon aria-hidden="true" className="size-3" weight="fill" />
 												{job.matchScore}%
 											</Badge>
 										) : (
@@ -935,7 +978,7 @@ export function CompareTabContent({
 							</tr>
 							<tr>
 								<td className="p-3 font-medium">
-									<Trans>Benefits</Trans>
+									<Trans>Avantages</Trans>
 								</td>
 								{compareJobs.map((job) => (
 									<td key={job.id} className="p-3">
@@ -962,7 +1005,7 @@ export function CompareTabContent({
 									<td key={job.id} className="p-3">
 										<div className="flex gap-2">
 											<Button size="sm" variant="outline" onClick={() => setSelectedJob(job)}>
-												<Trans>Details</Trans>
+												<Trans>Détails</Trans>
 											</Button>
 											<Button
 												size="sm"
@@ -971,6 +1014,7 @@ export function CompareTabContent({
 												disabled={isSavePending}
 											>
 												<BookmarkSimpleIcon
+													aria-hidden="true"
 													className={cn("size-4", job.isSaved && "text-amber-500")}
 													weight={job.isSaved ? "fill" : "regular"}
 												/>
@@ -985,16 +1029,20 @@ export function CompareTabContent({
 			) : (
 				<Card className="border-dashed">
 					<CardContent className="py-16 text-center">
-						<ArrowsLeftRightIcon className="mx-auto mb-4 size-16 text-muted-foreground/50" weight="duotone" />
+						<ArrowsLeftRightIcon
+							aria-hidden="true"
+							className="mx-auto mb-4 size-16 text-muted-foreground/50"
+							weight="duotone"
+						/>
 						<h3 className="mb-2 font-semibold text-lg">
-							<Trans>No offers to compare</Trans>
+							<Trans>Aucune offre à comparer</Trans>
 						</h3>
 						<p className="mb-4 text-muted-foreground">
-							<Trans>Select listings from the search tab to compare them</Trans>
+							<Trans>Sélectionne des offres depuis l'onglet recherche pour les comparer.</Trans>
 						</p>
 						<Button onClick={() => setActiveTab("search")}>
-							<MagnifyingGlassIcon className="mr-2 size-4" />
-							<Trans>Search for offers</Trans>
+							<MagnifyingGlassIcon aria-hidden="true" className="mr-2 size-4" />
+							<Trans>Rechercher des offres</Trans>
 						</Button>
 					</CardContent>
 				</Card>
@@ -1014,8 +1062,8 @@ export function TrackingTabContent({
 	return (
 		<div className="space-y-6">
 			<h3 className="flex items-center gap-2 font-semibold text-xl">
-				<ListIcon className="size-5 text-primary" weight="duotone" />
-				<Trans>Application Tracking</Trans>
+				<ListIcon aria-hidden="true" className="size-5 text-primary" weight="duotone" />
+				<Trans>Suivi des candidatures</Trans>
 			</h3>
 
 			{/* Status columns */}
@@ -1029,26 +1077,32 @@ export function TrackingTabContent({
 						<div key={status} className="space-y-3">
 							<div className="flex items-center justify-between">
 								<Badge className={cn("gap-1", conf.color)}>
-									<StatusIcon className="size-3" />
+									<StatusIcon aria-hidden="true" className="size-3" />
 									{conf.label}
 								</Badge>
 								<span className="font-medium text-muted-foreground text-sm">{statusJobs.length}</span>
 							</div>
 							<div className="space-y-2">
 								{statusJobs.slice(0, 5).map((job) => (
-									<Card
-										key={job.id}
-										className="cursor-pointer transition-all hover:shadow-md"
-										onClick={() => setSelectedJob(job)}
-									>
+									<Card key={job.id} className="transition-shadow hover:shadow-md">
 										<CardContent className="p-3">
 											<h4 className="line-clamp-1 font-medium text-sm">{job.title}</h4>
 											<p className="line-clamp-1 text-muted-foreground text-xs">{job.company}</p>
+											<Button
+												variant="ghost"
+												size="sm"
+												className="mt-2 h-7 px-2 text-xs"
+												onClick={() => setSelectedJob(job)}
+											>
+												<Trans>Voir</Trans>
+											</Button>
 										</CardContent>
 									</Card>
 								))}
 								{statusJobs.length > 5 && (
-									<p className="text-center text-muted-foreground text-xs">+{statusJobs.length - 5} more</p>
+									<p className="text-center text-muted-foreground text-xs">
+										+{statusJobs.length - 5} <Trans>autres</Trans>
+									</p>
 								)}
 							</div>
 						</div>
@@ -1065,11 +1119,11 @@ export function RecommendationsTabContent() {
 		<div className="space-y-8">
 			<div>
 				<h3 className="mb-2 flex items-center gap-2 font-semibold text-xl">
-					<LightbulbIcon className="size-5 text-amber-500" weight="fill" />
-					<Trans>Recommendations by Industry</Trans>
+					<LightbulbIcon aria-hidden="true" className="size-5 text-amber-500" weight="fill" />
+					<Trans>Conseils par secteur</Trans>
 				</h3>
 				<p className="text-muted-foreground">
-					<Trans>Discover the best platforms and search strategies for your field</Trans>
+					<Trans>Choisis les bons canaux et adapte ta recherche au secteur visé.</Trans>
 				</p>
 			</div>
 
@@ -1084,12 +1138,12 @@ export function RecommendationsTabContent() {
 							<CardHeader>
 								<div className="flex items-center gap-3">
 									<div className={cn("flex size-12 items-center justify-center rounded-xl", conf.color)}>
-										<IndustryIcon className="size-6" weight="duotone" />
+										<IndustryIcon aria-hidden="true" className="size-6" weight="duotone" />
 									</div>
 									<div>
 										<CardTitle>{conf.label}</CardTitle>
 										<CardDescription>
-											<Trans>Best recruitment platforms</Trans>
+											<Trans>Plateformes à prioriser</Trans>
 										</CardDescription>
 									</div>
 								</div>
@@ -1106,7 +1160,7 @@ export function RecommendationsTabContent() {
 												className="flex items-center justify-between rounded-lg bg-muted/50 p-3"
 											>
 												<div className="flex items-center gap-3">
-													<SourceIcon className={cn("size-5", sourceConf.color)} weight="fill" />
+													<SourceIcon aria-hidden="true" className={cn("size-5", sourceConf.color)} weight="fill" />
 													<div>
 														<p className="font-medium">{sourceConf.label}</p>
 														<p className="text-muted-foreground text-xs">{platform.description}</p>
@@ -1124,8 +1178,8 @@ export function RecommendationsTabContent() {
 													)}
 												>
 													{platform.strength === "high" && <Trans>Excellent</Trans>}
-													{platform.strength === "medium" && <Trans>Good</Trans>}
-													{platform.strength === "low" && <Trans>Limited</Trans>}
+													{platform.strength === "medium" && <Trans>Bon</Trans>}
+													{platform.strength === "low" && <Trans>Limité</Trans>}
 												</Badge>
 											</div>
 										);
@@ -1135,12 +1189,16 @@ export function RecommendationsTabContent() {
 								{/* Tips */}
 								<div>
 									<h4 className="mb-2 font-medium text-sm">
-										<Trans>Tips</Trans>
+										<Trans>Conseils</Trans>
 									</h4>
 									<ul className="space-y-1">
 										{rec.tips.map((tip) => (
 											<li key={tip} className="flex items-start gap-2 text-muted-foreground text-sm">
-												<CheckCircleIcon className="mt-0.5 size-4 shrink-0 text-green-500" weight="fill" />
+												<CheckCircleIcon
+													aria-hidden="true"
+													className="mt-0.5 size-4 shrink-0 text-green-500"
+													weight="fill"
+												/>
 												{tip}
 											</li>
 										))}
@@ -1174,10 +1232,10 @@ export function FilterSheet({
 			<SheetContent className="w-full overflow-y-auto sm:max-w-md">
 				<SheetHeader>
 					<SheetTitle>
-						<Trans>Advanced Filters</Trans>
+						<Trans>Filtres avancés</Trans>
 					</SheetTitle>
 					<SheetDescription>
-						<Trans>Refine your search with detailed criteria</Trans>
+						<Trans>Affiner la recherche avec des critères précis.</Trans>
 					</SheetDescription>
 				</SheetHeader>
 
@@ -1185,8 +1243,8 @@ export function FilterSheet({
 					{/* Salary Range */}
 					<div className="space-y-4">
 						<Label className="flex items-center gap-2">
-							<CurrencyCircleDollarIcon className="size-4" />
-							<Trans>Salary range (MAD)</Trans>
+							<CurrencyCircleDollarIcon aria-hidden="true" className="size-4" />
+							<Trans>Fourchette salariale (MAD)</Trans>
 						</Label>
 						<div className="px-2">
 							<Slider
@@ -1206,8 +1264,8 @@ export function FilterSheet({
 					{/* Locations */}
 					<div className="space-y-3">
 						<Label className="flex items-center gap-2">
-							<MapPinIcon className="size-4" />
-							<Trans>Location</Trans>
+							<MapPinIcon aria-hidden="true" className="size-4" />
+							<Trans>Ville</Trans>
 						</Label>
 						<div className="grid grid-cols-2 gap-2">
 							{locations.map((loc) => (
@@ -1233,8 +1291,8 @@ export function FilterSheet({
 					{/* Work Type */}
 					<div className="space-y-3">
 						<Label className="flex items-center gap-2">
-							<HouseIcon className="size-4" />
-							<Trans>Work type</Trans>
+							<HouseIcon aria-hidden="true" className="size-4" />
+							<Trans>Mode de travail</Trans>
 						</Label>
 						<div className="flex flex-wrap gap-2">
 							{(Object.keys(workTypeConfig) as WorkType[]).map((wt) => {
@@ -1247,6 +1305,7 @@ export function FilterSheet({
 										variant={isActive ? "default" : "outline"}
 										size="sm"
 										className="gap-2"
+										aria-pressed={isActive}
 										onClick={() =>
 											setFilters((prev) => ({
 												...prev,
@@ -1254,7 +1313,7 @@ export function FilterSheet({
 											}))
 										}
 									>
-										<WTIcon className="size-4" />
+										<WTIcon aria-hidden="true" className="size-4" />
 										{conf.label}
 									</Button>
 								);
@@ -1265,8 +1324,8 @@ export function FilterSheet({
 					{/* Experience Level */}
 					<div className="space-y-3">
 						<Label className="flex items-center gap-2">
-							<GraduationCapIcon className="size-4" />
-							<Trans>Experience level</Trans>
+							<GraduationCapIcon aria-hidden="true" className="size-4" />
+							<Trans>Niveau d'expérience</Trans>
 						</Label>
 						<div className="space-y-2">
 							{(Object.keys(experienceConfig) as ExperienceLevel[]).map((exp) => {
@@ -1297,8 +1356,8 @@ export function FilterSheet({
 					{/* Industry */}
 					<div className="space-y-3">
 						<Label className="flex items-center gap-2">
-							<FactoryIcon className="size-4" />
-							<Trans>Industry sector</Trans>
+							<FactoryIcon aria-hidden="true" className="size-4" />
+							<Trans>Secteur</Trans>
 						</Label>
 						<div className="grid grid-cols-2 gap-2">
 							{(Object.keys(industryConfig) as Industry[]).map((ind) => {
@@ -1311,6 +1370,7 @@ export function FilterSheet({
 										variant={isActive ? "default" : "outline"}
 										size="sm"
 										className={cn("justify-start gap-2", isActive && conf.color)}
+										aria-pressed={isActive}
 										onClick={() =>
 											setFilters((prev) => ({
 												...prev,
@@ -1318,7 +1378,7 @@ export function FilterSheet({
 											}))
 										}
 									>
-										<IndIcon className="size-4" />
+										<IndIcon aria-hidden="true" className="size-4" />
 										{conf.label}
 									</Button>
 								);
@@ -1329,11 +1389,11 @@ export function FilterSheet({
 
 				<SheetFooter>
 					<Button variant="outline" onClick={clearFilters}>
-						<Trans>Reset</Trans>
+						<Trans>Réinitialiser</Trans>
 					</Button>
 					<SheetClose asChild>
 						<Button>
-							<Trans>Apply</Trans>
+							<Trans>Appliquer</Trans>
 						</Button>
 					</SheetClose>
 				</SheetFooter>
@@ -1367,27 +1427,30 @@ export function SaveSearchDialog({
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>
-						<Trans>Save search</Trans>
+						<Trans>Enregistrer la recherche</Trans>
 					</DialogTitle>
 					<DialogDescription>
-						<Trans>Name this search to find it easily later</Trans>
+						<Trans>Donne un nom clair à cette recherche pour la retrouver rapidement.</Trans>
 					</DialogDescription>
 				</DialogHeader>
 
 				<div className="space-y-4 py-4">
 					<div className="space-y-2">
 						<Label>
-							<Trans>Search name</Trans>
+							<Trans>Nom de la recherche</Trans>
 						</Label>
 						<Input
-							placeholder={t`E.g.: HSE Positions Casablanca`}
+							aria-label={t`Nom de la recherche`}
+							name="savedSearchName"
+							autoComplete="off"
+							placeholder={t`Ex. : HSE à Casablanca`}
 							value={saveSearchName}
 							onChange={(e) => setSaveSearchName(e.target.value)}
 						/>
 					</div>
 					<div className="rounded-lg bg-muted/50 p-3">
 						<p className="mb-2 font-medium text-sm">
-							<Trans>Current criteria:</Trans>
+							<Trans>Critères actuels :</Trans>
 						</p>
 						<div className="flex flex-wrap gap-1">
 							{searchQuery && <Badge variant="secondary">"{searchQuery}"</Badge>}
@@ -1413,13 +1476,13 @@ export function SaveSearchDialog({
 				<DialogFooter>
 					<DialogClose asChild>
 						<Button variant="outline">
-							<Trans>Cancel</Trans>
+							<Trans>Annuler</Trans>
 						</Button>
 					</DialogClose>
 					<Button onClick={saveSearch} disabled={!saveSearchName.trim() || isPending}>
-						{isPending && <SpinnerIcon className="mr-2 size-4 animate-spin" />}
-						<FloppyDiskIcon className="mr-2 size-4" />
-						<Trans>Save</Trans>
+						{isPending && <SpinnerIcon aria-hidden="true" className="mr-2 size-4 animate-spin" />}
+						<FloppyDiskIcon aria-hidden="true" className="mr-2 size-4" />
+						<Trans>Enregistrer</Trans>
 					</Button>
 				</DialogFooter>
 			</DialogContent>
@@ -1461,24 +1524,30 @@ export function JobDetailDialog({
 									{(() => {
 										const SourceIcon = sourceConfig[selectedJob.source].icon;
 										return (
-											<SourceIcon className={cn("size-8", sourceConfig[selectedJob.source].color)} weight="fill" />
+											<SourceIcon
+												aria-hidden="true"
+												className={cn("size-8", sourceConfig[selectedJob.source].color)}
+												weight="fill"
+											/>
 										);
 									})()}
 								</div>
 								<div className="flex-1">
 									<DialogTitle className="text-2xl">{selectedJob.title}</DialogTitle>
 									<DialogDescription className="flex items-center gap-2 text-base">
-										<BuildingsIcon className="size-4" />
+										<BuildingsIcon aria-hidden="true" className="size-4" />
 										{selectedJob.company}
 									</DialogDescription>
 								</div>
 								<Button
 									variant="ghost"
 									size="icon"
+									aria-label={selectedJob.isSaved ? t`Retirer des offres enregistrées` : t`Enregistrer cette offre`}
 									onClick={() => toggleSaveJob(selectedJob.id)}
 									disabled={isSavePending}
 								>
 									<BookmarkSimpleIcon
+										aria-hidden="true"
 										className={cn("size-5", selectedJob.isSaved && "text-amber-500")}
 										weight={selectedJob.isSaved ? "fill" : "regular"}
 									/>
@@ -1490,21 +1559,21 @@ export function JobDetailDialog({
 									{industryConfig[selectedJob.industry].label}
 								</Badge>
 								<Badge variant="outline" className="gap-1">
-									<MapPinIcon className="size-3" />
+									<MapPinIcon aria-hidden="true" className="size-3" />
 									{selectedJob.location}
 								</Badge>
 								<Badge variant="outline">{workTypeConfig[selectedJob.workType].label}</Badge>
 								<Badge variant="outline">{experienceConfig[selectedJob.experienceLevel].label}</Badge>
 								{selectedJob.salaryMin && selectedJob.salaryMax && (
 									<Badge className="gap-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
-										<CurrencyCircleDollarIcon className="size-3" />
+										<CurrencyCircleDollarIcon aria-hidden="true" className="size-3" />
 										{formatCurrency(selectedJob.salaryMin)} - {formatCurrency(selectedJob.salaryMax)}
 									</Badge>
 								)}
 								{selectedJob.matchScore && selectedJob.matchScore >= 80 && (
 									<Badge className="gap-1 bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
-										<SparkleIcon className="size-3" weight="fill" />
-										Match {selectedJob.matchScore}%
+										<SparkleIcon aria-hidden="true" className="size-3" weight="fill" />
+										Score {selectedJob.matchScore}%
 									</Badge>
 								)}
 							</div>
@@ -1514,7 +1583,7 @@ export function JobDetailDialog({
 							{/* Description */}
 							<div>
 								<h4 className="mb-2 font-semibold">
-									<Trans>Job description</Trans>
+									<Trans>Description du poste</Trans>
 								</h4>
 								<p className="text-muted-foreground">{selectedJob.description}</p>
 							</div>
@@ -1522,7 +1591,7 @@ export function JobDetailDialog({
 							{/* Requirements */}
 							<div>
 								<h4 className="mb-2 font-semibold">
-									<Trans>Requirements</Trans>
+									<Trans>Prérequis</Trans>
 								</h4>
 								<ul className="space-y-2">
 									{selectedJob.requirements.map((req) => (
@@ -1537,7 +1606,7 @@ export function JobDetailDialog({
 							{/* Skills */}
 							<div>
 								<h4 className="mb-2 font-semibold">
-									<Trans>Required skills</Trans>
+									<Trans>Compétences demandées</Trans>
 								</h4>
 								<div className="flex flex-wrap gap-2">
 									{selectedJob.skills.map((skill) => (
@@ -1551,7 +1620,7 @@ export function JobDetailDialog({
 							{/* Benefits */}
 							<div>
 								<h4 className="mb-2 font-semibold">
-									<Trans>Benefits</Trans>
+									<Trans>Avantages</Trans>
 								</h4>
 								<div className="flex flex-wrap gap-2">
 									{selectedJob.benefits.map((benefit) => (
@@ -1566,7 +1635,7 @@ export function JobDetailDialog({
 							{/* Application Status */}
 							<div className="rounded-lg border bg-muted/30 p-4">
 								<h4 className="mb-3 font-semibold">
-									<Trans>Application status</Trans>
+									<Trans>Statut de candidature</Trans>
 								</h4>
 								<Select
 									value={selectedJob.applicationStatus}
@@ -1575,7 +1644,7 @@ export function JobDetailDialog({
 										setSelectedJob({ ...selectedJob, applicationStatus: v as ApplicationStatus });
 									}}
 								>
-									<SelectTrigger className="w-full">
+									<SelectTrigger aria-label={t`Statut de candidature`} className="w-full">
 										<SelectValue />
 									</SelectTrigger>
 									<SelectContent>
@@ -1599,7 +1668,7 @@ export function JobDetailDialog({
 						<DialogFooter className="flex-col gap-2 sm:flex-row">
 							<DialogClose asChild>
 								<Button variant="outline">
-									<Trans>Close</Trans>
+									<Trans>Fermer</Trans>
 								</Button>
 							</DialogClose>
 							<Button
@@ -1607,17 +1676,17 @@ export function JobDetailDialog({
 								className={cn(compareJobs.some((j) => j.id === selectedJob.id) && "text-primary")}
 								onClick={() => toggleCompareJob(selectedJob)}
 							>
-								<ArrowsLeftRightIcon className="mr-2 size-4" />
+								<ArrowsLeftRightIcon aria-hidden="true" className="mr-2 size-4" />
 								{compareJobs.some((j) => j.id === selectedJob.id) ? (
-									<Trans>Remove from comparison</Trans>
+									<Trans>Retirer de la comparaison</Trans>
 								) : (
-									<Trans>Add to comparison</Trans>
+									<Trans>Ajouter à la comparaison</Trans>
 								)}
 							</Button>
 							<Button asChild>
 								<a href={selectedJob.sourceUrl} target="_blank" rel="noopener noreferrer">
-									<Trans>View on {sourceConfig[selectedJob.source].label}</Trans>
-									<CaretRightIcon className="ml-2 size-4" />
+									<Trans>Voir sur {sourceConfig[selectedJob.source].label}</Trans>
+									<CaretRightIcon aria-hidden="true" className="ml-2 size-4" />
 								</a>
 							</Button>
 						</DialogFooter>
@@ -1643,10 +1712,10 @@ export function CompareDialog({
 			<DialogContent className="max-h-[90vh] max-w-4xl overflow-y-auto">
 				<DialogHeader>
 					<DialogTitle>
-						<Trans>Job comparison</Trans>
+						<Trans>Comparaison des offres</Trans>
 					</DialogTitle>
 					<DialogDescription>
-						<Trans>Compare details of {compareJobs.length} selected listings</Trans>
+						<Trans>Compare les détails de {compareJobs.length} offres sélectionnées.</Trans>
 					</DialogDescription>
 				</DialogHeader>
 
@@ -1669,7 +1738,7 @@ export function CompareDialog({
 							<tbody className="divide-y">
 								<tr>
 									<td className="p-2 font-medium">
-										<Trans>Salary</Trans>
+										<Trans>Salaire</Trans>
 									</td>
 									{compareJobs.map((job) => (
 										<td key={job.id} className="p-2 font-medium text-green-600 dark:text-green-400">
@@ -1681,7 +1750,7 @@ export function CompareDialog({
 								</tr>
 								<tr>
 									<td className="p-2 font-medium">
-										<Trans>Location</Trans>
+										<Trans>Ville</Trans>
 									</td>
 									{compareJobs.map((job) => (
 										<td key={job.id} className="p-2">
@@ -1701,7 +1770,7 @@ export function CompareDialog({
 								</tr>
 								<tr>
 									<td className="p-2 font-medium">
-										<Trans>Match</Trans>
+										<Trans>Score</Trans>
 									</td>
 									{compareJobs.map((job) => (
 										<td key={job.id} className="p-2">
@@ -1717,7 +1786,7 @@ export function CompareDialog({
 				<DialogFooter>
 					<DialogClose asChild>
 						<Button variant="outline">
-							<Trans>Close</Trans>
+							<Trans>Fermer</Trans>
 						</Button>
 					</DialogClose>
 				</DialogFooter>

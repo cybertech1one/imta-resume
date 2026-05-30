@@ -92,7 +92,7 @@ function JobAggregatorPage() {
 			queryClient.invalidateQueries({ queryKey: ["jobAggregator", "jobs"] });
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error during save`);
+			toast.error(error.message || t`Impossible d'enregistrer cette offre`);
 		},
 	});
 
@@ -101,10 +101,10 @@ function JobAggregatorPage() {
 		...orpc.jobAggregator.jobs.updateStatus.mutationOptions(),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["jobAggregator", "jobs"] });
-			toast.success(t`Status updated`);
+			toast.success(t`Statut mis à jour`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error during update`);
+			toast.error(error.message || t`Impossible de mettre à jour le statut`);
 		},
 	});
 
@@ -115,10 +115,10 @@ function JobAggregatorPage() {
 			queryClient.invalidateQueries({ queryKey: ["jobAggregator", "savedSearches"] });
 			setIsSaveSearchOpen(false);
 			setSaveSearchName("");
-			toast.success(t`Search saved`);
+			toast.success(t`Recherche enregistrée`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error during save`);
+			toast.error(error.message || t`Impossible d'enregistrer la recherche`);
 		},
 	});
 
@@ -127,10 +127,10 @@ function JobAggregatorPage() {
 		...orpc.jobAggregator.savedSearches.delete.mutationOptions(),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["jobAggregator", "savedSearches"] });
-			toast.success(t`Search deleted`);
+			toast.success(t`Recherche supprimée`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error during deletion`);
+			toast.error(error.message || t`Impossible de supprimer la recherche`);
 		},
 	});
 
@@ -279,7 +279,7 @@ function JobAggregatorPage() {
 
 	return (
 		<>
-			<DashboardHeader icon={GlobeIcon} title={t`Job Aggregator`} />
+			<DashboardHeader icon={GlobeIcon} title={t`Recherche d'offres`} />
 
 			<HeroSection stats={stats} />
 
@@ -287,18 +287,18 @@ function JobAggregatorPage() {
 			<Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
 				<TabsList className="flex h-auto flex-wrap gap-2 bg-transparent p-0">
 					{[
-						{ value: "search", icon: MagnifyingGlassIcon, label: t`Search` },
-						{ value: "saved", icon: BookmarkSimpleIcon, label: t`Saved` },
-						{ value: "compare", icon: ArrowsLeftRightIcon, label: t`Compare` },
-						{ value: "tracking", icon: ListIcon, label: t`Tracking` },
-						{ value: "recommendations", icon: LightbulbIcon, label: t`Recommendations` },
+						{ value: "search", icon: MagnifyingGlassIcon, label: t`Recherche` },
+						{ value: "saved", icon: BookmarkSimpleIcon, label: t`Enregistrées` },
+						{ value: "compare", icon: ArrowsLeftRightIcon, label: t`Comparer` },
+						{ value: "tracking", icon: ListIcon, label: t`Suivi` },
+						{ value: "recommendations", icon: LightbulbIcon, label: t`Conseils` },
 					].map((tab) => (
 						<TabsTrigger
 							key={tab.value}
 							value={tab.value}
 							className="gap-2 rounded-full border border-transparent bg-muted/50 px-6 py-2.5 data-[state=active]:border-primary/30 data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
 						>
-							<tab.icon className="size-4" />
+							<tab.icon aria-hidden="true" className="size-4" />
 							{tab.label}
 							{tab.value === "saved" && savedJobs.length > 0 && (
 								<Badge variant="secondary" className="ml-1 size-5 rounded-full p-0 text-xs">

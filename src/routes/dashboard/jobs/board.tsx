@@ -70,13 +70,13 @@ const JOB_TYPE_LABELS: Record<string, string> = {
 
 const FIELD_OPTIONS = [
 	{ value: "all", label: "Tous les domaines" },
-	{ value: "engineering", label: "Ingenierie" },
+	{ value: "engineering", label: "Ingénierie" },
 	{ value: "it", label: "Informatique / IT" },
 	{ value: "finance", label: "Finance" },
 	{ value: "marketing", label: "Marketing" },
 	{ value: "management", label: "Management" },
 	{ value: "logistics", label: "Logistique" },
-	{ value: "hr", label: "Ressources Humaines" },
+	{ value: "hr", label: "Ressources humaines" },
 	{ value: "sales", label: "Commercial" },
 	{ value: "research", label: "R&D" },
 ] as const;
@@ -87,11 +87,11 @@ const LOCATION_OPTIONS = [
 	{ value: "rabat", label: "Rabat" },
 	{ value: "tanger", label: "Tanger" },
 	{ value: "marrakech", label: "Marrakech" },
-	{ value: "fes", label: "Fes" },
+	{ value: "fes", label: "Fès" },
 	{ value: "agadir", label: "Agadir" },
-	{ value: "meknes", label: "Meknes" },
+	{ value: "meknes", label: "Meknès" },
 	{ value: "oujda", label: "Oujda" },
-	{ value: "kenitra", label: "Kenitra" },
+	{ value: "kenitra", label: "Kénitra" },
 ] as const;
 
 const JOB_TYPE_OPTIONS = [
@@ -104,20 +104,39 @@ const JOB_TYPE_OPTIONS = [
 ] as const;
 
 const ITEMS_PER_PAGE = 12;
+const MAD_FORMATTER = new Intl.NumberFormat("fr-FR", {
+	maximumFractionDigits: 0,
+	style: "currency",
+	currency: "MAD",
+});
+const SHORT_DATE_FORMATTER = new Intl.DateTimeFormat("fr-FR", {
+	day: "numeric",
+	month: "short",
+});
 
 function formatSalary(min: number | null, max: number | null): string | null {
 	if (min === null && max === null) return null;
 	if (min !== null && max !== null) {
-		return `${min.toLocaleString("fr-FR")} - ${max.toLocaleString("fr-FR")} MAD`;
+		return `${MAD_FORMATTER.format(min)} - ${MAD_FORMATTER.format(max)}`;
 	}
-	if (min !== null) return `${min.toLocaleString("fr-FR")}+ MAD`;
-	return `${max!.toLocaleString("fr-FR")} MAD max`;
+	if (min !== null) return `${MAD_FORMATTER.format(min)} et plus`;
+	if (max !== null) return `${MAD_FORMATTER.format(max)} max`;
+	return null;
+}
+
+function formatDeadlineStatus(daysLeft: number | null, isExpired: boolean): string | null {
+	if (daysLeft === null) return null;
+	if (isExpired) return t`Expirée`;
+	if (daysLeft <= 0) return t`Dernier jour`;
+	if (daysLeft === 1) return t`1 jour restant`;
+	return t`${daysLeft} jours restants`;
 }
 
 function JobBoardCard({ job, onApply }: { job: BoardJob; onApply: (job: BoardJob) => void }) {
 	const deadlineDate = job.applicationDeadline ? new Date(job.applicationDeadline) : null;
 	const isExpired = deadlineDate ? deadlineDate < new Date() : false;
 	const daysLeft = deadlineDate ? Math.ceil((deadlineDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24)) : null;
+	const deadlineStatus = formatDeadlineStatus(daysLeft, isExpired);
 
 	const salary = formatSalary(job.salaryMin, job.salaryMax);
 
@@ -127,20 +146,29 @@ function JobBoardCard({ job, onApply }: { job: BoardJob; onApply: (job: BoardJob
 				<div className="flex items-start gap-3">
 					<div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-muted">
 						{job.companyLogo ? (
-							<img src={job.companyLogo} alt={job.companyName ?? ""} className="size-8 rounded object-contain" />
+							<img
+								src={job.companyLogo}
+								alt={job.companyName ?? ""}
+								width={32}
+								height={32}
+								loading="lazy"
+								className="size-8 rounded object-contain"
+							/>
 						) : (
-							<BuildingsIcon className="size-5 text-muted-foreground" />
+							<BuildingsIcon aria-hidden="true" className="size-5 text-muted-foreground" />
 						)}
 					</div>
 					<div className="min-w-0 flex-1">
-						<CardTitle className="text-base leading-tight">{job.titleFr || job.title}</CardTitle>
-						{job.companyName && <CardDescription className="mt-0.5 text-sm">{job.companyName}</CardDescription>}
+						<CardTitle className="line-clamp-2 text-base leading-tight">{job.titleFr || job.title}</CardTitle>
+						{job.companyName && (
+							<CardDescription className="mt-0.5 truncate text-sm">{job.companyName}</CardDescription>
+						)}
 					</div>
 				</div>
 
 				<div className="mt-3 flex flex-wrap gap-1.5">
 					<Badge variant="outline" className="gap-1 text-xs">
-						<MapPinIcon className="size-3" />
+						<MapPinIcon aria-hidden="true" className="size-3" />
 						{job.location}
 					</Badge>
 					<Badge variant="outline" className="text-xs">
@@ -148,7 +176,7 @@ function JobBoardCard({ job, onApply }: { job: BoardJob; onApply: (job: BoardJob
 					</Badge>
 					{salary && (
 						<Badge variant="outline" className="gap-1 text-xs">
-							<CurrencyCircleDollarIcon className="size-3" />
+							<CurrencyCircleDollarIcon aria-hidden="true" className="size-3" />
 							{salary}
 						</Badge>
 					)}
@@ -177,29 +205,18 @@ function JobBoardCard({ job, onApply }: { job: BoardJob; onApply: (job: BoardJob
 							<span
 								className={`flex items-center gap-1 ${isExpired ? "text-red-600" : daysLeft !== null && daysLeft <= 7 ? "text-yellow-600" : ""}`}
 							>
-								<ClockIcon className="size-3" />
-								{isExpired ? (
-									<Trans>Expired</Trans>
-								) : daysLeft !== null && daysLeft <= 0 ? (
-									<Trans>Last day</Trans>
-								) : (
-									<>
-										{daysLeft} <Trans>days left</Trans>
-									</>
-								)}
+								<ClockIcon aria-hidden="true" className="size-3" />
+								{deadlineStatus}
 							</span>
 						)}
 						<span className="flex items-center gap-1">
-							<CalendarIcon className="size-3" />
-							{new Date(job.createdAt).toLocaleDateString("fr-FR", {
-								day: "numeric",
-								month: "short",
-							})}
+							<CalendarIcon aria-hidden="true" className="size-3" />
+							{SHORT_DATE_FORMATTER.format(new Date(job.createdAt))}
 						</span>
 					</div>
 					<Button size="sm" className="gap-1.5" disabled={isExpired} onClick={() => onApply(job)}>
-						<PaperPlaneTiltIcon className="size-3.5" />
-						<Trans>Apply</Trans>
+						<PaperPlaneTiltIcon aria-hidden="true" className="size-3.5" />
+						<Trans>Postuler</Trans>
 					</Button>
 				</div>
 			</CardContent>
@@ -257,11 +274,11 @@ function ApplyDialog({
 				jobId: job.id,
 				coverLetter: coverLetter.trim() || undefined,
 			});
-			toast.success(t`Application submitted successfully`);
+			toast.success(t`Candidature envoyée`);
 			onOpenChange(false);
 			setCoverLetter("");
 		} catch {
-			toast.error(t`Failed to submit application`);
+			toast.error(t`Impossible d'envoyer la candidature. Réessaie dans un instant.`);
 		}
 	};
 
@@ -270,7 +287,7 @@ function ApplyDialog({
 			<DialogContent className="sm:max-w-[500px]">
 				<DialogHeader>
 					<DialogTitle>
-						<Trans>Apply for</Trans> {job?.titleFr || job?.title}
+						<Trans>Postuler à</Trans> {job?.titleFr || job?.title}
 					</DialogTitle>
 					<DialogDescription>
 						{job?.companyName} &middot; {job?.location}
@@ -279,17 +296,19 @@ function ApplyDialog({
 				<div className="space-y-4 py-2">
 					<p className="text-muted-foreground text-sm">
 						<Trans>
-							Your resume and profile information will be shared with the employer. You can add an optional cover letter
-							message below.
+							Ton CV et les informations de ton profil seront partagés avec l'employeur. Tu peux ajouter un message de
+							motivation court si tu veux personnaliser ta candidature.
 						</Trans>
 					</p>
 					<div className="space-y-2">
 						<label htmlFor="coverLetter" className="font-medium text-sm">
-							<Trans>Cover Letter (Optional)</Trans>
+							<Trans>Message de motivation (facultatif)</Trans>
 						</label>
 						<Textarea
 							id="coverLetter"
-							placeholder={t`Write a brief message to the employer...`}
+							name="coverLetter"
+							autoComplete="off"
+							placeholder={t`Présente rapidement ton profil, ta disponibilité ou ce qui t'intéresse dans cette offre…`}
 							value={coverLetter}
 							onChange={(e) => setCoverLetter(e.target.value)}
 							rows={5}
@@ -298,11 +317,11 @@ function ApplyDialog({
 				</div>
 				<div className="flex justify-end gap-3">
 					<Button variant="outline" onClick={() => onOpenChange(false)}>
-						<Trans>Cancel</Trans>
+						<Trans>Annuler</Trans>
 					</Button>
 					<Button className="gap-2" onClick={handleSubmit} disabled={applyMutation.isPending}>
-						<PaperPlaneTiltIcon className="size-4" />
-						{applyMutation.isPending ? <Trans>Sending...</Trans> : <Trans>Submit Application</Trans>}
+						<PaperPlaneTiltIcon aria-hidden="true" className="size-4" />
+						{applyMutation.isPending ? <Trans>Envoi…</Trans> : <Trans>Envoyer la candidature</Trans>}
 					</Button>
 				</div>
 			</DialogContent>
@@ -351,19 +370,25 @@ function JobBoardPage() {
 
 	return (
 		<div className="mx-auto w-full max-w-6xl space-y-6 p-4 md:p-6">
-			<DashboardHeader title={t`Job Board`} icon={BriefcaseIcon} />
+			<DashboardHeader title={t`Offres disponibles`} icon={BriefcaseIcon} />
 
 			<p className="text-muted-foreground text-sm">
-				<Trans>Browse available job opportunities from our partner companies.</Trans>
+				<Trans>Explore les stages et emplois publiés par les entreprises partenaires d'IMTA.</Trans>
 			</p>
 
 			{/* Search & Filters */}
 			<Card>
 				<CardContent className="space-y-4 pt-4">
 					<div className="relative">
-						<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+						<MagnifyingGlassIcon
+							aria-hidden="true"
+							className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+						/>
 						<Input
-							placeholder={t`Search jobs by title, company, or skills...`}
+							aria-label={t`Rechercher une offre`}
+							name="jobSearch"
+							autoComplete="off"
+							placeholder={t`Recherche par poste, entreprise ou compétence…`}
 							value={searchQuery}
 							onChange={(e) => {
 								setSearchQuery(e.target.value);
@@ -374,7 +399,7 @@ function JobBoardPage() {
 					</div>
 
 					<div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-						<FunnelIcon className="hidden size-4 shrink-0 text-muted-foreground sm:block" />
+						<FunnelIcon aria-hidden="true" className="hidden size-4 shrink-0 text-muted-foreground sm:block" />
 						<Select
 							value={locationFilter}
 							onValueChange={(val) => {
@@ -382,7 +407,7 @@ function JobBoardPage() {
 								setCurrentPage(1);
 							}}
 						>
-							<SelectTrigger className="w-full sm:w-[170px]">
+							<SelectTrigger aria-label={t`Filtrer par ville`} className="w-full sm:w-[170px]">
 								<SelectValue />
 							</SelectTrigger>
 							<SelectContent>
@@ -401,7 +426,7 @@ function JobBoardPage() {
 								setCurrentPage(1);
 							}}
 						>
-							<SelectTrigger className="w-full sm:w-[180px]">
+							<SelectTrigger aria-label={t`Filtrer par domaine`} className="w-full sm:w-[180px]">
 								<SelectValue />
 							</SelectTrigger>
 							<SelectContent>
@@ -420,7 +445,7 @@ function JobBoardPage() {
 								setCurrentPage(1);
 							}}
 						>
-							<SelectTrigger className="w-full sm:w-[160px]">
+							<SelectTrigger aria-label={t`Filtrer par type de contrat`} className="w-full sm:w-[160px]">
 								<SelectValue />
 							</SelectTrigger>
 							<SelectContent>
@@ -438,7 +463,7 @@ function JobBoardPage() {
 			{/* Results count */}
 			{!isLoading && !isError && (
 				<p className="text-muted-foreground text-sm">
-					{totalJobs} {totalJobs === 1 ? <Trans>job found</Trans> : <Trans>jobs found</Trans>}
+					{totalJobs} {totalJobs === 1 ? <Trans>offre trouvée</Trans> : <Trans>offres trouvées</Trans>}
 				</p>
 			)}
 
@@ -449,22 +474,22 @@ function JobBoardPage() {
 				<Card>
 					<CardContent className="py-8 text-center text-muted-foreground">
 						<p className="font-medium">
-							<Trans>Unable to load job listings</Trans>
+							<Trans>Impossible de charger les offres</Trans>
 						</p>
 						<p className="mt-1 text-sm">
-							<Trans>Please try again later.</Trans>
+							<Trans>Réessaie dans quelques instants.</Trans>
 						</p>
 					</CardContent>
 				</Card>
 			) : jobs.length === 0 ? (
 				<Card>
 					<CardContent className="py-12 text-center">
-						<BriefcaseIcon className="mx-auto mb-3 size-10 text-muted-foreground opacity-50" />
+						<BriefcaseIcon aria-hidden="true" className="mx-auto mb-3 size-10 text-muted-foreground opacity-50" />
 						<p className="font-medium text-muted-foreground">
-							<Trans>No jobs match your criteria</Trans>
+							<Trans>Aucune offre ne correspond à tes critères</Trans>
 						</p>
 						<p className="mt-1 text-muted-foreground text-sm">
-							<Trans>Try adjusting your search or filters to find more opportunities.</Trans>
+							<Trans>Essaie d'élargir ta recherche ou de modifier les filtres.</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -486,8 +511,8 @@ function JobBoardPage() {
 								onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
 								className="gap-1"
 							>
-								<CaretLeftIcon className="size-4" />
-								<Trans>Previous</Trans>
+								<CaretLeftIcon aria-hidden="true" className="size-4" />
+								<Trans>Précédent</Trans>
 							</Button>
 							<span className="px-3 text-muted-foreground text-sm">
 								{currentPage} / {totalPages}
@@ -499,8 +524,8 @@ function JobBoardPage() {
 								onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
 								className="gap-1"
 							>
-								<Trans>Next</Trans>
-								<CaretRightIcon className="size-4" />
+								<Trans>Suivant</Trans>
+								<CaretRightIcon aria-hidden="true" className="size-4" />
 							</Button>
 						</div>
 					)}

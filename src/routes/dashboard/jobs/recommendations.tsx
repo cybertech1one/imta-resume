@@ -45,6 +45,16 @@ export const Route = createFileRoute("/dashboard/jobs/recommendations" as any)({
 	errorComponent: ErrorComponent,
 });
 
+function formatRecommendationReason(reason: string) {
+	return reason
+		.replace(/^Matching skills:/, "Compétences correspondantes :")
+		.replace("Niveau d'experience", "Niveau d'expérience")
+		.replace("Localisation preferee:", "Localisation préférée :")
+		.replace("Region correspondante:", "Région correspondante :")
+		.replace("Travail a distance", "Travail à distance")
+		.replace("Mots-cles trouves:", "Mots-clés trouvés :");
+}
+
 function JobRecommendationsPage() {
 	const { data: session } = authClient.useSession();
 	const queryClient = useQueryClient();
@@ -91,11 +101,11 @@ function JobRecommendationsPage() {
 			return orpc.jobRecommendations.generateRecommendations.call(input);
 		},
 		onSuccess: (data) => {
-			toast.success(t`${data.generated} new recommendations generated`);
+			toast.success(t`${data.generated} recommandations générées`);
 			queryClient.invalidateQueries({ queryKey: ["jobRecommendations"] });
 		},
 		onError: () => {
-			toast.error(t`Error generating recommendations`);
+			toast.error(t`Erreur lors de la génération des recommandations`);
 		},
 	});
 
@@ -105,12 +115,12 @@ function JobRecommendationsPage() {
 			return orpc.jobRecommendations.updatePreferences.call(input);
 		},
 		onSuccess: () => {
-			toast.success(t`Preferences updated`);
+			toast.success(t`Préférences enregistrées`);
 			queryClient.invalidateQueries({ queryKey: ["jobRecommendations"] });
 			setShowPreferences(false);
 		},
 		onError: () => {
-			toast.error(t`Error updating preferences`);
+			toast.error(t`Erreur lors de l'enregistrement des préférences`);
 		},
 	});
 
@@ -136,7 +146,7 @@ function JobRecommendationsPage() {
 			return orpc.jobRecommendations.dismiss.call({ id });
 		},
 		onSuccess: () => {
-			toast.success(t`Recommendation hidden`);
+			toast.success(t`Recommandation masquée`);
 			queryClient.invalidateQueries({ queryKey: ["jobRecommendations"] });
 		},
 	});
@@ -147,7 +157,7 @@ function JobRecommendationsPage() {
 			return orpc.jobRecommendations.save.call({ id });
 		},
 		onSuccess: () => {
-			toast.success(t`Job saved`);
+			toast.success(t`Offre enregistrée`);
 			queryClient.invalidateQueries({ queryKey: ["jobRecommendations"] });
 		},
 	});
@@ -158,7 +168,7 @@ function JobRecommendationsPage() {
 			return orpc.jobRecommendations.markApplied.call({ id });
 		},
 		onSuccess: () => {
-			toast.success(t`Marked as applied`);
+			toast.success(t`Marquée comme candidature envoyée`);
 			queryClient.invalidateQueries({ queryKey: ["jobRecommendations"] });
 		},
 	});
@@ -183,7 +193,7 @@ function JobRecommendationsPage() {
 
 	return (
 		<div className="space-y-6">
-			<DashboardHeader icon={SparkleIcon} title={t`AI Recommendations`} />
+			<DashboardHeader icon={SparkleIcon} title={t`Recommandations d'offres`} />
 
 			{/* Stats Cards */}
 			<div className="grid grid-cols-2 gap-4 md:grid-cols-5">
@@ -199,7 +209,7 @@ function JobRecommendationsPage() {
 					</CardHeader>
 					<CardContent>
 						<p className="text-muted-foreground text-xs">
-							<Trans>recommendations</Trans>
+							<Trans>recommandations</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -208,7 +218,7 @@ function JobRecommendationsPage() {
 					<CardHeader className="pb-2">
 						<CardDescription className="flex items-center gap-2">
 							<LightningIcon className="size-4 text-blue-500" />
-							<Trans>New</Trans>
+							<Trans>Nouvelles</Trans>
 						</CardDescription>
 						<CardTitle className="text-2xl text-blue-600 dark:text-blue-400">
 							{loadingStats ? <Skeleton className="h-8 w-12" /> : stats?.new || 0}
@@ -216,7 +226,7 @@ function JobRecommendationsPage() {
 					</CardHeader>
 					<CardContent>
 						<p className="text-muted-foreground text-xs">
-							<Trans>to review</Trans>
+							<Trans>à examiner</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -225,7 +235,7 @@ function JobRecommendationsPage() {
 					<CardHeader className="pb-2">
 						<CardDescription className="flex items-center gap-2">
 							<BookmarkSimpleIcon className="size-4 text-yellow-500" />
-							<Trans>Saved</Trans>
+							<Trans>Enregistrées</Trans>
 						</CardDescription>
 						<CardTitle className="text-2xl text-yellow-600 dark:text-yellow-400">
 							{loadingStats ? <Skeleton className="h-8 w-12" /> : stats?.saved || 0}
@@ -233,7 +243,7 @@ function JobRecommendationsPage() {
 					</CardHeader>
 					<CardContent>
 						<p className="text-muted-foreground text-xs">
-							<Trans>for later</Trans>
+							<Trans>pour plus tard</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -242,7 +252,7 @@ function JobRecommendationsPage() {
 					<CardHeader className="pb-2">
 						<CardDescription className="flex items-center gap-2">
 							<PaperPlaneTiltIcon className="size-4 text-green-500" />
-							<Trans>Applied</Trans>
+							<Trans>Candidatures</Trans>
 						</CardDescription>
 						<CardTitle className="text-2xl text-green-600 dark:text-green-400">
 							{loadingStats ? <Skeleton className="h-8 w-12" /> : stats?.applied || 0}
@@ -250,7 +260,7 @@ function JobRecommendationsPage() {
 					</CardHeader>
 					<CardContent>
 						<p className="text-muted-foreground text-xs">
-							<Trans>applications</Trans>
+							<Trans>envoyées</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -259,7 +269,7 @@ function JobRecommendationsPage() {
 					<CardHeader className="pb-2">
 						<CardDescription className="flex items-center gap-2">
 							<TrendUpIcon className="size-4 text-purple-500" />
-							<Trans>Average Score</Trans>
+							<Trans>Score moyen</Trans>
 						</CardDescription>
 						<CardTitle className="text-2xl text-purple-600 dark:text-purple-400">
 							{loadingStats ? <Skeleton className="h-8 w-12" /> : `${stats?.averageScore || 0}%`}
@@ -267,7 +277,7 @@ function JobRecommendationsPage() {
 					</CardHeader>
 					<CardContent>
 						<p className="text-muted-foreground text-xs">
-							<Trans>compatibility</Trans>
+							<Trans>compatibilité</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -283,13 +293,13 @@ function JobRecommendationsPage() {
 							) : (
 								<SparkleIcon className="mr-2 size-4" />
 							)}
-							<Trans>Generate recommendations</Trans>
+							<Trans>Générer des recommandations</Trans>
 						</Button>
 
 						{resumes && resumes.length > 0 && (
 							<Select onValueChange={(resumeId) => generateMutation.mutate({ resumeId })}>
 								<SelectTrigger className="w-full sm:w-[200px]">
-									<SelectValue placeholder={t`Use a resume`} />
+									<SelectValue placeholder={t`Utiliser un CV`} />
 								</SelectTrigger>
 								<SelectContent>
 									{resumes.map((resume) => (
@@ -303,7 +313,7 @@ function JobRecommendationsPage() {
 
 						<Button variant="outline" onClick={() => setShowPreferences(true)}>
 							<GearIcon className="mr-2 size-4" />
-							<Trans>Preferences</Trans>
+							<Trans>Préférences</Trans>
 						</Button>
 					</div>
 
@@ -311,11 +321,11 @@ function JobRecommendationsPage() {
 						<Select value={`${minScore}`} onValueChange={(v) => setMinScore(Number(v))}>
 							<SelectTrigger className="w-full sm:w-[160px]">
 								<FunnelIcon className="mr-2 size-4" />
-								<SelectValue placeholder={t`Minimum score`} />
+								<SelectValue placeholder={t`Score minimum`} />
 							</SelectTrigger>
 							<SelectContent>
 								<SelectItem value="0">
-									<Trans>All scores</Trans>
+									<Trans>Tous les scores</Trans>
 								</SelectItem>
 								<SelectItem value="40">40%+</SelectItem>
 								<SelectItem value="60">60%+</SelectItem>
@@ -329,10 +339,10 @@ function JobRecommendationsPage() {
 							</SelectTrigger>
 							<SelectContent>
 								<SelectItem value="score">
-									<Trans>By score</Trans>
+									<Trans>Par score</Trans>
 								</SelectItem>
 								<SelectItem value="date">
-									<Trans>By date</Trans>
+									<Trans>Par date</Trans>
 								</SelectItem>
 							</SelectContent>
 						</Select>
@@ -348,7 +358,7 @@ function JobRecommendationsPage() {
 						<CardHeader>
 							<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 								<CardTitle>
-									<Trans>Recommended Jobs</Trans>
+									<Trans>Offres recommandées</Trans>
 								</CardTitle>
 								<Tabs
 									value={activeTab}
@@ -358,7 +368,7 @@ function JobRecommendationsPage() {
 									<TabsList>
 										<TabsTrigger value="new" className="gap-1">
 											<LightningIcon className="size-4" />
-											<Trans>New</Trans>
+											<Trans>Nouvelles</Trans>
 											{stats?.new ? (
 												<Badge variant="secondary" className="ml-1 text-xs">
 													{stats.new}
@@ -367,14 +377,14 @@ function JobRecommendationsPage() {
 										</TabsTrigger>
 										<TabsTrigger value="saved" className="gap-1">
 											<BookmarkSimpleIcon className="size-4" />
-											<Trans>Saved</Trans>
+											<Trans>Enregistrées</Trans>
 										</TabsTrigger>
 										<TabsTrigger value="applied" className="gap-1">
 											<PaperPlaneTiltIcon className="size-4" />
-											<Trans>Applied</Trans>
+											<Trans>Candidatures</Trans>
 										</TabsTrigger>
 										<TabsTrigger value="all">
-											<Trans>All</Trans>
+											<Trans>Toutes</Trans>
 										</TabsTrigger>
 									</TabsList>
 								</Tabs>
@@ -401,15 +411,9 @@ function JobRecommendationsPage() {
 												>
 													<Card
 														className={cn(
-															"cursor-pointer transition-all hover:shadow-md",
+															"transition-shadow hover:shadow-md",
 															selectedJob === rec.id && "ring-2 ring-primary",
 														)}
-														onClick={() => {
-															setSelectedJob(rec.id);
-															if (rec.status === "new") {
-																updateStatusMutation.mutate({ id: rec.id, status: "viewed" });
-															}
-														}}
 													>
 														<CardContent className="p-4">
 															<div className="flex items-start gap-4">
@@ -423,31 +427,35 @@ function JobRecommendationsPage() {
 																	<span className={cn("font-bold text-xl", getScoreColor(rec.matchScore))}>
 																		{rec.matchScore}%
 																	</span>
-																	<span className="text-muted-foreground text-xs">match</span>
+																	<span className="text-muted-foreground text-xs">
+																		<Trans>score</Trans>
+																	</span>
 																</div>
 
 																{/* Job Info */}
 																<div className="min-w-0 flex-1">
 																	<div className="flex items-start justify-between gap-2">
 																		<div>
-																			<h3 className="truncate font-semibold">{rec.job?.title || "Job"}</h3>
-																			<p className="text-muted-foreground text-sm">{rec.job?.company || "Company"}</p>
+																			<h3 className="truncate font-semibold">{rec.job?.title || t`Offre`}</h3>
+																			<p className="text-muted-foreground text-sm">
+																				{rec.job?.company || t`Entreprise`}
+																			</p>
 																		</div>
 																		{rec.status === "new" && (
 																			<Badge className="shrink-0 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-																				<Trans>New</Trans>
+																				<Trans>Nouvelle</Trans>
 																			</Badge>
 																		)}
 																		{rec.status === "saved" && (
 																			<Badge variant="secondary" className="shrink-0">
 																				<BookmarkSimpleIcon className="mr-1 size-3" />
-																				<Trans>Saved</Trans>
+																				<Trans>Enregistrée</Trans>
 																			</Badge>
 																		)}
 																		{rec.status === "applied" && (
 																			<Badge className="shrink-0 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
 																				<CheckCircleIcon className="mr-1 size-3" />
-																				<Trans>Applied</Trans>
+																				<Trans>Candidature</Trans>
 																			</Badge>
 																		)}
 																	</div>
@@ -478,13 +486,29 @@ function JobRecommendationsPage() {
 																	{rec.reasons && (rec.reasons as { matched?: string[] }).matched?.length ? (
 																		<div className="mt-2">
 																			<p className="text-green-600 text-xs dark:text-green-400">
-																				{(rec.reasons as { matched: string[] }).matched.slice(0, 2).join(" | ")}
+																				{(rec.reasons as { matched: string[] }).matched
+																					.slice(0, 2)
+																					.map(formatRecommendationReason)
+																					.join(" | ")}
 																			</p>
 																		</div>
 																	) : null}
 
 																	{/* Quick Actions */}
 																	<div className="mt-3 flex items-center gap-2">
+																		<Button
+																			size="sm"
+																			variant="outline"
+																			onClick={() => {
+																				setSelectedJob(rec.id);
+																				if (rec.status === "new") {
+																					updateStatusMutation.mutate({ id: rec.id, status: "viewed" });
+																				}
+																			}}
+																		>
+																			<EyeIcon className="size-4" />
+																			<Trans>Voir</Trans>
+																		</Button>
 																		{rec.status !== "saved" && rec.status !== "applied" && (
 																			<Tooltip>
 																				<TooltipTrigger asChild>
@@ -495,12 +519,13 @@ function JobRecommendationsPage() {
 																							e.stopPropagation();
 																							saveMutation.mutate(rec.id);
 																						}}
+																						aria-label={t`Enregistrer cette offre`}
 																					>
 																						<BookmarkSimpleIcon className="size-4" />
 																					</Button>
 																				</TooltipTrigger>
 																				<TooltipContent>
-																					<Trans>Save</Trans>
+																					<Trans>Enregistrer</Trans>
 																				</TooltipContent>
 																			</Tooltip>
 																		)}
@@ -514,12 +539,13 @@ function JobRecommendationsPage() {
 																							e.stopPropagation();
 																							applyMutation.mutate(rec.id);
 																						}}
+																						aria-label={t`Marquer comme candidature envoyée`}
 																					>
 																						<PaperPlaneTiltIcon className="size-4" />
 																					</Button>
 																				</TooltipTrigger>
 																				<TooltipContent>
-																					<Trans>Mark as applied</Trans>
+																					<Trans>Marquer comme envoyée</Trans>
 																				</TooltipContent>
 																			</Tooltip>
 																		)}
@@ -532,12 +558,13 @@ function JobRecommendationsPage() {
 																						e.stopPropagation();
 																						dismissMutation.mutate(rec.id);
 																					}}
+																					aria-label={t`Masquer cette recommandation`}
 																				>
 																					<XCircleIcon className="size-4" />
 																				</Button>
 																			</TooltipTrigger>
 																			<TooltipContent>
-																				<Trans>Dismiss</Trans>
+																				<Trans>Masquer</Trans>
 																			</TooltipContent>
 																		</Tooltip>
 																	</div>
@@ -555,23 +582,23 @@ function JobRecommendationsPage() {
 									<SparkleIcon className="size-12 text-muted-foreground" />
 									<div>
 										<h3 className="font-semibold">
-											<Trans>No recommendations</Trans>
+											<Trans>Aucune recommandation</Trans>
 										</h3>
 										<p className="text-muted-foreground text-sm">
 											{activeTab === "new" ? (
-												<Trans>Generate new recommendations based on your profile</Trans>
+												<Trans>Génère des recommandations à partir de ton profil ou de ton CV.</Trans>
 											) : activeTab === "saved" ? (
-												<Trans>Save recommendations to find them here</Trans>
+												<Trans>Enregistre les offres intéressantes pour les retrouver ici.</Trans>
 											) : activeTab === "applied" ? (
-												<Trans>Mark recommendations as applied</Trans>
+												<Trans>Marque les offres comme envoyées pour suivre tes candidatures.</Trans>
 											) : (
-												<Trans>Configure your preferences and generate recommendations</Trans>
+												<Trans>Configure tes préférences puis génère des recommandations.</Trans>
 											)}
 										</p>
 									</div>
 									<Button onClick={() => generateMutation.mutate({})}>
 										<SparkleIcon className="mr-2 size-4" />
-										<Trans>Generate recommendations</Trans>
+										<Trans>Générer des recommandations</Trans>
 									</Button>
 								</div>
 							)}
@@ -584,7 +611,7 @@ function JobRecommendationsPage() {
 					<Card className="sticky top-4">
 						<CardHeader>
 							<CardTitle>
-								<Trans>Job Details</Trans>
+								<Trans>Détails de l'offre</Trans>
 							</CardTitle>
 						</CardHeader>
 						<CardContent>
@@ -593,13 +620,13 @@ function JobRecommendationsPage() {
 									{/* Score Breakdown */}
 									<div>
 										<h4 className="mb-3 font-medium">
-											<Trans>Compatibility Analysis</Trans>
+											<Trans>Analyse de compatibilité</Trans>
 										</h4>
 										<div className="space-y-3">
 											<div>
 												<div className="mb-1 flex items-center justify-between text-sm">
 													<span>
-														<Trans>Skills</Trans>
+														<Trans>Compétences</Trans>
 													</span>
 													<span className={getScoreColor(selectedRecommendation.skillMatchScore || 0)}>
 														{selectedRecommendation.skillMatchScore || 0}%
@@ -610,7 +637,7 @@ function JobRecommendationsPage() {
 											<div>
 												<div className="mb-1 flex items-center justify-between text-sm">
 													<span>
-														<Trans>Experience</Trans>
+														<Trans>Expérience</Trans>
 													</span>
 													<span className={getScoreColor(selectedRecommendation.experienceMatchScore || 0)}>
 														{selectedRecommendation.experienceMatchScore || 0}%
@@ -621,7 +648,7 @@ function JobRecommendationsPage() {
 											<div>
 												<div className="mb-1 flex items-center justify-between text-sm">
 													<span>
-														<Trans>Location</Trans>
+														<Trans>Localisation</Trans>
 													</span>
 													<span className={getScoreColor(selectedRecommendation.locationMatchScore || 0)}>
 														{selectedRecommendation.locationMatchScore || 0}%
@@ -632,7 +659,7 @@ function JobRecommendationsPage() {
 											<div>
 												<div className="mb-1 flex items-center justify-between text-sm">
 													<span>
-														<Trans>Salary</Trans>
+														<Trans>Salaire</Trans>
 													</span>
 													<span className={getScoreColor(selectedRecommendation.salaryMatchScore || 0)}>
 														{selectedRecommendation.salaryMatchScore || 0}%
@@ -647,13 +674,13 @@ function JobRecommendationsPage() {
 									{selectedRecommendation.reasons && (
 										<div>
 											<h4 className="mb-3 font-medium">
-												<Trans>Why this job matches</Trans>
+												<Trans>Pourquoi cette offre correspond</Trans>
 											</h4>
 											<ul className="space-y-2 text-sm">
 												{(selectedRecommendation.reasons as { matched?: string[] }).matched?.map((reason, i) => (
 													<li key={i} className="flex items-start gap-2">
 														<CheckCircleIcon className="mt-0.5 size-4 shrink-0 text-green-500" />
-														<span>{reason}</span>
+														<span>{formatRecommendationReason(reason)}</span>
 													</li>
 												))}
 											</ul>
@@ -661,13 +688,13 @@ function JobRecommendationsPage() {
 											{(selectedRecommendation.reasons as { highlights?: string[] }).highlights?.length ? (
 												<div className="mt-3">
 													<p className="text-muted-foreground text-xs uppercase tracking-wide">
-														<Trans>Strengths</Trans>
+														<Trans>Points forts</Trans>
 													</p>
 													<ul className="mt-1 space-y-1 text-sm">
 														{(selectedRecommendation.reasons as { highlights: string[] }).highlights.map((h, i) => (
 															<li key={i} className="flex items-start gap-2 text-blue-600 dark:text-blue-400">
 																<StarIcon className="mt-0.5 size-4 shrink-0" />
-																<span>{h}</span>
+																<span>{formatRecommendationReason(h)}</span>
 															</li>
 														))}
 													</ul>
@@ -677,7 +704,7 @@ function JobRecommendationsPage() {
 											{(selectedRecommendation.reasons as { missingSkills?: string[] }).missingSkills?.length ? (
 												<div className="mt-3">
 													<p className="text-muted-foreground text-xs uppercase tracking-wide">
-														<Trans>Skills to develop</Trans>
+														<Trans>Compétences à développer</Trans>
 													</p>
 													<div className="mt-1 flex flex-wrap gap-1">
 														{(selectedRecommendation.reasons as { missingSkills: string[] }).missingSkills.map(
@@ -711,14 +738,14 @@ function JobRecommendationsPage() {
 											<Button asChild>
 												<a href={selectedRecommendation.job.applicationUrl} target="_blank" rel="noopener noreferrer">
 													<PaperPlaneTiltIcon className="mr-2 size-4" />
-													<Trans>Apply now</Trans>
+													<Trans>Postuler</Trans>
 												</a>
 											</Button>
 										)}
 										{selectedRecommendation.status !== "saved" && (
 											<Button variant="outline" onClick={() => saveMutation.mutate(selectedRecommendation.id)}>
 												<BookmarkSimpleIcon className="mr-2 size-4" />
-												<Trans>Save for later</Trans>
+												<Trans>Enregistrer pour plus tard</Trans>
 											</Button>
 										)}
 									</div>
@@ -727,7 +754,7 @@ function JobRecommendationsPage() {
 								<div className="flex flex-col items-center gap-4 py-8 text-center">
 									<EyeIcon className="size-10 text-muted-foreground" />
 									<p className="text-muted-foreground text-sm">
-										<Trans>Select a recommendation to view details</Trans>
+										<Trans>Sélectionne une recommandation pour voir les détails.</Trans>
 									</p>
 								</div>
 							)}

@@ -90,7 +90,7 @@ function calculateMatchScore(userProfile: UserProfile, job: JobData): MatchScore
 	}
 
 	if (matchedSkills.length > 0) {
-		matchedReasons.push(`Matching skills: ${matchedSkills.slice(0, 5).join(", ")}`);
+		matchedReasons.push(`Compétences correspondantes : ${matchedSkills.slice(0, 5).join(", ")}`);
 	}
 	if (unmatchedJobSkills.length > 0) {
 		missingSkills.push(...unmatchedJobSkills.slice(0, 5));
@@ -109,9 +109,9 @@ function calculateMatchScore(userProfile: UserProfile, job: JobData): MatchScore
 		experienceMatchScore = expDiff === 0 ? 25 : expDiff === 1 ? 18 : expDiff === 2 ? 10 : 5;
 
 		if (expDiff === 0) {
-			matchedReasons.push("Niveau d'experience correspondant");
+			matchedReasons.push("Niveau d'expérience correspondant");
 		} else if (userExpIndex > jobExpIndex) {
-			highlights.push("Vous depassez le niveau d'experience requis");
+			highlights.push("Tu dépasses le niveau d'expérience requis");
 		}
 	}
 
@@ -141,16 +141,16 @@ function calculateMatchScore(userProfile: UserProfile, job: JobData): MatchScore
 
 	if (locationMatch) {
 		locationMatchScore = 20;
-		matchedReasons.push(`Localisation preferee: ${job.location}`);
+		matchedReasons.push(`Localisation préférée : ${job.location}`);
 	} else if (regionMatch) {
 		locationMatchScore = 15;
-		matchedReasons.push(`Region correspondante: ${job.region || job.location}`);
+		matchedReasons.push(`Région correspondante : ${job.region || job.location}`);
 	}
 
 	// Remote preference bonus
 	if (userProfile.remotePreference === "remote" && job.remoteOption === "remote") {
 		locationMatchScore = Math.min(20, locationMatchScore + 5);
-		highlights.push("Travail a distance disponible");
+		highlights.push("Travail à distance disponible");
 	}
 
 	// ==========================================
@@ -196,7 +196,7 @@ function calculateMatchScore(userProfile: UserProfile, job: JobData): MatchScore
 		const descLower = job.description.toLowerCase();
 		const matchedKeywords = userProfile.keywords.filter((kw) => descLower.includes(kw.toLowerCase()));
 		if (matchedKeywords.length > 0) {
-			highlights.push(`Mots-cles trouves: ${matchedKeywords.join(", ")}`);
+			highlights.push(`Mots-clés trouvés : ${matchedKeywords.join(", ")}`);
 		}
 	}
 
@@ -324,7 +324,9 @@ export const jobRecommendationService = {
 						.select({
 							id: partnerJobPosting.id,
 							title: partnerJobPosting.title,
+							titleFr: partnerJobPosting.titleFr,
 							description: partnerJobPosting.description,
+							descriptionFr: partnerJobPosting.descriptionFr,
 							location: partnerJobPosting.location,
 							region: partnerJobPosting.region,
 							jobType: partnerJobPosting.jobType,
@@ -343,10 +345,19 @@ export const jobRecommendationService = {
 
 		const jobsMap = new Map(jobs.map((j) => [j.id, j]));
 
-		const recommendationsWithJobs = recommendations.map((rec) => ({
-			...rec,
-			job: jobsMap.get(rec.jobId),
-		}));
+		const recommendationsWithJobs = recommendations.map((rec) => {
+			const job = jobsMap.get(rec.jobId);
+			return {
+				...rec,
+				job: job
+					? {
+							...job,
+							title: job.titleFr || job.title,
+							description: job.descriptionFr || job.description,
+						}
+					: undefined,
+			};
+		});
 
 		return {
 			recommendations: recommendationsWithJobs,
@@ -487,7 +498,9 @@ export const jobRecommendationService = {
 			.select({
 				id: partnerJobPosting.id,
 				title: partnerJobPosting.title,
+				titleFr: partnerJobPosting.titleFr,
 				description: partnerJobPosting.description,
+				descriptionFr: partnerJobPosting.descriptionFr,
 				location: partnerJobPosting.location,
 				region: partnerJobPosting.region,
 				jobType: partnerJobPosting.jobType,
@@ -515,7 +528,7 @@ export const jobRecommendationService = {
 
 			const jobData: JobData = {
 				id: job.id,
-				title: job.title,
+				title: job.titleFr || job.title,
 				company: job.companyName || "",
 				location: job.location || "",
 				region: job.region || undefined,
@@ -525,7 +538,7 @@ export const jobRecommendationService = {
 				salaryMax: job.salaryMax || undefined,
 				field: job.field || undefined,
 				jobType: job.jobType || undefined,
-				description: job.description || undefined,
+				description: job.descriptionFr || job.description || undefined,
 			};
 
 			const matchResult = calculateMatchScore(userProfile, jobData);

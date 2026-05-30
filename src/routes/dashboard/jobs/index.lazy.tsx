@@ -83,7 +83,7 @@ function JobBoard() {
 			industry: e.sector || e.sectorFr || "",
 			location: e.location || e.locationFr || "",
 			openPositions: e.openPositions || 0,
-			description: e.description || e.descriptionFr || "",
+			description: e.descriptionFr || e.description || "",
 			featured: (e.sortOrder || 0) <= 5,
 		}));
 	}, [dbEmployers]);
@@ -93,11 +93,11 @@ function JobBoard() {
 		if (!dbMarketInsights || dbMarketInsights.length === 0) return [];
 		return dbMarketInsights.map((mi) => ({
 			id: mi.id,
-			title: mi.title || mi.titleFr || "",
+			title: mi.titleFr || mi.title || "",
 			value: mi.value || "",
 			change: undefined,
 			trend: "stable" as const,
-			description: mi.description || mi.descriptionFr || "",
+			description: mi.descriptionFr || mi.description || "",
 			icon: insightIconMap[mi.icon || ""] || SparkleIcon,
 		}));
 	}, [dbMarketInsights]);
@@ -137,6 +137,7 @@ function JobBoard() {
 				publishedAt: Date | string | null;
 				createdAt: Date | string;
 				description: string;
+				descriptionFr: string | null;
 				requirements: string[] | null;
 				skills: string[] | null;
 				applicationUrl: string | null;
@@ -157,7 +158,7 @@ function JobBoard() {
 			salaryMax: j.salaryMax ?? undefined,
 			currency: j.salaryCurrency ?? "MAD",
 			postedDate: new Date(j.publishedAt ?? j.createdAt).toISOString().split("T")[0],
-			description: j.description,
+			description: j.descriptionFr || j.description,
 			requirements: (j.requirements as string[]) ?? [],
 			skills: (j.skills as string[]) ?? [],
 			howToApply: j.applicationUrl ?? j.applicationEmail ?? "",
@@ -257,10 +258,14 @@ function JobBoard() {
 	);
 
 	return (
-		<main role="main" aria-label={t`Job opportunities main content`}>
-			<DashboardHeader icon={BriefcaseIcon} title={t`Job Opportunities`} />
+		<main role="main" aria-label={t`Contenu principal des offres`}>
+			<DashboardHeader icon={BriefcaseIcon} title={t`Offres de stage et emploi`} />
 
-			<HeroSection allJobsCount={allJobs.length} employerCount={featuredEmployers.length} />
+			<HeroSection
+				allJobsCount={allJobs.length}
+				employerCount={featuredEmployers.length}
+				featuredJobsCount={featuredJobs.length}
+			/>
 
 			{/* Loading state */}
 			{isLoadingJobs && (
@@ -268,7 +273,7 @@ function JobBoard() {
 					<CardContent className="flex flex-col items-center justify-center py-12">
 						<SpinnerIcon className="mb-4 size-10 animate-spin text-primary" />
 						<p className="text-muted-foreground">
-							<Trans>Loading job offers...</Trans>
+							<Trans>Chargement des offres...</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -280,10 +285,10 @@ function JobBoard() {
 					<CardContent className="flex flex-col items-center justify-center py-12">
 						<WarningIcon className="mb-4 size-10 text-destructive" />
 						<h3 className="mb-2 font-semibold text-lg">
-							<Trans>Loading error</Trans>
+							<Trans>Erreur de chargement</Trans>
 						</h3>
 						<p className="text-muted-foreground">
-							<Trans>Unable to load job listings. Please try again.</Trans>
+							<Trans>Impossible de charger les offres. Veuillez réessayer.</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -291,12 +296,12 @@ function JobBoard() {
 
 			{/* Main Tabs */}
 			<Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-				<TabsList className="flex h-auto flex-wrap gap-2 bg-transparent p-0" aria-label={t`Job board sections`}>
+				<TabsList className="flex h-auto flex-wrap gap-2 bg-transparent p-0" aria-label={t`Sections des offres`}>
 					{[
-						{ value: "jobs", icon: BriefcaseIcon, label: t`Job Listings` },
-						{ value: "employers", icon: BuildingsIcon, label: t`Employers` },
-						{ value: "applications", icon: NoteIcon, label: t`My Applications` },
-						{ value: "insights", icon: ChartLineUpIcon, label: t`Trends` },
+						{ value: "jobs", icon: BriefcaseIcon, label: t`Offres` },
+						{ value: "employers", icon: BuildingsIcon, label: t`Employeurs` },
+						{ value: "applications", icon: NoteIcon, label: t`Mes candidatures` },
+						{ value: "insights", icon: ChartLineUpIcon, label: t`Tendances` },
 					].map((tab) => (
 						<TabsTrigger
 							key={tab.value}

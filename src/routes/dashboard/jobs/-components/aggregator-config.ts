@@ -52,12 +52,12 @@ export const sourceConfig: Record<JobSource, { label: string; color: string; ico
 // Industry configuration
 export const industryConfig: Record<Industry, { label: string; icon: Icon; color: string }> = {
 	healthcare: {
-		label: "Healthcare",
+		label: "Santé",
 		icon: FirstAidKitIcon,
 		color: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
 	},
 	industrial: {
-		label: "Industrial",
+		label: "Industrie",
 		icon: GearIcon,
 		color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
 	},
@@ -67,7 +67,7 @@ export const industryConfig: Record<Industry, { label: string; icon: Icon; color
 		color: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 	},
 	tech: {
-		label: "Technology",
+		label: "Technologie",
 		icon: RocketLaunchIcon,
 		color: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
 	},
@@ -77,7 +77,7 @@ export const industryConfig: Record<Industry, { label: string; icon: Icon; color
 		color: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
 	},
 	general: {
-		label: "General",
+		label: "Général",
 		icon: BriefcaseIcon,
 		color: "bg-gray-100 text-gray-700 dark:bg-gray-800/30 dark:text-gray-400",
 	},
@@ -85,44 +85,44 @@ export const industryConfig: Record<Industry, { label: string; icon: Icon; color
 
 // Experience level configuration
 export const experienceConfig: Record<ExperienceLevel, { label: string; years: string }> = {
-	entry: { label: "Entry Level", years: "0-1 yr" },
-	junior: { label: "Junior", years: "1-3 yrs" },
-	mid: { label: "Mid-Level", years: "3-5 yrs" },
-	senior: { label: "Senior", years: "5-8 yrs" },
-	lead: { label: "Lead/Manager", years: "8+ yrs" },
+	entry: { label: "Débutant", years: "0-1 an" },
+	junior: { label: "Junior", years: "1-3 ans" },
+	mid: { label: "Intermédiaire", years: "3-5 ans" },
+	senior: { label: "Senior", years: "5-8 ans" },
+	lead: { label: "Responsable", years: "8+ ans" },
 };
 
 // Work type configuration
 export const workTypeConfig: Record<WorkType, { label: string; icon: Icon }> = {
-	onsite: { label: "On-site", icon: BuildingsIcon },
-	remote: { label: "Remote", icon: HouseIcon },
-	hybrid: { label: "Hybrid", icon: GlobeIcon },
+	onsite: { label: "Sur site", icon: BuildingsIcon },
+	remote: { label: "À distance", icon: HouseIcon },
+	hybrid: { label: "Hybride", icon: GlobeIcon },
 };
 
 // Application status configuration
 export const applicationStatusConfig: Record<ApplicationStatus, { label: string; color: string; icon: Icon }> = {
 	not_applied: {
-		label: "Not Applied",
+		label: "Non postulée",
 		color: "bg-gray-100 text-gray-600 dark:bg-gray-800/30 dark:text-gray-400",
 		icon: ClockIcon,
 	},
 	applied: {
-		label: "Applied",
+		label: "Candidature envoyée",
 		color: "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
 		icon: CheckCircleIcon,
 	},
 	interview: {
-		label: "Interview",
+		label: "Entretien",
 		color: "bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400",
 		icon: UserIcon,
 	},
 	offer: {
-		label: "Offer Received",
+		label: "Offre reçue",
 		color: "bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400",
 		icon: StarIcon,
 	},
 	rejected: {
-		label: "Rejected",
+		label: "Refusée",
 		color: "bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400",
 		icon: XIcon,
 	},
@@ -134,11 +134,11 @@ export const locations = [
 	"Rabat",
 	"Tanger",
 	"Marrakech",
-	"Fes",
+	"Fès",
 	"Agadir",
-	"Meknes",
+	"Meknès",
 	"Oujda",
-	"Kenitra",
+	"Kénitra",
 	"National",
 	"International",
 ];
@@ -148,79 +148,79 @@ export const industryRecommendations: IndustryRecommendation[] = [
 	{
 		industry: "healthcare",
 		platforms: [
-			{ source: "linkedin", strength: "high", description: "Best for private clinic positions" },
-			{ source: "indeed", strength: "medium", description: "Good for public hospitals" },
-			{ source: "glassdoor", strength: "low", description: "Few healthcare positions in Morocco" },
+			{ source: "linkedin", strength: "high", description: "Très utile pour les cliniques privées" },
+			{ source: "indeed", strength: "medium", description: "Bon complément pour les hôpitaux et centres publics" },
+			{ source: "glassdoor", strength: "low", description: "Peu d'offres santé au Maroc" },
 		],
 		tips: [
-			"Prioritize LinkedIn for private clinics",
-			"Check university hospital websites directly",
-			"Join professional healthcare groups",
+			"Priorise LinkedIn pour les cliniques privées",
+			"Consulte aussi les sites des CHU et hôpitaux",
+			"Rejoins des groupes professionnels santé au Maroc",
 		],
 	},
 	{
 		industry: "industrial",
 		platforms: [
-			{ source: "indeed", strength: "high", description: "Leader for technical positions" },
-			{ source: "linkedin", strength: "high", description: "Excellent for multinationals" },
-			{ source: "glassdoor", strength: "medium", description: "Good for company reviews" },
+			{ source: "indeed", strength: "high", description: "Très présent sur les postes techniques" },
+			{ source: "linkedin", strength: "high", description: "Excellent pour les multinationales" },
+			{ source: "glassdoor", strength: "medium", description: "Utile pour comparer les entreprises" },
 		],
 		tips: [
-			"Target industrial zones (Tanger Med, Casablanca)",
-			"Highlight your technical certifications",
-			"Automotive companies are actively recruiting",
+			"Cible les zones industrielles comme Tanger Med et Casablanca",
+			"Mets en avant tes certifications techniques",
+			"L'automobile recrute régulièrement des profils juniors",
 		],
 	},
 	{
 		industry: "hse",
 		platforms: [
-			{ source: "linkedin", strength: "high", description: "Essential for HSE positions" },
-			{ source: "indeed", strength: "medium", description: "Production/field positions" },
-			{ source: "glassdoor", strength: "medium", description: "To evaluate safety culture" },
+			{ source: "linkedin", strength: "high", description: "Indispensable pour les offres HSE" },
+			{ source: "indeed", strength: "medium", description: "Bon pour les postes terrain et production" },
+			{ source: "glassdoor", strength: "medium", description: "Utile pour évaluer la culture sécurité" },
 		],
 		tips: [
-			"ISO 45001 certifications are highly sought after",
-			"Audit experience is a major advantage",
-			"Oil/gas sectors offer the best salaries",
+			"Les bases ISO 45001 sont très valorisées",
+			"Toute expérience d'audit est un avantage clair",
+			"Les secteurs énergie et industrie offrent souvent de meilleurs salaires",
 		],
 	},
 	{
 		industry: "tech",
 		platforms: [
-			{ source: "linkedin", strength: "high", description: "Essential for tech" },
-			{ source: "glassdoor", strength: "high", description: "Widely used by startups" },
-			{ source: "indeed", strength: "medium", description: "Technical support positions" },
+			{ source: "linkedin", strength: "high", description: "Très fort pour les postes tech" },
+			{ source: "glassdoor", strength: "high", description: "Utile pour les startups et salaires" },
+			{ source: "indeed", strength: "medium", description: "Bon pour support technique et junior" },
 		],
 		tips: [
-			"A GitHub portfolio is essential",
-			"Casablanca and Rabat concentrate the opportunities",
-			"International freelancing is a viable option",
+			"Un portfolio GitHub renforce beaucoup le profil",
+			"Casablanca et Rabat concentrent beaucoup d'opportunités",
+			"Le freelancing international peut compléter la recherche",
 		],
 	},
 	{
 		industry: "finance",
 		platforms: [
-			{ source: "linkedin", strength: "high", description: "Banks and insurance companies recruit here" },
-			{ source: "glassdoor", strength: "medium", description: "To compare compensation packages" },
-			{ source: "indeed", strength: "low", description: "Few finance job postings" },
+			{ source: "linkedin", strength: "high", description: "Banques et assurances recrutent beaucoup ici" },
+			{ source: "glassdoor", strength: "medium", description: "Utile pour comparer les avantages" },
+			{ source: "indeed", strength: "low", description: "Moins d'offres finance spécialisées" },
 		],
 		tips: [
-			"Banks prefer direct applications",
-			"CFA/ACCA certifications are valued",
-			"Casablanca Finance City offers opportunities",
+			"Les banques apprécient aussi les candidatures directes",
+			"Les certifications CFA/ACCA sont valorisées",
+			"Casablanca Finance City concentre plusieurs opportunités",
 		],
 	},
 	{
 		industry: "general",
 		platforms: [
-			{ source: "indeed", strength: "high", description: "Very broad coverage" },
-			{ source: "linkedin", strength: "high", description: "Effective networking" },
-			{ source: "glassdoor", strength: "medium", description: "For company research" },
+			{ source: "indeed", strength: "high", description: "Très large couverture d'offres" },
+			{ source: "linkedin", strength: "high", description: "Fort pour le réseau et les recruteurs" },
+			{ source: "glassdoor", strength: "medium", description: "Utile pour préparer l'entreprise" },
 		],
 		tips: [
-			"Use all platforms to maximize your chances",
-			"Customize your resume for the target sector",
-			"Networking remains the best channel",
+			"Utilise plusieurs plateformes pour augmenter tes chances",
+			"Adapte ton CV au secteur ciblé",
+			"Le réseau reste un canal très efficace",
 		],
 	},
 ];

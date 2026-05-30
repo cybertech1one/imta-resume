@@ -134,7 +134,7 @@ export const jobAggregatorService = {
 				.where(and(eq(schema.aggregatedJob.id, input.id), eq(schema.aggregatedJob.userId, input.userId)));
 
 			if (!job) {
-				throw new ORPCError("NOT_FOUND", { message: "Job not found" });
+				throw new ORPCError("NOT_FOUND", { message: "Offre introuvable" });
 			}
 
 			return job;
@@ -200,7 +200,7 @@ export const jobAggregatorService = {
 				.where(and(eq(schema.aggregatedJob.id, input.id), eq(schema.aggregatedJob.userId, input.userId)));
 
 			if (!existing) {
-				throw new ORPCError("NOT_FOUND", { message: "Job not found" });
+				throw new ORPCError("NOT_FOUND", { message: "Offre introuvable" });
 			}
 
 			await db
@@ -238,7 +238,7 @@ export const jobAggregatorService = {
 				.where(and(eq(schema.aggregatedJob.id, input.id), eq(schema.aggregatedJob.userId, input.userId)));
 
 			if (!existing) {
-				throw new ORPCError("NOT_FOUND", { message: "Job not found" });
+				throw new ORPCError("NOT_FOUND", { message: "Offre introuvable" });
 			}
 
 			const newSavedStatus = !existing.isSaved;
@@ -259,7 +259,7 @@ export const jobAggregatorService = {
 				.where(and(eq(schema.aggregatedJob.id, input.id), eq(schema.aggregatedJob.userId, input.userId)));
 
 			if (!existing) {
-				throw new ORPCError("NOT_FOUND", { message: "Job not found" });
+				throw new ORPCError("NOT_FOUND", { message: "Offre introuvable" });
 			}
 
 			await db
@@ -352,7 +352,7 @@ export const jobAggregatorService = {
 				);
 
 			if (!search) {
-				throw new ORPCError("NOT_FOUND", { message: "Saved search not found" });
+				throw new ORPCError("NOT_FOUND", { message: "Recherche enregistrée introuvable" });
 			}
 
 			return search;
@@ -368,7 +368,7 @@ export const jobAggregatorService = {
 				);
 
 			if (!existing) {
-				throw new ORPCError("NOT_FOUND", { message: "Saved search not found" });
+				throw new ORPCError("NOT_FOUND", { message: "Recherche enregistrée introuvable" });
 			}
 
 			await db

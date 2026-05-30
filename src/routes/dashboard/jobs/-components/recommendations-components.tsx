@@ -80,10 +80,10 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 			<DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
 				<DialogHeader>
 					<DialogTitle>
-						<Trans>Job Search Preferences</Trans>
+						<Trans>Préférences de recherche</Trans>
 					</DialogTitle>
 					<DialogDescription>
-						<Trans>Configure your preferences to get more relevant recommendations</Trans>
+						<Trans>Configure tes critères pour obtenir des recommandations plus pertinentes.</Trans>
 					</DialogDescription>
 				</DialogHeader>
 
@@ -91,22 +91,27 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 					{/* Fields */}
 					<div>
 						<Label className="mb-3 block">
-							<Trans>Fields of interest</Trans>
+							<Trans>Domaines recherchés</Trans>
 						</Label>
 						<div className="flex flex-wrap gap-2">
 							{FIELDS.map((field) => (
 								<Badge
+									asChild
 									key={field.id}
 									variant={localPrefs.preferredFields?.includes(field.id) ? "default" : "outline"}
 									className="cursor-pointer"
-									onClick={() =>
-										setLocalPrefs((p) => ({
-											...p,
-											preferredFields: toggleArrayItem(p.preferredFields, field.id),
-										}))
-									}
 								>
-									{field.name}
+									<button
+										type="button"
+										onClick={() =>
+											setLocalPrefs((p) => ({
+												...p,
+												preferredFields: toggleArrayItem(p.preferredFields, field.id),
+											}))
+										}
+									>
+										{field.name}
+									</button>
 								</Badge>
 							))}
 						</div>
@@ -115,22 +120,27 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 					{/* Regions */}
 					<div>
 						<Label className="mb-3 block">
-							<Trans>Preferred regions</Trans>
+							<Trans>Régions préférées</Trans>
 						</Label>
 						<div className="flex flex-wrap gap-2">
 							{REGIONS.map((region) => (
 								<Badge
+									asChild
 									key={region.id}
 									variant={localPrefs.preferredRegions?.includes(region.id) ? "default" : "outline"}
 									className="cursor-pointer"
-									onClick={() =>
-										setLocalPrefs((p) => ({
-											...p,
-											preferredRegions: toggleArrayItem(p.preferredRegions, region.id),
-										}))
-									}
 								>
-									{region.name}
+									<button
+										type="button"
+										onClick={() =>
+											setLocalPrefs((p) => ({
+												...p,
+												preferredRegions: toggleArrayItem(p.preferredRegions, region.id),
+											}))
+										}
+									>
+										{region.name}
+									</button>
 								</Badge>
 							))}
 						</div>
@@ -139,22 +149,27 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 					{/* Job Types */}
 					<div>
 						<Label className="mb-3 block">
-							<Trans>Contract types</Trans>
+							<Trans>Types de contrat</Trans>
 						</Label>
 						<div className="flex flex-wrap gap-2">
 							{JOB_TYPES.map((type) => (
 								<Badge
+									asChild
 									key={type.id}
 									variant={localPrefs.jobTypes?.includes(type.id) ? "default" : "outline"}
 									className="cursor-pointer"
-									onClick={() =>
-										setLocalPrefs((p) => ({
-											...p,
-											jobTypes: toggleArrayItem(p.jobTypes, type.id),
-										}))
-									}
 								>
-									{type.name}
+									<button
+										type="button"
+										onClick={() =>
+											setLocalPrefs((p) => ({
+												...p,
+												jobTypes: toggleArrayItem(p.jobTypes, type.id),
+											}))
+										}
+									>
+										{type.name}
+									</button>
 								</Badge>
 							))}
 						</div>
@@ -163,14 +178,14 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 					{/* Experience Level */}
 					<div>
 						<Label className="mb-3 block">
-							<Trans>Experience level</Trans>
+							<Trans>Niveau d'expérience</Trans>
 						</Label>
 						<Select
 							value={localPrefs.experienceLevel || ""}
 							onValueChange={(v) => setLocalPrefs((p) => ({ ...p, experienceLevel: v }))}
 						>
 							<SelectTrigger>
-								<SelectValue placeholder={t`Select a level`} />
+								<SelectValue placeholder={t`Choisir un niveau`} />
 							</SelectTrigger>
 							<SelectContent>
 								{EXPERIENCE_LEVELS.map((level) => (
@@ -185,19 +200,24 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 					{/* Remote Preference */}
 					<div>
 						<Label className="mb-3 block">
-							<Trans>Work preference</Trans>
+							<Trans>Mode de travail souhaité</Trans>
 						</Label>
 						<div className="flex flex-wrap gap-2">
 							{REMOTE_OPTIONS.map((option) => (
 								<Badge
+									asChild
 									key={option.id}
 									variant={localPrefs.remotePreference === option.id ? "default" : "outline"}
 									className="cursor-pointer"
-									onClick={() =>
-										setLocalPrefs((p) => ({ ...p, remotePreference: option.id as "onsite" | "remote" | "hybrid" }))
-									}
 								>
-									{option.name}
+									<button
+										type="button"
+										onClick={() =>
+											setLocalPrefs((p) => ({ ...p, remotePreference: option.id as "onsite" | "remote" | "hybrid" }))
+										}
+									>
+										{option.name}
+									</button>
 								</Badge>
 							))}
 						</div>
@@ -207,7 +227,7 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 					<div className="grid gap-4 sm:grid-cols-2">
 						<div>
 							<Label className="mb-2 block">
-								<Trans>Minimum salary (MAD/year)</Trans>
+								<Trans>Salaire minimum (MAD/an)</Trans>
 							</Label>
 							<Input
 								type="number"
@@ -223,7 +243,7 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 						</div>
 						<div>
 							<Label className="mb-2 block">
-								<Trans>Maximum salary (MAD/year)</Trans>
+								<Trans>Salaire maximum (MAD/an)</Trans>
 							</Label>
 							<Input
 								type="number"
@@ -244,20 +264,21 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 						<Switch
 							checked={localPrefs.willingToRelocate || false}
 							onCheckedChange={(checked) => setLocalPrefs((p) => ({ ...p, willingToRelocate: checked }))}
+							aria-label={t`Disponible pour changer de ville`}
 						/>
 						<Label>
-							<Trans>Willing to relocate for a job</Trans>
+							<Trans>Disponible pour changer de ville pour une opportunité</Trans>
 						</Label>
 					</div>
 
 					{/* Priority Skills */}
 					<div>
 						<Label className="mb-2 block">
-							<Trans>Priority skills</Trans>
+							<Trans>Compétences prioritaires</Trans>
 						</Label>
 						<div className="flex gap-2">
 							<Input
-								placeholder={t`Add a skill...`}
+								placeholder={t`Ajouter une compétence`}
 								value={skillInput}
 								onChange={(e) => setSkillInput(e.target.value)}
 								onKeyDown={(e) => {
@@ -281,7 +302,7 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 									setSkillInput("");
 								}}
 							>
-								<Trans>Add</Trans>
+								<Trans>Ajouter</Trans>
 							</Button>
 						</div>
 						{localPrefs.prioritySkills && localPrefs.prioritySkills.length > 0 && (
@@ -289,15 +310,19 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 								{localPrefs.prioritySkills.map((skill) => (
 									<Badge key={skill} variant="secondary" className="gap-1">
 										{skill}
-										<XIcon
-											className="size-3 cursor-pointer"
+										<button
+											type="button"
+											className="rounded-full p-0.5 transition-colors hover:bg-background/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+											aria-label={t`Retirer cet élément`}
 											onClick={() =>
 												setLocalPrefs((p) => ({
 													...p,
 													prioritySkills: removeFromArray(p.prioritySkills, skill),
 												}))
 											}
-										/>
+										>
+											<XIcon className="size-3" />
+										</button>
 									</Badge>
 								))}
 							</div>
@@ -307,11 +332,11 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 					{/* Keywords */}
 					<div>
 						<Label className="mb-2 block">
-							<Trans>Search keywords</Trans>
+							<Trans>Mots-clés de recherche</Trans>
 						</Label>
 						<div className="flex gap-2">
 							<Input
-								placeholder={t`Add a keyword...`}
+								placeholder={t`Ajouter un mot-clé`}
 								value={keywordInput}
 								onChange={(e) => setKeywordInput(e.target.value)}
 								onKeyDown={(e) => {
@@ -335,7 +360,7 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 									setKeywordInput("");
 								}}
 							>
-								<Trans>Add</Trans>
+								<Trans>Ajouter</Trans>
 							</Button>
 						</div>
 						{localPrefs.keywords && localPrefs.keywords.length > 0 && (
@@ -343,15 +368,19 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 								{localPrefs.keywords.map((keyword) => (
 									<Badge key={keyword} variant="secondary" className="gap-1">
 										{keyword}
-										<XIcon
-											className="size-3 cursor-pointer"
+										<button
+											type="button"
+											className="rounded-full p-0.5 transition-colors hover:bg-background/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+											aria-label={t`Retirer cet élément`}
 											onClick={() =>
 												setLocalPrefs((p) => ({
 													...p,
 													keywords: removeFromArray(p.keywords, keyword),
 												}))
 											}
-										/>
+										>
+											<XIcon className="size-3" />
+										</button>
 									</Badge>
 								))}
 							</div>
@@ -361,11 +390,11 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 					{/* Excluded Companies */}
 					<div>
 						<Label className="mb-2 block">
-							<Trans>Excluded companies</Trans>
+							<Trans>Entreprises à exclure</Trans>
 						</Label>
 						<div className="flex gap-2">
 							<Input
-								placeholder={t`Add a company...`}
+								placeholder={t`Ajouter une entreprise`}
 								value={companyInput}
 								onChange={(e) => setCompanyInput(e.target.value)}
 								onKeyDown={(e) => {
@@ -389,7 +418,7 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 									setCompanyInput("");
 								}}
 							>
-								<Trans>Add</Trans>
+								<Trans>Ajouter</Trans>
 							</Button>
 						</div>
 						{localPrefs.excludedCompanies && localPrefs.excludedCompanies.length > 0 && (
@@ -397,15 +426,19 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 								{localPrefs.excludedCompanies.map((company) => (
 									<Badge key={company} variant="secondary" className="gap-1">
 										{company}
-										<XIcon
-											className="size-3 cursor-pointer"
+										<button
+											type="button"
+											className="rounded-full p-0.5 transition-colors hover:bg-background/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+											aria-label={t`Retirer cet élément`}
 											onClick={() =>
 												setLocalPrefs((p) => ({
 													...p,
 													excludedCompanies: removeFromArray(p.excludedCompanies, company),
 												}))
 											}
-										/>
+										>
+											<XIcon className="size-3" />
+										</button>
 									</Badge>
 								))}
 							</div>
@@ -415,7 +448,7 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 
 				<DialogFooter>
 					<Button variant="outline" onClick={() => onOpenChange(false)}>
-						<Trans>Cancel</Trans>
+						<Trans>Annuler</Trans>
 					</Button>
 					<Button onClick={() => onSave(localPrefs)} disabled={isLoading}>
 						{isLoading ? (
@@ -423,7 +456,7 @@ export function PreferencesDialog({ open, onOpenChange, preferences, onSave, isL
 						) : (
 							<CheckCircleIcon className="mr-2 size-4" />
 						)}
-						<Trans>Save</Trans>
+						<Trans>Enregistrer</Trans>
 					</Button>
 				</DialogFooter>
 			</DialogContent>

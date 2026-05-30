@@ -113,13 +113,13 @@ function JobAlertsPage() {
 			return { previousAlerts };
 		},
 		onSuccess: () => {
-			toast.success(t`Alert created successfully`);
+			toast.success(t`Alerte créée`);
 		},
 		onError: (error, _newAlert, context) => {
 			if (context?.previousAlerts) {
 				queryClient.setQueryData(orpc.jobAlerts.list.key({ input: {} }), context.previousAlerts);
 			}
-			toast.error(error.message || t`Error creating alert`);
+			toast.error(error.message || t`Impossible de créer l'alerte`);
 		},
 		onSettled: () => {
 			queryClient.invalidateQueries({ queryKey: ["jobAlerts"] });
@@ -133,10 +133,10 @@ function JobAlertsPage() {
 			queryClient.invalidateQueries({ queryKey: ["jobAlerts"] });
 			setEditingAlertId(null);
 			resetForm();
-			toast.success(t`Alert updated`);
+			toast.success(t`Alerte mise à jour`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error updating alert`);
+			toast.error(error.message || t`Impossible de mettre à jour l'alerte`);
 		},
 	});
 
@@ -145,10 +145,10 @@ function JobAlertsPage() {
 		...orpc.jobAlerts.toggleStatus.mutationOptions(),
 		onSuccess: (newStatus) => {
 			queryClient.invalidateQueries({ queryKey: ["jobAlerts"] });
-			toast.success(newStatus === "active" ? t`Alert activated` : t`Alert paused`);
+			toast.success(newStatus === "active" ? t`Alerte activée` : t`Alerte mise en pause`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error changing status`);
+			toast.error(error.message || t`Impossible de changer le statut`);
 		},
 	});
 
@@ -158,10 +158,10 @@ function JobAlertsPage() {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["jobAlerts"] });
 			setDeleteConfirmId(null);
-			toast.success(t`Alert deleted`);
+			toast.success(t`Alerte supprimée`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error deleting alert`);
+			toast.error(error.message || t`Impossible de supprimer l'alerte`);
 		},
 	});
 
@@ -178,10 +178,10 @@ function JobAlertsPage() {
 		...orpc.jobAlerts.match.markApplied.mutationOptions(),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["jobAlerts"] });
-			toast.success(t`Application recorded`);
+			toast.success(t`Candidature enregistrée`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error recording application`);
+			toast.error(error.message || t`Impossible d'enregistrer la candidature`);
 		},
 	});
 
@@ -244,12 +244,12 @@ function JobAlertsPage() {
 			.filter(Boolean);
 
 		if (keywordsArray.length === 0) {
-			toast.error(t`Please add at least one keyword`);
+			toast.error(t`Ajoute au moins un mot-clé`);
 			return;
 		}
 
 		createMutation.mutate({
-			name: formData.name || `Alert ${alerts.length + 1}`,
+			name: formData.name || `Alerte ${alerts.length + 1}`,
 			keywords: keywordsArray,
 			locations: formData.locations,
 			salaryMin: formData.salaryMin,
@@ -341,16 +341,16 @@ function JobAlertsPage() {
 		a.click();
 		document.body.removeChild(a);
 		URL.revokeObjectURL(url);
-		toast.success(t`Export downloaded`);
+		toast.success(t`Export téléchargé`);
 	}, [alerts, matches]);
 
 	// Loading state
 	if (isLoadingAlerts) {
 		return (
 			<>
-				<DashboardHeader icon={BellRingingIcon} title={t`Job Alerts`} />
+				<DashboardHeader icon={BellRingingIcon} title={t`Alertes d'emploi`} />
 				<div className="flex min-h-[400px] items-center justify-center">
-					<SpinnerIcon className="size-8 animate-spin text-primary" />
+					<SpinnerIcon aria-hidden="true" className="size-8 animate-spin text-primary" />
 				</div>
 			</>
 		);
@@ -360,15 +360,15 @@ function JobAlertsPage() {
 	if (isAlertsError) {
 		return (
 			<>
-				<DashboardHeader icon={BellRingingIcon} title={t`Job Alerts`} />
+				<DashboardHeader icon={BellRingingIcon} title={t`Alertes d'emploi`} />
 				<Card className="border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/20">
 					<CardContent className="flex flex-col items-center justify-center py-16">
-						<WarningIcon className="mb-4 size-16 text-red-500" weight="duotone" />
+						<WarningIcon aria-hidden="true" className="mb-4 size-16 text-red-500" weight="duotone" />
 						<h3 className="mb-2 font-semibold text-lg">
-							<Trans>Loading error</Trans>
+							<Trans>Erreur de chargement</Trans>
 						</h3>
 						<p className="text-center text-muted-foreground">
-							<Trans>Unable to load alerts. Please try again.</Trans>
+							<Trans>Impossible de charger les alertes. Réessaie dans quelques instants.</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -378,7 +378,7 @@ function JobAlertsPage() {
 
 	return (
 		<>
-			<DashboardHeader icon={BellRingingIcon} title={t`Job Alerts`} />
+			<DashboardHeader icon={BellRingingIcon} title={t`Alertes d'emploi`} />
 
 			<HeroSection stats={stats} />
 
@@ -387,16 +387,16 @@ function JobAlertsPage() {
 				<div className="flex flex-wrap items-center justify-between gap-4">
 					<TabsList className="flex h-auto flex-wrap gap-2 bg-transparent p-0">
 						{[
-							{ value: "alerts", icon: BellIcon, label: t`My Alerts` },
-							{ value: "matches", icon: BriefcaseIcon, label: t`Matches` },
-							{ value: "history", icon: ChartBarIcon, label: t`History` },
+							{ value: "alerts", icon: BellIcon, label: t`Mes alertes` },
+							{ value: "matches", icon: BriefcaseIcon, label: t`Offres reçues` },
+							{ value: "history", icon: ChartBarIcon, label: t`Historique` },
 						].map((tab) => (
 							<TabsTrigger
 								key={tab.value}
 								value={tab.value}
 								className="gap-2 rounded-full border border-transparent bg-muted/50 px-6 py-2.5 data-[state=active]:border-primary/30 data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
 							>
-								<tab.icon className="size-4" />
+								<tab.icon aria-hidden="true" className="size-4" />
 								{tab.label}
 							</TabsTrigger>
 						))}
@@ -404,12 +404,12 @@ function JobAlertsPage() {
 
 					<div className="flex gap-2">
 						<Button variant="outline" size="sm" className="gap-2" onClick={handleExportAlerts}>
-							<DownloadSimpleIcon className="size-4" />
+							<DownloadSimpleIcon aria-hidden="true" className="size-4" />
 							<Trans>Export</Trans>
 						</Button>
 						<Button className="gap-2" onClick={() => setIsCreateDialogOpen(true)}>
-							<PlusIcon className="size-4" />
-							<Trans>New alert</Trans>
+							<PlusIcon aria-hidden="true" className="size-4" />
+							<Trans>Nouvelle alerte</Trans>
 						</Button>
 					</div>
 				</div>

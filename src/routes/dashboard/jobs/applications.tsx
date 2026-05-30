@@ -136,13 +136,13 @@ function MyApplicationsPage() {
 			return { previousApplications };
 		},
 		onSuccess: () => {
-			toast.success(t`Application added`);
+			toast.success(t`Candidature ajoutée`);
 		},
 		onError: (error, _newApplication, context) => {
 			if (context?.previousApplications) {
 				queryClient.setQueryData(["jobApplications"], context.previousApplications);
 			}
-			toast.error(error.message || t`Error adding application`);
+			toast.error(error.message || t`Impossible d'ajouter la candidature`);
 		},
 		onSettled: () => {
 			queryClient.invalidateQueries({ queryKey: ["jobApplications"] });
@@ -155,10 +155,10 @@ function MyApplicationsPage() {
 			queryClient.invalidateQueries({ queryKey: ["jobApplications"] });
 			setEditingApplicationId(null);
 			resetForm();
-			toast.success(t`Application updated`);
+			toast.success(t`Candidature mise à jour`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error during update`);
+			toast.error(error.message || t`Impossible de mettre à jour la candidature`);
 		},
 	});
 
@@ -167,10 +167,10 @@ function MyApplicationsPage() {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["jobApplications"] });
 			setDeleteConfirmId(null);
-			toast.success(t`Application deleted`);
+			toast.success(t`Candidature supprimée`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error during deletion`);
+			toast.error(error.message || t`Impossible de supprimer la candidature`);
 		},
 	});
 
@@ -253,7 +253,7 @@ function MyApplicationsPage() {
 	if (isLoading) {
 		return (
 			<>
-				<DashboardHeader icon={NoteIcon} title={t`My Applications`} />
+				<DashboardHeader icon={NoteIcon} title={t`Mes candidatures`} />
 				<LoadingState />
 			</>
 		);
@@ -262,7 +262,7 @@ function MyApplicationsPage() {
 	if (isError) {
 		return (
 			<>
-				<DashboardHeader icon={NoteIcon} title={t`My Applications`} />
+				<DashboardHeader icon={NoteIcon} title={t`Mes candidatures`} />
 				<ErrorState error={error} />
 			</>
 		);
@@ -270,7 +270,7 @@ function MyApplicationsPage() {
 
 	return (
 		<>
-			<DashboardHeader icon={NoteIcon} title={t`My Applications`} />
+			<DashboardHeader icon={NoteIcon} title={t`Mes candidatures`} />
 
 			<HeroSection stats={stats} />
 

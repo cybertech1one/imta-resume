@@ -21,13 +21,13 @@ import {
 // Field configurations - wrapped in functions to avoid module-scope i18n calls
 export const getFieldConfig = () => ({
 	healthcare: {
-		label: t`Healthcare`,
+		label: t`Santé`,
 		icon: FirstAidKitIcon,
 		color: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
 		gradient: "from-red-500/20 via-rose-500/10 to-transparent",
 	},
 	industrial: {
-		label: t`Industry`,
+		label: t`Industrie`,
 		icon: GearIcon,
 		color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
 		gradient: "from-blue-500/20 via-indigo-500/10 to-transparent",
@@ -39,7 +39,7 @@ export const getFieldConfig = () => ({
 		gradient: "from-amber-500/20 via-orange-500/10 to-transparent",
 	},
 	general: {
-		label: t`General`,
+		label: t`Général`,
 		icon: BriefcaseIcon,
 		color: "bg-gray-100 text-gray-700 dark:bg-gray-800/30 dark:text-gray-400",
 		gradient: "from-gray-500/20 via-slate-500/10 to-transparent",
@@ -47,10 +47,10 @@ export const getFieldConfig = () => ({
 });
 
 export const getExperienceLevels = () => ({
-	entry: { label: t`Entry Level`, description: t`0-1 year` },
-	junior: { label: t`1-3 years`, description: t`Junior` },
-	mid: { label: t`3-5 years`, description: t`Mid-Level` },
-	senior: { label: t`5+ years`, description: t`Senior` },
+	entry: { label: t`Débutant`, description: t`0-1 an` },
+	junior: { label: t`1-3 ans`, description: t`Junior` },
+	mid: { label: t`3-5 ans`, description: t`Intermédiaire` },
+	senior: { label: t`5+ ans`, description: t`Senior` },
 });
 
 export const regions = [
@@ -68,7 +68,7 @@ export const regions = [
 
 export const getApplicationStatusConfig = () => ({
 	pending: {
-		label: t`Pending`,
+		label: t`En attente`,
 		color: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
 		icon: ClockIcon,
 	},
@@ -78,12 +78,12 @@ export const getApplicationStatusConfig = () => ({
 		icon: UsersIcon,
 	},
 	accepted: {
-		label: t`Accepted`,
+		label: t`Acceptée`,
 		color: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
 		icon: CheckCircleIcon,
 	},
 	rejected: {
-		label: t`Rejected`,
+		label: t`Refusée`,
 		color: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
 		icon: XIcon,
 	},

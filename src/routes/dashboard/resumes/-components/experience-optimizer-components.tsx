@@ -514,12 +514,7 @@ export function ActionVerbsTab({
 							</h3>
 							<div className="flex flex-wrap gap-2">
 								{userActionVerbs.map((verb) => (
-									<Badge
-										asChild
-										key={verb.id}
-										variant="secondary"
-										className="cursor-pointer gap-1 px-3 py-1"
-									>
+									<Badge asChild key={verb.id} variant="secondary" className="cursor-pointer gap-1 px-3 py-1">
 										<button type="button" onClick={() => copyToClipboard(verb.verb)}>
 											{verb.verb}
 											<CopyIcon className="size-3" />
@@ -840,15 +835,20 @@ export function IndustryTab({
 								<div className="flex flex-wrap gap-2">
 									{currentIndustry.keywords.map((keyword) => (
 										<Badge
+											asChild
 											key={keyword}
 											variant="outline"
-											className="cursor-pointer transition-all hover:bg-primary/10"
-											onClick={() => {
-												copyToClipboard(keyword);
-												handleSaveKeyword(keyword);
-											}}
+											className="cursor-pointer transition-colors hover:bg-primary/10"
 										>
-											{keyword}
+											<button
+												type="button"
+												onClick={() => {
+													copyToClipboard(keyword);
+													handleSaveKeyword(keyword);
+												}}
+											>
+												{keyword}
+											</button>
 										</Badge>
 									))}
 								</div>
@@ -863,14 +863,11 @@ export function IndustryTab({
 									</h3>
 									<div className="flex flex-wrap gap-2">
 										{industryPreference.favoriteKeywords.map((keyword) => (
-											<Badge
-												key={keyword}
-												variant="secondary"
-												className="cursor-pointer gap-1"
-												onClick={() => copyToClipboard(keyword)}
-											>
-												{keyword}
-												<CopyIcon className="size-3" />
+											<Badge asChild key={keyword} variant="secondary" className="cursor-pointer gap-1">
+												<button type="button" onClick={() => copyToClipboard(keyword)}>
+													{keyword}
+													<CopyIcon className="size-3" />
+												</button>
 											</Badge>
 										))}
 									</div>
@@ -885,20 +882,21 @@ export function IndustryTab({
 								</h3>
 								<div className="grid gap-2 md:grid-cols-2">
 									{currentIndustry.phrases.map((phrase, index) => (
-										<motion.div
+										<motion.button
 											key={phrase}
+											type="button"
 											initial={{ opacity: 0, x: -10 }}
 											animate={{ opacity: 1, x: 0 }}
 											transition={{ delay: index * 0.1 }}
-											className="group flex cursor-pointer items-center justify-between rounded-lg border bg-card p-3 transition-all hover:bg-muted/50"
+											className="group flex w-full cursor-pointer items-center justify-between rounded-lg border bg-card p-3 text-left transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
 											onClick={() => {
 												copyToClipboard(phrase);
 												handleSavePhrase(phrase);
 											}}
 										>
 											<span className="text-sm">{phrase}</span>
-											<CopyIcon className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-										</motion.div>
+											<CopyIcon className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" />
+										</motion.button>
 									))}
 								</div>
 							</div>
@@ -966,7 +964,7 @@ export function PreviewTab({ allBeforeAfterExamples, copyToClipboard }: PreviewT
 									initial={false}
 									animate={{ opacity: 1, x: 0 }}
 									transition={{ delay: index * 0.1 }}
-									className="group rounded-lg border bg-card p-4 transition-all hover:shadow-md"
+									className="group rounded-lg border bg-card p-4 transition-shadow hover:shadow-md"
 								>
 									<div className="flex items-start justify-between gap-4">
 										<div className="flex-1">
@@ -980,8 +978,9 @@ export function PreviewTab({ allBeforeAfterExamples, copyToClipboard }: PreviewT
 										<Button
 											variant="ghost"
 											size="sm"
-											className="shrink-0 opacity-0 transition-opacity group-hover:opacity-100"
+											className="shrink-0 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"
 											onClick={() => copyToClipboard(example.after)}
+											aria-label={t`Copier cet exemple`}
 										>
 											<CopyIcon className="size-4" />
 										</Button>

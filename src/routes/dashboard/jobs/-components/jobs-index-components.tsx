@@ -29,7 +29,6 @@ import {
 	XIcon,
 } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "motion/react";
-import { memo, useCallback } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -52,113 +51,17 @@ import { getApplicationStatusConfig, getExperienceLevels, getFieldConfig, region
 import type { Application, Employer, Job, MarketInsight } from "./jobs-index-types";
 
 // ---------------------------------------------------------------------------
-// JobCard (memoized)
-// ---------------------------------------------------------------------------
-const JobCard = memo(
-	({
-		job,
-		isApplied,
-		onJobClick,
-		onApply,
-	}: {
-		job: Job;
-		isApplied: boolean;
-		onJobClick: (job: Job) => void;
-		onApply: (job: Job) => void;
-	}) => {
-		const field = getFieldConfig()[job.field];
-		const FieldIcon = field.icon;
-
-		const handleApplyClick = useCallback(
-			(e: React.MouseEvent) => {
-				e.stopPropagation();
-				onApply(job);
-			},
-			[job, onApply],
-		);
-
-		const handleCardClick = useCallback(() => {
-			onJobClick(job);
-		}, [job, onJobClick]);
-
-		return (
-			<Card
-				className={cn(
-					"group h-full cursor-pointer transition-all duration-300 hover:border-primary/50 hover:shadow-lg",
-					job.urgent && "border-red-500/30",
-				)}
-				onClick={handleCardClick}
-			>
-				<CardContent className="p-4">
-					<div className="flex gap-4">
-						<div className={cn("flex size-14 shrink-0 items-center justify-center rounded-xl", field.color)}>
-							<FieldIcon className="size-7" weight="duotone" />
-						</div>
-						<div className="min-w-0 flex-1">
-							<div className="mb-1 flex flex-wrap items-start justify-between gap-2">
-								<h4 className="line-clamp-1 font-semibold text-lg transition-colors group-hover:text-primary">
-									{job.title}
-								</h4>
-								<div className="flex gap-1">
-									{job.urgent && (
-										<Badge className="gap-1 bg-red-500 text-white text-xs">
-											<LightningIcon className="size-3" weight="fill" />
-											<Trans>Urgent</Trans>
-										</Badge>
-									)}
-									<Badge className={cn("text-xs", field.color)}>{field.label}</Badge>
-								</div>
-							</div>
-							<p className="mb-2 flex items-center gap-1 text-muted-foreground text-sm">
-								<BuildingsIcon className="size-4 shrink-0" />
-								{job.company}
-							</p>
-							<div className="flex flex-wrap gap-3 text-sm">
-								<span className="flex items-center gap-1 text-muted-foreground">
-									<MapPinIcon className="size-4" />
-									{job.location}
-								</span>
-								<span className="flex items-center gap-1 text-muted-foreground">
-									<UserCircleIcon className="size-4" />
-									{getExperienceLevels()[job.experienceLevel].label}
-								</span>
-								{job.salaryMin && job.salaryMax && (
-									<span className="flex items-center gap-1 font-medium text-green-600 dark:text-green-400">
-										<CurrencyCircleDollarIcon className="size-4" />
-										{job.salaryMin.toLocaleString()} - {job.salaryMax.toLocaleString()}
-									</span>
-								)}
-							</div>
-						</div>
-					</div>
-					<div className="mt-4 flex items-center justify-between">
-						<span className="text-muted-foreground text-xs">
-							<CalendarIcon className="mr-1 inline size-3" />
-							{new Date(job.postedDate).toLocaleDateString()}
-						</span>
-						{isApplied ? (
-							<Badge variant="outline" className="gap-1 text-green-600">
-								<CheckCircleIcon className="size-3" weight="fill" />
-								<Trans>Application sent</Trans>
-							</Badge>
-						) : (
-							<Button size="sm" variant="default" className="gap-1" onClick={handleApplyClick}>
-								<EnvelopeIcon className="size-4" />
-								<Trans>Apply</Trans>
-							</Button>
-						)}
-					</div>
-				</CardContent>
-			</Card>
-		);
-	},
-);
-JobCard.displayName = "JobCard";
-
-// ---------------------------------------------------------------------------
 // HeroSection
 // ---------------------------------------------------------------------------
-export function HeroSection({ allJobsCount, employerCount }: { allJobsCount: number; employerCount: number }) {
+export function HeroSection({
+	allJobsCount,
+	employerCount,
+	featuredJobsCount,
+}: {
+	allJobsCount: number;
+	employerCount: number;
+	featuredJobsCount: number;
+}) {
 	return (
 		<motion.section
 			className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 p-8 md:p-12"
@@ -171,35 +74,6 @@ export function HeroSection({ allJobsCount, employerCount }: { allJobsCount: num
 			transition={{ duration: 0.6, ease: "easeOut" }}
 			aria-labelledby="jobs-hero-heading"
 		>
-			{/* Animated background elements - decorative, hidden from screen readers */}
-			<div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/10 blur-3xl"
-					animate={{
-						scale: [1, 1.2, 1],
-						rotate: [0, 10, 0],
-						opacity: [0.5, 0.3, 0.5],
-					}}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute -bottom-32 -left-32 size-96 rounded-full bg-gradient-to-tr from-green-500/15 to-emerald-500/10 blur-3xl"
-					animate={{
-						scale: [1.2, 1, 1.2],
-						rotate: [0, -10, 0],
-						opacity: [0.3, 0.5, 0.3],
-					}}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute top-1/2 left-1/2 size-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-3xl"
-					animate={{
-						scale: [1, 1.3, 1],
-					}}
-					transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-				/>
-			</div>
-
 			<div className="relative z-10">
 				<motion.div
 					className="mb-3 flex items-center gap-2"
@@ -209,7 +83,7 @@ export function HeroSection({ allJobsCount, employerCount }: { allJobsCount: num
 				>
 					<BriefcaseIcon className="size-5 text-primary" weight="fill" aria-hidden="true" />
 					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>Moroccan Job Market</Trans>
+						<Trans>Marché marocain de l'emploi</Trans>
 					</span>
 				</motion.div>
 
@@ -220,7 +94,7 @@ export function HeroSection({ allJobsCount, employerCount }: { allJobsCount: num
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.3 }}
 				>
-					<Trans>Job Opportunities</Trans>
+					<Trans>Offres de stage et emploi</Trans>
 				</motion.h2>
 
 				<motion.p
@@ -230,8 +104,8 @@ export function HeroSection({ allJobsCount, employerCount }: { allJobsCount: num
 					transition={{ delay: 0.4 }}
 				>
 					<Trans>
-						Discover the best job opportunities in Morocco in the healthcare, industrial, and HSE sectors. Find the
-						position that matches your profile and launch your career.
+						Consulte les offres publiées par nos partenaires au Maroc dans la santé, l'industrie, le HSE et les métiers
+						opérationnels. Filtre par domaine, région et niveau pour trouver une opportunité adaptée à ton profil.
 					</Trans>
 				</motion.p>
 
@@ -242,18 +116,18 @@ export function HeroSection({ allJobsCount, employerCount }: { allJobsCount: num
 					animate={{ opacity: 1 }}
 					transition={{ delay: 0.5 }}
 					role="list"
-					aria-label={t`Quick statistics`}
+					aria-label={t`Statistiques rapides`}
 				>
 					<div className="flex items-center gap-2" role="listitem">
 						<div className="flex size-10 items-center justify-center rounded-full bg-primary/10" aria-hidden="true">
 							<BriefcaseIcon className="size-5 text-primary" weight="duotone" />
 						</div>
 						<div>
-							<p className="font-bold text-xl" aria-label={t`${allJobsCount} or more active job offers`}>
-								{allJobsCount}+
+							<p className="font-bold text-xl" aria-label={t`${allJobsCount} offres actives`}>
+								{allJobsCount}
 							</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Active listings</Trans>
+								<Trans>Offres actives</Trans>
 							</p>
 						</div>
 					</div>
@@ -262,24 +136,24 @@ export function HeroSection({ allJobsCount, employerCount }: { allJobsCount: num
 							<BuildingsIcon className="size-5 text-green-500" weight="duotone" />
 						</div>
 						<div>
-							<p className="font-bold text-xl" aria-label={t`${employerCount} employers`}>
+							<p className="font-bold text-xl" aria-label={t`${employerCount} employeurs`}>
 								{employerCount}
 							</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Employers</Trans>
+								<Trans>Employeurs</Trans>
 							</p>
 						</div>
 					</div>
 					<div className="flex items-center gap-2" role="listitem">
 						<div className="flex size-10 items-center justify-center rounded-full bg-amber-500/10" aria-hidden="true">
-							<TrendUpIcon className="size-5 text-amber-500" weight="duotone" />
+							<StarIcon className="size-5 text-amber-500" weight="duotone" />
 						</div>
 						<div>
-							<p className="font-bold text-xl" aria-label={t`12 percent growth`}>
-								+12%
+							<p className="font-bold text-xl" aria-label={t`${featuredJobsCount} offres à la une`}>
+								{featuredJobsCount}
 							</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Growth</Trans>
+								<Trans>À la une</Trans>
 							</p>
 						</div>
 					</div>
@@ -303,7 +177,7 @@ export function FeaturedJobsSection({
 		<section>
 			<h3 className="mb-6 flex items-center gap-2 font-semibold text-2xl">
 				<StarIcon className="size-6 text-amber-500" weight="fill" />
-				<Trans>Featured Listings</Trans>
+				<Trans>Offres à la une</Trans>
 			</h3>
 
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -315,12 +189,11 @@ export function FeaturedJobsSection({
 						<motion.div key={job.id} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }}>
 							<Card
 								className={cn(
-									"group h-full cursor-pointer overflow-hidden border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
+									"group h-full overflow-hidden border-2 transition-[border-color,box-shadow] duration-200 hover:border-primary/50 hover:shadow-lg",
 									"bg-gradient-to-br",
 									field.gradient,
 									job.urgent && "border-red-500/50",
 								)}
-								onClick={() => onJobClick(job)}
 							>
 								<CardHeader className="pb-3">
 									<div className="mb-2 flex items-start justify-between">
@@ -360,12 +233,12 @@ export function FeaturedJobsSection({
 									)}
 									<div className="flex items-center gap-2 text-muted-foreground text-xs">
 										<CalendarIcon className="size-4" />
-										<Trans>Posted on</Trans> {new Date(job.postedDate).toLocaleDateString()}
+										<Trans>Publié le</Trans> {new Date(job.postedDate).toLocaleDateString("fr-FR")}
 									</div>
 								</CardContent>
 								<CardFooter className="pt-2">
-									<Button variant="outline" className="w-full gap-2" size="sm">
-										<Trans>View details</Trans>
+									<Button variant="outline" className="w-full gap-2" size="sm" onClick={() => onJobClick(job)}>
+										<Trans>Voir les détails</Trans>
 										<ArrowRightIcon className="size-4" />
 									</Button>
 								</CardFooter>
@@ -407,13 +280,13 @@ export function JobFiltersSection({
 	return (
 		<section className="rounded-xl border bg-muted/30 p-4" aria-labelledby="filters-heading">
 			<h3 id="filters-heading" className="sr-only">
-				<Trans>Job filters</Trans>
+				<Trans>Filtres des offres</Trans>
 			</h3>
 			<div className="flex flex-col gap-4 md:flex-row md:items-center">
 				<div className="flex items-center gap-2">
 					<FunnelIcon className="size-5 text-muted-foreground" aria-hidden="true" />
 					<span className="font-medium text-sm">
-						<Trans>Filter:</Trans>
+						<Trans>Filtrer :</Trans>
 					</span>
 				</div>
 
@@ -425,11 +298,11 @@ export function JobFiltersSection({
 							aria-hidden="true"
 						/>
 						<Input
-							placeholder={t`Search for a position, company...`}
+							placeholder={t`Rechercher un poste ou une entreprise`}
 							value={searchQuery}
 							onChange={(e) => onSearchChange(e.target.value)}
 							className="pl-10"
-							aria-label={t`Search for a job or company`}
+							aria-label={t`Rechercher une offre ou une entreprise`}
 						/>
 					</div>
 
@@ -440,18 +313,18 @@ export function JobFiltersSection({
 						</SelectTrigger>
 						<SelectContent>
 							<SelectItem value="all">
-								<Trans>All fields</Trans>
+								<Trans>Tous les domaines</Trans>
 							</SelectItem>
 							<SelectItem value="healthcare">
 								<div className="flex items-center gap-2">
 									<FirstAidKitIcon className="size-4" />
-									<Trans>Health</Trans>
+									<Trans>Santé</Trans>
 								</div>
 							</SelectItem>
 							<SelectItem value="industrial">
 								<div className="flex items-center gap-2">
 									<GearIcon className="size-4" />
-									<Trans>Industrial</Trans>
+									<Trans>Industrie</Trans>
 								</div>
 							</SelectItem>
 							<SelectItem value="hse">
@@ -463,7 +336,7 @@ export function JobFiltersSection({
 							<SelectItem value="general">
 								<div className="flex items-center gap-2">
 									<BriefcaseIcon className="size-4" />
-									<Trans>General</Trans>
+									<Trans>Général</Trans>
 								</div>
 							</SelectItem>
 						</SelectContent>
@@ -472,11 +345,11 @@ export function JobFiltersSection({
 					{/* Region Filter */}
 					<Select value={regionFilter} onValueChange={onRegionFilterChange}>
 						<SelectTrigger className="w-full md:w-40">
-							<SelectValue placeholder={t`Region`} />
+							<SelectValue placeholder={t`Région`} />
 						</SelectTrigger>
 						<SelectContent>
 							<SelectItem value="all">
-								<Trans>All regions</Trans>
+								<Trans>Toutes les régions</Trans>
 							</SelectItem>
 							{regions.map((region) => (
 								<SelectItem key={region} value={region}>
@@ -492,11 +365,11 @@ export function JobFiltersSection({
 					{/* Experience Filter */}
 					<Select value={experienceFilter} onValueChange={onExperienceFilterChange}>
 						<SelectTrigger className="w-full md:w-40">
-							<SelectValue placeholder={t`Experience`} />
+							<SelectValue placeholder={t`Expérience`} />
 						</SelectTrigger>
 						<SelectContent>
 							<SelectItem value="all">
-								<Trans>All levels</Trans>
+								<Trans>Tous les niveaux</Trans>
 							</SelectItem>
 							{Object.entries(getExperienceLevels()).map(([key, { label }]) => (
 								<SelectItem key={key} value={key}>
@@ -513,10 +386,10 @@ export function JobFiltersSection({
 						size="sm"
 						className="gap-1"
 						onClick={onClearFilters}
-						aria-label={t`Clear all filters`}
+						aria-label={t`Effacer tous les filtres`}
 					>
 						<XIcon className="size-4" aria-hidden="true" />
-						<Trans>Clear</Trans>
+						<Trans>Effacer</Trans>
 					</Button>
 				)}
 			</div>
@@ -544,11 +417,11 @@ export function JobListingsGrid({
 		<>
 			{/* Results count */}
 			<p className="text-muted-foreground text-sm" aria-live="polite" aria-atomic="true">
-				{filteredJobs.length} <Trans>offers found</Trans>
+				{filteredJobs.length} <Trans>offres trouvées</Trans>
 			</p>
 
 			{/* Job Listings Grid */}
-			<div className="grid gap-4 md:grid-cols-2" role="list" aria-label={t`Job listings`}>
+			<div className="grid gap-4 md:grid-cols-2" role="list" aria-label={t`Liste des offres`}>
 				<AnimatePresence mode="popLayout">
 					{filteredJobs.map((job, index) => {
 						const field = getFieldConfig()[job.field];
@@ -567,18 +440,9 @@ export function JobListingsGrid({
 							>
 								<Card
 									className={cn(
-										"group h-full cursor-pointer transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/50 hover:border-primary/50 hover:shadow-lg",
+										"group h-full transition-[border-color,box-shadow] duration-200 hover:border-primary/50 hover:shadow-lg",
 										job.urgent && "border-red-500/30",
 									)}
-									onClick={() => onJobClick(job)}
-									tabIndex={0}
-									onKeyDown={(e) => {
-										if (e.key === "Enter" || e.key === " ") {
-											e.preventDefault();
-											onJobClick(job);
-										}
-									}}
-									aria-label={`${job.title} at ${job.company}, ${job.location}${job.urgent ? ` - ${t`Urgent`}` : ""}`}
 								>
 									<CardContent className="p-4">
 										<div className="flex gap-4">
@@ -619,36 +483,40 @@ export function JobListingsGrid({
 													{job.salaryMin && job.salaryMax && (
 														<span className="flex items-center gap-1 font-medium text-green-600 dark:text-green-400">
 															<CurrencyCircleDollarIcon className="size-4" />
-															{job.salaryMin.toLocaleString()} - {job.salaryMax.toLocaleString()}
+															{job.salaryMin.toLocaleString()} - {job.salaryMax.toLocaleString()} {job.currency}
 														</span>
 													)}
 												</div>
 											</div>
 										</div>
-										<div className="mt-4 flex items-center justify-between">
+										<div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 											<span className="text-muted-foreground text-xs">
 												<CalendarIcon className="mr-1 inline size-3" />
-												{new Date(job.postedDate).toLocaleDateString()}
+												{new Date(job.postedDate).toLocaleDateString("fr-FR")}
 											</span>
-											{isApplied ? (
-												<Badge variant="outline" className="gap-1 text-green-600">
-													<CheckCircleIcon className="size-3" weight="fill" />
-													<Trans>Application sent</Trans>
-												</Badge>
-											) : (
-												<Button
-													size="sm"
-													variant="default"
-													className="gap-1"
-													onClick={(e) => {
-														e.stopPropagation();
-														onApply(job);
-													}}
-												>
-													<EnvelopeIcon className="size-4" />
-													<Trans>Apply</Trans>
+											<div className="flex flex-wrap items-center gap-2">
+												<Button size="sm" variant="outline" className="gap-1" onClick={() => onJobClick(job)}>
+													<Trans>Détails</Trans>
 												</Button>
-											)}
+												{isApplied ? (
+													<Badge variant="outline" className="gap-1 text-green-600">
+														<CheckCircleIcon className="size-3" weight="fill" />
+														<Trans>Candidature envoyée</Trans>
+													</Badge>
+												) : (
+													<Button
+														size="sm"
+														variant="default"
+														className="gap-1"
+														onClick={() => {
+															onApply(job);
+														}}
+													>
+														<EnvelopeIcon className="size-4" />
+														<Trans>Postuler</Trans>
+													</Button>
+												)}
+											</div>
 										</div>
 									</CardContent>
 								</Card>
@@ -663,13 +531,13 @@ export function JobListingsGrid({
 					<CardContent className="flex flex-col items-center justify-center py-12">
 						<MagnifyingGlassIcon className="mb-4 size-12 text-muted-foreground" />
 						<h3 className="mb-2 font-semibold text-lg">
-							<Trans>No listings found</Trans>
+							<Trans>Aucune offre trouvée</Trans>
 						</h3>
 						<p className="text-muted-foreground">
-							<Trans>Try changing your search criteria</Trans>
+							<Trans>Essaie de modifier les filtres ou la recherche.</Trans>
 						</p>
 						<Button variant="outline" className="mt-4" onClick={onClearFilters}>
-							<Trans>Clear filters</Trans>
+							<Trans>Effacer les filtres</Trans>
 						</Button>
 					</CardContent>
 				</Card>
@@ -692,11 +560,12 @@ export function EmployersTab({
 		<>
 			<section>
 				<h3 className="mb-2 font-semibold text-2xl">
-					<Trans>Partner Employers</Trans>
+					<Trans>Employeurs partenaires</Trans>
 				</h3>
 				<p className="mb-6 text-muted-foreground">
 					<Trans>
-						Discover leading companies in Morocco hiring talent in the healthcare, industrial, and HSE sectors.
+						Découvre les entreprises partenaires au Maroc qui recrutent dans la santé, l'industrie, le HSE et les
+						métiers opérationnels.
 					</Trans>
 				</p>
 
@@ -710,14 +579,16 @@ export function EmployersTab({
 						>
 							<Card
 								className={cn(
-									"group h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
+									"group h-full transition-[border-color,box-shadow] duration-200 hover:border-primary/40 hover:shadow-lg",
 									employer.featured && "border-2 border-primary/30",
 								)}
 							>
 								<CardHeader className="pb-3">
 									<div className="mb-3 flex items-center justify-between">
 										<div className="flex size-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5">
-											{employer.industry.includes("Healthcare") || employer.industry.includes("Sante") ? (
+											{employer.industry.toLowerCase().includes("healthcare") ||
+											employer.industry.toLowerCase().includes("sante") ||
+											employer.industry.toLowerCase().includes("santé") ? (
 												<HospitalIcon className="size-8 text-red-500" weight="duotone" />
 											) : employer.industry.includes("HSE") ? (
 												<HardHatIcon className="size-8 text-amber-500" weight="duotone" />
@@ -730,7 +601,7 @@ export function EmployersTab({
 										{employer.featured && (
 											<Badge className="gap-1 bg-amber-500 text-white">
 												<StarIcon className="size-3" weight="fill" />
-												<Trans>Top</Trans>
+												<Trans>Mis en avant</Trans>
 											</Badge>
 										)}
 									</div>
@@ -745,12 +616,12 @@ export function EmployersTab({
 									</div>
 									<div className="flex items-center gap-2 font-medium text-green-600 dark:text-green-400">
 										<BriefcaseIcon className="size-4" />
-										{employer.openPositions} <Trans>open positions</Trans>
+										{employer.openPositions} <Trans>postes ouverts</Trans>
 									</div>
 								</CardContent>
 								<CardFooter className="pt-2">
 									<Button variant="outline" className="w-full gap-2" onClick={() => onViewEmployerJobs(employer.name)}>
-										<Trans>View offers</Trans>
+										<Trans>Voir les offres</Trans>
 										<ArrowRightIcon className="size-4" />
 									</Button>
 								</CardFooter>
@@ -764,7 +635,7 @@ export function EmployersTab({
 			<section>
 				<h3 className="mb-6 flex items-center gap-2 font-semibold text-xl">
 					<ChartLineUpIcon className="size-5 text-primary" weight="duotone" />
-					<Trans>Distribution by Sector</Trans>
+					<Trans>Répartition par secteur</Trans>
 				</h3>
 
 				<div className="grid gap-4 md:grid-cols-3">
@@ -776,7 +647,7 @@ export function EmployersTab({
 						).length;
 
 						return (
-							<Card key={fieldKey} className="transition-all hover:shadow-md">
+							<Card key={fieldKey} className="transition-shadow hover:shadow-md">
 								<CardContent className="flex items-center gap-4 p-6">
 									<div className={cn("flex size-14 items-center justify-center rounded-xl", config.color)}>
 										<SectorIcon className="size-7" weight="duotone" />
@@ -784,7 +655,7 @@ export function EmployersTab({
 									<div className="flex-1">
 										<h4 className="font-semibold text-lg">{config.label}</h4>
 										<p className="text-muted-foreground text-sm">
-											{employerCount} <Trans>partner employers</Trans>
+											{employerCount} <Trans>employeurs partenaires</Trans>
 										</p>
 									</div>
 								</CardContent>
@@ -825,10 +696,10 @@ export function ApplicationsTab({
 				<div>
 					<h3 className="flex items-center gap-2 font-semibold text-2xl">
 						<NoteIcon className="size-6 text-primary" weight="duotone" />
-						<Trans>My Applications</Trans>
+						<Trans>Mes candidatures</Trans>
 					</h3>
 					<p className="mt-1 text-muted-foreground">
-						<Trans>Track the status of your applications and keep notes</Trans>
+						<Trans>Suis le statut de tes candidatures et garde tes notes au même endroit.</Trans>
 					</p>
 				</div>
 			</div>
@@ -840,7 +711,7 @@ export function ApplicationsTab({
 					const StatusIcon = config.icon;
 
 					return (
-						<Card key={status} className="transition-all hover:shadow-md">
+						<Card key={status} className="transition-shadow hover:shadow-md">
 							<CardContent className="flex items-center gap-3 p-4">
 								<div className={cn("flex size-10 items-center justify-center rounded-lg", config.color)}>
 									<StatusIcon className="size-5" weight="duotone" />
@@ -869,7 +740,7 @@ export function ApplicationsTab({
 								animate={{ opacity: 1, x: 0 }}
 								transition={{ delay: index * 0.05 }}
 							>
-								<Card className="transition-all hover:shadow-md">
+								<Card className="transition-shadow hover:shadow-md">
 									<CardContent className="p-4">
 										<div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 											<div className="flex items-start gap-4">
@@ -881,7 +752,7 @@ export function ApplicationsTab({
 													<p className="text-muted-foreground">{app.company}</p>
 													<p className="mt-1 text-muted-foreground text-sm">
 														<CalendarIcon className="mr-1 inline size-3" />
-														<Trans>Applied on</Trans> {new Date(app.appliedDate).toLocaleDateString()}
+														<Trans>Envoyée le</Trans> {new Date(app.appliedDate).toLocaleDateString("fr-FR")}
 													</p>
 												</div>
 											</div>
@@ -910,7 +781,7 @@ export function ApplicationsTab({
 											{editingNotes === app.id ? (
 												<div className="space-y-2">
 													<Textarea
-														placeholder={t`Add notes (interview date, contact, etc.)`}
+														placeholder={t`Ajouter une note : date d'entretien, contact, relance...`}
 														value={notesText}
 														onChange={(e) => onSetNotesText(e.target.value)}
 														rows={2}
@@ -918,7 +789,7 @@ export function ApplicationsTab({
 													<div className="flex gap-2">
 														<Button size="sm" onClick={() => onSaveNotes(app.id)}>
 															<CheckCircleIcon className="mr-1 size-4" />
-															<Trans>Save</Trans>
+															<Trans>Enregistrer</Trans>
 														</Button>
 														<Button
 															size="sm"
@@ -928,7 +799,7 @@ export function ApplicationsTab({
 																onSetNotesText("");
 															}}
 														>
-															<Trans>Cancel</Trans>
+															<Trans>Annuler</Trans>
 														</Button>
 													</div>
 												</div>
@@ -942,7 +813,7 @@ export function ApplicationsTab({
 														<p className="mt-1 text-sm">
 															{app.notes || (
 																<span className="text-muted-foreground italic">
-																	<Trans>No notes</Trans>
+																	<Trans>Aucune note</Trans>
 																</span>
 															)}
 														</p>
@@ -954,6 +825,7 @@ export function ApplicationsTab({
 															onSetEditingNotes(app.id);
 															onSetNotesText(app.notes);
 														}}
+														aria-label={t`Modifier la note`}
 													>
 														<PencilSimpleIcon className="size-4" />
 													</Button>
@@ -974,14 +846,14 @@ export function ApplicationsTab({
 				>
 					<BriefcaseIcon className="mb-4 size-12 text-muted-foreground/50" weight="duotone" />
 					<h3 className="mb-2 font-semibold text-lg">
-						<Trans>No applications yet</Trans>
+						<Trans>Aucune candidature pour le moment</Trans>
 					</h3>
 					<p className="mb-6 max-w-sm text-muted-foreground text-sm">
-						<Trans>Start tracking your job applications to stay organized and never miss a follow-up.</Trans>
+						<Trans>Ajoute tes candidatures ici pour suivre les relances, les entretiens et les réponses.</Trans>
 					</p>
 					<Button onClick={onGoToJobs}>
 						<BriefcaseIcon className="mr-2 size-4" />
-						<Trans>Browse Job Listings</Trans>
+						<Trans>Voir les offres</Trans>
 					</Button>
 				</motion.div>
 			)}
@@ -1005,10 +877,10 @@ export function InsightsTab({
 		<>
 			<section>
 				<h3 className="mb-2 font-semibold text-2xl">
-					<Trans>Market Trends</Trans>
+					<Trans>Tendances du marché</Trans>
 				</h3>
 				<p className="mb-6 text-muted-foreground">
-					<Trans>Overview of the Moroccan job market in your target sectors</Trans>
+					<Trans>Vue d'ensemble des secteurs qui recrutent pour les profils étudiants et jeunes diplômés.</Trans>
 				</p>
 
 				{/* Key Metrics */}
@@ -1023,7 +895,7 @@ export function InsightsTab({
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: index * 0.1 }}
 							>
-								<Card className="h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+								<Card className="h-full transition-shadow duration-200 hover:shadow-lg">
 									<CardContent className="p-6">
 										<div className="mb-4 flex items-center justify-between">
 											<div
@@ -1063,21 +935,21 @@ export function InsightsTab({
 			<section>
 				<h3 className="mb-6 flex items-center gap-2 font-semibold text-xl">
 					<CurrencyCircleDollarIcon className="size-5 text-primary" weight="duotone" />
-					<Trans>Salary Trends by Sector</Trans>
+					<Trans>Tendances salariales par secteur</Trans>
 				</h3>
 
 				<Card>
 					<CardContent className="flex flex-col items-center justify-center py-8">
 						<CurrencyCircleDollarIcon className="mb-4 size-12 text-muted-foreground" />
 						<h4 className="mb-2 font-semibold text-lg">
-							<Trans>Detailed salary analysis</Trans>
+							<Trans>Analyse salariale détaillée</Trans>
 						</h4>
 						<p className="mb-4 text-center text-muted-foreground">
-							<Trans>Visit our analytics page for comprehensive salary data by sector and region</Trans>
+							<Trans>Consulte la page d'analyse pour comparer les données par secteur et région.</Trans>
 						</p>
-						<Button variant="outline">
+						<Button variant="outline" onClick={() => window.location.assign("/dashboard/jobs/insights")}>
 							<ChartLineUpIcon className="mr-2 size-4" />
-							<Trans>View analytics</Trans>
+							<Trans>Voir l'analyse</Trans>
 						</Button>
 					</CardContent>
 				</Card>
@@ -1087,7 +959,7 @@ export function InsightsTab({
 			<section>
 				<h3 className="mb-6 flex items-center gap-2 font-semibold text-xl">
 					<TrophyIcon className="size-5 text-amber-500" weight="fill" />
-					<Trans>Top Recruiters This Quarter</Trans>
+					<Trans>Employeurs mis en avant</Trans>
 				</h3>
 
 				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -1101,7 +973,7 @@ export function InsightsTab({
 								animate={{ opacity: 1, scale: 1 }}
 								transition={{ delay: index * 0.1 }}
 							>
-								<Card className="h-full transition-all hover:shadow-md">
+								<Card className="h-full transition-shadow hover:shadow-md">
 									<CardContent className="p-4">
 										<div className="mb-3 flex items-center justify-between">
 											<Badge variant="outline" className="gap-1">
@@ -1112,7 +984,7 @@ export function InsightsTab({
 										<h4 className="font-semibold">{employer.name}</h4>
 										<p className="text-muted-foreground text-sm">{employer.industry}</p>
 										<p className="mt-2 font-medium text-green-600 dark:text-green-400">
-											{employer.openPositions} <Trans>open positions</Trans>
+											{employer.openPositions} <Trans>postes ouverts</Trans>
 										</p>
 									</CardContent>
 								</Card>
@@ -1125,7 +997,7 @@ export function InsightsTab({
 			<section>
 				<h3 className="mb-6 flex items-center gap-2 font-semibold text-xl">
 					<SparkleIcon className="size-5 text-primary" weight="fill" />
-					<Trans>Most In-Demand Fields</Trans>
+					<Trans>Domaines les plus demandés</Trans>
 				</h3>
 
 				<div className="grid gap-4 md:grid-cols-3">
@@ -1148,7 +1020,7 @@ export function InsightsTab({
 												<SectorIcon className="size-6" weight="duotone" />
 											</div>
 											<Badge variant="secondary">
-												{jobCount} <Trans>listings</Trans>
+												{jobCount} <Trans>offres</Trans>
 											</Badge>
 										</div>
 										<h4 className="mb-2 font-semibold text-lg">{config.label}</h4>
@@ -1157,7 +1029,7 @@ export function InsightsTab({
 												featuredEmployers.filter((e) => e.industry?.toLowerCase().includes(config.label.toLowerCase()))
 													.length
 											}{" "}
-											<Trans>employers</Trans>
+											<Trans>employeurs</Trans>
 										</p>
 									</CardContent>
 								</Card>
@@ -1251,7 +1123,7 @@ export function JobDetailDialog({
 							{/* Description */}
 							<div>
 								<h4 className="mb-2 font-semibold">
-									<Trans>Job description</Trans>
+									<Trans>Description du poste</Trans>
 								</h4>
 								<p className="text-muted-foreground">{selectedJob.description}</p>
 							</div>
@@ -1259,7 +1131,7 @@ export function JobDetailDialog({
 							{/* Requirements */}
 							<div>
 								<h4 className="mb-2 font-semibold">
-									<Trans>Requirements</Trans>
+									<Trans>Prérequis</Trans>
 								</h4>
 								<ul className="space-y-2">
 									{selectedJob.requirements.map((req, i) => (
@@ -1274,7 +1146,7 @@ export function JobDetailDialog({
 							{/* Skills */}
 							<div>
 								<h4 className="mb-2 font-semibold">
-									<Trans>Required skills</Trans>
+									<Trans>Compétences demandées</Trans>
 								</h4>
 								<div className="flex flex-wrap gap-2">
 									{selectedJob.skills.map((skill, i) => (
@@ -1289,7 +1161,7 @@ export function JobDetailDialog({
 							<div className="rounded-lg border bg-muted/30 p-4">
 								<h4 className="mb-2 flex items-center gap-2 font-semibold">
 									<EnvelopeIcon className="size-4" />
-									<Trans>How to apply</Trans>
+									<Trans>Comment postuler</Trans>
 								</h4>
 								<p className="text-muted-foreground">{selectedJob.howToApply}</p>
 							</div>
@@ -1298,14 +1170,22 @@ export function JobDetailDialog({
 							{getSimilarJobs(selectedJob).length > 0 && (
 								<div>
 									<h4 className="mb-3 font-semibold">
-										<Trans>Similar listings</Trans>
+										<Trans>Offres similaires</Trans>
 									</h4>
 									<div className="grid gap-3">
 										{getSimilarJobs(selectedJob).map((job) => (
 											<Card
 												key={job.id}
-												className="cursor-pointer transition-all hover:shadow-md"
+												className="cursor-pointer transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
 												onClick={() => onSelectJob(job)}
+												role="button"
+												tabIndex={0}
+												onKeyDown={(e) => {
+													if (e.key === "Enter" || e.key === " ") {
+														e.preventDefault();
+														onSelectJob(job);
+													}
+												}}
 											>
 												<CardContent className="flex items-center justify-between p-3">
 													<div>
@@ -1326,7 +1206,7 @@ export function JobDetailDialog({
 						<DialogFooter>
 							<DialogClose asChild>
 								<Button variant="outline">
-									<Trans>Close</Trans>
+									<Trans>Fermer</Trans>
 								</Button>
 							</DialogClose>
 							{!applications.some((a) => a.jobId === selectedJob.id) ? (
@@ -1338,12 +1218,12 @@ export function JobDetailDialog({
 									}}
 								>
 									<EnvelopeIcon className="size-4" />
-									<Trans>Apply now</Trans>
+									<Trans>Postuler</Trans>
 								</Button>
 							) : (
 								<Button variant="secondary" disabled className="gap-2">
 									<CheckCircleIcon className="size-4" weight="fill" />
-									<Trans>Application sent</Trans>
+									<Trans>Candidature envoyée</Trans>
 								</Button>
 							)}
 						</DialogFooter>

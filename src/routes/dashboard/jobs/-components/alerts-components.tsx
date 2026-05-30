@@ -74,10 +74,10 @@ const formatDate = (dateString: string) => {
 	const yesterday = new Date(today);
 	yesterday.setDate(yesterday.getDate() - 1);
 
-	if (dateString === today.toISOString().split("T")[0]) return t`Today`;
-	if (dateString === yesterday.toISOString().split("T")[0]) return t`Yesterday`;
+	if (dateString === today.toISOString().split("T")[0]) return t`Aujourd'hui`;
+	if (dateString === yesterday.toISOString().split("T")[0]) return t`Hier`;
 
-	return date.toLocaleDateString(undefined, {
+	return date.toLocaleDateString("fr-FR", {
 		day: "numeric",
 		month: "long",
 	});
@@ -145,37 +145,14 @@ interface HeroSectionProps {
 export function HeroSection({ stats }: HeroSectionProps) {
 	return (
 		<motion.div
-			className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 p-8 md:p-12"
+			className="relative mb-8 overflow-hidden rounded-lg border border-primary/20 bg-[linear-gradient(135deg,hsl(var(--primary)/0.12),hsl(var(--background)),hsl(var(--chart-2)/0.10))] p-6 md:p-8"
 			style={{
-				background:
-					"linear-gradient(135deg, oklch(0.65 0.18 45 / 0.15) 0%, oklch(0.6 0.2 30 / 0.1) 50%, oklch(0.7 0.15 60 / 0.08) 100%)",
+				boxShadow: "inset 0 1px 0 hsl(var(--background) / 0.7)",
 			}}
 			initial={false}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.6, ease: "easeOut" }}
 		>
-			{/* Animated background elements */}
-			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-amber-500/20 to-orange-500/10 blur-3xl"
-					animate={{
-						scale: [1, 1.2, 1],
-						rotate: [0, 10, 0],
-						opacity: [0.5, 0.3, 0.5],
-					}}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute -bottom-32 -left-32 size-96 rounded-full bg-gradient-to-tr from-yellow-500/15 to-amber-500/10 blur-3xl"
-					animate={{
-						scale: [1.2, 1, 1.2],
-						rotate: [0, -10, 0],
-						opacity: [0.3, 0.5, 0.3],
-					}}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-			</div>
-
 			<div className="relative z-10">
 				<motion.div
 					className="mb-3 flex items-center gap-2"
@@ -183,30 +160,30 @@ export function HeroSection({ stats }: HeroSectionProps) {
 					animate={{ opacity: 1, x: 0 }}
 					transition={{ delay: 0.2 }}
 				>
-					<BellRingingIcon className="size-5 text-primary" weight="fill" />
-					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>Alert System</Trans>
+					<BellRingingIcon aria-hidden="true" className="size-5 text-primary" weight="fill" />
+					<span className="font-semibold text-primary text-sm uppercase tracking-[0.08em]">
+						<Trans>Veille emploi</Trans>
 					</span>
 				</motion.div>
 
 				<motion.h2
-					className="mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text font-bold text-3xl text-transparent tracking-tight md:text-4xl lg:text-5xl"
+					className="mb-3 max-w-3xl font-bold text-2xl tracking-tight md:text-3xl"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.3 }}
 				>
-					<Trans>Job Alerts</Trans>
+					<Trans>Reçois les bonnes offres avant de les rater</Trans>
 				</motion.h2>
 
 				<motion.p
-					className="mb-8 max-w-2xl text-lg text-muted-foreground"
+					className="mb-6 max-w-2xl text-muted-foreground text-sm md:text-base"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.4 }}
 				>
 					<Trans>
-						Create personalized alerts and receive notifications for offers that perfectly match your criteria. Never
-						miss an opportunity again.
+						Crée des alertes par métier, ville, salaire et mode de travail pour repérer rapidement les opportunités
+						adaptées à ton profil.
 					</Trans>
 				</motion.p>
 
@@ -217,40 +194,40 @@ export function HeroSection({ stats }: HeroSectionProps) {
 					animate={{ opacity: 1 }}
 					transition={{ delay: 0.5 }}
 				>
-					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
+					<div className="rounded-lg border bg-background/80 p-4 shadow-sm">
 						<div className="flex items-center gap-2">
-							<BellIcon className="size-5 text-primary" weight="duotone" />
+							<BellIcon aria-hidden="true" className="size-5 text-primary" weight="duotone" />
 							<p className="font-bold text-2xl">{stats.totalAlerts}</p>
 						</div>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Alerts</Trans>
+							<Trans>Alertes</Trans>
 						</p>
 					</div>
-					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
+					<div className="rounded-lg border bg-background/80 p-4 shadow-sm">
 						<div className="flex items-center gap-2">
-							<SparkleIcon className="size-5 text-green-500" weight="duotone" />
+							<SparkleIcon aria-hidden="true" className="size-5 text-green-500" weight="duotone" />
 							<p className="font-bold text-2xl text-green-600 dark:text-green-400">{stats.activeAlerts}</p>
 						</div>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Active</Trans>
+							<Trans>Actives</Trans>
 						</p>
 					</div>
-					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
+					<div className="rounded-lg border bg-background/80 p-4 shadow-sm">
 						<div className="flex items-center gap-2">
-							<BriefcaseIcon className="size-5 text-blue-500" weight="duotone" />
+							<BriefcaseIcon aria-hidden="true" className="size-5 text-blue-500" weight="duotone" />
 							<p className="font-bold text-2xl text-blue-600 dark:text-blue-400">{stats.totalMatches}</p>
 						</div>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Matches</Trans>
+							<Trans>Offres</Trans>
 						</p>
 					</div>
-					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
+					<div className="rounded-lg border bg-background/80 p-4 shadow-sm">
 						<div className="flex items-center gap-2">
-							<TrendUpIcon className="size-5 text-amber-500" weight="duotone" />
+							<TrendUpIcon aria-hidden="true" className="size-5 text-amber-500" weight="duotone" />
 							<p className="font-bold text-2xl text-amber-600 dark:text-amber-400">{stats.avgMatchScore}%</p>
 						</div>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Average score</Trans>
+							<Trans>Score moyen</Trans>
 						</p>
 					</div>
 				</motion.div>
@@ -297,7 +274,7 @@ export function AlertsTab({
 								>
 									<Card
 										className={cn(
-											"group h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
+											"group h-full transition-shadow duration-300 hover:shadow-xl",
 											alert.status === "paused" && "opacity-60",
 										)}
 									>
@@ -313,15 +290,15 @@ export function AlertsTab({
 														)}
 													>
 														{alert.status === "active" ? (
-															<BellRingingIcon className="size-6" weight="duotone" />
+															<BellRingingIcon aria-hidden="true" className="size-6" weight="duotone" />
 														) : (
-															<BellSimpleSlashIcon className="size-6" weight="duotone" />
+															<BellSimpleSlashIcon aria-hidden="true" className="size-6" weight="duotone" />
 														)}
 													</div>
 													<div>
 														<CardTitle className="line-clamp-1 text-lg">{alert.name}</CardTitle>
 														<CardDescription className="flex items-center gap-1">
-															<FreqIcon className="size-3" />
+															<FreqIcon aria-hidden="true" className="size-3" />
 															{FREQUENCY_CONFIG[alert.frequency].label}
 														</CardDescription>
 													</div>
@@ -332,17 +309,18 @@ export function AlertsTab({
 															variant="ghost"
 															size="sm"
 															className="size-8 p-0"
+															aria-label={alert.status === "active" ? t`Mettre l'alerte en pause` : t`Activer l'alerte`}
 															onClick={() => onToggleStatus(alert.id)}
 															disabled={toggleStatusPending}
 														>
 															{alert.status === "active" ? (
-																<PauseIcon className="size-4" />
+																<PauseIcon aria-hidden="true" className="size-4" />
 															) : (
-																<PlayIcon className="size-4" />
+																<PlayIcon aria-hidden="true" className="size-4" />
 															)}
 														</Button>
 													</TooltipTrigger>
-													<TooltipContent>{alert.status === "active" ? "Pause" : "Activate"}</TooltipContent>
+													<TooltipContent>{alert.status === "active" ? t`Mettre en pause` : t`Activer`}</TooltipContent>
 												</Tooltip>
 											</div>
 										</CardHeader>
@@ -352,7 +330,7 @@ export function AlertsTab({
 											<div className="flex flex-wrap gap-1.5">
 												{alert.keywords.slice(0, 4).map((keyword) => (
 													<Badge key={keyword} variant="secondary" className="text-xs">
-														<TagIcon className="mr-1 size-3" />
+														<TagIcon aria-hidden="true" className="mr-1 size-3" />
 														{keyword}
 													</Badge>
 												))}
@@ -366,61 +344,68 @@ export function AlertsTab({
 											{/* Location & Work Preference */}
 											<div className="flex flex-wrap gap-2 text-muted-foreground text-sm">
 												<span className="flex items-center gap-1">
-													<MapPinIcon className="size-4" />
+													<MapPinIcon aria-hidden="true" className="size-4" />
 													{alert.locations.slice(0, 2).join(", ")}
 													{alert.locations.length > 2 && ` +${alert.locations.length - 2}`}
 												</span>
 												<span
 													className={cn("flex items-center gap-1", WORK_PREFERENCE_CONFIG[alert.workPreference].color)}
 												>
-													<WorkIcon className="size-4" />
+													<WorkIcon aria-hidden="true" className="size-4" />
 													{WORK_PREFERENCE_CONFIG[alert.workPreference].label}
 												</span>
 											</div>
 
 											{/* Salary Range */}
 											<div className="flex items-center gap-2 font-medium text-green-600 text-sm dark:text-green-400">
-												<CurrencyCircleDollarIcon className="size-4" />
-												{alert.salaryMin.toLocaleString()} - {alert.salaryMax.toLocaleString()} MAD
+												<CurrencyCircleDollarIcon aria-hidden="true" className="size-4" />
+												{alert.salaryMin.toLocaleString("fr-FR")} - {alert.salaryMax.toLocaleString("fr-FR")} MAD
 											</div>
 
 											{/* Stats Row */}
 											<div className="grid grid-cols-3 gap-2 rounded-lg bg-muted/50 p-3">
 												<div className="text-center">
 													<p className="font-bold text-lg">{alert.matchCount}</p>
-													<p className="text-muted-foreground text-xs">Matches</p>
+													<p className="text-muted-foreground text-xs">
+														<Trans>Offres</Trans>
+													</p>
 												</div>
 												<div className="text-center">
 													<p className="font-bold text-lg">{alert.viewedCount}</p>
-													<p className="text-muted-foreground text-xs">Views</p>
+													<p className="text-muted-foreground text-xs">
+														<Trans>Vues</Trans>
+													</p>
 												</div>
 												<div className="text-center">
 													<p className="font-bold text-lg text-primary">{alert.appliedCount}</p>
-													<p className="text-muted-foreground text-xs">Applications</p>
+													<p className="text-muted-foreground text-xs">
+														<Trans>Candidatures</Trans>
+													</p>
 												</div>
 											</div>
 
 											{/* Last Triggered */}
 											{alert.lastTriggered && (
 												<p className="flex items-center gap-1 text-muted-foreground text-xs">
-													<ClockIcon className="size-3" />
-													Last match: {formatDate(formatTimestamp(alert.lastTriggered) || "")}
+													<ClockIcon aria-hidden="true" className="size-3" />
+													<Trans>Dernière offre :</Trans> {formatDate(formatTimestamp(alert.lastTriggered) || "")}
 												</p>
 											)}
 										</CardContent>
 
 										<CardFooter className="gap-2 pt-2">
 											<Button variant="outline" size="sm" className="flex-1 gap-1" onClick={() => onEdit(alert)}>
-												<PencilSimpleIcon className="size-4" />
-												<Trans>Edit</Trans>
+												<PencilSimpleIcon aria-hidden="true" className="size-4" />
+												<Trans>Modifier</Trans>
 											</Button>
 											<Button
 												variant="outline"
 												size="sm"
 												className="text-red-600 hover:bg-red-50 hover:text-red-700"
+												aria-label={t`Supprimer cette alerte`}
 												onClick={() => onDelete(alert.id)}
 											>
-												<TrashIcon className="size-4" />
+												<TrashIcon aria-hidden="true" className="size-4" />
 											</Button>
 										</CardFooter>
 									</Card>
@@ -432,16 +417,16 @@ export function AlertsTab({
 			) : (
 				<Card className="border-dashed">
 					<CardContent className="flex flex-col items-center justify-center py-16">
-						<BellIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
+						<BellIcon aria-hidden="true" className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 						<h3 className="mb-2 font-semibold text-lg">
-							<Trans>No alerts</Trans>
+							<Trans>Aucune alerte</Trans>
 						</h3>
 						<p className="mb-4 text-center text-muted-foreground">
-							<Trans>Create your first alert to receive personalized notifications</Trans>
+							<Trans>Crée ta première alerte pour recevoir des offres adaptées à ton profil.</Trans>
 						</p>
 						<Button onClick={onCreateOpen}>
-							<PlusIcon className="mr-2 size-4" />
-							<Trans>Create an alert</Trans>
+							<PlusIcon aria-hidden="true" className="mr-2 size-4" />
+							<Trans>Créer une alerte</Trans>
 						</Button>
 					</CardContent>
 				</Card>
@@ -451,46 +436,46 @@ export function AlertsTab({
 			<Card className="border-primary/30 bg-primary/5">
 				<CardContent className="p-6">
 					<h3 className="mb-4 flex items-center gap-2 font-semibold text-lg">
-						<SparkleIcon className="size-5 text-primary" weight="fill" />
-						<Trans>Tips for better alerts</Trans>
+						<SparkleIcon aria-hidden="true" className="size-5 text-primary" weight="fill" />
+						<Trans>Conseils pour de meilleures alertes</Trans>
 					</h3>
 					<div className="grid gap-4 md:grid-cols-3">
 						<div className="flex gap-3">
 							<div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-								<TagIcon className="size-5 text-primary" />
+								<TagIcon aria-hidden="true" className="size-5 text-primary" />
 							</div>
 							<div>
 								<p className="font-medium">
-									<Trans>Precise keywords</Trans>
+									<Trans>Mots-clés précis</Trans>
 								</p>
 								<p className="text-muted-foreground text-sm">
-									<Trans>Use terms specific to your profession</Trans>
+									<Trans>Utilise les termes exacts de ton métier ou diplôme.</Trans>
 								</p>
 							</div>
 						</div>
 						<div className="flex gap-3">
 							<div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-								<MapPinIcon className="size-5 text-primary" />
+								<MapPinIcon aria-hidden="true" className="size-5 text-primary" />
 							</div>
 							<div>
 								<p className="font-medium">
-									<Trans>Multiple locations</Trans>
+									<Trans>Plusieurs villes</Trans>
 								</p>
 								<p className="text-muted-foreground text-sm">
-									<Trans>Broaden your geographic search</Trans>
+									<Trans>Élargis ta recherche aux villes proches.</Trans>
 								</p>
 							</div>
 						</div>
 						<div className="flex gap-3">
 							<div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-								<LightningIcon className="size-5 text-primary" />
+								<LightningIcon aria-hidden="true" className="size-5 text-primary" />
 							</div>
 							<div>
 								<p className="font-medium">
-									<Trans>Instant alerts</Trans>
+									<Trans>Alertes rapides</Trans>
 								</p>
 								<p className="text-muted-foreground text-sm">
-									<Trans>For highly sought-after positions</Trans>
+									<Trans>Active l'instantané pour les postes très demandés.</Trans>
 								</p>
 							</div>
 						</div>
@@ -551,9 +536,15 @@ export function MatchesTab({
 					<div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
 						{/* Search */}
 						<div className="relative w-full min-w-[200px] sm:flex-1 lg:max-w-xs">
-							<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-muted-foreground" />
+							<MagnifyingGlassIcon
+								aria-hidden="true"
+								className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-muted-foreground"
+							/>
 							<Input
-								placeholder={t`Search...`}
+								aria-label={t`Rechercher une offre reçue`}
+								name="alertMatchSearch"
+								autoComplete="off"
+								placeholder={t`Rechercher par poste ou entreprise…`}
 								value={searchQuery}
 								onChange={(e) => onSearchChange(e.target.value)}
 								className="pl-10"
@@ -562,13 +553,13 @@ export function MatchesTab({
 
 						{/* Alert Filter */}
 						<Select value={selectedMatchFilter} onValueChange={onMatchFilterChange}>
-							<SelectTrigger className="w-full sm:w-[180px]">
-								<BellIcon className="mr-2 size-4" />
-								<SelectValue placeholder={t`Filter by alert`} />
+							<SelectTrigger aria-label={t`Filtrer par alerte`} className="w-full sm:w-[180px]">
+								<BellIcon aria-hidden="true" className="mr-2 size-4" />
+								<SelectValue placeholder={t`Filtrer par alerte`} />
 							</SelectTrigger>
 							<SelectContent>
 								<SelectItem value="all">
-									<Trans>All alerts</Trans>
+									<Trans>Toutes les alertes</Trans>
 								</SelectItem>
 								{alerts.map((alert) => (
 									<SelectItem key={alert.id} value={alert.id}>
@@ -580,13 +571,13 @@ export function MatchesTab({
 
 						{/* Quality Filter */}
 						<Select value={matchQualityFilter} onValueChange={(v) => onQualityFilterChange(v as MatchQuality | "all")}>
-							<SelectTrigger className="w-full sm:w-[160px]">
-								<StarIcon className="mr-2 size-4" />
-								<SelectValue placeholder={t`Quality`} />
+							<SelectTrigger aria-label={t`Filtrer par qualité`} className="w-full sm:w-[160px]">
+								<StarIcon aria-hidden="true" className="mr-2 size-4" />
+								<SelectValue placeholder={t`Qualité`} />
 							</SelectTrigger>
 							<SelectContent>
 								<SelectItem value="all">
-									<Trans>Any quality</Trans>
+									<Trans>Toutes les qualités</Trans>
 								</SelectItem>
 								{Object.entries(MATCH_QUALITY_CONFIG).map(([key, config]) => (
 									<SelectItem key={key} value={key}>
@@ -598,9 +589,13 @@ export function MatchesTab({
 
 						{/* Show Duplicates Toggle */}
 						<div className="flex items-center gap-2">
-							<Switch checked={showDuplicates} onCheckedChange={onShowDuplicatesChange} />
+							<Switch
+								aria-label={t`Afficher les doublons`}
+								checked={showDuplicates}
+								onCheckedChange={onShowDuplicatesChange}
+							/>
 							<Label className="cursor-pointer text-sm">
-								<Trans>Show duplicates</Trans>
+								<Trans>Afficher les doublons</Trans>
 							</Label>
 						</div>
 					</div>
@@ -610,7 +605,7 @@ export function MatchesTab({
 			{/* Loading state for matches */}
 			{isLoadingMatches && (
 				<div className="flex min-h-[200px] items-center justify-center">
-					<SpinnerIcon className="size-8 animate-spin text-primary" />
+					<SpinnerIcon aria-hidden="true" className="size-8 animate-spin text-primary" />
 				</div>
 			)}
 
@@ -620,7 +615,7 @@ export function MatchesTab({
 					{groupedMatches.map(([date, dateMatches]) => (
 						<div key={date}>
 							<h3 className="mb-4 flex items-center gap-2 font-semibold text-muted-foreground">
-								<CalendarIcon className="size-4" />
+								<CalendarIcon aria-hidden="true" className="size-4" />
 								{formatDate(date)}
 								<Badge variant="outline">{dateMatches.length}</Badge>
 							</h3>
@@ -639,7 +634,7 @@ export function MatchesTab({
 										>
 											<Card
 												className={cn(
-													"group transition-all hover:shadow-md",
+													"group transition-shadow hover:shadow-md",
 													!match.isViewed && "border-primary/50 bg-primary/5",
 													match.isDuplicate && "border-dashed opacity-70",
 												)}
@@ -652,43 +647,45 @@ export function MatchesTab({
 																<h4 className="font-semibold text-lg">{match.jobTitle}</h4>
 																{!match.isViewed && (
 																	<Badge className="bg-primary text-primary-foreground">
-																		<SparkleIcon className="mr-1 size-3" weight="fill" />
-																		New
+																		<SparkleIcon aria-hidden="true" className="mr-1 size-3" weight="fill" />
+																		<Trans>Nouveau</Trans>
 																	</Badge>
 																)}
 																{match.isDuplicate && (
 																	<Tooltip>
 																		<TooltipTrigger>
 																			<Badge variant="outline" className="gap-1 text-amber-600">
-																				<CopyIcon className="size-3" />
-																				Duplicate
+																				<CopyIcon aria-hidden="true" className="size-3" />
+																				<Trans>Doublon</Trans>
 																			</Badge>
 																		</TooltipTrigger>
-																		<TooltipContent>This offer matches multiple alerts</TooltipContent>
+																		<TooltipContent>
+																			<Trans>Cette offre correspond à plusieurs alertes</Trans>
+																		</TooltipContent>
 																	</Tooltip>
 																)}
 																{match.isApplied && (
 																	<Badge className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
-																		<CheckCircleIcon className="mr-1 size-3" weight="fill" />
-																		Application sent
+																		<CheckCircleIcon aria-hidden="true" className="mr-1 size-3" weight="fill" />
+																		<Trans>Candidature envoyée</Trans>
 																	</Badge>
 																)}
 															</div>
 
 															<div className="flex flex-wrap items-center gap-4 text-muted-foreground text-sm">
 																<span className="flex items-center gap-1">
-																	<BuildingsIcon className="size-4" />
+																	<BuildingsIcon aria-hidden="true" className="size-4" />
 																	{match.company}
 																</span>
 																{match.location && (
 																	<span className="flex items-center gap-1">
-																		<MapPinIcon className="size-4" />
+																		<MapPinIcon aria-hidden="true" className="size-4" />
 																		{match.location}
 																	</span>
 																)}
 																{match.salary && (
 																	<span className="flex items-center gap-1 font-medium text-green-600 dark:text-green-400">
-																		<CurrencyCircleDollarIcon className="size-4" />
+																		<CurrencyCircleDollarIcon aria-hidden="true" className="size-4" />
 																		{match.salary}
 																	</span>
 																)}
@@ -696,7 +693,9 @@ export function MatchesTab({
 
 															{/* Matched Keywords */}
 															<div className="flex flex-wrap items-center gap-2">
-																<span className="text-muted-foreground text-xs">Matches:</span>
+																<span className="text-muted-foreground text-xs">
+																	<Trans>Mots-clés :</Trans>
+																</span>
 																{match.matchedKeywords.map((keyword) => (
 																	<Badge key={keyword} variant="outline" className="text-xs">
 																		{keyword}
@@ -707,8 +706,8 @@ export function MatchesTab({
 															{/* Alert Name */}
 															{alert && (
 																<p className="flex items-center gap-1 text-muted-foreground text-xs">
-																	<BellIcon className="size-3" />
-																	Alert: {alert.name}
+																	<BellIcon aria-hidden="true" className="size-3" />
+																	<Trans>Alerte :</Trans> {alert.name}
 																</p>
 															)}
 														</div>
@@ -728,13 +727,16 @@ export function MatchesTab({
 																		<Button
 																			variant="outline"
 																			size="sm"
+																			aria-label={t`Marquer comme vue`}
 																			onClick={() => onMarkViewed(match.id, match.alertId)}
 																			disabled={markViewedPending}
 																		>
-																			<EyeIcon className="size-4" />
+																			<EyeIcon aria-hidden="true" className="size-4" />
 																		</Button>
 																	</TooltipTrigger>
-																	<TooltipContent>Mark as viewed</TooltipContent>
+																	<TooltipContent>
+																		<Trans>Marquer comme vue</Trans>
+																	</TooltipContent>
 																</Tooltip>
 
 																{!match.isApplied && (
@@ -744,15 +746,15 @@ export function MatchesTab({
 																		onClick={() => onQuickApply(match.id, match.alertId)}
 																		disabled={markAppliedPending}
 																	>
-																		<EnvelopeIcon className="size-4" />
-																		<Trans>Apply</Trans>
+																		<EnvelopeIcon aria-hidden="true" className="size-4" />
+																		<Trans>Postuler</Trans>
 																	</Button>
 																)}
 
 																{/* biome-ignore lint/suspicious/noExplicitAny: Route path not in generated route tree */}
 																<Link to={"/dashboard/jobs" as any}>
 																	<Button variant="outline" size="sm">
-																		<ArrowSquareOutIcon className="size-4" />
+																		<ArrowSquareOutIcon aria-hidden="true" className="size-4" />
 																	</Button>
 																</Link>
 															</div>
@@ -770,21 +772,21 @@ export function MatchesTab({
 			) : !isLoadingMatches ? (
 				<Card className="border-dashed">
 					<CardContent className="flex flex-col items-center justify-center py-16">
-						<BriefcaseIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
+						<BriefcaseIcon aria-hidden="true" className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 						<h3 className="mb-2 font-semibold text-lg">
-							<Trans>No matches</Trans>
+							<Trans>Aucune offre reçue</Trans>
 						</h3>
 						<p className="mb-4 text-center text-muted-foreground">
 							{alerts.length === 0 ? (
-								<Trans>Create an alert to start receiving matches</Trans>
+								<Trans>Crée une alerte pour commencer à recevoir des offres ciblées.</Trans>
 							) : (
-								<Trans>No offers match your current criteria</Trans>
+								<Trans>Aucune offre ne correspond aux critères actuels.</Trans>
 							)}
 						</p>
 						{alerts.length === 0 && (
 							<Button onClick={onCreateOpen}>
-								<PlusIcon className="mr-2 size-4" />
-								<Trans>Create an alert</Trans>
+								<PlusIcon aria-hidden="true" className="mr-2 size-4" />
+								<Trans>Créer une alerte</Trans>
 							</Button>
 						)}
 					</CardContent>
@@ -810,8 +812,8 @@ export function HistoryTab({ alerts, matches, alertHistory, stats }: HistoryTabP
 			<Card>
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
-						<ChartBarIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Activity of the last 7 days</Trans>
+						<ChartBarIcon aria-hidden="true" className="size-5 text-primary" weight="duotone" />
+						<Trans>Activité des 7 derniers jours</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
@@ -830,16 +832,19 @@ export function HistoryTab({ alerts, matches, alertHistory, stats }: HistoryTabP
 											transition={{ delay: index * 0.05 }}
 										>
 											<div
-												className={cn("w-full rounded-t-lg transition-all", day.count > 0 ? "bg-primary" : "bg-muted")}
+												className={cn(
+													"w-full rounded-t-lg transition-[height]",
+													day.count > 0 ? "bg-primary" : "bg-muted",
+												)}
 												style={{ height: `${Math.max(height, 10)}%` }}
 											/>
 											<span className="text-muted-foreground text-xs">
-												{new Date(day.date).toLocaleDateString(undefined, { weekday: "short" })}
+												{new Date(day.date).toLocaleDateString("fr-FR", { weekday: "short" })}
 											</span>
 										</motion.div>
 									</TooltipTrigger>
 									<TooltipContent>
-										{day.count} match{day.count !== 1 ? "es" : ""} on {formatDate(day.date)}
+										{day.count} {day.count > 1 ? t`offres` : t`offre`} - {formatDate(day.date)}
 									</TooltipContent>
 								</Tooltip>
 							);
@@ -854,13 +859,13 @@ export function HistoryTab({ alerts, matches, alertHistory, stats }: HistoryTabP
 					<CardContent className="p-6">
 						<div className="flex items-center justify-between">
 							<div className="flex size-12 items-center justify-center rounded-xl bg-primary/10">
-								<BriefcaseIcon className="size-6 text-primary" weight="duotone" />
+								<BriefcaseIcon aria-hidden="true" className="size-6 text-primary" weight="duotone" />
 							</div>
-							<TrendUpIcon className="size-5 text-green-500" />
+							<TrendUpIcon aria-hidden="true" className="size-5 text-green-500" />
 						</div>
 						<p className="mt-4 font-bold text-3xl">{stats.totalMatches}</p>
 						<p className="text-muted-foreground">
-							<Trans>Total matches</Trans>
+							<Trans>Offres reçues</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -869,7 +874,7 @@ export function HistoryTab({ alerts, matches, alertHistory, stats }: HistoryTabP
 					<CardContent className="p-6">
 						<div className="flex items-center justify-between">
 							<div className="flex size-12 items-center justify-center rounded-xl bg-green-100 dark:bg-green-900/30">
-								<CheckCircleIcon className="size-6 text-green-600" weight="duotone" />
+								<CheckCircleIcon aria-hidden="true" className="size-6 text-green-600" weight="duotone" />
 							</div>
 							<span className="font-bold text-green-600">
 								{stats.totalMatches > 0 ? Math.round((stats.appliedFromAlerts / stats.totalMatches) * 100) : 0}%
@@ -877,7 +882,7 @@ export function HistoryTab({ alerts, matches, alertHistory, stats }: HistoryTabP
 						</div>
 						<p className="mt-4 font-bold text-3xl">{stats.appliedFromAlerts}</p>
 						<p className="text-muted-foreground">
-							<Trans>Applications sent</Trans>
+							<Trans>Candidatures envoyées</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -886,12 +891,12 @@ export function HistoryTab({ alerts, matches, alertHistory, stats }: HistoryTabP
 					<CardContent className="p-6">
 						<div className="flex items-center justify-between">
 							<div className="flex size-12 items-center justify-center rounded-xl bg-amber-100 dark:bg-amber-900/30">
-								<StarIcon className="size-6 text-amber-600" weight="fill" />
+								<StarIcon aria-hidden="true" className="size-6 text-amber-600" weight="fill" />
 							</div>
 						</div>
 						<p className="mt-4 font-bold text-3xl">{stats.avgMatchScore}%</p>
 						<p className="text-muted-foreground">
-							<Trans>Average score</Trans>
+							<Trans>Score moyen</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -900,12 +905,12 @@ export function HistoryTab({ alerts, matches, alertHistory, stats }: HistoryTabP
 					<CardContent className="p-6">
 						<div className="flex items-center justify-between">
 							<div className="flex size-12 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-900/30">
-								<BellRingingIcon className="size-6 text-blue-600" weight="duotone" />
+								<BellRingingIcon aria-hidden="true" className="size-6 text-blue-600" weight="duotone" />
 							</div>
 						</div>
 						<p className="mt-4 line-clamp-1 font-bold text-lg">{stats.topPerformingAlert}</p>
 						<p className="text-muted-foreground">
-							<Trans>Most active alert</Trans>
+							<Trans>Alerte la plus active</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -915,7 +920,7 @@ export function HistoryTab({ alerts, matches, alertHistory, stats }: HistoryTabP
 			<Card>
 				<CardHeader>
 					<CardTitle>
-						<Trans>Performance by alert</Trans>
+						<Trans>Performance par alerte</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
@@ -933,20 +938,20 @@ export function HistoryTab({ alerts, matches, alertHistory, stats }: HistoryTabP
 									<div className="flex items-center justify-between">
 										<div className="flex items-center gap-2">
 											{alert.status === "active" ? (
-												<BellRingingIcon className="size-4 text-green-500" />
+												<BellRingingIcon aria-hidden="true" className="size-4 text-green-500" />
 											) : (
-												<BellSimpleSlashIcon className="size-4 text-gray-400" />
+												<BellSimpleSlashIcon aria-hidden="true" className="size-4 text-gray-400" />
 											)}
 											<span className="font-medium">{alert.name}</span>
 										</div>
 										<div className="flex items-center gap-4 text-sm">
 											<span className="text-muted-foreground">
-												{alertMatches.length} match{alertMatches.length !== 1 ? "es" : ""}
+												{alertMatches.length} {alertMatches.length > 1 ? t`offres` : t`offre`}
 											</span>
 											<span className="text-green-600">
-												{appliedCount} application{appliedCount !== 1 ? "s" : ""}
+												{appliedCount} {appliedCount > 1 ? t`candidatures` : t`candidature`}
 											</span>
-											<Badge variant="outline">{avgScore}% avg score</Badge>
+											<Badge variant="outline">{avgScore}% score moyen</Badge>
 										</div>
 									</div>
 									<Progress value={avgScore} className="h-2" />
@@ -961,7 +966,7 @@ export function HistoryTab({ alerts, matches, alertHistory, stats }: HistoryTabP
 			<Card>
 				<CardHeader>
 					<CardTitle>
-						<Trans>Recent activity</Trans>
+						<Trans>Activité récente</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
@@ -988,6 +993,7 @@ export function HistoryTab({ alerts, matches, alertHistory, stats }: HistoryTabP
 												)}
 											>
 												<BriefcaseIcon
+													aria-hidden="true"
 													className={cn("size-5", MATCH_QUALITY_CONFIG[match.matchQuality].color)}
 													weight="duotone"
 												/>
@@ -1081,12 +1087,14 @@ export function AlertFormDialog({
 		>
 			<DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
 				<DialogHeader>
-					<DialogTitle>{editingAlertId ? <Trans>Edit alert</Trans> : <Trans>New job alert</Trans>}</DialogTitle>
+					<DialogTitle>
+						{editingAlertId ? <Trans>Modifier l'alerte</Trans> : <Trans>Nouvelle alerte</Trans>}
+					</DialogTitle>
 					<DialogDescription>
 						{editingAlertId ? (
-							<Trans>Modify the criteria for your alert</Trans>
+							<Trans>Modifie les critères de cette alerte.</Trans>
 						) : (
-							<Trans>Define your criteria to receive personalized offers</Trans>
+							<Trans>Définis tes critères pour recevoir des offres personnalisées.</Trans>
 						)}
 					</DialogDescription>
 				</DialogHeader>
@@ -1095,10 +1103,13 @@ export function AlertFormDialog({
 					{/* Alert Name */}
 					<div className="space-y-2">
 						<Label>
-							<Trans>Alert name</Trans>
+							<Trans>Nom de l'alerte</Trans>
 						</Label>
 						<Input
-							placeholder={t`E.g.: Nurse positions Casablanca`}
+							aria-label={t`Nom de l'alerte`}
+							name="alertName"
+							autoComplete="off"
+							placeholder={t`Ex. : Infirmier à Casablanca`}
 							value={formData.name}
 							onChange={(e) => onFormDataChange({ ...formData, name: e.target.value })}
 						/>
@@ -1107,34 +1118,37 @@ export function AlertFormDialog({
 					{/* Keywords */}
 					<div className="space-y-2">
 						<Label>
-							<Trans>Keywords</Trans>
+							<Trans>Mots-clés</Trans>
 						</Label>
 						<Textarea
-							placeholder={t`Nurse, RN, care, operating room (separated by commas)`}
+							placeholder={t`Infirmier, soins, bloc opératoire, laboratoire (séparés par des virgules)`}
 							value={formData.keywords}
 							onChange={(e) => onFormDataChange({ ...formData, keywords: e.target.value })}
 							rows={2}
 						/>
 						<p className="text-muted-foreground text-xs">
-							<Trans>Separate keywords with commas</Trans>
+							<Trans>Sépare les mots-clés par des virgules.</Trans>
 						</p>
 					</div>
 
 					{/* Locations */}
 					<div className="space-y-2">
 						<Label>
-							<Trans>Locations</Trans>
+							<Trans>Villes</Trans>
 						</Label>
 						<div className="flex flex-wrap gap-2">
 							{LOCATIONS.map((location) => (
-								<Badge
-									key={location}
-									variant={formData.locations.includes(location) ? "default" : "outline"}
-									className="cursor-pointer transition-all hover:scale-105"
-									onClick={() => toggleLocationSelection(location)}
-								>
-									{formData.locations.includes(location) && <CheckCircleIcon className="mr-1 size-3" />}
-									{location}
+								<Badge key={location} asChild variant={formData.locations.includes(location) ? "default" : "outline"}>
+									<button
+										type="button"
+										aria-pressed={formData.locations.includes(location)}
+										onClick={() => toggleLocationSelection(location)}
+									>
+										{formData.locations.includes(location) && (
+											<CheckCircleIcon aria-hidden="true" className="mr-1 size-3" />
+										)}
+										{location}
+									</button>
 								</Badge>
 							))}
 						</div>
@@ -1143,10 +1157,10 @@ export function AlertFormDialog({
 					{/* Salary Range */}
 					<div className="space-y-4">
 						<Label>
-							<Trans>Salary range</Trans>
+							<Trans>Fourchette salariale</Trans>
 						</Label>
 						<div className="flex items-center gap-4">
-							<span className="w-24 text-sm">{formData.salaryMin.toLocaleString()} MAD</span>
+							<span className="w-24 text-sm">{formData.salaryMin.toLocaleString("fr-FR")} MAD</span>
 							<Slider
 								value={[formData.salaryMin, formData.salaryMax]}
 								min={2000}
@@ -1157,25 +1171,32 @@ export function AlertFormDialog({
 								}
 								className="flex-1"
 							/>
-							<span className="w-24 text-right text-sm">{formData.salaryMax.toLocaleString()} MAD</span>
+							<span className="w-24 text-right text-sm">{formData.salaryMax.toLocaleString("fr-FR")} MAD</span>
 						</div>
 					</div>
 
 					{/* Industries */}
 					<div className="space-y-2">
 						<Label>
-							<Trans>Industries</Trans>
+							<Trans>Secteurs</Trans>
 						</Label>
 						<div className="flex flex-wrap gap-2">
 							{INDUSTRIES.map((industry) => (
 								<Badge
 									key={industry.value}
+									asChild
 									variant={formData.industries.includes(industry.value) ? "default" : "outline"}
-									className="cursor-pointer transition-all hover:scale-105"
-									onClick={() => toggleIndustrySelection(industry.value)}
 								>
-									{formData.industries.includes(industry.value) && <CheckCircleIcon className="mr-1 size-3" />}
-									{industry.label}
+									<button
+										type="button"
+										aria-pressed={formData.industries.includes(industry.value)}
+										onClick={() => toggleIndustrySelection(industry.value)}
+									>
+										{formData.industries.includes(industry.value) && (
+											<CheckCircleIcon aria-hidden="true" className="mr-1 size-3" />
+										)}
+										{industry.label}
+									</button>
 								</Badge>
 							))}
 						</div>
@@ -1184,18 +1205,25 @@ export function AlertFormDialog({
 					{/* Company Sizes */}
 					<div className="space-y-2">
 						<Label>
-							<Trans>Company size</Trans>
+							<Trans>Taille d'entreprise</Trans>
 						</Label>
 						<div className="flex flex-wrap gap-2">
 							{COMPANY_SIZES.map((size) => (
 								<Badge
 									key={size.value}
+									asChild
 									variant={formData.companySizes.includes(size.value) ? "default" : "outline"}
-									className="cursor-pointer transition-all hover:scale-105"
-									onClick={() => toggleCompanySizeSelection(size.value)}
 								>
-									{formData.companySizes.includes(size.value) && <CheckCircleIcon className="mr-1 size-3" />}
-									{size.label}
+									<button
+										type="button"
+										aria-pressed={formData.companySizes.includes(size.value)}
+										onClick={() => toggleCompanySizeSelection(size.value)}
+									>
+										{formData.companySizes.includes(size.value) && (
+											<CheckCircleIcon aria-hidden="true" className="mr-1 size-3" />
+										)}
+										{size.label}
+									</button>
 								</Badge>
 							))}
 						</div>
@@ -1204,7 +1232,7 @@ export function AlertFormDialog({
 					{/* Work Preference */}
 					<div className="space-y-2">
 						<Label>
-							<Trans>Work preference</Trans>
+							<Trans>Mode de travail</Trans>
 						</Label>
 						<div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
 							{(
@@ -1220,9 +1248,10 @@ export function AlertFormDialog({
 										type="button"
 										variant={formData.workPreference === key ? "default" : "outline"}
 										className="h-auto flex-col gap-1 py-3"
+										aria-pressed={formData.workPreference === key}
 										onClick={() => onFormDataChange({ ...formData, workPreference: key })}
 									>
-										<PrefIcon className="size-5" weight="duotone" />
+										<PrefIcon aria-hidden="true" className="size-5" weight="duotone" />
 										<span className="text-xs">{config.label}</span>
 									</Button>
 								);
@@ -1233,7 +1262,7 @@ export function AlertFormDialog({
 					{/* Notification Frequency */}
 					<div className="space-y-2">
 						<Label>
-							<Trans>Notification frequency</Trans>
+							<Trans>Fréquence des notifications</Trans>
 						</Label>
 						<div className="grid gap-2 sm:grid-cols-3">
 							{(
@@ -1244,16 +1273,19 @@ export function AlertFormDialog({
 							).map(([key, config]) => {
 								const FreqIcon = config.icon;
 								return (
-									<Card
+									<button
 										key={key}
+										type="button"
 										className={cn(
-											"cursor-pointer transition-all hover:border-primary",
+											"rounded-lg border bg-card text-left transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
 											formData.frequency === key && "border-primary bg-primary/5",
 										)}
+										aria-pressed={formData.frequency === key}
 										onClick={() => onFormDataChange({ ...formData, frequency: key })}
 									>
-										<CardContent className="flex items-center gap-3 p-3">
+										<div className="flex items-center gap-3 p-3">
 											<FreqIcon
+												aria-hidden="true"
 												className={cn("size-5", formData.frequency === key ? "text-primary" : "text-muted-foreground")}
 												weight="duotone"
 											/>
@@ -1261,8 +1293,8 @@ export function AlertFormDialog({
 												<p className="font-medium text-sm">{config.label}</p>
 												<p className="text-muted-foreground text-xs">{config.description}</p>
 											</div>
-										</CardContent>
-									</Card>
+										</div>
+									</button>
 								);
 							})}
 						</div>
@@ -1272,15 +1304,17 @@ export function AlertFormDialog({
 				<DialogFooter>
 					<DialogClose asChild>
 						<Button variant="outline">
-							<Trans>Cancel</Trans>
+							<Trans>Annuler</Trans>
 						</Button>
 					</DialogClose>
 					<Button
 						onClick={editingAlertId ? onUpdate : onCreate}
 						disabled={!formData.keywords.trim() || createPending || updatePending}
 					>
-						{(createPending || updatePending) && <SpinnerIcon className="mr-2 size-4 animate-spin" />}
-						{editingAlertId ? <Trans>Update</Trans> : <Trans>Create alert</Trans>}
+						{(createPending || updatePending) && (
+							<SpinnerIcon aria-hidden="true" className="mr-2 size-4 animate-spin" />
+						)}
+						{editingAlertId ? <Trans>Enregistrer</Trans> : <Trans>Créer l'alerte</Trans>}
 					</Button>
 				</DialogFooter>
 			</DialogContent>
@@ -1303,17 +1337,19 @@ export function DeleteConfirmDialog({ deleteConfirmId, onClose, onConfirm, isPen
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
-						<WarningIcon className="size-5 text-red-500" />
-						<Trans>Delete this alert?</Trans>
+						<WarningIcon aria-hidden="true" className="size-5 text-red-500" />
+						<Trans>Supprimer cette alerte ?</Trans>
 					</DialogTitle>
 					<DialogDescription>
-						<Trans>This action is irreversible. The alert and all its matches will be permanently deleted.</Trans>
+						<Trans>
+							Cette action est irréversible. L'alerte et ses offres associées seront supprimées définitivement.
+						</Trans>
 					</DialogDescription>
 				</DialogHeader>
 				<DialogFooter>
 					<DialogClose asChild>
 						<Button variant="outline">
-							<Trans>Cancel</Trans>
+							<Trans>Annuler</Trans>
 						</Button>
 					</DialogClose>
 					<Button
@@ -1321,9 +1357,9 @@ export function DeleteConfirmDialog({ deleteConfirmId, onClose, onConfirm, isPen
 						onClick={() => deleteConfirmId && onConfirm(deleteConfirmId)}
 						disabled={isPending}
 					>
-						{isPending && <SpinnerIcon className="mr-2 size-4 animate-spin" />}
-						<TrashIcon className="mr-2 size-4" />
-						<Trans>Delete</Trans>
+						{isPending && <SpinnerIcon aria-hidden="true" className="mr-2 size-4 animate-spin" />}
+						<TrashIcon aria-hidden="true" className="mr-2 size-4" />
+						<Trans>Supprimer</Trans>
 					</Button>
 				</DialogFooter>
 			</DialogContent>
@@ -1335,22 +1371,22 @@ export function DeleteConfirmDialog({ deleteConfirmId, onClose, onConfirm, isPen
 
 export function CtaSection() {
 	return (
-		<Card className="mt-8 border-2 border-primary/30 bg-gradient-to-br from-primary/10 to-transparent">
+		<Card className="mt-8 border-primary/20 bg-primary/5">
 			<CardContent className="flex flex-col items-center py-8 text-center">
 				<div className="mb-4 flex size-16 items-center justify-center rounded-full bg-primary/20">
-					<BriefcaseIcon className="size-8 text-primary" weight="duotone" />
+					<BriefcaseIcon aria-hidden="true" className="size-8 text-primary" weight="duotone" />
 				</div>
 				<h3 className="mb-2 font-bold text-2xl">
-					<Trans>Explore available offers</Trans>
+					<Trans>Explore les offres disponibles</Trans>
 				</h3>
 				<p className="mb-6 max-w-md text-muted-foreground">
-					<Trans>Browse all job offers and find the one that matches your profile.</Trans>
+					<Trans>Parcours les offres partenaires et repère celles qui correspondent à ton profil.</Trans>
 				</p>
 				{/* biome-ignore lint/suspicious/noExplicitAny: Route path not in generated route tree */}
 				<Link to={"/dashboard/jobs" as any}>
 					<Button size="lg" className="gap-2">
-						<Trans>View offers</Trans>
-						<CaretRightIcon className="size-5" />
+						<Trans>Voir les offres</Trans>
+						<CaretRightIcon aria-hidden="true" className="size-5" />
 					</Button>
 				</Link>
 			</CardContent>

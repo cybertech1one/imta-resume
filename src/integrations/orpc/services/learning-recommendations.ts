@@ -480,10 +480,12 @@ export const learningRecommendationsService = {
 			resources = resources.filter((r) => !excludeIds.includes(r.id));
 		}
 
-		// Filter by target field if specified
+		// Filter by target field if specified — but fall back to the top-rated set if the
+		// field filter leaves nothing, so a new/cold-start student never sees an empty list.
 		if (options?.targetField) {
 			const targetField = options.targetField.toLowerCase();
-			resources = resources.filter((r) => r.targetFields?.some((f) => f.toLowerCase().includes(targetField)));
+			const fieldFiltered = resources.filter((r) => r.targetFields?.some((f) => f.toLowerCase().includes(targetField)));
+			if (fieldFiltered.length > 0) resources = fieldFiltered;
 		}
 
 		// Score resources based on various factors

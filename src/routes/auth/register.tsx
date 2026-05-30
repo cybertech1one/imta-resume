@@ -2,8 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { ArrowRightIcon, EyeIcon, EyeSlashIcon } from "@phosphor-icons/react";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useToggle } from "usehooks-ts";
@@ -16,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FORM_RENDER_TS_FIELD, HONEYPOT_FIELD } from "@/integrations/auth/abuse-guard-constants";
 import { authClient } from "@/integrations/auth/client";
+import { orpc } from "@/integrations/orpc/client";
 import { env } from "@/utils/env";
 import { SocialAuth } from "./-components/social-auth";
 
@@ -86,12 +88,12 @@ function getFormSchema() {
 	return z.object({
 		name: z
 			.string()
-			.min(3, { message: t`Name must be at least 3 characters` })
-			.max(64, { message: t`Name cannot exceed 64 characters` }),
+			.min(3, { message: t`Le nom doit contenir au moins 3 caractères` })
+			.max(64, { message: t`Le nom ne peut pas dépasser 64 caractères` }),
 		username: z
 			.string()
-			.min(3, { message: t`Username must be at least 3 characters` })
-			.max(64, { message: t`Username cannot exceed 64 characters` })
+			.min(3, { message: t`Le nom d'utilisateur doit contenir au moins 3 caractères` })
+			.max(64, { message: t`Le nom d'utilisateur ne peut pas dépasser 64 caractères` })
 			.trim()
 			.toLowerCase()
 			.regex(/^[a-z0-9._-]+$/, {
@@ -99,14 +101,14 @@ function getFormSchema() {
 			}),
 		email: z
 			.string()
-			.min(1, { message: t`Email is required` })
-			.email({ message: t`Please enter a valid email address` })
+			.min(1, { message: t`L'adresse e-mail est requise` })
+			.email({ message: t`Veuillez saisir une adresse e-mail valide` })
 			.toLowerCase(),
 		password: z
 			.string()
 			.min(12, { message: t`Le mot de passe doit contenir au moins 12 caractères` })
 			.max(64, { message: t`Le mot de passe ne peut pas dépasser 64 caractères` }),
-		imtaProgram: z.string().min(1, { message: t`Please select your program` }),
+		imtaProgram: z.string().min(1, { message: t`Veuillez sélectionner votre programme` }),
 	});
 }
 
@@ -165,6 +167,19 @@ function RouteComponent() {
 		},
 		mode: "onBlur",
 	});
+
+	// Load the real program list from the DB (all active IMTA programs across every field)
+	// so students in newer programs (cybersecurity, finance, data science…) can actually
+	// select their program — not just the original 12. Falls back to the hardcoded list.
+	const { data: dbPrograms } = useQuery({
+		...orpc.imtaPrograms.list.queryOptions({ input: {} }),
+		staleTime: 60 * 60 * 1000,
+	});
+	const programOptions = useMemo(() => {
+		if (!dbPrograms?.length) return IMTA_PROGRAM_OPTIONS;
+		const opts = dbPrograms.map((p) => ({ value: p.id, label: p.nameFr || p.name }));
+		return [...opts, { value: "other", label: "Autre" }];
+	}, [dbPrograms]);
 
 	const onSubmit = async (data: FormValues) => {
 		// Require the captcha token only when Turnstile is enabled.
@@ -275,7 +290,7 @@ function RouteComponent() {
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>
-										<Trans>Name</Trans>
+										<Trans>Nom</Trans>
 									</FormLabel>
 									<FormControl>
 										<Input
@@ -298,7 +313,7 @@ function RouteComponent() {
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>
-										<Trans>Username</Trans>
+										<Trans>Nom d'utilisateur</Trans>
 									</FormLabel>
 									<FormControl>
 										<Input
@@ -325,7 +340,7 @@ function RouteComponent() {
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>
-										<Trans>Email Address</Trans>
+										<Trans>Adresse e-mail</Trans>
 									</FormLabel>
 									<FormControl>
 										<Input
@@ -349,16 +364,16 @@ function RouteComponent() {
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>
-										<Trans>Program / Formation</Trans>
+										<Trans>Programme / Formation</Trans>
 									</FormLabel>
 									<Select onValueChange={field.onChange} value={field.value}>
 										<FormControl>
 											<SelectTrigger aria-required="true">
-												<SelectValue placeholder={t`Select your program`} />
+												<SelectValue placeholder={t`Sélectionnez votre programme`} />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
-											{IMTA_PROGRAM_OPTIONS.map((option) => (
+											{programOptions.map((option) => (
 												<SelectItem key={option.value} value={option.value}>
 													{option.label}
 												</SelectItem>
@@ -376,7 +391,7 @@ function RouteComponent() {
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>
-										<Trans>Password</Trans>
+										<Trans>Mot de passe</Trans>
 									</FormLabel>
 									<div className="flex items-center gap-x-1.5">
 										<FormControl>

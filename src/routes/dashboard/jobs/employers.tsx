@@ -72,7 +72,7 @@ interface Employer {
 function getIndustryConfig(): Record<Industry, { label: string; icon: Icon; color: string }> {
 	return {
 		healthcare: {
-			label: t`Healthcare`,
+			label: t`Santé`,
 			icon: HospitalIcon,
 			color: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
 		},
@@ -82,17 +82,17 @@ function getIndustryConfig(): Record<Industry, { label: string; icon: Icon; colo
 			color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
 		},
 		manufacturing: {
-			label: t`Manufacturing`,
+			label: t`Fabrication`,
 			icon: GearIcon,
 			color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400",
 		},
 		mining: {
-			label: t`Mining & Chemistry`,
+			label: t`Mines et chimie`,
 			icon: HardHatIcon,
 			color: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 		},
 		automotive: {
-			label: t`Automotive`,
+			label: t`Automobile`,
 			icon: GearIcon,
 			color: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
 		},
@@ -102,7 +102,7 @@ function getIndustryConfig(): Record<Industry, { label: string; icon: Icon; colo
 			color: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
 		},
 		energy: {
-			label: t`Energy`,
+			label: t`Énergie`,
 			icon: LightningIcon,
 			color: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
 		},
@@ -112,7 +112,7 @@ function getIndustryConfig(): Record<Industry, { label: string; icon: Icon; colo
 function getFieldConfig() {
 	return {
 		healthcare: {
-			label: t`Healthcare`,
+			label: t`Santé`,
 			icon: FirstAidKitIcon,
 			color: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
 		},
@@ -148,7 +148,7 @@ function getRegions() {
 		{ value: "Rabat", label: "Rabat" },
 		{ value: "Tanger", label: "Tanger" },
 		{ value: "Marrakech", label: "Marrakech" },
-		{ value: "Fes", label: "Fes" },
+		{ value: "Fes", label: "Fès" },
 		{ value: "Agadir", label: "Agadir" },
 		{ value: "Autre", label: t`Other` },
 	];
@@ -189,7 +189,7 @@ function EmployersDirectoryPage() {
 			id: e.id,
 			name: e.name || "",
 			industry: (e.sector as Industry) || "services",
-			description: e.description || e.descriptionFr || "",
+			description: e.descriptionFr || e.description || "",
 			location: e.locationFr || e.location || "",
 			headquarters: e.locationFr || e.location || "",
 			employeeCount: "",
@@ -256,7 +256,7 @@ function EmployersDirectoryPage() {
 	const totalPositions = allEmployers.reduce((sum, e) => sum + e.openPositions, 0);
 	const featuredCount = allEmployers.filter((e) => e.featured).length;
 
-	const formatCurrency = (amount: number) => `${amount.toLocaleString()} DH`;
+	const formatCurrency = (amount: number) => `${amount.toLocaleString("fr-FR")} DH`;
 
 	const clearFilters = useCallback(() => {
 		setSearchQuery("");
@@ -275,39 +275,18 @@ function EmployersDirectoryPage() {
 
 	return (
 		<>
-			<DashboardHeader icon={BuildingsIcon} title={t`Employer Directory`} />
+			<DashboardHeader icon={BuildingsIcon} title={t`Employeurs partenaires`} />
 
 			{/* Hero Section */}
 			<motion.div
-				className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 p-8 md:p-12"
+				className="relative mb-8 overflow-hidden rounded-lg border border-primary/20 bg-[linear-gradient(135deg,hsl(var(--primary)/0.12),hsl(var(--background)),hsl(var(--chart-2)/0.10))] p-6 md:p-8"
 				style={{
-					background:
-						"linear-gradient(135deg, oklch(0.65 0.18 200 / 0.15) 0%, oklch(0.6 0.2 240 / 0.1) 50%, oklch(0.7 0.15 280 / 0.08) 100%)",
+					boxShadow: "inset 0 1px 0 hsl(var(--background) / 0.7)",
 				}}
 				initial={false}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.6, ease: "easeOut" }}
 			>
-				{/* Animated background */}
-				<div className="pointer-events-none absolute inset-0 overflow-hidden">
-					<motion.div
-						className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-blue-500/20 to-indigo-500/10 blur-3xl"
-						animate={{
-							scale: [1, 1.2, 1],
-							opacity: [0.5, 0.3, 0.5],
-						}}
-						transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-					/>
-					<motion.div
-						className="absolute -bottom-32 -left-32 size-96 rounded-full bg-gradient-to-tr from-purple-500/15 to-pink-500/10 blur-3xl"
-						animate={{
-							scale: [1.2, 1, 1.2],
-							opacity: [0.3, 0.5, 0.3],
-						}}
-						transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-					/>
-				</div>
-
 				<div className="relative z-10">
 					<motion.div
 						className="mb-3 flex items-center gap-2"
@@ -315,30 +294,30 @@ function EmployersDirectoryPage() {
 						animate={{ opacity: 1, x: 0 }}
 						transition={{ delay: 0.2 }}
 					>
-						<BuildingsIcon className="size-5 text-primary" weight="fill" />
-						<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-							<Trans>Partner Employers</Trans>
+						<BuildingsIcon aria-hidden="true" className="size-5 text-primary" weight="fill" />
+						<span className="font-semibold text-primary text-sm uppercase tracking-[0.08em]">
+							<Trans>Réseau recruteurs</Trans>
 						</span>
 					</motion.div>
 
 					<motion.h2
-						className="mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text font-bold text-3xl text-transparent tracking-tight md:text-4xl lg:text-5xl"
+						className="mb-3 max-w-3xl font-bold text-2xl tracking-tight md:text-3xl"
 						initial={false}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.3 }}
 					>
-						<Trans>Employer Directory</Trans>
+						<Trans>Découvre les entreprises qui recrutent nos profils</Trans>
 					</motion.h2>
 
 					<motion.p
-						className="mb-8 max-w-2xl text-lg text-muted-foreground"
+						className="mb-6 max-w-2xl text-muted-foreground text-sm md:text-base"
 						initial={false}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.4 }}
 					>
 						<Trans>
-							Discover leading companies in Morocco actively hiring IMTA graduates. Explore their listings, culture, and
-							benefits.
+							Explore les employeurs partenaires au Maroc, leurs postes ouverts et les domaines où ton profil peut se
+							positionner.
 						</Trans>
 					</motion.p>
 
@@ -351,18 +330,18 @@ function EmployersDirectoryPage() {
 					>
 						<div className="flex items-center gap-2">
 							<div className="flex size-10 items-center justify-center rounded-full bg-primary/10">
-								<BuildingsIcon className="size-5 text-primary" weight="duotone" />
+								<BuildingsIcon aria-hidden="true" className="size-5 text-primary" weight="duotone" />
 							</div>
 							<div>
 								<p className="font-bold text-xl">{allEmployers.length}</p>
 								<p className="text-muted-foreground text-sm">
-									<Trans>Companies</Trans>
+									<Trans>Entreprises</Trans>
 								</p>
 							</div>
 						</div>
 						<div className="flex items-center gap-2">
 							<div className="flex size-10 items-center justify-center rounded-full bg-green-500/10">
-								<BriefcaseIcon className="size-5 text-green-500" weight="duotone" />
+								<BriefcaseIcon aria-hidden="true" className="size-5 text-green-500" weight="duotone" />
 							</div>
 							<div>
 								<p className="font-bold text-xl">{totalPositions}</p>
@@ -373,7 +352,7 @@ function EmployersDirectoryPage() {
 						</div>
 						<div className="flex items-center gap-2">
 							<div className="flex size-10 items-center justify-center rounded-full bg-amber-500/10">
-								<StarIcon className="size-5 text-amber-500" weight="fill" />
+								<StarIcon aria-hidden="true" className="size-5 text-amber-500" weight="fill" />
 							</div>
 							<div>
 								<p className="font-bold text-xl">{featuredCount}</p>
@@ -393,9 +372,15 @@ function EmployersDirectoryPage() {
 						{/* Search */}
 						<div className="lg:col-span-2">
 							<div className="relative">
-								<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-muted-foreground" />
+								<MagnifyingGlassIcon
+									aria-hidden="true"
+									className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-muted-foreground"
+								/>
 								<Input
-									placeholder={t`Search for a company...`}
+									aria-label={t`Rechercher une entreprise`}
+									name="employerSearch"
+									autoComplete="off"
+									placeholder={t`Rechercher une entreprise…`}
 									value={searchQuery}
 									onChange={(e) => setSearchQuery(e.target.value)}
 									className="pl-10"
@@ -405,12 +390,12 @@ function EmployersDirectoryPage() {
 
 						{/* Industry Filter */}
 						<Select value={selectedIndustry} onValueChange={(v) => setSelectedIndustry(v as Industry | "all")}>
-							<SelectTrigger>
+							<SelectTrigger aria-label={t`Filtrer par industrie`}>
 								<SelectValue placeholder={t`Industrie`} />
 							</SelectTrigger>
 							<SelectContent>
 								<SelectItem value="all">
-									<Trans>All industries</Trans>
+									<Trans>Toutes les industries</Trans>
 								</SelectItem>
 								{(Object.entries(industryConfig) as [Industry, (typeof industryConfig)[Industry]][]).map(
 									([key, config]) => {
@@ -418,7 +403,7 @@ function EmployersDirectoryPage() {
 										return (
 											<SelectItem key={key} value={key}>
 												<div className="flex items-center gap-2">
-													<IndustryIcon className="size-4" />
+													<IndustryIcon aria-hidden="true" className="size-4" />
 													{config.label}
 												</div>
 											</SelectItem>
@@ -433,12 +418,12 @@ function EmployersDirectoryPage() {
 							value={selectedField}
 							onValueChange={(v) => setSelectedField(v as "healthcare" | "industrial" | "hse" | "all")}
 						>
-							<SelectTrigger>
+							<SelectTrigger aria-label={t`Filtrer par domaine`}>
 								<SelectValue placeholder={t`Domaine`} />
 							</SelectTrigger>
 							<SelectContent>
 								<SelectItem value="all">
-									<Trans>All domains</Trans>
+									<Trans>Tous les domaines</Trans>
 								</SelectItem>
 								{(
 									Object.entries(fieldConfig) as [
@@ -448,9 +433,9 @@ function EmployersDirectoryPage() {
 								).map(([key, config]) => {
 									const FieldIcon = config.icon;
 									return (
-										<SelectItem key={key} value={key}>
-											<div className="flex items-center gap-2">
-												<FieldIcon className="size-4" />
+											<SelectItem key={key} value={key}>
+												<div className="flex items-center gap-2">
+													<FieldIcon aria-hidden="true" className="size-4" />
 												{config.label}
 											</div>
 										</SelectItem>
@@ -461,14 +446,14 @@ function EmployersDirectoryPage() {
 
 						{/* Region Filter */}
 						<Select value={selectedRegion} onValueChange={setSelectedRegion}>
-							<SelectTrigger>
-								<SelectValue placeholder={t`Region`} />
+							<SelectTrigger aria-label={t`Filtrer par région`}>
+								<SelectValue placeholder={t`Région`} />
 							</SelectTrigger>
 							<SelectContent>
 								{regions.map((region) => (
 									<SelectItem key={region.value} value={region.value}>
 										<div className="flex items-center gap-2">
-											<MapPinIcon className="size-4" />
+											<MapPinIcon aria-hidden="true" className="size-4" />
 											{region.label}
 										</div>
 									</SelectItem>
@@ -485,18 +470,19 @@ function EmployersDirectoryPage() {
 								size="sm"
 								onClick={() => setShowHiringOnly(!showHiringOnly)}
 								className="gap-2"
+								aria-pressed={showHiringOnly}
 							>
-								<LightningIcon className="size-4" />
+								<LightningIcon aria-hidden="true" className="size-4" />
 								<Trans>Recrutent actuellement</Trans>
 							</Button>
 							{hasFilters && (
 								<Button variant="ghost" size="sm" onClick={clearFilters}>
-									<Trans>Clear filters</Trans>
+									<Trans>Effacer les filtres</Trans>
 								</Button>
 							)}
 						</div>
 						<p className="text-muted-foreground text-sm">
-							{filteredEmployers.length} <Trans>entreprise(s) trouvee(s)</Trans>
+							{filteredEmployers.length} <Trans>entreprise(s) trouvée(s)</Trans>
 						</p>
 					</div>
 				</CardContent>
@@ -519,7 +505,7 @@ function EmployersDirectoryPage() {
 								>
 									<Card
 										className={cn(
-											"group h-full transition-all hover:shadow-lg",
+											"group h-full transition-shadow hover:shadow-lg",
 											employer.featured && "border-2 border-amber-500/30",
 										)}
 									>
@@ -529,19 +515,19 @@ function EmployersDirectoryPage() {
 													<div
 														className={cn("flex size-12 items-center justify-center rounded-xl", industryInfo.color)}
 													>
-														<IndustryIcon className="size-6" weight="duotone" />
+														<IndustryIcon aria-hidden="true" className="size-6" weight="duotone" />
 													</div>
 													<div>
 														<CardTitle className="line-clamp-1 text-lg">{employer.name}</CardTitle>
 														<CardDescription className="flex items-center gap-1">
-															<MapPinIcon className="size-3" />
+															<MapPinIcon aria-hidden="true" className="size-3" />
 															{employer.headquarters}
 														</CardDescription>
 													</div>
 												</div>
 												{employer.featured && (
 													<Badge className="shrink-0 gap-1 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
-														<StarIcon className="size-3" weight="fill" />
+														<StarIcon aria-hidden="true" className="size-3" weight="fill" />
 														<Trans>Vedette</Trans>
 													</Badge>
 												)}
@@ -558,7 +544,7 @@ function EmployersDirectoryPage() {
 													const FieldIcon = config.icon;
 													return (
 														<Badge key={field} variant="outline" className="text-xs">
-															<FieldIcon className="mr-1 size-3" />
+															<FieldIcon aria-hidden="true" className="mr-1 size-3" />
 															{config.label}
 														</Badge>
 													);
@@ -576,7 +562,7 @@ function EmployersDirectoryPage() {
 												<div className="rounded-lg bg-muted/50 p-2 text-center">
 													<p className="font-bold text-lg">{employer.employeeCount}</p>
 													<p className="text-muted-foreground text-xs">
-														<Trans>Employes</Trans>
+														<Trans>Employés</Trans>
 													</p>
 												</div>
 											</div>
@@ -584,9 +570,9 @@ function EmployersDirectoryPage() {
 											{/* Salary Range */}
 											<div className="flex items-center justify-between rounded-lg border bg-muted/30 p-2">
 												<div className="flex items-center gap-2">
-													<CurrencyCircleDollarIcon className="size-4 text-green-500" />
+													<CurrencyCircleDollarIcon aria-hidden="true" className="size-4 text-green-500" />
 													<span className="text-sm">
-														<Trans>Salary</Trans>
+														<Trans>Salaire</Trans>
 													</span>
 												</div>
 												<span className="font-medium text-sm">
@@ -598,8 +584,9 @@ function EmployersDirectoryPage() {
 											<div className="flex items-center gap-2">
 												<div className="flex items-center gap-1">
 													{[1, 2, 3, 4, 5].map((star) => (
-														<StarIcon
-															key={star}
+													<StarIcon
+														key={star}
+														aria-hidden="true"
 															className={cn(
 																"size-4",
 																star <= Math.floor(employer.rating) ? "text-amber-500" : "text-muted-foreground/30",
@@ -615,7 +602,7 @@ function EmployersDirectoryPage() {
 											<div className="flex flex-wrap gap-1">
 												{employer.benefits.slice(0, 2).map((benefit) => (
 													<Badge key={benefit} variant="secondary" className="text-xs">
-														<CheckCircleIcon className="mr-1 size-3" />
+														<CheckCircleIcon aria-hidden="true" className="mr-1 size-3" />
 														{benefit}
 													</Badge>
 												))}
@@ -632,8 +619,8 @@ function EmployersDirectoryPage() {
 													// biome-ignore lint/suspicious/noExplicitAny: Route path not in generated route tree
 													<Link to={"/dashboard/jobs" as any} className="flex-1">
 														<Button className="w-full gap-2" size="sm">
-															<Trans>View offers</Trans>
-															<ArrowRightIcon className="size-4" />
+															<Trans>Voir les offres</Trans>
+															<ArrowRightIcon aria-hidden="true" className="size-4" />
 														</Button>
 													</Link>
 												)}
@@ -663,13 +650,13 @@ function EmployersDirectoryPage() {
 						<CardContent className="flex flex-col items-center justify-center py-16">
 							<BuildingsIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 							<h3 className="mb-2 font-semibold text-lg">
-								<Trans>No companies found</Trans>
+								<Trans>Aucune entreprise trouvée</Trans>
 							</h3>
 							<p className="mb-4 text-center text-muted-foreground">
-								<Trans>Try changing your search filters</Trans>
+								<Trans>Essaie de modifier la recherche ou les filtres.</Trans>
 							</p>
 							<Button onClick={clearFilters}>
-								<Trans>Clear filters</Trans>
+								<Trans>Effacer les filtres</Trans>
 							</Button>
 						</CardContent>
 					</Card>
@@ -677,31 +664,30 @@ function EmployersDirectoryPage() {
 			</AnimatePresence>
 
 			{/* CTA Section */}
-			<Card className="mt-8 border-2 border-primary/30 bg-gradient-to-br from-primary/10 to-transparent">
+			<Card className="mt-8 border-primary/20 bg-primary/5">
 				<CardContent className="flex flex-col items-center py-8 text-center">
 					<div className="mb-4 flex size-16 items-center justify-center rounded-full bg-primary/20">
-						<SparkleIcon className="size-8 text-primary" weight="fill" />
+						<SparkleIcon aria-hidden="true" className="size-8 text-primary" weight="fill" />
 					</div>
 					<h3 className="mb-2 font-bold text-2xl">
-						<Trans>Pret a postuler?</Trans>
+						<Trans>Prêt à postuler ?</Trans>
 					</h3>
 					<p className="mb-6 max-w-md text-muted-foreground">
 						<Trans>
-							Create a professional resume tailored to Moroccan companies and prepare your interviews with our
-							comprehensive platform.
+							Prépare un CV adapté aux entreprises marocaines et entraîne-toi aux entretiens avant de candidater.
 						</Trans>
 					</p>
 					<div className="flex flex-wrap justify-center gap-4">
 						<Link to="/dashboard/resumes">
 							<Button size="lg" className="gap-2">
 								<Trans>Create my resume</Trans>
-								<CaretRightIcon className="size-5" />
+								<CaretRightIcon aria-hidden="true" className="size-5" />
 							</Button>
 						</Link>
 						{/* biome-ignore lint/suspicious/noExplicitAny: Route path not in generated route tree */}
 						<Link to={"/dashboard/interview" as any}>
 							<Button size="lg" variant="outline" className="gap-2">
-								<Trans>Prepare my interviews</Trans>
+								<Trans>Préparer mes entretiens</Trans>
 							</Button>
 						</Link>
 					</div>
