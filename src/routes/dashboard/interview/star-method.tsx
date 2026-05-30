@@ -133,29 +133,19 @@ Result: ${starResponse.result}`;
 			});
 		},
 		onSuccess: (data) => {
+			// The AI evaluates the STAR response as a whole and returns a single
+			// `data.score`. We previously jittered each component score with
+			// Math.random(), which fabricated per-component precision that the AI
+			// never measured. Instead we show the real, deterministic overall
+			// score for each component so the same answer always yields the same
+			// numbers and we never present an invented measurement.
 			const evalResult: StarEvaluation = {
 				overallScore: data.score,
 				componentScores: [
-					{
-						component: "situation",
-						score: Math.min(100, data.score + Math.floor(Math.random() * 10) - 5),
-						feedback: data.strengths[0] ?? "",
-					},
-					{
-						component: "task",
-						score: Math.min(100, data.score + Math.floor(Math.random() * 10) - 5),
-						feedback: data.strengths[1] ?? "",
-					},
-					{
-						component: "action",
-						score: Math.min(100, data.score + Math.floor(Math.random() * 10) - 5),
-						feedback: data.areasForImprovement[0] ?? "",
-					},
-					{
-						component: "result",
-						score: Math.min(100, data.score + Math.floor(Math.random() * 10) - 5),
-						feedback: data.areasForImprovement[1] ?? "",
-					},
+					{ component: "situation", score: data.score, feedback: data.strengths[0] ?? "" },
+					{ component: "task", score: data.score, feedback: data.strengths[1] ?? "" },
+					{ component: "action", score: data.score, feedback: data.areasForImprovement[0] ?? "" },
+					{ component: "result", score: data.score, feedback: data.areasForImprovement[1] ?? "" },
 				],
 				strengths: data.strengths,
 				improvements: data.areasForImprovement,

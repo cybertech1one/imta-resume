@@ -1,5 +1,5 @@
 import { ORPCError } from "@orpc/client";
-import { and, desc, eq, gt, inArray, ne, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, ne, sql } from "drizzle-orm";
 import { schema } from "@/integrations/drizzle";
 import { db } from "@/integrations/drizzle/client";
 import { notificationService } from "./notification";
@@ -168,11 +168,11 @@ export const messagingService = {
 	 * caller's last_read_at), ordered by recency.
 	 */
 	listMyConversations: async (userId: string): Promise<ConversationSummaryView[]> => {
-		// Conversations the caller participates in, plus their last_read_at.
+		// Conversations the caller participates in. The per-conversation last_read_at is
+		// applied later via a join inside the batched unread-count query.
 		const myParticipations = await db
 			.select({
 				conversationId: schema.conversationParticipant.conversationId,
-				lastReadAt: schema.conversationParticipant.lastReadAt,
 			})
 			.from(schema.conversationParticipant)
 			.where(eq(schema.conversationParticipant.userId, userId));
@@ -180,7 +180,6 @@ export const messagingService = {
 		if (myParticipations.length === 0) return [];
 
 		const conversationIds = myParticipations.map((p) => p.conversationId);
-		const lastReadByConversation = new Map(myParticipations.map((p) => [p.conversationId, p.lastReadAt]));
 
 		// Conversation rows (subject, last_message_at).
 		const conversations = await db
@@ -223,32 +222,46 @@ export const messagingService = {
 			.orderBy(schema.message.conversationId, desc(schema.message.createdAt));
 		const lastMessageByConversation = new Map(lastMessages.map((r) => [r.conversationId, r]));
 
-		// Unread counts: messages newer than my last_read_at, not authored by me.
-		const summaries: ConversationSummaryView[] = [];
-		for (const conv of conversations) {
-			const lastReadAt = lastReadByConversation.get(conv.id) ?? null;
-			const [unread] = await db
-				.select({ count: sql<number>`count(*)::int` })
-				.from(schema.message)
-				.where(
-					and(
-						eq(schema.message.conversationId, conv.id),
-						ne(schema.message.senderUserId, userId),
-						lastReadAt ? gt(schema.message.createdAt, lastReadAt) : sql`true`,
-					),
-				);
+		// Unread counts in a SINGLE batched query (no per-conversation loop).
+		// Join each message to the caller's own participant row so the per-conversation
+		// last_read_at is applied per group: count messages not authored by me that are
+		// newer than my last_read_at for that conversation (or all, when never read).
+		const unreadRows = await db
+			.select({
+				conversationId: schema.message.conversationId,
+				count: sql<number>`count(*)::int`,
+			})
+			.from(schema.message)
+			.innerJoin(
+				schema.conversationParticipant,
+				and(
+					eq(schema.conversationParticipant.conversationId, schema.message.conversationId),
+					eq(schema.conversationParticipant.userId, userId),
+				),
+			)
+			.where(
+				and(
+					inArray(schema.message.conversationId, conversationIds),
+					ne(schema.message.senderUserId, userId),
+					sql`(${schema.conversationParticipant.lastReadAt} is null or ${schema.message.createdAt} > ${schema.conversationParticipant.lastReadAt})`,
+				),
+			)
+			.groupBy(schema.message.conversationId);
 
+		const unreadByConversation = new Map(unreadRows.map((r) => [r.conversationId, r.count]));
+
+		const summaries: ConversationSummaryView[] = conversations.map((conv) => {
 			const last = lastMessageByConversation.get(conv.id);
-			summaries.push({
+			return {
 				conversationId: conv.id,
 				subject: conv.subject,
 				lastMessageAt: conv.lastMessageAt,
 				lastMessagePreview: last ? last.body.slice(0, NOTIFICATION_PREVIEW_LENGTH) : null,
 				lastMessageFromMe: last ? last.senderUserId === userId : false,
-				unreadCount: unread?.count ?? 0,
+				unreadCount: unreadByConversation.get(conv.id) ?? 0,
 				otherParticipant: otherByConversation.get(conv.id) ?? null,
-			});
-		}
+			};
+		});
 
 		summaries.sort((a, b) => b.lastMessageAt.getTime() - a.lastMessageAt.getTime());
 		return summaries;

@@ -98,10 +98,134 @@ const PROGRAMS = {
 		context:
 			"HSE industriel: prevention des risques sur site, port et controle des EPI, permis de travail (point chaud, espace confine, travail en hauteur), analyse des situations dangereuses, sensibilisation des operateurs, gestion des dechets industriels, premiers secours et lutte incendie, reporting des incidents, en sites industriels et chantiers.",
 	},
+
+	// ── Healthcare (uncovered) ──────────────────────────────────────────────
+	auxiliaire_puericulture: {
+		field: "healthcare",
+		label: "Auxiliaire de Puericulture (soins aux nouveau-nes et jeunes enfants)",
+		context:
+			"Auxiliaire de puericulture: soins d'hygiene et de confort du nourrisson et du jeune enfant, biberon et aide a l'alimentation, surveillance du poids et de la temperature, change et bain, eveil et activites adaptees, prevention des infections en neonatologie et pediatrie, accompagnement et conseil aux parents, transmission a la sage-femme et au pediatre, en maternite, service de pediatrie, creche et PMI au Maroc.",
+	},
+	genie_biomedical: {
+		field: "healthcare",
+		label: "Technicien en Genie Biomedical (maintenance des equipements medicaux)",
+		context:
+			"Genie biomedical: installation, maintenance preventive et corrective des dispositifs medicaux (respirateurs, moniteurs, pousse-seringues, defibrillateurs, echographes, autoclaves), controle qualite et calibration, securite electrique des appareils (normes CEI 60601), tracabilite et GMAO, gestion du parc d'equipements, relation avec les fournisseurs et le service biomedical, respect des normes d'hygiene en bloc et en reanimation, en hopitaux et cliniques.",
+	},
+	sciences_infirmieres_sante: {
+		field: "healthcare",
+		label: "Sciences Infirmieres et Techniques de Sante (soins infirmiers polyvalents)",
+		context:
+			"Sciences infirmieres et techniques de sante: demarche de soins infirmiers, administration des traitements, surveillance clinique et constantes vitales, education therapeutique du patient, prevention et hygiene hospitaliere, gestion du dossier de soins, coordination avec l'equipe medicale, prise en charge des urgences, ethique et secret professionnel, en hopitaux, cliniques et centres de sante au Maroc.",
+	},
+	technicien_anesthesie: {
+		field: "healthcare",
+		label: "Technicien d'Anesthesie et de Reanimation",
+		context:
+			"Technicien d'anesthesie-reanimation: preparation du materiel d'anesthesie et de la salle d'operation, verification du respirateur et du chariot d'urgence, surveillance peri-operatoire (scope, saturation, capnographie), aide a l'induction et au reveil, gestion des voies aeriennes, asepsie au bloc operatoire, surveillance en salle de reveil (SSPI), gestion des drogues anesthesiques et des stupefiants, reaction aux situations d'urgence vitale, en blocs operatoires et reanimation.",
+	},
+
+	// ── Industrial (uncovered) ──────────────────────────────────────────────
+	automatique_informatique_industrielle: {
+		field: "industrial",
+		label: "Technicien en Automatique et Informatique Industrielle",
+		context:
+			"Automatique et informatique industrielle: programmation d'automates programmables (Siemens TIA Portal, Schneider), supervision SCADA/HMI, reseaux industriels (Profibus, Profinet, Modbus), capteurs et actionneurs, regulation PID, variateurs de vitesse, depannage des chaines automatisees, lecture de grafcet et de schemas, securite machine, en industries de production et agroalimentaires.",
+	},
+	energies_renouvelables_dd: {
+		field: "industrial",
+		label: "Technicien en Energies Renouvelables et Developpement Durable",
+		context:
+			"Energies renouvelables: installation et maintenance de panneaux photovoltaiques et de systemes solaires thermiques, dimensionnement d'installations, onduleurs et regulateurs de charge, raccordement au reseau, eolien de petite puissance, mesures de production et rendement, securite electrique en courant continu, efficacite energetique et developpement durable, sur des projets solaires et chantiers au Maroc (plan solaire Noor).",
+	},
+	genie_electrique_energies: {
+		field: "industrial",
+		label: "Technicien en Genie Electrique et Energies Renouvelables",
+		context:
+			"Genie electrique: installation electrique basse et moyenne tension, armoires et tableaux electriques, moteurs et demarrages, distribution et protection (disjoncteurs, differentiels), lecture de schemas unifilaires, habilitation electrique, mise a la terre, integration de sources renouvelables, maintenance des installations, normes NF C 15-100, en industries, batiment et installations solaires.",
+	},
+	genie_procedes_environnement: {
+		field: "industrial",
+		label: "Technicien en Genie des Procedes et Environnement",
+		context:
+			"Genie des procedes et environnement: conduite de procedes chimiques et de traitement, traitement des eaux et des effluents (station d'epuration), pompes, echangeurs et reacteurs, controle des parametres (pH, debit, temperature), analyses physico-chimiques, gestion des dechets et rejets, respect des normes environnementales, securite des procedes, en industries chimiques, agroalimentaires et stations de traitement.",
+	},
+	maintenance_industrielle_avancee: {
+		field: "industrial",
+		label: "Technicien en Maintenance Industrielle Avancee",
+		context:
+			"Maintenance industrielle avancee: maintenance preventive, corrective et predictive, analyse vibratoire et thermographie, diagnostic de pannes complexes, fiabilisation des equipements (AMDEC, MTBF), GMAO, automatismes et variateurs, alignement laser, gestion des pieces de rechange, methodes TPM et amelioration continue, sur lignes de production automatisees.",
+	},
+	qualite_amelioration_continue: {
+		field: "industrial",
+		label: "Technicien en Qualite et Amelioration Continue",
+		context:
+			"Qualite et amelioration continue: controle qualite en production, plans de controle et auto-controle, metrologie et instruments de mesure, systeme de management ISO 9001, traitement des non-conformites et actions correctives (8D, 5 pourquoi), audits qualite, outils Lean (5S, Kaizen, SMED, VSM), indicateurs (taux de rebut, FTQ), en usines automobiles, agroalimentaires et industrielles.",
+	},
+
+	// ── Management (uncovered) ──────────────────────────────────────────────
+	commerce_marketing_digital: {
+		field: "management",
+		label: "Technicien Commercial et Marketing Digital",
+		context:
+			"Commerce et marketing digital: prospection et relation client, techniques de vente et negociation, gestion d'un portefeuille clients, animation des reseaux sociaux et community management, campagnes publicitaires (Meta Ads, Google Ads), referencement SEO/SEA, emailing, analyse des performances (KPIs, taux de conversion), CRM, e-commerce, dans les entreprises, agences et commerces au Maroc.",
+	},
+	finance_comptabilite: {
+		field: "management",
+		label: "Technicien en Finance et Comptabilite",
+		context:
+			"Finance et comptabilite: saisie et tenue des ecritures comptables, rapprochements bancaires, journal, grand livre et balance, declarations fiscales (TVA, IS, IR), gestion de la paie et CNSS, etablissement des etats de synthese (bilan, CPC), logiciels comptables (Sage), suivi de la tresorerie, controle de gestion, respect du plan comptable marocain (CGNC), en cabinets comptables et services financiers d'entreprises.",
+	},
+	management_projets_industriels: {
+		field: "management",
+		label: "Technicien en Management de Projets Industriels",
+		context:
+			"Management de projets industriels: planification et ordonnancement (Gantt, jalons), suivi des couts et des delais, coordination des equipes et sous-traitants, gestion des risques projet, suivi qualite et reporting, methodes de gestion de projet (PMI, agile), pilotage des indicateurs (avancement, budget), gestion documentaire, dans les entreprises industrielles, BTP et bureaux d'etudes au Maroc.",
+	},
+	ressources_humaines_droit: {
+		field: "management",
+		label: "Technicien en Ressources Humaines et Droit Social",
+		context:
+			"Ressources humaines et droit social: recrutement et integration, gestion administrative du personnel (contrats, conges, absences), paie et declarations CNSS/AMO, application du code du travail marocain, gestion des conflits et discipline, formation et evaluation, suivi des dossiers du personnel, dialogue social, SIRH, dans les services RH des entreprises et cabinets de conseil.",
+	},
+	supply_chain_logistique: {
+		field: "management",
+		label: "Technicien en Supply Chain et Logistique",
+		context:
+			"Supply chain et logistique: gestion des approvisionnements et des stocks, planification des flux, gestion d'entrepot et preparation de commandes, transport et expedition, optimisation des couts logistiques, ERP/WMS, indicateurs de performance (taux de service, rotation des stocks), import-export et dedouanement, coordination fournisseurs, sur les plateformes logistiques et ports (Tanger Med) au Maroc.",
+	},
+
+	// ── Technology (uncovered) ──────────────────────────────────────────────
+	cybersecurite_confiance: {
+		field: "technology",
+		label: "Technicien en Cybersecurite et Confiance Numerique",
+		context:
+			"Cybersecurite: securisation des systemes et reseaux, configuration de pare-feu et VPN, gestion des acces et des identites, surveillance des incidents (SOC, SIEM), analyse des vulnerabilites et tests d'intrusion de base, durcissement des serveurs, sauvegarde et plan de continuite, sensibilisation des utilisateurs au phishing, conformite ISO 27001 et RGPD, dans les entreprises, banques et administrations.",
+	},
+	data_science_ia: {
+		field: "technology",
+		label: "Technicien en Data Science et Intelligence Artificielle",
+		context:
+			"Data science et IA: collecte, nettoyage et preparation des donnees, programmation Python (pandas, numpy), bases SQL, statistiques descriptives, visualisation (Power BI, matplotlib), modeles de machine learning (regression, classification), evaluation des modeles, automatisation des traitements, restitution des resultats, dans les entreprises, banques, telecom et e-commerce au Maroc.",
+	},
+	genie_informatique_reseaux: {
+		field: "technology",
+		label: "Technicien en Genie Informatique et Reseaux",
+		context:
+			"Genie informatique et reseaux: installation et configuration de postes et serveurs, administration reseau (TCP/IP, VLAN, routage, commutation Cisco), cablage et baies de brassage, services (DHCP, DNS, Active Directory), virtualisation, support et depannage informatique, securite reseau de base, supervision, sauvegardes, dans les entreprises, SSII et administrations.",
+	},
+	telecommunications_reseaux: {
+		field: "technology",
+		label: "Technicien en Telecommunications et Reseaux",
+		context:
+			"Telecommunications et reseaux: deploiement et maintenance des reseaux telecoms (fibre optique FTTH, cuivre), installation d'antennes et de sites radio (2G/3G/4G/5G), soudure de fibre optique et mesures (reflectometre OTDR), reseaux de transmission, configuration des equipements, depannage des liaisons, respect des normes de securite en hauteur, chez les operateurs et installateurs telecoms au Maroc.",
+	},
 };
 
 const TARGET = process.env.PROGRAMS
-	? process.env.PROGRAMS.split(",").map((s) => s.trim()).filter(Boolean)
+	? process.env.PROGRAMS.split(",")
+			.map((s) => s.trim())
+			.filter(Boolean)
 	: Object.keys(PROGRAMS);
 
 // Desired distribution per program (20 total)
@@ -116,6 +240,18 @@ const DIFFICULTIES = ["easy", "medium", "hard"]; // matches existing DB conventi
 
 function buildPrompt(prog) {
 	const lines = DISTRIBUTION.map((d) => `- ${d.n} questions ${d.fr} (type="${d.type}")`).join("\n");
+	// Field-aware domain rule: IT/business programs SHOULD use their real jargon;
+	// manual/medical trades must stay out of software/IT jargon.
+	let domainRule;
+	if (prog.field === "technology") {
+		domainRule =
+			"- Reste STRICTEMENT dans le metier informatique/reseaux/numerique decrit (outils, protocoles, normes reels). Utilise le vocabulaire technique reel du metier.";
+	} else if (prog.field === "management") {
+		domainRule =
+			"- Reste dans le metier de gestion/commerce/administration decrit (procedures, outils de gestion, reglementation marocaine reels). Pas de jargon de genie logiciel.";
+	} else {
+		domainRule = "- Pas de jargon informatique/genie logiciel. Reste dans le metier manuel/technique/medical decrit.";
+	}
 	return `Tu es un recruteur marocain experimente qui prepare des entretiens d'embauche pour des laureats de formation professionnelle (IMTA).
 
 Metier cible: ${prog.label}
@@ -133,12 +269,16 @@ Pour chaque question, fournis:
 
 Regles:
 - Questions techniques = vraies questions metier (procedures, securite, normes, outils reels), PAS des questions generiques.
-- Pas de jargon informatique/genie logiciel. Reste dans le metier manuel/technique/medical decrit.
+${domainRule}
 - Reponds UNIQUEMENT avec un tableau JSON valide (commence par [ et finit par ]). Aucun texte autour, pas de balises markdown.`;
 }
 
 function stripFences(s) {
-	return s.trim().replace(/^```[\w]*\s*/i, "").replace(/\s*```\s*$/i, "").trim();
+	return s
+		.trim()
+		.replace(/^```[\w]*\s*/i, "")
+		.replace(/\s*```\s*$/i, "")
+		.trim();
 }
 
 async function callDeepSeek(apiKey, baseUrl, model, prompt) {
@@ -151,7 +291,10 @@ async function callDeepSeek(apiKey, baseUrl, model, prompt) {
 			temperature: 0.6,
 			max_tokens: 4000,
 			messages: [
-				{ role: "system", content: "Tu generes des questions d'entretien professionnelles en francais. Reponds uniquement en JSON." },
+				{
+					role: "system",
+					content: "Tu generes des questions d'entretien professionnelles en francais. Reponds uniquement en JSON.",
+				},
 				{ role: "user", content: prompt },
 			],
 		}),
@@ -241,8 +384,18 @@ async function main() {
 			 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9::jsonb,$10::jsonb,$11,true,$12)
 			 ON CONFLICT (id) DO NOTHING`,
 			[
-				r.id, r.question, r.question_fr, r.type, r.field, r.program,
-				r.sample_answer, r.sample_answer_fr, r.tips, r.tips_fr, r.difficulty, r.sort_order,
+				r.id,
+				r.question,
+				r.question_fr,
+				r.type,
+				r.field,
+				r.program,
+				r.sample_answer,
+				r.sample_answer_fr,
+				r.tips,
+				r.tips_fr,
+				r.difficulty,
+				r.sort_order,
 			],
 		);
 		inserted += res.rowCount;

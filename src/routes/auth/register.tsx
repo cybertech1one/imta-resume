@@ -76,7 +76,7 @@ const formSchema = z.object({
 		.toLowerCase()
 		.regex(/^[a-z0-9._-]+$/),
 	email: z.string().min(1).email().toLowerCase(),
-	password: z.string().min(6).max(64),
+	password: z.string().min(12).max(64),
 	imtaProgram: z.string().min(1),
 });
 
@@ -104,8 +104,8 @@ function getFormSchema() {
 			.toLowerCase(),
 		password: z
 			.string()
-			.min(6, { message: t`Password must be at least 6 characters` })
-			.max(64, { message: t`Password cannot exceed 64 characters` }),
+			.min(12, { message: t`Le mot de passe doit contenir au moins 12 caractères` })
+			.max(64, { message: t`Le mot de passe ne peut pas dépasser 64 caractères` }),
 		imtaProgram: z.string().min(1, { message: t`Please select your program` }),
 	});
 }
@@ -403,7 +403,7 @@ function RouteComponent() {
 									</div>
 									<FormMessage />
 									<FormDescription>
-										<Trans>Doit contenir entre 6 et 64 caracteres</Trans>
+										<Trans>Doit contenir entre 12 et 64 caractères</Trans>
 									</FormDescription>
 								</FormItem>
 							)}

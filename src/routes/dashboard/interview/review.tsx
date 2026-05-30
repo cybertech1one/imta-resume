@@ -133,7 +133,9 @@ function InterviewRecordingReview() {
 		await createRecordingMutation.mutateAsync({
 			title: uploadForm.title,
 			date: new Date().toISOString().split("T")[0],
-			duration: Math.floor(Math.random() * 300) + 180, // Simulated duration
+			// Honest default: this form does not capture a real recording duration, so we
+			// store 0 ("non mesurée") rather than fabricating a random value shown as real data.
+			duration: 0,
 			field: uploadForm.field,
 			program: uploadForm.program || undefined,
 		});

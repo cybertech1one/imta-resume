@@ -1,7 +1,7 @@
 import z from "zod";
 
-// Career category schema including technology
-export const careerCategorySchema = z.enum(["healthcare", "industrial", "hse", "technology"]);
+// Career category schema including technology and management
+export const careerCategorySchema = z.enum(["healthcare", "industrial", "hse", "technology", "management"]);
 
 // Career program type
 const careerProgramSchema = z.object({
@@ -719,6 +719,274 @@ export const careerPrograms: z.infer<typeof careerProgramSchema>[] = [
 		],
 		icon: "BarChart",
 	},
+	// Management programs
+	{
+		id: "commerce-marketing-digital",
+		name: "Commerce and Digital Marketing",
+		nameFr: "Commerce et Marketing Digital",
+		category: "management",
+		duration: "2 years",
+		durationFr: "2 ans",
+		durationMonths: 24,
+		cost: 32000,
+		salaryRange: { min: 4500, max: 14000, currency: "MAD" },
+		employmentRate: 84,
+		requiredSkills: ["Sales techniques", "Social media", "SEO/SEA", "CRM", "Data analysis"],
+		requiredSkillsFr: ["Techniques de vente", "Reseaux sociaux", "SEO/SEA", "CRM", "Analyse de donnees"],
+		description:
+			"Train in commercial techniques and digital marketing including social media, online advertising, and e-commerce.",
+		descriptionFr:
+			"Formation aux techniques commerciales et au marketing digital incluant les reseaux sociaux, la publicite en ligne et le e-commerce.",
+		prospects: ["Communication agencies", "E-commerce companies", "Retail", "SMEs", "Startups"],
+		prospectsFr: ["Agences de communication", "Entreprises e-commerce", "Distribution", "PME", "Startups"],
+		certification: "Commercial and Digital Marketing Technician Diploma",
+		certificationFr: "Diplome de Technicien Commercial et Marketing Digital",
+		demandLevel: "high",
+		growthRate: 16.0,
+		careerPathways: [
+			{
+				title: "Sales Representative / Digital Assistant",
+				titleFr: "Commercial / Assistant Digital",
+				description: "Prospecting, sales and social media management",
+				descriptionFr: "Prospection, vente et gestion des reseaux sociaux",
+				yearsExperience: "0-2",
+			},
+			{
+				title: "Digital Marketing Officer",
+				titleFr: "Charge de Marketing Digital",
+				description: "Managing campaigns and online performance",
+				descriptionFr: "Gestion des campagnes et de la performance en ligne",
+				yearsExperience: "2-5",
+			},
+			{
+				title: "Marketing Manager",
+				titleFr: "Responsable Marketing",
+				description: "Leading the marketing strategy and team",
+				descriptionFr: "Pilotage de la strategie et de l'equipe marketing",
+				yearsExperience: "5+",
+			},
+		],
+		icon: "Megaphone",
+	},
+	{
+		id: "finance-comptabilite",
+		name: "Finance and Accounting",
+		nameFr: "Finance et Comptabilite",
+		category: "management",
+		duration: "2 years",
+		durationFr: "2 ans",
+		durationMonths: 24,
+		cost: 30000,
+		salaryRange: { min: 4500, max: 13000, currency: "MAD" },
+		employmentRate: 88,
+		requiredSkills: ["Accounting", "Taxation", "Payroll", "Sage software", "Financial reporting"],
+		requiredSkillsFr: ["Comptabilite", "Fiscalite", "Paie", "Logiciel Sage", "Etats de synthese"],
+		description: "Train in accounting, Moroccan taxation, payroll, and financial statement preparation.",
+		descriptionFr: "Formation en comptabilite, fiscalite marocaine, paie et etablissement des etats de synthese.",
+		prospects: ["Accounting firms", "Banks", "Company finance departments", "Fiduciaries", "Audit firms"],
+		prospectsFr: [
+			"Cabinets comptables",
+			"Banques",
+			"Services financiers d'entreprises",
+			"Fiduciaires",
+			"Cabinets d'audit",
+		],
+		certification: "Finance and Accounting Technician Diploma",
+		certificationFr: "Diplome de Technicien en Finance et Comptabilite",
+		demandLevel: "high",
+		growthRate: 9.0,
+		careerPathways: [
+			{
+				title: "Accounting Assistant",
+				titleFr: "Aide-Comptable",
+				description: "Bookkeeping and bank reconciliations",
+				descriptionFr: "Saisie comptable et rapprochements bancaires",
+				yearsExperience: "0-2",
+			},
+			{
+				title: "Accountant",
+				titleFr: "Comptable",
+				description: "Full accounting, tax declarations and reporting",
+				descriptionFr: "Comptabilite complete, declarations fiscales et reporting",
+				yearsExperience: "2-5",
+			},
+			{
+				title: "Chief Accountant",
+				titleFr: "Chef Comptable",
+				description: "Managing the accounting department",
+				descriptionFr: "Gestion du service comptable",
+				yearsExperience: "5+",
+			},
+		],
+		icon: "Calculator",
+	},
+	{
+		id: "management-projets-industriels",
+		name: "Industrial Project Management",
+		nameFr: "Management de Projets Industriels",
+		category: "management",
+		duration: "2 years",
+		durationFr: "2 ans",
+		durationMonths: 24,
+		cost: 35000,
+		salaryRange: { min: 6000, max: 16000, currency: "MAD" },
+		employmentRate: 86,
+		requiredSkills: ["Planning", "Cost control", "Team coordination", "Risk management", "Reporting"],
+		requiredSkillsFr: [
+			"Planification",
+			"Suivi des couts",
+			"Coordination d'equipes",
+			"Gestion des risques",
+			"Reporting",
+		],
+		description:
+			"Train in industrial project management including planning, cost and deadline control, and team coordination.",
+		descriptionFr:
+			"Formation au management de projets industriels incluant la planification, le suivi des couts et delais et la coordination des equipes.",
+		prospects: [
+			"Industrial companies",
+			"Engineering offices",
+			"Construction companies",
+			"OCP Group",
+			"Consulting firms",
+		],
+		prospectsFr: ["Entreprises industrielles", "Bureaux d'etudes", "Societes BTP", "OCP Group", "Cabinets de conseil"],
+		certification: "Industrial Project Management Technician Diploma",
+		certificationFr: "Diplome de Technicien en Management de Projets Industriels",
+		demandLevel: "high",
+		growthRate: 12.0,
+		careerPathways: [
+			{
+				title: "Project Assistant",
+				titleFr: "Assistant Projet",
+				description: "Planning support and project follow-up",
+				descriptionFr: "Appui a la planification et suivi de projet",
+				yearsExperience: "0-2",
+			},
+			{
+				title: "Project Coordinator",
+				titleFr: "Coordinateur de Projet",
+				description: "Coordinating teams, costs and deadlines",
+				descriptionFr: "Coordination des equipes, couts et delais",
+				yearsExperience: "2-5",
+			},
+			{
+				title: "Project Manager",
+				titleFr: "Chef de Projet",
+				description: "Leading industrial projects end to end",
+				descriptionFr: "Pilotage de projets industriels de bout en bout",
+				yearsExperience: "5+",
+			},
+		],
+		icon: "ClipboardText",
+	},
+	{
+		id: "ressources-humaines-droit",
+		name: "Human Resources and Labor Law",
+		nameFr: "Ressources Humaines et Droit Social",
+		category: "management",
+		duration: "2 years",
+		durationFr: "2 ans",
+		durationMonths: 24,
+		cost: 30000,
+		salaryRange: { min: 4500, max: 13000, currency: "MAD" },
+		employmentRate: 85,
+		requiredSkills: ["Recruitment", "Payroll & CNSS", "Labor law", "HR administration", "Training"],
+		requiredSkillsFr: ["Recrutement", "Paie et CNSS", "Droit du travail", "Administration RH", "Formation"],
+		description:
+			"Train in human resources management and Moroccan labor law including recruitment, payroll, and personnel administration.",
+		descriptionFr:
+			"Formation a la gestion des ressources humaines et au droit social marocain incluant le recrutement, la paie et l'administration du personnel.",
+		prospects: ["Company HR departments", "Recruitment agencies", "HR consulting firms", "SMEs", "Industrial groups"],
+		prospectsFr: [
+			"Services RH d'entreprises",
+			"Cabinets de recrutement",
+			"Cabinets de conseil RH",
+			"PME",
+			"Groupes industriels",
+		],
+		certification: "Human Resources Technician Diploma",
+		certificationFr: "Diplome de Technicien en Ressources Humaines et Droit Social",
+		demandLevel: "high",
+		growthRate: 10.0,
+		careerPathways: [
+			{
+				title: "HR Assistant",
+				titleFr: "Assistant RH",
+				description: "Personnel administration and payroll support",
+				descriptionFr: "Administration du personnel et appui a la paie",
+				yearsExperience: "0-2",
+			},
+			{
+				title: "HR Officer",
+				titleFr: "Charge des Ressources Humaines",
+				description: "Recruitment, payroll and HR management",
+				descriptionFr: "Recrutement, paie et gestion RH",
+				yearsExperience: "2-5",
+			},
+			{
+				title: "HR Manager",
+				titleFr: "Responsable RH",
+				description: "Leading the HR function and labor relations",
+				descriptionFr: "Pilotage de la fonction RH et du dialogue social",
+				yearsExperience: "5+",
+			},
+		],
+		icon: "Users",
+	},
+	{
+		id: "supply-chain-logistique",
+		name: "Supply Chain and Logistics",
+		nameFr: "Supply Chain et Logistique",
+		category: "management",
+		duration: "2 years",
+		durationFr: "2 ans",
+		durationMonths: 24,
+		cost: 32000,
+		salaryRange: { min: 5000, max: 14000, currency: "MAD" },
+		employmentRate: 89,
+		requiredSkills: ["Inventory management", "Warehouse management", "Transport", "ERP/WMS", "Cost optimization"],
+		requiredSkillsFr: ["Gestion des stocks", "Gestion d'entrepot", "Transport", "ERP/WMS", "Optimisation des couts"],
+		description: "Train in supply chain and logistics including procurement, inventory, warehousing, and transport.",
+		descriptionFr:
+			"Formation a la supply chain et la logistique incluant les approvisionnements, les stocks, l'entreposage et le transport.",
+		prospects: ["Logistics platforms", "Tanger Med", "Transport companies", "Import-export firms", "Large retail"],
+		prospectsFr: [
+			"Plateformes logistiques",
+			"Tanger Med",
+			"Societes de transport",
+			"Entreprises import-export",
+			"Grande distribution",
+		],
+		certification: "Supply Chain and Logistics Technician Diploma",
+		certificationFr: "Diplome de Technicien en Supply Chain et Logistique",
+		demandLevel: "very_high",
+		growthRate: 14.0,
+		careerPathways: [
+			{
+				title: "Logistics Assistant",
+				titleFr: "Assistant Logistique",
+				description: "Inventory and warehouse operations",
+				descriptionFr: "Operations de stock et d'entrepot",
+				yearsExperience: "0-2",
+			},
+			{
+				title: "Logistics Officer",
+				titleFr: "Charge de Logistique",
+				description: "Managing flows, transport and suppliers",
+				descriptionFr: "Gestion des flux, du transport et des fournisseurs",
+				yearsExperience: "2-5",
+			},
+			{
+				title: "Supply Chain Manager",
+				titleFr: "Responsable Supply Chain",
+				description: "Leading the supply chain function",
+				descriptionFr: "Pilotage de la fonction supply chain",
+				yearsExperience: "5+",
+			},
+		],
+		icon: "Package",
+	},
 ];
 
 // Assessment questions in French
@@ -1195,6 +1463,46 @@ export const marketInsightsData: Record<string, z.infer<typeof marketInsightSche
 			},
 		],
 	},
+	management: {
+		field: "management",
+		employmentRate: 86,
+		averageSalary: 8000,
+		salaryRange: { min: 4500, max: 16000, currency: "MAD" },
+		demandLevel: "high",
+		growthProjection: { percentage: 13, period: "2024-2025" },
+		topSkills: [
+			"Digital marketing",
+			"Accounting and taxation",
+			"Project management",
+			"Supply chain",
+			"Human resources",
+		],
+		topSkillsFr: [
+			"Marketing digital",
+			"Comptabilite et fiscalite",
+			"Gestion de projet",
+			"Supply chain",
+			"Ressources humaines",
+		],
+		jobOpenings: 3600,
+		trends: [
+			{
+				trend: "E-commerce growth driving digital skills demand",
+				trendFr: "La croissance du e-commerce stimule la demande de competences digitales",
+				impact: "positive",
+			},
+			{
+				trend: "Logistics hub expansion (Tanger Med)",
+				trendFr: "Expansion des hubs logistiques (Tanger Med)",
+				impact: "positive",
+			},
+			{
+				trend: "Industrial sector needs structured management profiles",
+				trendFr: "L'industrie a besoin de profils de gestion structures",
+				impact: "positive",
+			},
+		],
+	},
 };
 
 // Top employers in Morocco by field
@@ -1382,6 +1690,60 @@ export const topEmployersData: z.infer<typeof employerSchema>[] = [
 		benefitsFr: ["Bon salaire", "Evolution de carriere", "Formation technique", "Equilibre travail-vie"],
 		website: "https://atos.net/fr-ma/maroc",
 		averageSalary: { min: 7000, max: 18000, currency: "MAD" },
+	},
+	// Management employers
+	{
+		id: "attijariwafa-bank",
+		name: "Attijariwafa Bank",
+		sector: "Banking & Finance",
+		sectorFr: "Banque & Finance",
+		location: "Casablanca",
+		locationFr: "Casablanca",
+		employeeCount: "20000+",
+		description: "Leading banking group in Morocco and Africa, recruiting finance, accounting and commercial profiles.",
+		descriptionFr:
+			"Premier groupe bancaire au Maroc et en Afrique, recrutant des profils finance, comptabilite et commerciaux.",
+		hiringFields: ["management"],
+		benefits: ["Job security", "Career progression", "Training programs", "Social benefits"],
+		benefitsFr: ["Securite de l'emploi", "Evolution de carriere", "Programmes de formation", "Avantages sociaux"],
+		website: "https://www.attijariwafabank.com",
+		averageSalary: { min: 6000, max: 16000, currency: "MAD" },
+	},
+	{
+		id: "marjane-holding",
+		name: "Marjane Holding",
+		sector: "Retail & Distribution",
+		sectorFr: "Distribution & Commerce",
+		location: "Multiple locations",
+		locationFr: "Plusieurs sites",
+		employeeCount: "12000+",
+		description:
+			"Largest retail group in Morocco, recruiting commercial, marketing, supply chain and logistics profiles.",
+		descriptionFr:
+			"Le plus grand groupe de distribution au Maroc, recrutant des profils commerciaux, marketing, supply chain et logistique.",
+		hiringFields: ["management"],
+		benefits: ["Career opportunities", "Internal mobility", "Training", "Performance bonuses"],
+		benefitsFr: ["Opportunites de carriere", "Mobilite interne", "Formation", "Primes de performance"],
+		website: "https://www.marjane.ma",
+		averageSalary: { min: 4500, max: 13000, currency: "MAD" },
+	},
+	{
+		id: "tanger-med",
+		name: "Tanger Med",
+		sector: "Logistics & Ports",
+		sectorFr: "Logistique & Ports",
+		location: "Tangier",
+		locationFr: "Tanger",
+		employeeCount: "5000+",
+		description:
+			"Leading port and logistics hub in Africa, recruiting supply chain, logistics and project management profiles.",
+		descriptionFr:
+			"Premier hub portuaire et logistique en Afrique, recrutant des profils supply chain, logistique et gestion de projet.",
+		hiringFields: ["management", "industrial"],
+		benefits: ["Competitive salary", "International environment", "Career growth", "Training"],
+		benefitsFr: ["Salaire competitif", "Environnement international", "Evolution de carriere", "Formation"],
+		website: "https://www.tangermed.ma",
+		averageSalary: { min: 5500, max: 15000, currency: "MAD" },
 	},
 ];
 
@@ -1606,5 +1968,12 @@ export const careerDescriptions: Record<
 		descriptionFr:
 			"Les carrieres technologiques impliquent le developpement de logiciels, les solutions IT, l'innovation numerique et le travail avec des technologies de pointe.",
 		suggestedPrograms: ["developpeur-web", "data-analyst"],
+	},
+	management: {
+		description:
+			"Management careers focus on business administration, commerce, finance, human resources, and supply chain coordination.",
+		descriptionFr:
+			"Les carrieres en gestion se concentrent sur l'administration des entreprises, le commerce, la finance, les ressources humaines et la coordination de la supply chain.",
+		suggestedPrograms: ["commerce-marketing-digital", "finance-comptabilite", "supply-chain-logistique"],
 	},
 };

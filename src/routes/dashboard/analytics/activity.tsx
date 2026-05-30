@@ -38,6 +38,9 @@ import { orpc } from "@/integrations/orpc/client";
 import { cn } from "@/utils/style";
 import { DashboardHeader } from "../-components/header";
 
+// Fixed skeleton bar heights (px) cycled by index to avoid hydration jank from randomness
+const SKELETON_BAR_HEIGHTS = [40, 65, 50, 90, 55, 75, 45, 80, 60, 100, 70, 35] as const;
+
 // Simple relative time formatter
 function formatRelativeTime(date: Date): string {
 	const now = new Date();
@@ -566,7 +569,11 @@ function ActivityTracking() {
 							{dailyLoading ? (
 								<div className="flex h-[200px] items-end justify-between gap-1">
 									{Array.from({ length: 30 }).map((_, i) => (
-										<Skeleton key={i} className="flex-1" style={{ height: `${Math.random() * 100 + 20}px` }} />
+										<Skeleton
+											key={i}
+											className="flex-1"
+											style={{ height: `${SKELETON_BAR_HEIGHTS[i % SKELETON_BAR_HEIGHTS.length]}px` }}
+										/>
 									))}
 								</div>
 							) : dailyActivity && dailyActivity.length > 0 ? (

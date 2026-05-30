@@ -129,7 +129,7 @@ export const gapAnalysisService = {
 		const existing = await gapAnalysisService.getOrCreate({ userId: input.userId });
 
 		const newSkill: GapAnalysisCurrentSkill = {
-			id: `${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
+			id: generateId(),
 			name: input.name,
 			nameFr: input.nameFr,
 			category: input.category,

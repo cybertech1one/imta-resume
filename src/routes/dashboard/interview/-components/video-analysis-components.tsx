@@ -8,21 +8,15 @@ import {
 	CheckCircleIcon,
 	ClockIcon,
 	EyeIcon,
-	FileVideoIcon,
 	GaugeIcon,
 	HandIcon,
 	HeartIcon,
 	LightbulbIcon,
 	MicrophoneIcon,
-	PauseIcon,
 	PersonArmsSpreadIcon,
-	PlayIcon,
 	SparkleIcon,
 	SpeakerHighIcon,
 	SpinnerIcon,
-	StopIcon,
-	TrashIcon,
-	UploadIcon,
 	UserIcon,
 	VideoCameraIcon,
 	WarningCircleIcon,
@@ -31,13 +25,11 @@ import {
 } from "@phosphor-icons/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "motion/react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { authClient } from "@/integrations/auth/client";
 import type {
 	VideoAnalysisCategoryScore,
@@ -480,224 +472,59 @@ export function PostureChecklist() {
 }
 
 // Video Upload/Record Interface Component
+//
+// HONESTY NOTE: There is no real video-analysis backend (no computer-vision or
+// audio model wired to these uploads). Previously this component fabricated an
+// analysis with Math.random() and presented it as real measurements, which is
+// dishonest. Until a real analysis pipeline exists, we show a clear
+// "coming soon" state instead of fake scores. The `onAnalyze` / `isAnalyzing`
+// props are kept for API compatibility with the parent route but are no longer
+// invoked.
 export function VideoUploadInterface({
-	onAnalyze,
-	isAnalyzing,
+	onAnalyze: _onAnalyze,
+	isAnalyzing: _isAnalyzing,
 }: {
 	onAnalyze: (duration: number) => void;
 	isAnalyzing: boolean;
 }) {
-	const [mode, setMode] = useState<"upload" | "record">("upload");
-	const [isRecording, setIsRecording] = useState(false);
-	const [recordingTime, setRecordingTime] = useState(0);
-	const [hasVideo, setHasVideo] = useState(false);
-	const recordingIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
-	// Cleanup recording interval on unmount
-	useEffect(() => {
-		return () => {
-			if (recordingIntervalRef.current) {
-				clearInterval(recordingIntervalRef.current);
-				recordingIntervalRef.current = null;
-			}
-		};
-	}, []);
-
-	const handleStartRecording = useCallback(() => {
-		setIsRecording(true);
-		setHasVideo(false);
-		// Simulate recording timer
-		recordingIntervalRef.current = setInterval(() => {
-			setRecordingTime((prev) => {
-				if (prev >= 300) {
-					if (recordingIntervalRef.current) {
-						clearInterval(recordingIntervalRef.current);
-						recordingIntervalRef.current = null;
-					}
-					setIsRecording(false);
-					setHasVideo(true);
-					return prev;
-				}
-				return prev + 1;
-			});
-		}, 1000);
-	}, []);
-
-	const handleStopRecording = useCallback(() => {
-		if (recordingIntervalRef.current) {
-			clearInterval(recordingIntervalRef.current);
-			recordingIntervalRef.current = null;
-		}
-		setIsRecording(false);
-		setHasVideo(true);
-	}, []);
-
-	const handleFileUpload = useCallback(() => {
-		// Simulate file selection with random duration
-		setRecordingTime(Math.floor(Math.random() * 300) + 60);
-		setHasVideo(true);
-	}, []);
-
-	const handleClear = useCallback(() => {
-		setHasVideo(false);
-		setRecordingTime(0);
-	}, []);
-
-	const formatTime = (seconds: number) => {
-		const mins = Math.floor(seconds / 60);
-		const secs = seconds % 60;
-		return `${mins}:${secs.toString().padStart(2, "0")}`;
-	};
-
 	return (
 		<Card className="overflow-hidden">
 			<CardHeader className="bg-gradient-to-r from-primary/10 to-transparent">
 				<CardTitle className="flex items-center gap-2">
 					<VideoCameraIcon className="size-5 text-primary" weight="duotone" />
-					<Trans>Download or Record a Video</Trans>
+					<Trans>AI Video Analysis</Trans>
 				</CardTitle>
 				<CardDescription>
-					<Trans>Import an existing video or record yourself for a complete analysis.</Trans>
+					<Trans>Automatic analysis of your body language, eye contact, and voice.</Trans>
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="p-6">
-				{/* Mode Tabs */}
-				<Tabs value={mode} onValueChange={(v) => setMode(v as "upload" | "record")} className="mb-6">
-					<TabsList className="grid w-full grid-cols-2">
-						<TabsTrigger value="upload" className="gap-2">
-							<UploadIcon className="size-4" />
-							<Trans>Download</Trans>
-						</TabsTrigger>
-						<TabsTrigger value="record" className="gap-2">
-							<CameraIcon className="size-4" />
-							<Trans>Save</Trans>
-						</TabsTrigger>
-					</TabsList>
-				</Tabs>
-
-				{/* Video Area */}
 				<div className="relative aspect-video overflow-hidden rounded-xl border-2 border-dashed bg-muted/30">
-					{!hasVideo && !isRecording && mode === "upload" && (
-						<motion.div
-							initial={false}
-							animate={{ opacity: 1 }}
-							className="flex h-full flex-col items-center justify-center gap-4 p-6"
-						>
-							<div className="flex size-20 items-center justify-center rounded-full bg-primary/10">
-								<FileVideoIcon className="size-10 text-primary" weight="duotone" />
-							</div>
-							<div className="text-center">
-								<h4 className="font-semibold">
-									<Trans>Drag and drop your video here</Trans>
-								</h4>
-								<p className="text-muted-foreground text-sm">
-									<Trans>or click to browse</Trans>
-								</p>
-								<p className="mt-2 text-muted-foreground text-xs">MP4, MOV, WebM - Max 100MB</p>
-							</div>
-							<Button onClick={handleFileUpload}>
-								<UploadIcon className="mr-2 size-4" />
-								<Trans>Choose a file</Trans>
-							</Button>
-						</motion.div>
-					)}
-
-					{!hasVideo && !isRecording && mode === "record" && (
-						<motion.div
-							initial={false}
-							animate={{ opacity: 1 }}
-							className="flex h-full flex-col items-center justify-center gap-4 p-6"
-						>
-							<div className="flex size-20 items-center justify-center rounded-full bg-red-500/10">
-								<CameraIcon className="size-10 text-red-500" weight="duotone" />
-							</div>
-							<div className="text-center">
-								<h4 className="font-semibold">
-									<Trans>Ready to record</Trans>
-								</h4>
-								<p className="text-muted-foreground text-sm">
-									<Trans>Make sure your camera and microphone are enabled</Trans>
-								</p>
-							</div>
-							<Button onClick={handleStartRecording} variant="destructive">
-								<PlayIcon className="mr-2 size-4" />
-								<Trans>Start Recording</Trans>
-							</Button>
-						</motion.div>
-					)}
-
-					{isRecording && (
-						<motion.div
-							initial={false}
-							animate={{ opacity: 1 }}
-							className="flex h-full flex-col items-center justify-center gap-4 bg-slate-900 p-6"
-						>
-							{/* Recording Indicator */}
-							<motion.div
-								animate={{ scale: [1, 1.2, 1] }}
-								transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}
-								className="flex size-4 items-center justify-center rounded-full bg-red-500"
-							>
-								<div className="size-2 rounded-full bg-red-300" />
-							</motion.div>
-
-							<div className="font-bold font-mono text-4xl text-white">{formatTime(recordingTime)}</div>
-
-							<p className="text-slate-400 text-sm">
-								<Trans>Recording in progress...</Trans>
+					<motion.div
+						initial={false}
+						animate={{ opacity: 1 }}
+						className="flex h-full flex-col items-center justify-center gap-4 p-6 text-center"
+					>
+						<div className="flex size-20 items-center justify-center rounded-full bg-primary/10">
+							<SparkleIcon className="size-10 text-primary" weight="duotone" />
+						</div>
+						<div className="space-y-1">
+							<Badge variant="secondary" className="mb-1">
+								<ClockIcon className="mr-1 size-3" />
+								<Trans>Coming soon</Trans>
+							</Badge>
+							<h4 className="font-semibold text-lg">
+								<Trans>AI video analysis — coming soon</Trans>
+							</h4>
+							<p className="mx-auto max-w-md text-muted-foreground text-sm">
+								<Trans>
+									Automatic scoring of your video (body language, eye contact, voice, confidence) is under development.
+									In the meantime, use the tips above to prepare. We will not show you a score that has not been truly
+									measured.
+								</Trans>
 							</p>
-
-							<div className="flex gap-3">
-								<Button variant="secondary" onClick={() => setIsRecording(false)}>
-									<PauseIcon className="mr-2 size-4" />
-									<Trans>Pause</Trans>
-								</Button>
-								<Button variant="destructive" onClick={handleStopRecording}>
-									<StopIcon className="mr-2 size-4" />
-									<Trans>Stop</Trans>
-								</Button>
-							</div>
-						</motion.div>
-					)}
-
-					{hasVideo && !isRecording && (
-						<motion.div
-							initial={false}
-							animate={{ opacity: 1 }}
-							className="flex h-full flex-col items-center justify-center gap-4 bg-slate-800 p-6"
-						>
-							<FileVideoIcon className="size-16 text-primary" weight="duotone" />
-							<div className="text-center">
-								<h4 className="font-semibold text-white">
-									<Trans>Video ready for analysis</Trans>
-								</h4>
-								{recordingTime > 0 && (
-									<p className="text-slate-400 text-sm">
-										<Trans>Duration</Trans>: {formatTime(recordingTime)}
-									</p>
-								)}
-							</div>
-							<div className="flex gap-3">
-								<Button variant="outline" onClick={handleClear}>
-									<TrashIcon className="mr-2 size-4" />
-									<Trans>Delete</Trans>
-								</Button>
-								<Button onClick={() => onAnalyze(recordingTime)} disabled={isAnalyzing}>
-									{isAnalyzing ? (
-										<>
-											<SpinnerIcon className="mr-2 size-4 animate-spin" />
-											<Trans>Analyzing...</Trans>
-										</>
-									) : (
-										<>
-											<SparkleIcon className="mr-2 size-4" />
-											<Trans>Analyze</Trans>
-										</>
-									)}
-								</Button>
-							</div>
-						</motion.div>
-					)}
+						</div>
+					</motion.div>
 				</div>
 			</CardContent>
 		</Card>
@@ -843,124 +670,30 @@ export function AnalysisResultsDashboard({ result }: { result: AnalysisResult })
 	);
 }
 
-// Generate mock analysis result (simulates AI analysis)
+// DEPRECATED — DO NOT USE FOR USER-FACING SCORES.
+//
+// This previously fabricated an "analysis" with Math.random() and presented it
+// as a real measurement. That is dishonest, so the upload flow no longer calls
+// this. It is retained only so the parent route keeps compiling, and it now
+// returns an empty, deterministic, clearly-empty result (no random values).
+// When a real video-analysis backend exists, replace this with a call to that
+// service and remove this note.
 export function generateAnalysisResult(duration: number): Omit<AnalysisResult, "id"> {
-	const categories: VideoAnalysisCategoryScore[] = [
-		{
-			category: "body_language",
-			score: Math.floor(Math.random() * 30) + 70,
-			feedback: t`Your gestures are natural and support your speech well. Be careful not to cross your arms too often.`,
-			suggestions: [
-				t`Use open gestures to emphasize your key points`,
-				t`Avoid touching your face while speaking`,
-				t`Keep your hands visible and relaxed`,
-			],
-		},
-		{
-			category: "eye_contact",
-			score: Math.floor(Math.random() * 30) + 65,
-			feedback: t`Good overall eye contact, but you tend to look down during difficult questions.`,
-			suggestions: [
-				t`Maintain eye contact 60-70% of the time`,
-				t`Look at the camera as if it were your interviewer`,
-				t`Avoid staring at a single point for too long`,
-			],
-		},
-		{
-			category: "voice",
-			score: Math.floor(Math.random() * 30) + 60,
-			feedback: t`Your voice is clear but the pace can be improved. Some filler words detected.`,
-			suggestions: [
-				t`Slightly slow down your speaking pace`,
-				t`Make strategic pauses to emphasize important points`,
-				t`Work on reducing filler words like "um" and "so"`,
-			],
-		},
-		{
-			category: "confidence",
-			score: Math.floor(Math.random() * 30) + 70,
-			feedback: t`You project good overall confidence. Your posture and tone reflect assurance.`,
-			suggestions: [
-				t`Continue standing straight and open`,
-				t`Take a deep breath before answering`,
-				t`Smile naturally to project confidence`,
-			],
-		},
-		{
-			category: "posture",
-			score: Math.floor(Math.random() * 30) + 75,
-			feedback: t`Excellent posture! You are well seated and your positioning is professional.`,
-			suggestions: [
-				t`Maintain this posture throughout the interview`,
-				t`Avoid slouching after a few minutes`,
-				t`Keep your shoulders relaxed but not drooping`,
-			],
-		},
-		{
-			category: "facial_expression",
-			score: Math.floor(Math.random() * 30) + 62,
-			feedback: t`Your facial expressions are consistent with your speech. More smiling would be beneficial.`,
-			suggestions: [
-				t`Smile more, especially at the beginning and end`,
-				t`Nod to show your engagement`,
-				t`Avoid prolonged frowning`,
-			],
-		},
-	];
-
-	const overallScore = Math.round(categories.reduce((sum, c) => sum + c.score, 0) / categories.length);
-
-	const voiceMetrics: VideoAnalysisVoiceMetrics = {
-		tone: {
-			label: t`Tone`,
-			score: Math.floor(Math.random() * 30) + 65,
-			description: t`Overall positive tone with some appropriate variations`,
-		},
-		pace: {
-			label: t`Pace`,
-			score: Math.floor(Math.random() * 30) + 58,
-			description: t`Average pace of 145 words/min - slightly fast`,
-		},
-		clarity: {
-			label: t`Clarity`,
-			score: Math.floor(Math.random() * 30) + 72,
-			description: t`Clear and understandable articulation`,
-		},
-		volume: {
-			label: t`Volume`,
-			score: Math.floor(Math.random() * 30) + 68,
-			description: t`Adequate volume with some variations`,
-		},
-		fillerWords: {
-			count: Math.floor(Math.random() * 15) + 5,
-			examples: ["um", "so", "like", "you know"],
-		},
+	const emptyVoiceMetrics: VideoAnalysisVoiceMetrics = {
+		tone: { label: t`Tone`, score: 0, description: "" },
+		pace: { label: t`Pace`, score: 0, description: "" },
+		clarity: { label: t`Clarity`, score: 0, description: "" },
+		volume: { label: t`Volume`, score: 0, description: "" },
+		fillerWords: { count: 0, examples: [] },
 	};
 
-	const highlights: VideoAnalysisHighlight[] = [
-		{ type: "positive", time: "0:45", description: t`Excellent introduction with natural smile` },
-		{ type: "positive", time: "1:30", description: t`Good eye contact during technical explanation` },
-		{ type: "negative", time: "2:15", description: t`Arms crossed for 15 seconds` },
-		{ type: "positive", time: "3:00", description: t`Open gestures to illustrate a point` },
-		{ type: "negative", time: "3:45", description: t`Pace too fast in this section` },
-		{ type: "positive", time: "4:00", description: t`Confident and professional conclusion` },
-	];
-
-	const recommendations = [
-		t`Practice in front of a mirror to improve eye contact`,
-		t`Record yourself regularly to track your progress`,
-		t`Work on reducing filler words`,
-		t`Do breathing exercises before the interview`,
-		t`Prepare your answers to avoid hesitations`,
-	];
-
 	return {
-		overallScore,
+		overallScore: 0,
 		duration,
 		timestamp: new Date().toISOString(),
-		categories,
-		voiceMetrics,
-		highlights,
-		recommendations,
+		categories: [] as VideoAnalysisCategoryScore[],
+		voiceMetrics: emptyVoiceMetrics,
+		highlights: [] as VideoAnalysisHighlight[],
+		recommendations: [] as string[],
 	};
 }

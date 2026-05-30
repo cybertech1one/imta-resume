@@ -499,13 +499,41 @@ const getPartnerProfile = protectedProcedure
 // PARTNER ENDPOINTS (partnerProcedure — role "partner" or "admin")
 // ============================================================================
 
-/** Helper: get partner profile for the current user or throw */
+/** Helper: get partner profile for the current user or throw.
+ *
+ * Read-only: does NOT enforce profile status, so suspended/rejected partners can
+ * still view their profile (and the rejection/suspension reason) and edit their
+ * own profile to remediate. Use {@link getOwnActivePartnerProfile} to gate WRITE
+ * operations (creating/publishing jobs, creating events, moderating applications).
+ */
 async function getOwnPartnerProfile(userId: string) {
 	const [profile] = await db.select().from(partnerProfile).where(eq(partnerProfile.userId, userId)).limit(1);
 
 	if (!profile) {
 		throw new ORPCError("NOT_FOUND", { message: "You do not have a partner profile" });
 	}
+	return profile;
+}
+
+/** Helper: get partner profile for write operations, rejecting suspended/rejected
+ * partners. Admins also flow through here (they are allowed by the procedure), but
+ * an admin would not normally have their own partner profile in a suspended state.
+ *
+ * A suspended or rejected partner must not be able to create/publish jobs, create
+ * events, or moderate applications. Their sessions are also force-cleared on
+ * suspension, but this guard defends against any still-valid session or a partner
+ * who was suspended mid-session.
+ */
+async function getOwnActivePartnerProfile(userId: string) {
+	const profile = await getOwnPartnerProfile(userId);
+
+	if (profile.status === "suspended") {
+		throw new ORPCError("FORBIDDEN", { message: "Votre compte partenaire est suspendu." });
+	}
+	if (profile.status === "rejected") {
+		throw new ORPCError("FORBIDDEN", { message: "Votre compte partenaire a été rejeté." });
+	}
+
 	return profile;
 }
 
@@ -672,7 +700,13 @@ const createJob = partnerProcedure
 		}),
 	)
 	.handler(async ({ context, input }) => {
-		const profile = await getOwnPartnerProfile(context.user.id);
+		const profile = await getOwnActivePartnerProfile(context.user.id);
+
+		// Reject a deadline that is already in the past — a job cannot accept
+		// applications until a moment that has already elapsed.
+		if (input.applicationDeadline && new Date(input.applicationDeadline) < new Date()) {
+			throw new ORPCError("BAD_REQUEST", { message: "La date limite doit être dans le futur." });
+		}
 
 		const [job] = await db
 			.insert(partnerJobPosting)
@@ -746,8 +780,13 @@ const updateJob = partnerProcedure
 		}),
 	)
 	.handler(async ({ context, input }) => {
-		const profile = await getOwnPartnerProfile(context.user.id);
+		const profile = await getOwnActivePartnerProfile(context.user.id);
 		const { id, applicationDeadline, startDate, ...updateFields } = input;
+
+		// Reject a deadline that is already in the past.
+		if (applicationDeadline !== undefined && new Date(applicationDeadline) < new Date()) {
+			throw new ORPCError("BAD_REQUEST", { message: "La date limite doit être dans le futur." });
+		}
 
 		// Verify ownership
 		const [job] = await db
@@ -785,7 +824,7 @@ const publishJob = partnerProcedure
 	})
 	.input(z.object({ id: z.string().uuid() }))
 	.handler(async ({ context, input }) => {
-		const profile = await getOwnPartnerProfile(context.user.id);
+		const profile = await getOwnActivePartnerProfile(context.user.id);
 
 		const [job] = await db
 			.select()
@@ -934,7 +973,7 @@ const updateApplicationStatus = partnerProcedure
 		}),
 	)
 	.handler(async ({ context, input }) => {
-		const profile = await getOwnPartnerProfile(context.user.id);
+		const profile = await getOwnActivePartnerProfile(context.user.id);
 
 		// Get the application and verify job ownership
 		const [application] = await db
@@ -1001,7 +1040,7 @@ const createEvent = partnerProcedure
 		}),
 	)
 	.handler(async ({ context, input }) => {
-		const profile = await getOwnPartnerProfile(context.user.id);
+		const profile = await getOwnActivePartnerProfile(context.user.id);
 
 		const [event] = await db
 			.insert(partnerEvent)
@@ -1566,7 +1605,10 @@ const redeemInvite = protectedProcedure
 			throw new ORPCError("PRECONDITION_FAILED", { message: "Invitation invalide ou expirée." });
 		}
 		// Security: the invite is email-keyed. Only the matching email may redeem it.
-		if (invite.email !== context.user.email.trim().toLowerCase()) {
+		// Normalize BOTH sides (trim + lowercase) to avoid case/whitespace mismatches —
+		// the stored invite email should already be normalized, but legacy/imported rows
+		// may not be, so we normalize defensively here.
+		if (invite.email.trim().toLowerCase() !== context.user.email.trim().toLowerCase()) {
 			throw new ORPCError("FORBIDDEN", { message: "Cette invitation ne correspond pas à votre email." });
 		}
 

@@ -1,17 +1,19 @@
 import { t } from "@lingui/core/macro";
-import { ChatCircleIcon, LightningIcon, MicrophoneIcon, SparkleIcon, TargetIcon } from "@phosphor-icons/react";
+import { Trans } from "@lingui/react/macro";
+import { ArrowClockwiseIcon, ClockIcon, DownloadIcon, MicrophoneIcon, SparkleIcon } from "@phosphor-icons/react";
 import { createFileRoute } from "@tanstack/react-router";
-import { AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ErrorComponent } from "@/components/error-component";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { DashboardHeader } from "../-components/header";
-import { FeedbackPhaseView, InterviewPhaseView, SetupPhase } from "./-components/voice-interview-components";
+import { InterviewPhaseView, SetupPhase } from "./-components/voice-interview-components";
 import { PANEL_MEMBERS } from "./-components/voice-interview-config";
 import type {
 	Difficulty,
-	FeedbackCategory,
-	InterviewerFeedback,
 	InterviewPhase,
 	InterviewType,
 	Language,
@@ -47,15 +49,6 @@ function VoiceInterviewPage() {
 	const [transcript, setTranscript] = useState<TranscriptEntry[]>([]);
 	const [interviewDuration, setInterviewDuration] = useState(0);
 	const [isInterviewActive, setIsInterviewActive] = useState(false);
-
-	// Feedback state
-	const [overallScore, setOverallScore] = useState(0);
-	const [animatedScore, setAnimatedScore] = useState(0);
-	const [feedbackCategories, setFeedbackCategories] = useState<FeedbackCategory[]>([]);
-	const [strengths, setStrengths] = useState<string[]>([]);
-	const [improvements, setImprovements] = useState<string[]>([]);
-	const [recommendations, setRecommendations] = useState<string[]>([]);
-	const [interviewerFeedback, setInterviewerFeedback] = useState<InterviewerFeedback[]>([]);
 
 	// Refs
 	const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -171,108 +164,16 @@ function VoiceInterviewPage() {
 		transcriptEndRef.current?.scrollIntoView({ behavior: "smooth" });
 	}, []);
 
-	// Generate feedback
-	const generateFeedback = useCallback(() => {
-		const score = Math.floor(Math.random() * 20) + 75; // 75-95
-		setOverallScore(score);
-
-		// Animate score counter
-		let current = 0;
-		const increment = score / 50;
-		const animateCounter = () => {
-			current += increment;
-			if (current < score) {
-				setAnimatedScore(Math.floor(current));
-				requestAnimationFrame(animateCounter);
-			} else {
-				setAnimatedScore(score);
-			}
-		};
-		animateCounter();
-
-		// Category scores
-		setFeedbackCategories([
-			{
-				name: "Communication",
-				nameFr: "Communication",
-				score: Math.floor(Math.random() * 15) + 80,
-				maxScore: 100,
-				icon: ChatCircleIcon,
-				color: "text-blue-500",
-			},
-			{
-				name: "Content",
-				nameFr: "Contenu",
-				score: Math.floor(Math.random() * 20) + 70,
-				maxScore: 100,
-				icon: TargetIcon,
-				color: "text-emerald-500",
-			},
-			{
-				name: "Confidence",
-				nameFr: "Confiance",
-				score: Math.floor(Math.random() * 15) + 75,
-				maxScore: 100,
-				icon: SparkleIcon,
-				color: "text-purple-500",
-			},
-			{
-				name: "Technical",
-				nameFr: "Technique",
-				score: Math.floor(Math.random() * 25) + 65,
-				maxScore: 100,
-				icon: LightningIcon,
-				color: "text-amber-500",
-			},
-		]);
-
-		// Strengths
-		setStrengths([
-			t`Excellent personal presentation and clarity of expression`,
-			t`Good technical knowledge demonstrated`,
-			t`Structured responses with concrete examples`,
-			t`Positive and enthusiastic attitude`,
-		]);
-
-		// Improvements
-		setImprovements([
-			t`Deepen problem-solving examples`,
-			t`Ask more questions about the company and team`,
-			t`Reduce hesitations at the beginning of responses`,
-		]);
-
-		// Recommendations
-		setRecommendations([
-			t`Prepare 3-4 detailed STAR examples for each key competency`,
-			t`Research the company more to ask relevant questions`,
-			t`Practice strategic pauses before responding`,
-			t`Record yourself to analyze your non-verbal language`,
-		]);
-
-		// Interviewer feedback
-		setInterviewerFeedback(
-			panelMembers.map((member) => ({
-				interviewerId: member.id,
-				interviewer: member,
-				impression:
-					member.voiceStyle === "technical"
-						? t`Good technical foundation, but could go deeper on complex topics.`
-						: member.voiceStyle === "challenging"
-							? t`The candidate handles pressure well, thoughtful responses.`
-							: member.voiceStyle === "friendly"
-								? t`Excellent interpersonal skills, would integrate well with the team.`
-								: t`Professional and structured profile, good overall presentation.`,
-				keyPoints: [
-					t`Clear response structure`,
-					t`Relevant examples`,
-					member.voiceStyle === "technical" ? t`Adequate technical knowledge` : t`Good communication`,
-				],
-				score: Math.floor(Math.random() * 15) + 75,
-			})),
-		);
-	}, [panelMembers]);
-
 	// End interview
+	//
+	// HONESTY NOTE: This page is a Beta simulation — it does not yet transcribe
+	// the candidate's speech or run a real evaluation. Previously it fabricated a
+	// score and detailed feedback with Math.random() and showed it as if it were
+	// a real assessment, which is dishonest. Until real speech-to-text +
+	// AI evaluation is wired here, we show an honest "coming soon" feedback state
+	// instead of inventing numbers. (A real `voiceInterview.feedback.generate`
+	// backend exists but requires a genuinely captured transcript, which this
+	// simulation does not produce.)
 	const endInterview = useCallback(() => {
 		setIsInterviewActive(false);
 
@@ -285,10 +186,8 @@ function VoiceInterviewPage() {
 		// Cleanup audio
 		cleanupAudio();
 
-		// Generate feedback (simulated)
-		generateFeedback();
 		setPhase("feedback");
-	}, [cleanupAudio, generateFeedback]);
+	}, [cleanupAudio]);
 
 	// Toggle mute
 	const toggleMute = useCallback(() => {
@@ -328,8 +227,6 @@ function VoiceInterviewPage() {
 		setPhase("setup");
 		setTranscript([]);
 		setInterviewDuration(0);
-		setOverallScore(0);
-		setAnimatedScore(0);
 	}, []);
 
 	// Cleanup timer and audio on unmount
@@ -410,22 +307,55 @@ function VoiceInterviewPage() {
 				)}
 
 				{phase === "feedback" && (
-					<FeedbackPhaseView
-						overallScore={overallScore}
-						animatedScore={animatedScore}
-						interviewDuration={interviewDuration}
-						targetRole={targetRole}
-						transcript={transcript}
-						feedbackCategories={feedbackCategories}
-						strengths={strengths}
-						improvements={improvements}
-						recommendations={recommendations}
-						interviewType={interviewType}
-						interviewerFeedback={interviewerFeedback}
-						formatDuration={formatDuration}
-						downloadTranscript={downloadTranscript}
-						practiceAgain={practiceAgain}
-					/>
+					<motion.div
+						key="feedback"
+						initial={false}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: -20 }}
+						transition={{ duration: 0.4 }}
+						className="mx-auto max-w-2xl p-4"
+					>
+						<Card className="overflow-hidden">
+							<CardHeader className="bg-gradient-to-r from-primary/10 to-transparent text-center">
+								<div className="mx-auto mb-3 flex size-16 items-center justify-center rounded-full bg-primary/10">
+									<SparkleIcon className="size-8 text-primary" weight="duotone" />
+								</div>
+								<Badge variant="secondary" className="mx-auto mb-2 w-fit">
+									<ClockIcon className="mr-1 size-3" />
+									<Trans>Coming soon</Trans>
+								</Badge>
+								<CardTitle>
+									<Trans>AI voice analysis — coming soon</Trans>
+								</CardTitle>
+								<CardDescription>
+									<Trans>
+										Automatic scoring of your spoken answers is under development. We will not show you a score that has
+										not been truly measured.
+									</Trans>
+								</CardDescription>
+							</CardHeader>
+							<CardContent className="space-y-4 p-6 text-center">
+								<p className="text-muted-foreground text-sm">
+									<Trans>
+										Practice for {formatDuration(interviewDuration)} on the role of {targetRole}. You can download the
+										transcript of your session below to review your answers.
+									</Trans>
+								</p>
+								<div className="flex flex-col justify-center gap-3 sm:flex-row">
+									{transcript.length > 0 && (
+										<Button variant="outline" onClick={downloadTranscript}>
+											<DownloadIcon className="mr-2 size-4" />
+											<Trans>Download transcript</Trans>
+										</Button>
+									)}
+									<Button onClick={practiceAgain}>
+										<ArrowClockwiseIcon className="mr-2 size-4" />
+										<Trans>Practice again</Trans>
+									</Button>
+								</div>
+							</CardContent>
+						</Card>
+					</motion.div>
 				)}
 			</AnimatePresence>
 		</>

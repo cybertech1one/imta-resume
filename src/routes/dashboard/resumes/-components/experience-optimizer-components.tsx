@@ -304,6 +304,7 @@ export function ImpactGeneratorTab({
 																size="sm"
 																className="ml-auto size-8 p-0"
 																onClick={() => copyToClipboard(example.after)}
+																aria-label={t`Copier l'exemple amélioré`}
 															>
 																<CopyIcon className="size-4" />
 															</Button>
@@ -467,10 +468,7 @@ export function ActionVerbsTab({
 									animate={{ opacity: 1, scale: 1 }}
 									transition={{ delay: index * 0.05 }}
 								>
-									<Card
-										className="group cursor-pointer transition-all hover:border-primary/50 hover:shadow-md"
-										onClick={() => copyToClipboard(verb.verb)}
-									>
+									<Card className="group transition-[border-color,box-shadow] hover:border-primary/50 hover:shadow-md">
 										<CardContent className="p-4">
 											<div className="mb-2 flex items-center justify-between">
 												<span className="font-bold text-lg text-primary">{verb.verb}</span>
@@ -478,15 +476,24 @@ export function ActionVerbsTab({
 													<Button
 														variant="ghost"
 														size="sm"
-														className="size-8 p-0 opacity-0 transition-opacity group-hover:opacity-100"
+														className="size-8 p-0 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"
 														onClick={(e) => {
 															e.stopPropagation();
 															handleSaveActionVerb(verb, selectedVerbCategory);
 														}}
+														aria-label={t`Ajouter ce verbe aux favoris`}
 													>
 														<StarIcon className="size-4" />
 													</Button>
-													<CopyIcon className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+													<Button
+														variant="ghost"
+														size="sm"
+														className="size-8 p-0 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"
+														onClick={() => copyToClipboard(verb.verb)}
+														aria-label={t`Copier ce verbe`}
+													>
+														<CopyIcon className="size-4" />
+													</Button>
 												</div>
 											</div>
 											<p className="mb-2 text-muted-foreground text-xs">{verb.description}</p>
@@ -508,13 +515,15 @@ export function ActionVerbsTab({
 							<div className="flex flex-wrap gap-2">
 								{userActionVerbs.map((verb) => (
 									<Badge
+										asChild
 										key={verb.id}
 										variant="secondary"
 										className="cursor-pointer gap-1 px-3 py-1"
-										onClick={() => copyToClipboard(verb.verb)}
 									>
-										{verb.verb}
-										<CopyIcon className="size-3" />
+										<button type="button" onClick={() => copyToClipboard(verb.verb)}>
+											{verb.verb}
+											<CopyIcon className="size-3" />
+										</button>
 									</Badge>
 								))}
 							</div>
@@ -552,7 +561,7 @@ export function QuantificationTab() {
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: index * 0.1 }}
 							>
-								<Card className="h-full transition-all hover:shadow-md">
+								<Card className="h-full transition-shadow hover:shadow-md">
 									<CardHeader className="pb-2">
 										<CardTitle className="flex items-center gap-2 text-base">
 											{index === 0 && <NumberCircleOneIcon className="size-5 text-blue-500" weight="fill" />}
@@ -636,6 +645,7 @@ export function RefinementTab({ copyToClipboard }: RefinementTabProps) {
 														size="sm"
 														className="ml-auto size-8 p-0"
 														onClick={() => copyToClipboard(refinement.refined)}
+														aria-label={t`Copier la version améliorée`}
 													>
 														<CopyIcon className="size-4" />
 													</Button>

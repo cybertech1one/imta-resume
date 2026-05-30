@@ -457,7 +457,7 @@ export const jobRecommendationService = {
 
 		// Filter by preferred fields if specified
 		if (preferences?.preferredFields && preferences.preferredFields.length > 0) {
-			// Note: This assumes partnerJobPosting has a field column - adjust if needed
+			jobConditions.push(inArray(partnerJobPosting.field, preferences.preferredFields));
 		}
 
 		// Filter by job types if specified

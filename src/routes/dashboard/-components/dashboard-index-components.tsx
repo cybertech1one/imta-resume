@@ -49,6 +49,9 @@ import type {
 import { formatFutureDate, formatLocalizedDate, formatRelativeTime } from "./dashboard-index-utils";
 import { formatActivityAction, formatActivityCategory } from "./display-utils";
 
+// Fixed skeleton bar heights (%) cycled by index to avoid visual jank from randomness
+const SKELETON_BAR_HEIGHTS = [55, 80, 40, 70] as const;
+
 const ProgressRing = memo(({ value, size = 140, strokeWidth = 8, label }: ProgressRingProps) => {
 	const radius = (size - strokeWidth) / 2;
 	const circumference = 2 * Math.PI * radius;
@@ -554,8 +557,8 @@ export const ChartsSection = memo(
 				<CardContent>
 					{statsLoading ? (
 						<div className="flex h-40 items-end gap-2">
-							{[1, 2, 3, 4].map((i) => (
-								<Skeleton key={i} className="flex-1" style={{ height: `${Math.random() * 80 + 20}%` }} />
+							{SKELETON_BAR_HEIGHTS.map((height, i) => (
+								<Skeleton key={i} className="flex-1" style={{ height: `${height}%` }} />
 							))}
 						</div>
 					) : (
