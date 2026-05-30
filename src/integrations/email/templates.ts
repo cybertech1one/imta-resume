@@ -25,7 +25,7 @@ const C = {
 	card: "#ffffff",
 	calloutBg: "#ecfdf5",
 	calloutBorder: "#6ee7b7",
-	supportEmail: "support@imta.ma",
+	supportEmail: "seoranker2019@gmail.com",
 };
 
 /** Absolute app URL with no trailing slash. */
