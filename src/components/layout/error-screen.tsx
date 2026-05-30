@@ -13,14 +13,14 @@ export function ErrorScreen({ error, reset }: ErrorComponentProps) {
 			<Alert>
 				<WarningIcon />
 				<AlertTitle>
-					<Trans>An error occurred while loading the page.</Trans>
+					<Trans>Une erreur est survenue pendant le chargement de la page.</Trans>
 				</AlertTitle>
 				<AlertDescription>{error.message}</AlertDescription>
 			</Alert>
 
 			<Button onClick={reset}>
 				<ArrowClockwiseIcon />
-				<Trans>Refresh</Trans>
+				<Trans>Actualiser</Trans>
 			</Button>
 		</div>
 	);

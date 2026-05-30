@@ -35,6 +35,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { orpc } from "@/integrations/orpc/client";
 import { cn } from "@/utils/style";
+import { translateExpertiseTag } from "../../-components/display-utils";
 import { DashboardHeader } from "../../-components/header";
 import { avatarColors, specializationIcons } from "./ai-mentor-config";
 import type { ConversationMessage, MentorTemplate, OnboardingState } from "./ai-mentor-types";
@@ -703,7 +704,7 @@ export function MentorsTab({
 										<div className="flex flex-wrap gap-1">
 											{(mentor.expertise as string[]).slice(0, 3).map((skill) => (
 												<Badge key={skill} variant="outline" className="text-xs">
-													{skill}
+													{translateExpertiseTag(skill)}
 												</Badge>
 											))}
 										</div>

@@ -53,112 +53,57 @@ import type { ContextType, Industry, PitchLength, SavedPitch } from "./elevator-
 export function HeroSection() {
 	return (
 		<motion.div
-			className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 p-8 md:p-12"
-			style={{
-				background:
-					"linear-gradient(135deg, oklch(0.7 0.18 200 / 0.15) 0%, oklch(0.6 0.2 280 / 0.1) 50%, oklch(0.65 0.15 320 / 0.08) 100%)",
-			}}
+			className="mb-6 overflow-hidden rounded-lg border bg-card"
 			initial={false}
 			animate={{ opacity: 1, y: 0 }}
-			transition={{ duration: 0.6, ease: "easeOut" }}
+			transition={{ duration: 0.25, ease: "easeOut" }}
 		>
-			{/* Animated background elements */}
-			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/10 blur-3xl"
-					animate={{
-						scale: [1, 1.2, 1],
-						rotate: [0, 10, 0],
-						opacity: [0.5, 0.3, 0.5],
-					}}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute -bottom-32 -left-32 size-96 rounded-full bg-gradient-to-tr from-purple-500/15 to-pink-500/10 blur-3xl"
-					animate={{
-						scale: [1.2, 1, 1.2],
-						rotate: [0, -10, 0],
-						opacity: [0.3, 0.5, 0.3],
-					}}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-			</div>
-
-			<div className="relative z-10">
-				<motion.div
-					className="mb-3 flex items-center gap-2"
-					initial={false}
-					animate={{ opacity: 1, x: 0 }}
-					transition={{ delay: 0.2 }}
-				>
-					<SparkleIcon className="size-5 text-primary" weight="fill" />
-					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>Perfect Presentation</Trans>
-					</span>
-				</motion.div>
-
-				<motion.h2
-					className="mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text font-bold text-3xl text-transparent tracking-tight md:text-4xl lg:text-5xl"
-					initial={false}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ delay: 0.3 }}
-				>
-					<Trans>Elevator Pitch Generator</Trans>
-				</motion.h2>
-
-				<motion.p
-					className="mb-8 max-w-2xl text-lg text-muted-foreground"
-					initial={false}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ delay: 0.4 }}
-				>
-					<Trans>
-						Create a compelling pitch in a few steps. Choose your duration, adapt to the context, and practice until
-						perfection.
-					</Trans>
-				</motion.p>
-
-				{/* Quick Stats */}
-				<motion.div
-					className="flex flex-wrap items-center gap-6"
-					initial={false}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 0.5 }}
-				>
-					<div className="flex items-center gap-2">
-						<div className="flex size-10 items-center justify-center rounded-full bg-primary/10">
-							<ClockIcon className="size-5 text-primary" weight="duotone" />
+			<div className="grid gap-0 md:grid-cols-[1.25fr_0.75fr]">
+				<div className="space-y-4 p-5 md:p-6">
+					<div className="flex items-center gap-3">
+						<div className="flex size-11 items-center justify-center rounded-lg bg-primary/10">
+							<MicrophoneIcon className="size-5 text-primary" weight="duotone" />
 						</div>
 						<div>
-							<p className="font-bold text-xl">3</p>
+							<h2 className="font-semibold text-xl tracking-tight md:text-2xl">
+								<Trans>Construisez un pitch clair pour l'entretien</Trans>
+							</h2>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Durations</Trans>
+								<Trans>
+									Une présentation courte, concrète et adaptée aux stages, emplois et candidatures spontanées.
+								</Trans>
 							</p>
 						</div>
 					</div>
-					<div className="flex items-center gap-2">
-						<div className="flex size-10 items-center justify-center rounded-full bg-purple-500/10">
-							<BuildingsIcon className="size-5 text-purple-500" weight="duotone" />
-						</div>
-						<div>
-							<p className="font-bold text-xl">7</p>
-							<p className="text-muted-foreground text-sm">
-								<Trans>Industries</Trans>
-							</p>
-						</div>
+					<div className="grid gap-3 sm:grid-cols-3">
+						{[
+							{ icon: ClockIcon, value: "30s / 60s / 2min", label: <Trans>Durée maîtrisée</Trans> },
+							{ icon: TargetIcon, value: "5", label: <Trans>Étapes simples</Trans> },
+							{ icon: BuildingsIcon, value: "IMTA", label: <Trans>Domaines métiers</Trans> },
+						].map((item) => (
+							<div key={item.value} className="rounded-lg border bg-muted/20 p-3">
+								<item.icon className="mb-2 size-4 text-primary" weight="duotone" />
+								<p className="font-semibold text-sm">{item.value}</p>
+								<p className="text-muted-foreground text-xs">{item.label}</p>
+							</div>
+						))}
 					</div>
-					<div className="flex items-center gap-2">
-						<div className="flex size-10 items-center justify-center rounded-full bg-green-500/10">
-							<TargetIcon className="size-5 text-green-500" weight="duotone" />
-						</div>
-						<div>
-							<p className="font-bold text-xl">5</p>
-							<p className="text-muted-foreground text-sm">
-								<Trans>Steps</Trans>
-							</p>
-						</div>
-					</div>
-				</motion.div>
+				</div>
+				<div className="border-t bg-primary/5 p-5 md:border-t-0 md:border-l md:p-6">
+					<p className="mb-3 font-medium text-sm">
+						<Trans>Structure recommandée</Trans>
+					</p>
+					<ol className="space-y-2 text-sm">
+						{["Accroche", "Profil", "Compétence", "Preuve", "Demande"].map((step, index) => (
+							<li key={step} className="flex items-center gap-2">
+								<span className="flex size-6 items-center justify-center rounded-full bg-background font-semibold text-primary text-xs">
+									{index + 1}
+								</span>
+								<span>{step}</span>
+							</li>
+						))}
+					</ol>
+				</div>
 			</div>
 		</motion.div>
 	);
@@ -232,10 +177,10 @@ export function BuilderTab({
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2 text-lg">
 							<ClockIcon className="size-5 text-primary" weight="duotone" />
-							<Trans>Pitch Duration</Trans>
+							<Trans>Durée du pitch</Trans>
 						</CardTitle>
 						<CardDescription>
-							<Trans>Choose the length adapted to your context</Trans>
+							<Trans>Choisissez un format adapté à la situation</Trans>
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-3">
@@ -263,7 +208,7 @@ export function BuilderTab({
 												<p className="text-muted-foreground text-xs">{config.description}</p>
 											</div>
 										</div>
-										<Badge variant="outline">~{config.words} words</Badge>
+										<Badge variant="outline">~{config.words} mots</Badge>
 									</div>
 								</motion.div>
 							),
@@ -276,10 +221,10 @@ export function BuilderTab({
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2 text-lg">
 							<TargetIcon className="size-5 text-primary" weight="duotone" />
-							<Trans>Context</Trans>
+							<Trans>Contexte</Trans>
 						</CardTitle>
 						<CardDescription>
-							<Trans>Adapt the tone to the situation</Trans>
+							<Trans>Adaptez le ton à votre objectif</Trans>
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-2">
@@ -317,7 +262,7 @@ export function BuilderTab({
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2 text-lg">
 							<BuildingsIcon className="size-5 text-primary" weight="duotone" />
-							<Trans>Sector</Trans>
+							<Trans>Domaine</Trans>
 						</CardTitle>
 					</CardHeader>
 					<CardContent>
@@ -341,7 +286,7 @@ export function BuilderTab({
 						</Select>
 						<Button variant="outline" size="sm" className="mt-3 w-full gap-2" onClick={onApplyTemplate}>
 							<SparkleIcon className="size-4" />
-							<Trans>Apply a template</Trans>
+							<Trans>Appliquer un modèle</Trans>
 						</Button>
 					</CardContent>
 				</Card>
@@ -354,7 +299,7 @@ export function BuilderTab({
 						<CardTitle className="flex items-center justify-between">
 							<span className="flex items-center gap-2">
 								<ListBulletsIcon className="size-5 text-primary" weight="duotone" />
-								<Trans>Step-by-Step Construction</Trans>
+								<Trans>Construction guidée</Trans>
 							</span>
 							<Badge variant="outline">
 								{currentStep + 1} / {pitchSteps.length}
@@ -412,10 +357,10 @@ export function BuilderTab({
 						<div className="flex items-center justify-between pt-4">
 							<Button variant="outline" onClick={onPrevStep} disabled={currentStep === 0} className="gap-2">
 								<ArrowLeftIcon className="size-4" />
-								<Trans>Previous</Trans>
+								<Trans>Précédent</Trans>
 							</Button>
 							<Button onClick={onNextStep} disabled={currentStep === pitchSteps.length - 1} className="gap-2">
-								<Trans>Next</Trans>
+								<Trans>Suivant</Trans>
 								<ArrowRightIcon className="size-4" />
 							</Button>
 						</div>
@@ -449,7 +394,7 @@ export function BuilderTab({
 						<CardTitle className="flex items-center justify-between">
 							<span className="flex items-center gap-2">
 								<MagnifyingGlassIcon className="size-5 text-primary" weight="duotone" />
-								<Trans>Preview</Trans>
+								<Trans>Mon pitch</Trans>
 							</span>
 							<div className="flex gap-2">
 								<Button variant="ghost" size="sm" onClick={onCopyPitch} className="size-8 p-0">
@@ -490,13 +435,13 @@ export function BuilderTab({
 											{wordCount}
 										</p>
 										<p className="text-muted-foreground text-xs">
-											<Trans>words (target: {targetWords})</Trans>
+											<Trans>mots (objectif : {targetWords})</Trans>
 										</p>
 									</div>
 									<div className="rounded-lg border bg-card p-3 text-center">
 										<p className="font-bold text-2xl text-blue-600 dark:text-blue-400">~{estimatedSeconds}s</p>
 										<p className="text-muted-foreground text-xs">
-											<Trans>estimated (target: {targetSeconds}s)</Trans>
+											<Trans>estimé (objectif : {targetSeconds}s)</Trans>
 										</p>
 									</div>
 								</div>
@@ -505,7 +450,7 @@ export function BuilderTab({
 								<div className="space-y-2">
 									<div className="flex justify-between text-sm">
 										<span className="text-muted-foreground">
-											<Trans>Progress</Trans>
+											<Trans>Progression</Trans>
 										</span>
 										<span
 											className={cn(isOverLimit ? "text-red-600" : isUnderLimit ? "text-amber-600" : "text-green-600")}
@@ -524,7 +469,7 @@ export function BuilderTab({
 									<div className="rounded-lg border border-red-500/30 bg-red-50/50 p-3 dark:bg-red-950/20">
 										<p className="flex items-center gap-2 text-red-700 text-sm dark:text-red-400">
 											<CaretRightIcon className="size-4" />
-											<Trans>Your pitch is too long. Try to shorten it.</Trans>
+											<Trans>Votre pitch est trop long. Raccourcissez les phrases les moins utiles.</Trans>
 										</p>
 									</div>
 								)}
@@ -532,7 +477,7 @@ export function BuilderTab({
 									<div className="rounded-lg border border-amber-500/30 bg-amber-50/50 p-3 dark:bg-amber-950/20">
 										<p className="flex items-center gap-2 text-amber-700 text-sm dark:text-amber-400">
 											<CaretRightIcon className="size-4" />
-											<Trans>Your pitch is a bit short. Add more details.</Trans>
+											<Trans>Votre pitch est un peu court. Ajoutez un exemple concret.</Trans>
 										</p>
 									</div>
 								)}
@@ -541,7 +486,7 @@ export function BuilderTab({
 							<div className="flex flex-col items-center justify-center py-8 text-center">
 								<MicrophoneIcon className="mb-4 size-12 text-muted-foreground/50" weight="duotone" />
 								<p className="text-muted-foreground">
-									<Trans>Your pitch will appear here</Trans>
+									<Trans>Votre pitch apparaîtra ici</Trans>
 								</p>
 							</div>
 						)}
@@ -553,23 +498,23 @@ export function BuilderTab({
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2 text-lg">
 							<FloppyDiskIcon className="size-5 text-primary" weight="duotone" />
-							<Trans>Save</Trans>
+							<Trans>Enregistrer</Trans>
 						</CardTitle>
 					</CardHeader>
 					<CardContent className="space-y-3">
 						<div className="space-y-2">
 							<Label>
-								<Trans>Pitch name</Trans>
+								<Trans>Nom du pitch</Trans>
 							</Label>
 							<Input
-								placeholder={t`E.g.: Google interview pitch`}
+								placeholder={t`Ex. : Entretien stage clinique`}
 								value={pitchName}
 								onChange={(e) => setPitchName(e.target.value)}
 							/>
 						</div>
 						<Button className="w-full gap-2" onClick={onSavePitch} disabled={!generatedPitch.trim()}>
 							<FloppyDiskIcon className="size-4" />
-							{editingPitch ? <Trans>Update</Trans> : <Trans>Save</Trans>}
+							{editingPitch ? <Trans>Mettre à jour</Trans> : <Trans>Enregistrer</Trans>}
 						</Button>
 					</CardContent>
 				</Card>
@@ -606,7 +551,7 @@ export function TemplatesTab() {
 												size="sm"
 												onClick={() => {
 													navigator.clipboard.writeText(content);
-													toast.success(t`Template copied`);
+													toast.success(t`Modèle copié`);
 												}}
 											>
 												<CopyIcon className="size-4" />
@@ -662,10 +607,10 @@ export function PracticeTab({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<MicrophoneIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Recording Simulator</Trans>
+						<Trans>Entraînement chronométré</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Practice your timing with this stopwatch</Trans>
+						<Trans>Testez votre rythme avant un entretien réel</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-6">
@@ -692,7 +637,7 @@ export function PracticeTab({
 						</div>
 
 						<p className="mb-4 text-muted-foreground">
-							<Trans>Target: {formatTime(pitchLengthConfig[selectedLength].seconds)}</Trans>
+							<Trans>Objectif : {formatTime(pitchLengthConfig[selectedLength].seconds)}</Trans>
 						</p>
 
 						{/* Progress */}
@@ -708,7 +653,7 @@ export function PracticeTab({
 							{!isRecording ? (
 								<Button size="lg" className="gap-2" onClick={onStartRecording}>
 									<PlayIcon className="size-5" weight="fill" />
-									<Trans>Start</Trans>
+									<Trans>Démarrer</Trans>
 								</Button>
 							) : (
 								<>
@@ -716,7 +661,7 @@ export function PracticeTab({
 										{isPaused ? (
 											<>
 												<PlayIcon className="size-5" weight="fill" />
-												<Trans>Resume</Trans>
+												<Trans>Reprendre</Trans>
 											</>
 										) : (
 											<>
@@ -727,7 +672,7 @@ export function PracticeTab({
 									</Button>
 									<Button size="lg" variant="destructive" className="gap-2" onClick={onStopRecording}>
 										<StopIcon className="size-5" weight="fill" />
-										<Trans>Stop</Trans>
+										<Trans>Arrêter</Trans>
 									</Button>
 								</>
 							)}
@@ -739,20 +684,20 @@ export function PracticeTab({
 						<motion.div initial={false} animate={{ opacity: 1, y: 0 }} className="rounded-lg border bg-muted/30 p-4">
 							<h4 className="mb-2 flex items-center gap-2 font-medium">
 								<LightbulbIcon className="size-4 text-amber-500" weight="fill" />
-								<Trans>During your pitch</Trans>
+								<Trans>Pendant votre pitch</Trans>
 							</h4>
 							<ul className="space-y-1 text-muted-foreground text-sm">
 								<li>
-									<Trans>Breathe calmly and speak clearly</Trans>
+									<Trans>Respirez calmement et articulez</Trans>
 								</li>
 								<li>
-									<Trans>Maintain imaginary eye contact</Trans>
+									<Trans>Gardez un contact visuel naturel</Trans>
 								</li>
 								<li>
-									<Trans>Vary your intonation</Trans>
+									<Trans>Variez légèrement l'intonation</Trans>
 								</li>
 								<li>
-									<Trans>Smile to project energy</Trans>
+									<Trans>Souriez pour transmettre de l'énergie</Trans>
 								</li>
 							</ul>
 						</motion.div>
@@ -765,10 +710,10 @@ export function PracticeTab({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<ClipboardTextIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Your Pitch</Trans>
+						<Trans>Votre pitch</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Read your pitch during practice</Trans>
+						<Trans>Lisez-le au début, puis entraînez-vous sans le regarder</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -779,7 +724,7 @@ export function PracticeTab({
 									<p className="whitespace-pre-wrap text-lg leading-relaxed">{generatedPitch}</p>
 								</div>
 								<div className="flex items-center justify-between text-muted-foreground text-sm">
-									<span>{wordCount} words</span>
+									<span>{wordCount} mots</span>
 									<span>~{estimatedSeconds}s</span>
 								</div>
 							</div>
@@ -788,11 +733,11 @@ export function PracticeTab({
 						<div className="flex flex-col items-center justify-center py-16 text-center">
 							<PencilSimpleIcon className="mb-4 size-12 text-muted-foreground/50" weight="duotone" />
 							<p className="mb-4 text-muted-foreground">
-								<Trans>Create a pitch first in the Builder tab</Trans>
+								<Trans>Créez d'abord un pitch dans l'onglet Créer</Trans>
 							</p>
 							<Button variant="outline" onClick={onGoToBuilder}>
 								<CaretRightIcon className="mr-2 size-4" />
-								<Trans>Go to builder</Trans>
+								<Trans>Aller à la création</Trans>
 							</Button>
 						</div>
 					)}
@@ -811,12 +756,12 @@ export function TipsTab() {
 				{(["vocal", "body", "content", "mental"] as const).map((category) => {
 					const categoryTips = deliveryTips.filter((tip) => tip.category === category);
 					const categoryConfig = {
-						vocal: { title: t`Voice and Diction`, color: "border-blue-500/30 bg-blue-50/50 dark:bg-blue-950/20" },
+						vocal: { title: t`Voix et diction`, color: "border-blue-500/30 bg-blue-50/50 dark:bg-blue-950/20" },
 						body: {
-							title: t`Body Language`,
+							title: t`Langage corporel`,
 							color: "border-purple-500/30 bg-purple-50/50 dark:bg-purple-950/20",
 						},
-						content: { title: t`Content`, color: "border-green-500/30 bg-green-50/50 dark:bg-green-950/20" },
+						content: { title: t`Contenu`, color: "border-green-500/30 bg-green-50/50 dark:bg-green-950/20" },
 						mental: { title: t`Mental`, color: "border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/20" },
 					};
 
@@ -859,12 +804,12 @@ export function TipsTab() {
 					</div>
 					<div className="flex-1 text-center md:text-left">
 						<h3 className="mb-1 font-semibold text-lg">
-							<Trans>The Golden Rule</Trans>
+							<Trans>La règle d'or</Trans>
 						</h3>
 						<p className="text-muted-foreground text-sm">
 							<Trans>
-								Practice your pitch at least 20 times before an important situation. Repetition builds confidence and
-								allows you to deliver a natural and authentic message.
+								Répétez votre pitch plusieurs fois avant une situation importante. L'objectif est de parler
+								naturellement, sans réciter mot à mot.
 							</Trans>
 						</p>
 					</div>
@@ -912,7 +857,7 @@ export function ExamplesTab() {
 								<div>
 									<h4 className="mb-2 flex items-center gap-2 font-medium text-sm">
 										<CheckCircleIcon className="size-4 text-green-500" weight="fill" />
-										<Trans>Strengths</Trans>
+										<Trans>Points forts</Trans>
 									</h4>
 									<div className="flex flex-wrap gap-2">
 										{example.highlights.map((highlight) => (
@@ -929,11 +874,11 @@ export function ExamplesTab() {
 									className="w-full gap-2"
 									onClick={() => {
 										navigator.clipboard.writeText(example.content);
-										toast.success(t`Example copied`);
+										toast.success(t`Exemple copié`);
 									}}
 								>
 									<CopyIcon className="size-4" />
-									<Trans>Copy this example</Trans>
+									<Trans>Copier cet exemple</Trans>
 								</Button>
 							</CardContent>
 						</Card>
@@ -976,7 +921,7 @@ export function SavedPitchesTab({ savedPitches, onLoadPitch, onDeletePitch, onGo
 										</Badge>
 									</div>
 									<CardDescription>
-										{new Date(pitch.createdAt).toLocaleDateString(undefined, {
+										{new Date(pitch.createdAt).toLocaleDateString("fr-FR", {
 											day: "numeric",
 											month: "long",
 											year: "numeric",
@@ -987,14 +932,14 @@ export function SavedPitchesTab({ savedPitches, onLoadPitch, onDeletePitch, onGo
 									<p className="line-clamp-3 text-muted-foreground text-sm">{pitch.content}</p>
 
 									<div className="flex items-center gap-4 text-muted-foreground text-sm">
-										<span>{pitch.wordCount} words</span>
+										<span>{pitch.wordCount} mots</span>
 										<span>~{pitch.estimatedTime}s</span>
 									</div>
 
 									<div className="flex gap-2">
 										<Button variant="outline" size="sm" className="flex-1 gap-1" onClick={() => onLoadPitch(pitch)}>
 											<PencilSimpleIcon className="size-4" />
-											<Trans>Edit</Trans>
+											<Trans>Modifier</Trans>
 										</Button>
 										<Button
 											variant="outline"
@@ -1002,7 +947,7 @@ export function SavedPitchesTab({ savedPitches, onLoadPitch, onDeletePitch, onGo
 											className="gap-1"
 											onClick={() => {
 												navigator.clipboard.writeText(pitch.content);
-												toast.success(t`Pitch copied`);
+												toast.success(t`Pitch copié`);
 											}}
 										>
 											<CopyIcon className="size-4" />
@@ -1030,14 +975,14 @@ export function SavedPitchesTab({ savedPitches, onLoadPitch, onDeletePitch, onGo
 			<CardContent className="flex flex-col items-center justify-center py-16">
 				<BookmarkSimpleIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 				<h3 className="mb-2 font-semibold text-lg">
-					<Trans>No saved pitches</Trans>
+					<Trans>Aucun pitch enregistré</Trans>
 				</h3>
 				<p className="mb-4 text-center text-muted-foreground">
-					<Trans>Create and save your pitches to find them here</Trans>
+					<Trans>Créez et enregistrez vos pitchs pour les retrouver ici</Trans>
 				</p>
 				<Button onClick={onGoToBuilder}>
 					<PlusIcon className="mr-2 size-4" />
-					<Trans>Create a pitch</Trans>
+					<Trans>Créer un pitch</Trans>
 				</Button>
 			</CardContent>
 		</Card>

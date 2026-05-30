@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
+import { formatFieldName, formatSkillCategory } from "../../-components/display-utils";
 
 export type SkillLevel = "novice" | "beginner" | "intermediate" | "advanced" | "expert";
 
@@ -133,12 +134,12 @@ export function AssessmentCard({ assessment }: { assessment: Assessment }) {
 							<div className="flex flex-wrap gap-3 text-muted-foreground text-xs">
 								<span className="flex items-center gap-1">
 									<ListChecksIcon className="size-3" />
-									<span className="capitalize">{assessment.category}</span>
+									<span>{formatSkillCategory(assessment.category)}</span>
 								</span>
 								{assessment.field && (
 									<span className="flex items-center gap-1">
 										<TargetIcon className="size-3" />
-										<span className="capitalize">{assessment.field}</span>
+										<span>{formatFieldName(assessment.field)}</span>
 									</span>
 								)}
 								{assessment.timeSpent != null && (

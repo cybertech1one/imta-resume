@@ -58,6 +58,16 @@ import type {
 	VerbCategory,
 } from "./experience-optimizer-types";
 
+const categoryLabels: Record<string, string> = {
+	communication: "Communication",
+	leadership: "Encadrement",
+	technical: "Technique",
+};
+
+function formatCategoryLabel(category: string) {
+	return categoryLabels[category.toLowerCase()] ?? category;
+}
+
 // =============================================================================
 // ANIMATION VARIANTS
 // =============================================================================
@@ -111,27 +121,6 @@ export function HeroSection({ optimizationHistoryLength }: HeroSectionProps) {
 					"linear-gradient(135deg, oklch(0.65 0.18 200 / 0.15) 0%, oklch(0.6 0.2 260 / 0.1) 35%, oklch(0.7 0.15 320 / 0.08) 70%, oklch(0.65 0.12 40 / 0.1) 100%)",
 			}}
 		>
-			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-blue-500/20 to-indigo-500/10 blur-3xl"
-					animate={{
-						scale: [1, 1.2, 1],
-						rotate: [0, 15, 0],
-						opacity: [0.5, 0.3, 0.5],
-					}}
-					transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute -bottom-32 -left-32 size-96 rounded-full bg-gradient-to-tr from-purple-500/15 to-pink-500/10 blur-3xl"
-					animate={{
-						scale: [1.2, 1, 1.2],
-						rotate: [0, -15, 0],
-						opacity: [0.3, 0.5, 0.3],
-					}}
-					transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-				/>
-			</div>
-
 			<div className="relative z-10">
 				<motion.div
 					className="mb-3 flex items-center gap-2"
@@ -141,7 +130,7 @@ export function HeroSection({ optimizationHistoryLength }: HeroSectionProps) {
 				>
 					<SparkleIcon className="size-5 text-primary" weight="fill" />
 					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>Professional Optimization</Trans>
+						<Trans>Optimisation professionnelle</Trans>
 					</span>
 				</motion.div>
 
@@ -151,7 +140,7 @@ export function HeroSection({ optimizationHistoryLength }: HeroSectionProps) {
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.3 }}
 				>
-					<Trans>Transform Your Experience Into Impact</Trans>
+					<Trans>Transforme ton expérience en résultats concrets</Trans>
 				</motion.h2>
 
 				<motion.p
@@ -161,8 +150,8 @@ export function HeroSection({ optimizationHistoryLength }: HeroSectionProps) {
 					transition={{ delay: 0.4 }}
 				>
 					<Trans>
-						Convert your responsibilities into impactful achievements. Use our tools to create powerful bullet points
-						that catch recruiters' attention.
+						Convertis tes missions, stages et projets en puces CV claires, chiffrées et prêtes à attirer l'attention des
+						recruteurs.
 					</Trans>
 				</motion.p>
 
@@ -179,7 +168,7 @@ export function HeroSection({ optimizationHistoryLength }: HeroSectionProps) {
 						<div>
 							<p className="font-bold text-xl">3x</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>More impact</Trans>
+								<Trans>Plus d'impact</Trans>
 							</p>
 						</div>
 					</div>
@@ -190,7 +179,7 @@ export function HeroSection({ optimizationHistoryLength }: HeroSectionProps) {
 						<div>
 							<p className="font-bold text-xl">50+</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Action verbs</Trans>
+								<Trans>Verbes d'action</Trans>
 							</p>
 						</div>
 					</div>
@@ -201,7 +190,7 @@ export function HeroSection({ optimizationHistoryLength }: HeroSectionProps) {
 						<div>
 							<p className="font-bold text-xl">7</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Industries</Trans>
+								<Trans>Secteurs</Trans>
 							</p>
 						</div>
 					</div>
@@ -229,13 +218,13 @@ export function HeroSection({ optimizationHistoryLength }: HeroSectionProps) {
 // =============================================================================
 
 export const TAB_DEFINITIONS = [
-	{ value: "impact-generator", icon: SparkleIcon, label: () => t`Impact Generator` },
-	{ value: "action-verbs", icon: RocketLaunchIcon, label: () => t`Action Verbs` },
-	{ value: "quantification", icon: ChartBarIcon, label: () => t`Quantification` },
-	{ value: "refinement", icon: WrenchIcon, label: () => t`Refinement` },
-	{ value: "achievements", icon: StarIcon, label: () => t`Tips` },
-	{ value: "industry", icon: FactoryIcon, label: () => t`By Industry` },
-	{ value: "preview", icon: EyeIcon, label: () => t`Preview` },
+	{ value: "impact-generator", icon: SparkleIcon, label: () => t`Générateur d'impact` },
+	{ value: "action-verbs", icon: RocketLaunchIcon, label: () => t`Verbes d'action` },
+	{ value: "quantification", icon: ChartBarIcon, label: () => t`Chiffrage` },
+	{ value: "refinement", icon: WrenchIcon, label: () => t`Amélioration` },
+	{ value: "achievements", icon: StarIcon, label: () => t`Conseils` },
+	{ value: "industry", icon: FactoryIcon, label: () => t`Par secteur` },
+	{ value: "preview", icon: EyeIcon, label: () => t`Aperçu` },
 ] as const;
 
 // =============================================================================
@@ -267,10 +256,10 @@ export function ImpactGeneratorTab({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<SparkleIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Impact Statement Generator</Trans>
+						<Trans>Générateur de phrases d'impact</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Transform your job descriptions into impactful achievements with before/after examples</Trans>
+						<Trans>Transforme tes missions en réalisations crédibles avec des exemples avant/après</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-6">
@@ -278,7 +267,7 @@ export function ImpactGeneratorTab({
 					<div className="space-y-4">
 						<h3 className="flex items-center gap-2 font-semibold">
 							<ArrowsClockwiseIcon className="size-4 text-primary" />
-							<Trans>Transformation Examples</Trans>
+							<Trans>Exemples de transformation</Trans>
 						</h3>
 						<ScrollArea className="h-96">
 							<div className="space-y-4 pr-4">
@@ -296,10 +285,10 @@ export function ImpactGeneratorTab({
 													<div className="border-r border-b bg-red-50/50 p-4 md:border-b-0 dark:bg-red-950/20">
 														<div className="mb-2 flex items-center gap-2">
 															<Badge className="bg-red-500 text-white">
-																<Trans>Before</Trans>
+																<Trans>Avant</Trans>
 															</Badge>
 															<Badge variant="outline" className="capitalize">
-																{example.category}
+																{formatCategoryLabel(example.category)}
 															</Badge>
 														</div>
 														<p className="text-muted-foreground text-sm">{example.before}</p>
@@ -308,7 +297,7 @@ export function ImpactGeneratorTab({
 													<div className="bg-green-50/50 p-4 dark:bg-green-950/20">
 														<div className="mb-2 flex items-center gap-2">
 															<Badge className="bg-green-500 text-white">
-																<Trans>After</Trans>
+																<Trans>Après</Trans>
 															</Badge>
 															<Button
 																variant="ghost"
@@ -342,10 +331,10 @@ export function ImpactGeneratorTab({
 					<div className="grid gap-6 lg:grid-cols-2">
 						<div className="space-y-4">
 							<Label>
-								<Trans>Your text to optimize</Trans>
+								<Trans>Ton texte à améliorer</Trans>
 							</Label>
 							<Textarea
-								placeholder={t`Enter your job description or responsibility...`}
+								placeholder={t`Décris une mission, un stage ou une responsabilité...`}
 								className="min-h-32 resize-none"
 								value={inputText}
 								onChange={(e) => setInputText(e.target.value)}
@@ -364,12 +353,12 @@ export function ImpactGeneratorTab({
 										>
 											<SparkleIcon className="size-5" />
 										</motion.div>
-										<Trans>Optimizing...</Trans>
+										<Trans>Amélioration...</Trans>
 									</>
 								) : (
 									<>
 										<SparkleIcon className="size-5" weight="fill" />
-										<Trans>Optimize my text</Trans>
+										<Trans>Améliorer mon texte</Trans>
 									</>
 								)}
 							</Button>
@@ -378,12 +367,12 @@ export function ImpactGeneratorTab({
 						<div className="space-y-4">
 							<div className="flex items-center justify-between">
 								<Label>
-									<Trans>Optimized result</Trans>
+									<Trans>Résultat amélioré</Trans>
 								</Label>
 								{optimizedText && (
 									<Button variant="ghost" size="sm" className="gap-1" onClick={() => copyToClipboard(optimizedText)}>
 										<CopyIcon className="size-4" />
-										<Trans>Copy</Trans>
+										<Trans>Copier</Trans>
 									</Button>
 								)}
 							</div>
@@ -399,7 +388,7 @@ export function ImpactGeneratorTab({
 								<div className="flex flex-col items-center justify-center rounded-lg border-2 border-muted border-dashed p-8 text-center">
 									<SparkleIcon className="mb-4 size-12 text-muted-foreground/50" weight="duotone" />
 									<p className="text-muted-foreground">
-										<Trans>Your optimized text will appear here</Trans>
+										<Trans>Ton texte amélioré apparaîtra ici</Trans>
 									</p>
 								</div>
 							)}
@@ -436,18 +425,18 @@ export function ActionVerbsTab({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<RocketLaunchIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Action Verbs by Category</Trans>
+						<Trans>Verbes d'action par catégorie</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Select a category to discover powerful action verbs with examples</Trans>
+						<Trans>Choisis une catégorie pour trouver des verbes forts et des exemples prêts à adapter</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-6">
 					{/* Category Selection */}
 					<div className="flex flex-wrap gap-3">
 						{[
-							{ value: "leadership" as VerbCategory, icon: UsersIcon, label: t`Leadership` },
-							{ value: "technical" as VerbCategory, icon: WrenchIcon, label: t`Technical` },
+							{ value: "leadership" as VerbCategory, icon: UsersIcon, label: t`Encadrement` },
+							{ value: "technical" as VerbCategory, icon: WrenchIcon, label: t`Technique` },
 							{ value: "communication" as VerbCategory, icon: HandshakeIcon, label: t`Communication` },
 						].map((category) => (
 							<Button
@@ -514,7 +503,7 @@ export function ActionVerbsTab({
 						<div className="mt-8 space-y-4">
 							<h3 className="flex items-center gap-2 font-semibold">
 								<StarIcon className="size-4 text-amber-500" weight="fill" />
-								<Trans>My favorite verbs</Trans>
+								<Trans>Mes verbes favoris</Trans>
 							</h3>
 							<div className="flex flex-wrap gap-2">
 								{userActionVerbs.map((verb) => (
@@ -548,10 +537,10 @@ export function QuantificationTab() {
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<ChartBarIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Quantification Help</Trans>
+						<Trans>Aide au chiffrage</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Learn to quantify your achievements with numbers, percentages, and metrics</Trans>
+						<Trans>Apprends à rendre tes réalisations plus solides avec des chiffres, délais et résultats</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -607,10 +596,10 @@ export function RefinementTab({ copyToClipboard }: RefinementTabProps) {
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<WrenchIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Bullet Point Refinement</Trans>
+						<Trans>Amélioration des puces CV</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Detailed transformation examples with changes explained step by step</Trans>
+						<Trans>Des exemples détaillés avec les changements expliqués étape par étape</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -629,7 +618,7 @@ export function RefinementTab({ copyToClipboard }: RefinementTabProps) {
 											<div className="space-y-2">
 												<Badge variant="outline" className="gap-1">
 													<ClipboardTextIcon className="size-3" />
-													<Trans>Original</Trans>
+													<Trans>Version initiale</Trans>
 												</Badge>
 												<p className="rounded-lg bg-muted/50 p-3 text-muted-foreground text-sm">
 													{refinement.original}
@@ -640,7 +629,7 @@ export function RefinementTab({ copyToClipboard }: RefinementTabProps) {
 												<div className="flex items-center gap-2">
 													<Badge className="gap-1 bg-green-500 text-white">
 														<CheckCircleIcon className="size-3" />
-														<Trans>Optimized</Trans>
+														<Trans>Version améliorée</Trans>
 													</Badge>
 													<Button
 														variant="ghost"
@@ -660,7 +649,7 @@ export function RefinementTab({ copyToClipboard }: RefinementTabProps) {
 										<div className="space-y-2">
 											<h4 className="flex items-center gap-2 font-medium text-sm">
 												<ArrowRightIcon className="size-4 text-primary" />
-												<Trans>Improvements made:</Trans>
+												<Trans>Améliorations apportées :</Trans>
 											</h4>
 											<div className="flex flex-wrap gap-2">
 												{refinement.changes.map((change, i) => (
@@ -698,10 +687,10 @@ export function AchievementsTab({ expandedTips, handleToggleTip }: AchievementsT
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<StarIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Tips for Highlighting Your Achievements</Trans>
+						<Trans>Conseils pour valoriser tes réalisations</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Proven techniques to transform your experiences into remarkable accomplishments</Trans>
+						<Trans>Des techniques simples pour transformer tes expériences en preuves concrètes</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -740,7 +729,7 @@ export function AchievementsTab({ expandedTips, handleToggleTip }: AchievementsT
 													<div className="mb-2 flex items-center gap-2">
 														<LightbulbIcon className="size-4 text-amber-500" weight="fill" />
 														<span className="font-medium text-sm">
-															<Trans>Example:</Trans>
+															<Trans>Exemple :</Trans>
 														</span>
 													</div>
 													<p className="text-sm">{tip.example}</p>
@@ -787,17 +776,17 @@ export function IndustryTab({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<FactoryIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Optimization by Industry</Trans>
+						<Trans>Optimisation par secteur</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Keywords, phrases, and tips specific to your industry</Trans>
+						<Trans>Mots-clés, phrases et conseils adaptés à ton domaine</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-6">
 					{/* Industry Selection */}
 					<div className="space-y-2">
 						<Label>
-							<Trans>Select your industry</Trans>
+							<Trans>Choisis ton secteur</Trans>
 						</Label>
 						<Select value={selectedIndustry} onValueChange={(v) => handleIndustryChange(v as Industry)}>
 							<SelectTrigger className="w-full md:w-80">
@@ -805,13 +794,13 @@ export function IndustryTab({
 							</SelectTrigger>
 							<SelectContent>
 								{[
-									{ value: "technology", icon: WrenchIcon, label: t`Technology / IT` },
-									{ value: "healthcare", icon: HeartbeatIcon, label: t`Healthcare / Medical` },
-									{ value: "finance", icon: ChartBarIcon, label: t`Finance / Banking` },
+									{ value: "technology", icon: WrenchIcon, label: t`Technologie / IT` },
+									{ value: "healthcare", icon: HeartbeatIcon, label: t`Santé / Médical` },
+									{ value: "finance", icon: ChartBarIcon, label: t`Finance / Banque` },
 									{ value: "marketing", icon: PresentationChartIcon, label: t`Marketing / Communication` },
-									{ value: "engineering", icon: FactoryIcon, label: t`Engineering / Industry` },
-									{ value: "education", icon: GraduationCapIcon, label: t`Education / Training` },
-									{ value: "general", icon: BookOpenIcon, label: t`General / Multi-sector` },
+									{ value: "engineering", icon: FactoryIcon, label: t`Ingénierie / Industrie` },
+									{ value: "education", icon: GraduationCapIcon, label: t`Éducation / Formation` },
+									{ value: "general", icon: BookOpenIcon, label: t`Général / Multi-secteur` },
 								].map((industry) => (
 									<SelectItem key={industry.value} value={industry.value}>
 										<div className="flex items-center gap-2">
@@ -836,7 +825,7 @@ export function IndustryTab({
 							<div className="space-y-3">
 								<h3 className="flex items-center gap-2 font-semibold">
 									<ListBulletsIcon className="size-4 text-primary" />
-									<Trans>Industry keywords</Trans>
+									<Trans>Mots-clés du secteur</Trans>
 								</h3>
 								<div className="flex flex-wrap gap-2">
 									{currentIndustry.keywords.map((keyword) => (
@@ -860,7 +849,7 @@ export function IndustryTab({
 								<div className="space-y-3">
 									<h3 className="flex items-center gap-2 font-semibold">
 										<StarIcon className="size-4 text-amber-500" weight="fill" />
-										<Trans>My favorite keywords</Trans>
+										<Trans>Mes mots-clés favoris</Trans>
 									</h3>
 									<div className="flex flex-wrap gap-2">
 										{industryPreference.favoriteKeywords.map((keyword) => (
@@ -882,7 +871,7 @@ export function IndustryTab({
 							<div className="space-y-3">
 								<h3 className="flex items-center gap-2 font-semibold">
 									<SparkleIcon className="size-4 text-primary" />
-									<Trans>Key phrases</Trans>
+									<Trans>Phrases clés</Trans>
 								</h3>
 								<div className="grid gap-2 md:grid-cols-2">
 									{currentIndustry.phrases.map((phrase, index) => (
@@ -908,7 +897,7 @@ export function IndustryTab({
 							<div className="space-y-3">
 								<h3 className="flex items-center gap-2 font-semibold">
 									<LightbulbIcon className="size-4 text-amber-500" weight="fill" />
-									<Trans>Specific tips</Trans>
+									<Trans>Conseils spécifiques</Trans>
 								</h3>
 								<Card className="border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/20">
 									<CardContent className="p-4">
@@ -947,10 +936,10 @@ export function PreviewTab({ allBeforeAfterExamples, copyToClipboard }: PreviewT
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<EyeIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Optimized Content Preview</Trans>
+						<Trans>Aperçu du contenu amélioré</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>View and copy your optimized bullet points</Trans>
+						<Trans>Consulte et copie les puces prêtes à utiliser dans ton CV</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-6">
@@ -958,7 +947,7 @@ export function PreviewTab({ allBeforeAfterExamples, copyToClipboard }: PreviewT
 					<div className="space-y-4">
 						<h3 className="flex items-center gap-2 font-semibold">
 							<ListBulletsIcon className="size-4 text-primary" />
-							<Trans>Optimized Bullet Point Examples</Trans>
+							<Trans>Exemples de puces améliorées</Trans>
 						</h3>
 						<div className="space-y-3">
 							{allBeforeAfterExamples.slice(0, 4).map((example, index) => (
@@ -973,7 +962,7 @@ export function PreviewTab({ allBeforeAfterExamples, copyToClipboard }: PreviewT
 										<div className="flex-1">
 											<div className="mb-2 flex items-center gap-2">
 												<Badge variant="outline" className="capitalize">
-													{example.category}
+													{formatCategoryLabel(example.category)}
 												</Badge>
 											</div>
 											<p className="font-medium text-green-700 dark:text-green-400">{example.after}</p>
@@ -1001,10 +990,10 @@ export function PreviewTab({ allBeforeAfterExamples, copyToClipboard }: PreviewT
 						</div>
 						<div className="text-center">
 							<h3 className="mb-1 font-semibold">
-								<Trans>Copy all examples</Trans>
+								<Trans>Copier tous les exemples</Trans>
 							</h3>
 							<p className="mb-4 text-muted-foreground text-sm">
-								<Trans>Copy all optimized bullet points to use in your resume</Trans>
+								<Trans>Copie toutes les puces améliorées pour les adapter dans ton CV</Trans>
 							</p>
 							<Button
 								className="gap-2"
@@ -1014,7 +1003,7 @@ export function PreviewTab({ allBeforeAfterExamples, copyToClipboard }: PreviewT
 								}}
 							>
 								<CopyIcon className="size-4" />
-								<Trans>Copy all examples</Trans>
+								<Trans>Copier tous les exemples</Trans>
 							</Button>
 						</div>
 					</div>
@@ -1038,13 +1027,12 @@ export function ProTipsSection() {
 					</div>
 					<div className="flex-1 text-center md:text-left">
 						<h3 className="mb-1 font-semibold text-lg">
-							<Trans>Pro Tip for Professional Experience</Trans>
+							<Trans>Conseil pour l'expérience professionnelle</Trans>
 						</h3>
 						<p className="text-muted-foreground text-sm">
 							<Trans>
-								The golden rule: every bullet point should start with a powerful action verb and include at least one
-								quantifiable metric. Transform your responsibilities into achievements using the CAR method (Challenge,
-								Action, Result).
+								La règle simple : commence chaque puce par un verbe d'action, ajoute un chiffre quand c'est possible,
+								puis montre le résultat. Utilise la méthode CAR : Contexte, Action, Résultat.
 							</Trans>
 						</p>
 					</div>

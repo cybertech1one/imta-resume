@@ -119,7 +119,7 @@ function RouteComponent() {
 								onValueChange={handleAiLanguageChange}
 								disabled={isLoadingAiLanguage || updateAiLanguageMutation.isPending}
 							>
-								<SelectTrigger className="w-[220px] transition-all duration-200 focus:shadow-sm focus:ring-2 focus:ring-primary/20">
+								<SelectTrigger className="w-full transition-all duration-200 focus:shadow-sm focus:ring-2 focus:ring-primary/20 sm:w-[220px]">
 									<SelectValue placeholder={t`Select language`} />
 								</SelectTrigger>
 								<SelectContent>

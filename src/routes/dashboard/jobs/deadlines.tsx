@@ -392,9 +392,9 @@ function DeadlineTrackerPage() {
 			<Card className="mb-6">
 				<CardContent className="p-4">
 					<div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-						<div className="flex flex-1 flex-wrap items-center gap-3">
+						<div className="flex flex-1 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
 							{/* Search */}
-							<div className="relative min-w-[200px] flex-1 lg:max-w-xs">
+							<div className="relative w-full min-w-[200px] sm:flex-1 lg:max-w-xs">
 								<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
 								<Input
 									placeholder={t`Search...`}
@@ -406,7 +406,7 @@ function DeadlineTrackerPage() {
 
 							{/* Status Filter */}
 							<Select value={statusFilter} onValueChange={(v) => setStatusFilter(v as DeadlineStatus | "all")}>
-								<SelectTrigger className="w-[160px]">
+								<SelectTrigger className="w-full sm:w-[160px]">
 									<FunnelIcon className="mr-2 size-4" />
 									<SelectValue placeholder={t`Status`} />
 								</SelectTrigger>
@@ -428,7 +428,7 @@ function DeadlineTrackerPage() {
 
 							{/* Priority Filter */}
 							<Select value={priorityFilter} onValueChange={(v) => setPriorityFilter(v as Priority | "all")}>
-								<SelectTrigger className="w-[160px]">
+								<SelectTrigger className="w-full sm:w-[160px]">
 									<SelectValue placeholder={t`Priority`} />
 								</SelectTrigger>
 								<SelectContent>

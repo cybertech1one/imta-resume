@@ -158,6 +158,15 @@ function ApplicationStatusBadge({ status }: { status: string }) {
 
 const QUICK_ACTIONS = [
 	{
+		id: "company-profile",
+		icon: BuildingsIcon,
+		label: msg`Profil de l'entreprise`,
+		description: msg`Complétez vos informations`,
+		to: "/dashboard/partner/profile",
+		color: "#0ea5e9",
+		primary: true,
+	},
+	{
 		id: "post-job",
 		icon: PlusIcon,
 		label: msg`Post a Job`,

@@ -338,8 +338,8 @@ function ResumeGalleryPage() {
 			{/* Filters */}
 			<Card className="mb-6">
 				<CardContent className="pt-6">
-					<div className="flex flex-col gap-4 md:flex-row md:items-end">
-						<div className="flex-1">
+					<div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-end">
+						<div className="w-full md:min-w-[220px] md:flex-1">
 							<div className="relative">
 								<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
 								<Input

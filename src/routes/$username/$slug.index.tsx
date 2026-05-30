@@ -34,8 +34,16 @@ export const Route = createFileRoute("/$username/$slug/")({
 			);
 
 			return { resume, username, slug };
-		} catch {
-			throw notFound();
+		} catch (error) {
+			// Only treat a genuinely missing/private resume as a 404. Any other
+			// error (notably NEED_PASSWORD for password-protected resumes) MUST be
+			// re-thrown so the route's `onError` handler can redirect the visitor to
+			// the password prompt. A blanket `catch` here would swallow NEED_PASSWORD
+			// and incorrectly show a 404 instead of unlocking the resume.
+			if (error instanceof ORPCError && error.code === "NOT_FOUND") {
+				throw notFound();
+			}
+			throw error;
 		}
 	},
 	head: ({ loaderData }) => {

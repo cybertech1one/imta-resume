@@ -1,15 +1,39 @@
 import { ORPCError } from "@orpc/server";
-import { and, count, desc, eq, ilike, or, sql } from "drizzle-orm";
+import { and, count, desc, eq, gt, ilike, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/integrations/drizzle/client";
 import {
+	auditLog,
 	partnerEvent,
 	partnerEventRegistration,
+	partnerInvite,
 	partnerJobApplication,
 	partnerJobPosting,
 	partnerProfile,
+	session as sessionTable,
+	user as userTable,
 } from "@/integrations/drizzle/schema";
+import { isSmtpEnabled, sendEmail } from "@/integrations/email/service";
+import { env } from "@/utils/env";
+import { generateId } from "@/utils/string";
 import { adminProcedure, protectedProcedure, publicProcedure } from "../context";
+
+/** Audit log helper — mirrors the admin service's audit pattern. */
+async function writeAuditLog(input: {
+	adminId: string;
+	action: string;
+	targetType?: string;
+	targetId?: string;
+	metadata?: Record<string, unknown>;
+}) {
+	await db.insert(auditLog).values({
+		adminId: input.adminId,
+		action: input.action,
+		targetType: input.targetType,
+		targetId: input.targetId,
+		metadata: input.metadata,
+	});
+}
 
 /**
  * Accepts both date-only (YYYY-MM-DD) and ISO datetime (YYYY-MM-DDTHH:mm:ss.sssZ) strings.
@@ -1210,7 +1234,7 @@ const suspendPartner = adminProcedure
 			reason: z.string().min(1),
 		}),
 	)
-	.handler(async ({ input }) => {
+	.handler(async ({ context, input }) => {
 		const [profile] = await db.select().from(partnerProfile).where(eq(partnerProfile.id, input.id)).limit(1);
 
 		if (!profile) {
@@ -1226,6 +1250,18 @@ const suspendPartner = adminProcedure
 			})
 			.where(eq(partnerProfile.id, input.id))
 			.returning();
+
+		// Hardening: force-logout the partner by deleting all their sessions so the
+		// suspension takes effect immediately (no waiting for the session to expire).
+		await db.delete(sessionTable).where(eq(sessionTable.userId, profile.userId));
+
+		await writeAuditLog({
+			adminId: context.user.id,
+			action: "suspend_partner",
+			targetType: "partner_profile",
+			targetId: input.id,
+			metadata: { reason: input.reason, userId: profile.userId },
+		});
 
 		return updated!;
 	});
@@ -1321,6 +1357,258 @@ const reviewEvent = adminProcedure
 	});
 
 // ============================================================================
+// PARTNER INVITATIONS (adminProcedure + a public lookup + a redeem)
+// ============================================================================
+
+const inviteStatusSchema = z.enum(["pending", "accepted", "revoked", "expired"]);
+
+const invitePartner = adminProcedure
+	.route({
+		method: "POST",
+		path: "/partner/admin/invite",
+		tags: ["Partner Admin"],
+		summary: "Invite a company to onboard as a partner",
+	})
+	.input(
+		z.object({
+			email: z.string().trim().toLowerCase().email().max(255),
+			companyName: z.string().trim().min(1).max(255),
+			companyNameFr: z.string().trim().max(255).optional(),
+			partnerType: partnerTypeSchema.optional().default("employer"),
+		}),
+	)
+	.handler(async ({ context, input }) => {
+		const email = input.email;
+
+		// Reject if this email already belongs to an existing partner user.
+		const [existingUser] = await db
+			.select({ id: userTable.id, role: userTable.role })
+			.from(userTable)
+			.where(eq(userTable.email, email))
+			.limit(1);
+		if (existingUser?.role === "partner") {
+			throw new ORPCError("CONFLICT", { message: "Cet email appartient déjà à un partenaire." });
+		}
+
+		// Reject if there is already a pending, non-expired invite for this email.
+		const [pendingInvite] = await db
+			.select({ id: partnerInvite.id })
+			.from(partnerInvite)
+			.where(
+				and(
+					eq(partnerInvite.email, email),
+					eq(partnerInvite.status, "pending"),
+					gt(partnerInvite.expiresAt, new Date()),
+				),
+			)
+			.limit(1);
+		if (pendingInvite) {
+			throw new ORPCError("CONFLICT", { message: "Une invitation est déjà en attente pour cet email." });
+		}
+
+		const token = `${generateId()}${generateId()}`.replace(/-/g, "");
+
+		const [invite] = await db
+			.insert(partnerInvite)
+			.values({
+				email,
+				companyName: input.companyName,
+				companyNameFr: input.companyNameFr ?? null,
+				partnerType: input.partnerType,
+				token,
+				invitedBy: context.user.id,
+				status: "pending",
+			})
+			.returning();
+
+		const inviteLink = `${env.APP_URL}/partner/join?token=${token}`;
+
+		// Best-effort email (SMTP is often not configured on prod — the link is the
+		// authoritative path; the admin copies and sends it manually).
+		if (isSmtpEnabled()) {
+			await sendEmail({
+				to: email,
+				subject: "Invitation partenaire IMTA",
+				text: `Bonjour,\n\nVous avez été invité(e) à rejoindre IMTA Resume en tant que partenaire (${input.companyName}).\n\nPour accepter l'invitation et créer votre compte, veuillez visiter le lien suivant :\n${inviteLink}\n\nCe lien expire dans 14 jours.\n\nL'équipe IMTA Resume`,
+			});
+		}
+
+		await writeAuditLog({
+			adminId: context.user.id,
+			action: "invite_partner",
+			targetType: "partner_invite",
+			targetId: invite!.id,
+			metadata: { email, companyName: input.companyName, emailSent: isSmtpEnabled() },
+		});
+
+		return { invite: invite!, inviteLink, emailSent: isSmtpEnabled() };
+	});
+
+const listInvites = adminProcedure
+	.route({
+		method: "GET",
+		path: "/partner/admin/invites",
+		tags: ["Partner Admin"],
+		summary: "List partner invitations",
+	})
+	.input(
+		z
+			.object({
+				status: inviteStatusSchema.optional(),
+			})
+			.optional()
+			.default({}),
+	)
+	.handler(async ({ input }) => {
+		const conditions = [];
+		if (input.status) conditions.push(eq(partnerInvite.status, input.status));
+		const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+
+		const rows = await db
+			.select({
+				id: partnerInvite.id,
+				email: partnerInvite.email,
+				companyName: partnerInvite.companyName,
+				companyNameFr: partnerInvite.companyNameFr,
+				partnerType: partnerInvite.partnerType,
+				token: partnerInvite.token,
+				status: partnerInvite.status,
+				expiresAt: partnerInvite.expiresAt,
+				createdAt: partnerInvite.createdAt,
+				acceptedUserId: partnerInvite.acceptedUserId,
+				invitedByName: userTable.name,
+				invitedByEmail: userTable.email,
+			})
+			.from(partnerInvite)
+			.leftJoin(userTable, eq(partnerInvite.invitedBy, userTable.id))
+			.where(whereClause)
+			.orderBy(desc(partnerInvite.createdAt));
+
+		return rows.map((r) => ({ ...r, inviteLink: `${env.APP_URL}/partner/join?token=${r.token}` }));
+	});
+
+const revokeInvite = adminProcedure
+	.route({
+		method: "POST",
+		path: "/partner/admin/invites/{id}/revoke",
+		tags: ["Partner Admin"],
+		summary: "Revoke a pending partner invitation",
+	})
+	.input(z.object({ id: z.string().uuid() }))
+	.handler(async ({ context, input }) => {
+		const [invite] = await db.select().from(partnerInvite).where(eq(partnerInvite.id, input.id)).limit(1);
+		if (!invite) {
+			throw new ORPCError("NOT_FOUND", { message: "Invitation introuvable." });
+		}
+
+		const [updated] = await db
+			.update(partnerInvite)
+			.set({ status: "revoked", updatedAt: new Date() })
+			.where(eq(partnerInvite.id, input.id))
+			.returning();
+
+		await writeAuditLog({
+			adminId: context.user.id,
+			action: "revoke_partner_invite",
+			targetType: "partner_invite",
+			targetId: input.id,
+			metadata: { email: invite.email },
+		});
+
+		return updated!;
+	});
+
+const getInvite = publicProcedure
+	.route({
+		method: "GET",
+		path: "/partner/invite/{token}",
+		tags: ["Partner"],
+		summary: "Validate a partner invitation token",
+	})
+	.input(z.object({ token: z.string().min(1) }))
+	.handler(async ({ input }) => {
+		const [invite] = await db.select().from(partnerInvite).where(eq(partnerInvite.token, input.token)).limit(1);
+
+		if (!invite) {
+			return { valid: false as const, reason: "invalid" as const };
+		}
+		if (invite.status === "revoked") {
+			return { valid: false as const, reason: "revoked" as const };
+		}
+		if (invite.status === "accepted") {
+			return { valid: false as const, reason: "accepted" as const };
+		}
+		if (invite.expiresAt.getTime() <= Date.now()) {
+			return { valid: false as const, reason: "expired" as const };
+		}
+
+		return {
+			valid: true as const,
+			email: invite.email,
+			companyName: invite.companyName,
+			companyNameFr: invite.companyNameFr,
+			partnerType: invite.partnerType,
+		};
+	});
+
+const redeemInvite = protectedProcedure
+	.route({
+		method: "POST",
+		path: "/partner/invite/redeem",
+		tags: ["Partner"],
+		summary: "Redeem a partner invitation as the logged-in user (edge case)",
+	})
+	.input(z.object({ token: z.string().min(1) }))
+	.handler(async ({ context, input }) => {
+		const [invite] = await db.select().from(partnerInvite).where(eq(partnerInvite.token, input.token)).limit(1);
+
+		if (!invite || invite.status !== "pending" || invite.expiresAt.getTime() <= Date.now()) {
+			throw new ORPCError("PRECONDITION_FAILED", { message: "Invitation invalide ou expirée." });
+		}
+		// Security: the invite is email-keyed. Only the matching email may redeem it.
+		if (invite.email !== context.user.email.trim().toLowerCase()) {
+			throw new ORPCError("FORBIDDEN", { message: "Cette invitation ne correspond pas à votre email." });
+		}
+
+		// Promote to partner.
+		await db.update(userTable).set({ role: "partner", updatedAt: new Date() }).where(eq(userTable.id, context.user.id));
+
+		// Provision a pending profile if none exists.
+		const [existingProfile] = await db
+			.select({ id: partnerProfile.id })
+			.from(partnerProfile)
+			.where(eq(partnerProfile.userId, context.user.id))
+			.limit(1);
+
+		if (!existingProfile) {
+			const partnerType = (
+				["employer", "recruiter", "training_center", "government", "ngo"].includes(invite.partnerType)
+					? invite.partnerType
+					: "employer"
+			) as "employer" | "recruiter" | "training_center" | "government" | "ngo";
+
+			await db.insert(partnerProfile).values({
+				userId: context.user.id,
+				companyName: invite.companyName,
+				companyNameFr: invite.companyNameFr ?? null,
+				partnerType,
+				industry: "À compléter",
+				description: "À compléter",
+				headquarters: "À compléter",
+				contactEmail: invite.email,
+				status: "pending",
+			});
+		}
+
+		await db
+			.update(partnerInvite)
+			.set({ status: "accepted", acceptedUserId: context.user.id, updatedAt: new Date() })
+			.where(eq(partnerInvite.id, invite.id));
+
+		return { success: true };
+	});
+
+// ============================================================================
 // EXPORT
 // ============================================================================
 
@@ -1357,4 +1645,10 @@ export const partnerRouter = {
 	suspendPartner,
 	reviewJob,
 	reviewEvent,
+	// Partner invitations
+	invitePartner,
+	listInvites,
+	revokeInvite,
+	getInvite,
+	redeemInvite,
 };

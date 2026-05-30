@@ -186,9 +186,9 @@ export function DiscoverTabContent({
 							/>
 						</div>
 
-						<div className="flex flex-wrap items-center gap-2">
+						<div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
 							<Select value={expertiseFilter} onValueChange={onExpertiseFilterChange}>
-								<SelectTrigger className="w-[180px]">
+								<SelectTrigger className="w-full sm:w-[180px]">
 									<SelectValue placeholder={t`Expertise`} />
 								</SelectTrigger>
 								<SelectContent>
@@ -204,7 +204,7 @@ export function DiscoverTabContent({
 							</Select>
 
 							<Select value={industryFilter} onValueChange={onIndustryFilterChange}>
-								<SelectTrigger className="w-[180px]">
+								<SelectTrigger className="w-full sm:w-[180px]">
 									<SelectValue placeholder={t`Industry`} />
 								</SelectTrigger>
 								<SelectContent>
@@ -220,7 +220,7 @@ export function DiscoverTabContent({
 							</Select>
 
 							<Select value={availabilityFilter} onValueChange={onAvailabilityFilterChange}>
-								<SelectTrigger className="w-[150px]">
+								<SelectTrigger className="w-full sm:w-[150px]">
 									<SelectValue placeholder={t`Availability`} />
 								</SelectTrigger>
 								<SelectContent>

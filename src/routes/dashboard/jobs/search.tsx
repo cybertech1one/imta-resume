@@ -92,17 +92,17 @@ function JobSearchPage() {
 
 	return (
 		<>
-			<DashboardHeader icon={CompassIcon} title={t`Job Search`} />
+			<DashboardHeader icon={CompassIcon} title={t`Recherche d'emploi`} />
 
 			{/* Search hero section */}
 			<Card className="mb-6 border-none bg-gradient-to-br from-primary/5 to-primary/10">
 				<CardContent className="py-8">
 					<div className="mx-auto max-w-2xl text-center">
 						<h2 className="mb-2 font-bold text-2xl">
-							<Trans>Find your ideal job</Trans>
+							<Trans>Trouvez l'offre qui vous correspond</Trans>
 						</h2>
 						<p className="mb-6 text-muted-foreground">
-							<Trans>Search among available offers and find the opportunity that matches your profile</Trans>
+							<Trans>Parcourez les offres disponibles et trouvez l'opportunité adaptée à votre profil</Trans>
 						</p>
 
 						{/* Main search bar */}
@@ -111,7 +111,7 @@ function JobSearchPage() {
 							<Input
 								value={searchQuery}
 								onChange={(e) => setSearchQuery(e.target.value)}
-								placeholder={t`Search by title, company, skill...`}
+								placeholder={t`Rechercher par poste, entreprise, compétence...`}
 								className="h-12 pr-4 pl-10 text-base"
 							/>
 						</div>
@@ -120,7 +120,7 @@ function JobSearchPage() {
 			</Card>
 
 			{/* Filters row */}
-			<div className="mb-6 flex flex-wrap items-center gap-3">
+			<div className="mb-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
 				<div className="flex items-center gap-2">
 					<FunnelIcon className="size-4 text-muted-foreground" />
 					<span className="font-medium text-muted-foreground text-sm">
@@ -129,13 +129,13 @@ function JobSearchPage() {
 				</div>
 
 				<Select value={locationFilter} onValueChange={setLocationFilter}>
-					<SelectTrigger className="w-[180px]">
+					<SelectTrigger className="w-full sm:w-[180px]">
 						<MapPinIcon className="mr-1 size-4" />
-						<SelectValue placeholder={t`Location`} />
+						<SelectValue placeholder={t`Lieu`} />
 					</SelectTrigger>
 					<SelectContent>
 						<SelectItem value="all">
-							<Trans>All locations</Trans>
+							<Trans>Toutes les villes</Trans>
 						</SelectItem>
 						{filterOptions.locations.map((loc) => (
 							<SelectItem key={loc} value={loc}>
@@ -146,13 +146,13 @@ function JobSearchPage() {
 				</Select>
 
 				<Select value={workTypeFilter} onValueChange={(v) => setWorkTypeFilter(v as typeof workTypeFilter)}>
-					<SelectTrigger className="w-[180px]">
+					<SelectTrigger className="w-full sm:w-[180px]">
 						<BriefcaseIcon className="mr-1 size-4" />
 						<SelectValue placeholder={t`Type`} />
 					</SelectTrigger>
 					<SelectContent>
 						<SelectItem value="all">
-							<Trans>All types</Trans>
+							<Trans>Tous les types</Trans>
 						</SelectItem>
 						{filterOptions.workTypes.map((wt) => (
 							<SelectItem key={wt} value={wt}>
@@ -163,17 +163,17 @@ function JobSearchPage() {
 				</Select>
 
 				<Select value={experienceFilter} onValueChange={(v) => setExperienceFilter(v as typeof experienceFilter)}>
-					<SelectTrigger className="w-[180px]">
+					<SelectTrigger className="w-full sm:w-[180px]">
 						<ClockIcon className="mr-1 size-4" />
-						<SelectValue placeholder={t`Experience`} />
+						<SelectValue placeholder={t`Expérience`} />
 					</SelectTrigger>
 					<SelectContent>
 						<SelectItem value="all">
-							<Trans>All levels</Trans>
+							<Trans>Tous les niveaux</Trans>
 						</SelectItem>
 						<SelectItem value="junior">Junior</SelectItem>
 						<SelectItem value="mid">
-							<Trans>Intermediate</Trans>
+							<Trans>Intermédiaire</Trans>
 						</SelectItem>
 						<SelectItem value="senior">Senior</SelectItem>
 						<SelectItem value="lead">Lead</SelectItem>
@@ -183,12 +183,12 @@ function JobSearchPage() {
 				{hasActiveFilters && (
 					<Button variant="ghost" size="sm" onClick={clearFilters}>
 						<XIcon className="mr-1 size-4" />
-						<Trans>Clear</Trans>
+						<Trans>Effacer</Trans>
 					</Button>
 				)}
 
 				<div className="ml-auto text-muted-foreground text-sm">
-					{jobs.length > 0 && <Trans>{jobs.length} job(s) found</Trans>}
+					{jobs.length > 0 && <Trans>{jobs.length} offre(s) trouvée(s)</Trans>}
 				</div>
 			</div>
 
@@ -201,7 +201,7 @@ function JobSearchPage() {
 							<div>
 								<p className="font-bold text-2xl">{stats.total ?? 0}</p>
 								<p className="text-muted-foreground text-xs">
-									<Trans>Total offers</Trans>
+									<Trans>Offres totales</Trans>
 								</p>
 							</div>
 						</CardContent>
@@ -212,7 +212,7 @@ function JobSearchPage() {
 							<div>
 								<p className="font-bold text-2xl">{stats.saved ?? 0}</p>
 								<p className="text-muted-foreground text-xs">
-									<Trans>Saved</Trans>
+									<Trans>Enregistrées</Trans>
 								</p>
 							</div>
 						</CardContent>
@@ -223,7 +223,7 @@ function JobSearchPage() {
 							<div>
 								<p className="font-bold text-2xl">{stats.applied ?? 0}</p>
 								<p className="text-muted-foreground text-xs">
-									<Trans>Applications</Trans>
+									<Trans>Candidatures</Trans>
 								</p>
 							</div>
 						</CardContent>
@@ -244,10 +244,10 @@ function JobSearchPage() {
 					<CardContent className="flex flex-col items-center justify-center py-16">
 						<XIcon className="mb-4 size-16 text-destructive" weight="duotone" />
 						<h3 className="mb-2 font-semibold text-lg">
-							<Trans>Loading error</Trans>
+							<Trans>Erreur de chargement</Trans>
 						</h3>
 						<p className="text-muted-foreground">
-							<Trans>Unable to load job offers. Please try again.</Trans>
+							<Trans>Impossible de charger les offres. Veuillez réessayer.</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -261,18 +261,22 @@ function JobSearchPage() {
 						<CardContent className="flex flex-col items-center justify-center py-16">
 							<CompassIcon className="mb-4 size-16 text-muted-foreground" weight="duotone" />
 							<h3 className="mb-2 font-semibold text-lg">
-								{searchQuery || hasActiveFilters ? <Trans>No results</Trans> : <Trans>No offers available</Trans>}
+								{searchQuery || hasActiveFilters ? (
+									<Trans>Aucun résultat</Trans>
+								) : (
+									<Trans>Aucune offre disponible</Trans>
+								)}
 							</h3>
 							<p className="mb-4 text-center text-muted-foreground">
 								{searchQuery || hasActiveFilters ? (
-									<Trans>Try modifying your search criteria or broadening your filters</Trans>
+									<Trans>Modifiez vos critères ou élargissez vos filtres.</Trans>
 								) : (
-									<Trans>Job offers will appear here once added by the aggregator</Trans>
+									<Trans>Les offres apparaîtront ici dès qu'elles seront ajoutées.</Trans>
 								)}
 							</p>
 							{(searchQuery || hasActiveFilters) && (
 								<Button variant="outline" onClick={clearFilters}>
-									<Trans>Reset search</Trans>
+									<Trans>Réinitialiser la recherche</Trans>
 								</Button>
 							)}
 						</CardContent>

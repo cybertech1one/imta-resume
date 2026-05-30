@@ -548,9 +548,9 @@ export function MatchesTab({
 			{/* Filters */}
 			<Card>
 				<CardContent className="p-4">
-					<div className="flex flex-wrap items-center gap-4">
+					<div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
 						{/* Search */}
-						<div className="relative min-w-[200px] flex-1 lg:max-w-xs">
+						<div className="relative w-full min-w-[200px] sm:flex-1 lg:max-w-xs">
 							<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-muted-foreground" />
 							<Input
 								placeholder={t`Search...`}
@@ -562,7 +562,7 @@ export function MatchesTab({
 
 						{/* Alert Filter */}
 						<Select value={selectedMatchFilter} onValueChange={onMatchFilterChange}>
-							<SelectTrigger className="w-[180px]">
+							<SelectTrigger className="w-full sm:w-[180px]">
 								<BellIcon className="mr-2 size-4" />
 								<SelectValue placeholder={t`Filter by alert`} />
 							</SelectTrigger>
@@ -580,7 +580,7 @@ export function MatchesTab({
 
 						{/* Quality Filter */}
 						<Select value={matchQualityFilter} onValueChange={(v) => onQualityFilterChange(v as MatchQuality | "all")}>
-							<SelectTrigger className="w-[160px]">
+							<SelectTrigger className="w-full sm:w-[160px]">
 								<StarIcon className="mr-2 size-4" />
 								<SelectValue placeholder={t`Quality`} />
 							</SelectTrigger>

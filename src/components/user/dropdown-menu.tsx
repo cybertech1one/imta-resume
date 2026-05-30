@@ -45,12 +45,12 @@ export function UserDropdownMenu({ children }: Props) {
 	}
 
 	function handleLogout() {
-		const toastId = toast.loading(t`Signing out...`);
+		const toastId = toast.loading(t`Déconnexion...`);
 
 		authClient.signOut({
 			fetchOptions: {
 				onSuccess: () => {
-					toast.success(t`Signed out successfully`, { id: toastId });
+					toast.success(t`Déconnexion réussie`, { id: toastId });
 					queryClient.clear();
 					window.location.href = "/auth/login";
 				},
@@ -72,7 +72,7 @@ export function UserDropdownMenu({ children }: Props) {
 					<DropdownMenuSub>
 						<DropdownMenuSubTrigger>
 							<TranslateIcon />
-							<Trans>Language</Trans>
+							<Trans>Langue</Trans>
 						</DropdownMenuSubTrigger>
 						<DropdownMenuSubContent className="max-h-[400px] overflow-y-auto">
 							<DropdownMenuRadioGroup value={i18n.locale} onValueChange={handleLocaleChange}>
@@ -88,15 +88,15 @@ export function UserDropdownMenu({ children }: Props) {
 					<DropdownMenuSub>
 						<DropdownMenuSubTrigger>
 							<PaletteIcon />
-							<Trans>Theme</Trans>
+							<Trans>Thème</Trans>
 						</DropdownMenuSubTrigger>
 						<DropdownMenuSubContent>
 							<DropdownMenuRadioGroup value={theme} onValueChange={handleThemeChange}>
 								<DropdownMenuRadioItem value="light">
-									<Trans>Light</Trans>
+									<Trans>Clair</Trans>
 								</DropdownMenuRadioItem>
 								<DropdownMenuRadioItem value="dark">
-									<Trans>Dark</Trans>
+									<Trans>Sombre</Trans>
 								</DropdownMenuRadioItem>
 							</DropdownMenuRadioGroup>
 						</DropdownMenuSubContent>
@@ -107,7 +107,7 @@ export function UserDropdownMenu({ children }: Props) {
 
 				<DropdownMenuItem onSelect={handleLogout}>
 					<SignOutIcon />
-					<Trans>Logout</Trans>
+					<Trans>Déconnexion</Trans>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

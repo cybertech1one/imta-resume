@@ -121,42 +121,42 @@ type SidebarItem = {
 const appSidebarItems: SidebarItem[] = [
 	{
 		icon: <TrophyIcon />,
-		label: msg`My Profile`,
+		label: msg`Mon profil`,
 		href: "/dashboard/profile",
 		showNotificationBadge: true,
 		subItems: [
 			{
 				icon: <MedalIcon />,
-				label: msg`Achievements`,
+				label: msg`Réussites`,
 				href: "/dashboard/profile/achievements",
 			},
 		],
 	},
 	{
 		icon: <ReadCvLogoIcon />,
-		label: msg`Resumes`,
+		label: msg`CV`,
 		href: "/dashboard/resumes",
 		subItems: [
 			{
 				icon: <ReadCvLogoIcon />,
-				label: msg`My Resumes`,
+				label: msg`Mes CV`,
 				href: "/dashboard/resumes",
 			},
 			{
 				icon: <StarIcon />,
-				label: msg`Resume Score`,
+				label: msg`Score CV`,
 				href: "/dashboard/resumes/scoring",
 				roles: ["user", "admin"],
 			},
 			{
 				icon: <SparkleIcon />,
-				label: msg`Experience Optimizer`,
+				label: msg`Optimiseur d'expérience`,
 				href: "/dashboard/resumes/experience-optimizer",
 				roles: ["user", "admin"],
 			},
 			{
 				icon: <SparkleIcon />,
-				label: msg`AI Resume Wizard`,
+				label: msg`Assistant CV IA`,
 				href: "/dashboard/resumes/ai-wizard",
 				roles: ["user", "admin"],
 			},
@@ -164,13 +164,13 @@ const appSidebarItems: SidebarItem[] = [
 	},
 	{
 		icon: <BrainIcon />,
-		label: msg`AI Mentor`,
+		label: msg`Mentor IA`,
 		href: "/dashboard/ai-mentor",
 		roles: ["user", "admin"],
 		subItems: [
 			{
 				icon: <RobotIcon />,
-				label: msg`My Mentor`,
+				label: msg`Mon mentor`,
 				href: "/dashboard/ai-mentor",
 			},
 			{
@@ -180,35 +180,35 @@ const appSidebarItems: SidebarItem[] = [
 			},
 			{
 				icon: <ChartLineUpIcon />,
-				label: msg`Job Market`,
+				label: msg`Marché de l'emploi`,
 				href: "/dashboard/ai-mentor/market",
 			},
 		],
 	},
 	{
 		icon: <ChatsCircleIcon />,
-		label: msg`Interview Prep`,
+		label: msg`Préparation entretien`,
 		href: "/dashboard/interview",
 		roles: ["user", "admin"],
 		subItems: [
 			{
 				icon: <TargetIcon />,
-				label: msg`Practice`,
+				label: msg`S'entraîner`,
 				href: "/dashboard/interview/practice",
 			},
 			{
 				icon: <RobotIcon />,
-				label: msg`AI Chatbot`,
+				label: msg`Chatbot IA`,
 				href: "/dashboard/interview/chatbot",
 			},
 			{
 				icon: <SparkleIcon />,
-				label: msg`AI Simulation`,
+				label: msg`Simulation IA`,
 				href: "/dashboard/interview/mock-ai",
 			},
 			{
 				icon: <LightbulbIcon />,
-				label: msg`Tips`,
+				label: msg`Conseils`,
 				href: "/dashboard/interview/tips",
 			},
 			{
@@ -218,12 +218,12 @@ const appSidebarItems: SidebarItem[] = [
 			},
 			{
 				icon: <CheckSquareIcon />,
-				label: msg`Checklist`,
+				label: msg`Liste de contrôle`,
 				href: "/dashboard/interview/checklist",
 			},
 			{
 				icon: <CalendarIcon />,
-				label: msg`Calendar`,
+				label: msg`Calendrier`,
 				href: "/dashboard/interview/scheduler",
 			},
 			{
@@ -233,118 +233,118 @@ const appSidebarItems: SidebarItem[] = [
 			},
 			{
 				icon: <NotePencilIcon />,
-				label: msg`Interview Notes`,
+				label: msg`Notes d'entretien`,
 				href: "/dashboard/interview/notes",
 			},
 		],
 	},
 	{
 		icon: <GraduationCapIcon />,
-		label: msg`Training Center`,
+		label: msg`Centre de formation`,
 		href: "/dashboard/resources",
 		roles: ["user", "admin"],
 		subItems: [
 			{
 				icon: <BookOpenIcon />,
-				label: msg`Programs`,
+				label: msg`Programmes`,
 				href: "/dashboard/resources",
 			},
 			{
 				icon: <GraduationCapIcon />,
-				label: msg`Catalog`,
+				label: msg`Catalogue`,
 				href: "/dashboard/resources/programs",
 			},
 			{
 				icon: <ScalesIcon />,
-				label: msg`Compare`,
+				label: msg`Comparer`,
 				href: "/dashboard/resources/compare",
 			},
 			{
 				icon: <SparkleIcon />,
-				label: msg`My Programs`,
+				label: msg`Mes programmes`,
 				href: "/dashboard/resources/my-programs",
 			},
 		],
 	},
 	{
 		icon: <CompassIcon />,
-		label: msg`Career Guidance`,
+		label: msg`Orientation carrière`,
 		href: "/dashboard/career",
 		roles: ["user", "admin"],
 		subItems: [
 			{
 				icon: <PathIcon />,
-				label: msg`Guidance`,
+				label: msg`Orientation`,
 				href: "/dashboard/career",
 			},
 			{
 				icon: <TargetIcon />,
-				label: msg`Personality Quiz`,
+				label: msg`Quiz personnalité`,
 				href: "/dashboard/career/quiz",
 			},
 			{
 				icon: <ClipboardTextIcon />,
-				label: msg`Career Assessment`,
+				label: msg`Bilan carrière`,
 				href: "/dashboard/career/assessment",
 			},
 			{
 				icon: <TrophyIcon />,
-				label: msg`My Skills`,
+				label: msg`Mes compétences`,
 				href: "/dashboard/career/skills",
 			},
 			{
 				icon: <PathIcon />,
-				label: msg`Roadmap`,
+				label: msg`Plan de progression`,
 				href: "/dashboard/career/roadmap",
 			},
 			{
 				icon: <HeartIcon />,
-				label: msg`Career Coaching`,
+				label: msg`Coaching carrière`,
 				href: "/dashboard/career/coaching",
 			},
 		],
 	},
 	{
 		icon: <BriefcaseIcon />,
-		label: msg`Job Opportunities`,
+		label: msg`Stages et emplois`,
 		href: "/dashboard/jobs",
 		subItems: [
 			{
 				icon: <BriefcaseIcon />,
-				label: msg`Job Listings`,
+				label: msg`Offres`,
 				href: "/dashboard/jobs",
 			},
 			{
 				icon: <NoteIcon />,
-				label: msg`My Applications`,
+				label: msg`Mes candidatures`,
 				href: "/dashboard/jobs/applications",
 			},
 			{
 				icon: <BuildingsIcon />,
-				label: msg`Employers`,
+				label: msg`Employeurs`,
 				href: "/dashboard/jobs/employers",
 			},
 			{
 				icon: <SparkleIcon />,
-				label: msg`AI Recommendations`,
+				label: msg`Recommandations IA`,
 				href: "/dashboard/jobs/recommendations",
 				roles: ["user", "admin"],
 			},
 			{
 				icon: <BookOpenIcon />,
-				label: msg`Job Resources`,
+				label: msg`Ressources emploi`,
 				href: "/dashboard/tools/job-resources",
 			},
 			{
 				icon: <MagnifyingGlassIcon />,
-				label: msg`Job Board`,
+				label: msg`Tableau des offres`,
 				href: "/dashboard/jobs/board",
 			},
 		],
 	},
 	{
 		icon: <UsersIcon />,
-		label: msg`Networking`,
+		label: msg`Réseau`,
 		href: "/dashboard/networking",
 		subItems: [
 			{
@@ -354,7 +354,7 @@ const appSidebarItems: SidebarItem[] = [
 			},
 			{
 				icon: <CalendarCheckIcon />,
-				label: msg`Events`,
+				label: msg`Événements`,
 				href: "/dashboard/networking/events",
 			},
 		],
@@ -367,17 +367,17 @@ const appSidebarItems: SidebarItem[] = [
 	},
 	{
 		icon: <ChartBarIcon />,
-		label: msg`Analytics`,
+		label: msg`Analytique`,
 		href: "/dashboard/analytics",
 		subItems: [
 			{
 				icon: <ChartBarIcon />,
-				label: msg`Overview`,
+				label: msg`Vue d'ensemble`,
 				href: "/dashboard/analytics",
 			},
 			{
 				icon: <RobotIcon />,
-				label: msg`AI Usage`,
+				label: msg`Usage IA`,
 				href: "/dashboard/analytics/ai-usage",
 				roles: ["admin"],
 			},
@@ -390,7 +390,7 @@ const appSidebarItems: SidebarItem[] = [
 	},
 	{
 		icon: <QuestionIcon />,
-		label: msg`Help & FAQ`,
+		label: msg`Aide et FAQ`,
 		href: "/dashboard/help",
 	},
 ];
@@ -398,55 +398,55 @@ const appSidebarItems: SidebarItem[] = [
 const toolsSidebarItems: SidebarItem[] = [
 	{
 		icon: <ToolboxIcon />,
-		label: msg`Tools`,
+		label: msg`Outils`,
 		href: "/dashboard/tools/cover-letter",
 		roles: ["user", "admin"],
 		subItems: [
 			{
 				icon: <EnvelopeSimpleIcon />,
-				label: msg`Cover Letter`,
+				label: msg`Lettre de motivation`,
 				href: "/dashboard/tools/cover-letter",
 			},
 			{
 				icon: <PencilLineIcon />,
-				label: msg`AI Writer`,
+				label: msg`Rédacteur IA`,
 				href: "/dashboard/tools/ai-writer",
 			},
 			{
 				icon: <MagnifyingGlassIcon />,
-				label: msg`Keyword Optimizer`,
+				label: msg`Optimiseur de mots-clés`,
 				href: "/dashboard/tools/keywords",
 			},
 			{
 				icon: <CurrencyCircleDollarIcon />,
-				label: msg`Salary Calculator`,
+				label: msg`Calculateur de salaire`,
 				href: "/dashboard/tools/salary-calculator",
 			},
 			{
 				icon: <MicrophoneIcon />,
-				label: msg`Elevator Pitch`,
+				label: msg`Pitch entretien`,
 				href: "/dashboard/tools/elevator-pitch",
 			},
 			{
 				icon: <ShieldCheckIcon />,
-				label: msg`ATS Checker`,
+				label: msg`Vérification ATS`,
 				href: "/dashboard/tools/ats-checker",
 			},
 		],
 	},
 	{
 		icon: <FileTextIcon />,
-		label: msg`Templates`,
+		label: msg`Modèles`,
 		href: "/dashboard/templates/cover-letters",
 		subItems: [
 			{
 				icon: <ClipboardTextIcon />,
-				label: msg`Cover Letters`,
+				label: msg`Lettres de motivation`,
 				href: "/dashboard/templates/cover-letters",
 			},
 			{
 				icon: <SparkleIcon />,
-				label: msg`Resume Gallery`,
+				label: msg`Galerie de CV`,
 				href: "/dashboard/tools/resume-gallery",
 			},
 		],
@@ -456,28 +456,33 @@ const toolsSidebarItems: SidebarItem[] = [
 const partnerSidebarItems: SidebarItem[] = [
 	{
 		icon: <BuildingsIcon />,
-		label: msg`Partner`,
+		label: msg`Partenaire`,
 		href: "/dashboard/partner",
 		roles: ["partner"],
 		subItems: [
 			{
 				icon: <GaugeIcon />,
-				label: msg`Partner Dashboard`,
+				label: msg`Tableau partenaire`,
 				href: "/dashboard/partner",
 			},
 			{
+				icon: <BuildingsIcon />,
+				label: msg`Profil de l'entreprise`,
+				href: "/dashboard/partner/profile",
+			},
+			{
 				icon: <BriefcaseIcon />,
-				label: msg`Job Postings`,
+				label: msg`Offres publiées`,
 				href: "/dashboard/partner/jobs",
 			},
 			{
 				icon: <ClipboardTextIcon />,
-				label: msg`Applications`,
+				label: msg`Candidatures`,
 				href: "/dashboard/partner/applications",
 			},
 			{
 				icon: <NotePencilIcon />,
-				label: msg`Post a Job`,
+				label: msg`Publier une offre`,
 				href: "/dashboard/partner/post-job",
 			},
 		],
@@ -487,63 +492,68 @@ const partnerSidebarItems: SidebarItem[] = [
 const adminSidebarItems: SidebarItem[] = [
 	{
 		icon: <GaugeIcon />,
-		label: msg`Admin Dashboard`,
+		label: msg`Administration`,
 		href: "/dashboard/admin",
 		subItems: [
 			{
 				icon: <GaugeIcon />,
-				label: msg`Overview`,
+				label: msg`Vue d'ensemble`,
 				href: "/dashboard/admin",
 			},
 			{
 				icon: <UsersIcon />,
-				label: msg`Users`,
+				label: msg`Utilisateurs`,
 				href: "/dashboard/admin/users",
 			},
 			{
 				icon: <ReadCvLogoIcon />,
-				label: msg`Resumes`,
+				label: msg`CV`,
 				href: "/dashboard/admin/resumes",
 			},
 			{
 				icon: <DatabaseIcon />,
-				label: msg`System Health`,
+				label: msg`Santé système`,
 				href: "/dashboard/admin/system",
 			},
 			{
 				icon: <ClockIcon />,
-				label: msg`Audit Log`,
+				label: msg`Journal d'audit`,
 				href: "/dashboard/admin/audit-log",
 			},
 			{
 				icon: <BrainIcon />,
-				label: msg`AI Providers`,
+				label: msg`Fournisseurs IA`,
 				href: "/dashboard/admin/ai-providers",
 			},
 			{
 				icon: <RobotIcon />,
-				label: msg`AI Quotas`,
+				label: msg`Quotas IA`,
 				href: "/dashboard/admin/ai-quotas",
 			},
 			{
 				icon: <GearSixIcon />,
-				label: msg`AI Settings`,
+				label: msg`Paramètres IA`,
 				href: "/dashboard/admin/ai-settings",
 			},
 			{
 				icon: <DatabaseIcon />,
-				label: msg`Reference Data`,
+				label: msg`Données de référence`,
 				href: "/dashboard/admin/reference-data",
 			},
 			{
 				icon: <ChartPieSliceIcon />,
-				label: msg`Cohort Analytics`,
+				label: msg`Analyse des cohortes`,
 				href: "/dashboard/admin/cohorts",
 			},
 			{
 				icon: <ChatCircleDotsIcon />,
 				label: msg`Support`,
 				href: "/dashboard/admin/support",
+			},
+			{
+				icon: <BuildingsIcon />,
+				label: msg`Partenaires`,
+				href: "/dashboard/admin/partners",
 			},
 		],
 	},
@@ -552,39 +562,39 @@ const adminSidebarItems: SidebarItem[] = [
 const settingsSidebarItems = [
 	{
 		icon: <UserCircleIcon />,
-		label: msg`Profile`,
+		label: msg`Profil`,
 		href: "/dashboard/settings/profile",
 	},
 	{
 		icon: <GearSixIcon />,
-		label: msg`Preferences`,
+		label: msg`Préférences`,
 		href: "/dashboard/settings/preferences",
 	},
 	{
 		icon: <ShieldCheckIcon />,
-		label: msg`Authentication`,
+		label: msg`Authentification`,
 		href: "/dashboard/settings/authentication",
 	},
 	{
 		icon: <KeyIcon />,
-		label: msg`API Keys`,
+		label: msg`Clés API`,
 		href: "/dashboard/settings/api-keys",
 		roles: ["admin"],
 	},
 	{
 		icon: <BrainIcon />,
-		label: msg`Artificial Intelligence`,
+		label: msg`Intelligence artificielle`,
 		href: "/dashboard/settings/ai",
 		roles: ["admin"],
 	},
 	{
 		icon: <DatabaseIcon />,
-		label: msg`Data Management`,
+		label: msg`Gestion des données`,
 		href: "/dashboard/settings/data",
 	},
 	{
 		icon: <WarningIcon />,
-		label: msg`Danger Zone`,
+		label: msg`Zone sensible`,
 		href: "/dashboard/settings/danger-zone",
 	},
 ] as const satisfies SidebarItem[];
@@ -596,9 +606,9 @@ type SidebarItemListProps = {
 // Role label mapping - uses a function so i18n macros are evaluated at render time
 function getRoleLabels(): Record<string, string> {
 	return {
-		admin: t`Administrator`,
-		user: t`Student`,
-		partner: t`Partner`,
+		admin: t`Administrateur`,
+		user: t`Étudiant`,
+		partner: t`Partenaire`,
 	};
 }
 
@@ -996,7 +1006,7 @@ export function DashboardSidebar() {
 	const userRole = (roleData?.role ?? "user") as UserRole;
 	const isAdmin = userRole === "admin";
 	const roleLabels = getRoleLabels();
-	const roleBadgeLabel = roleLabels[userRole] ?? t`Student`;
+	const roleBadgeLabel = roleLabels[userRole] ?? t`Étudiant`;
 
 	const userProgram = isAdmin
 		? null
@@ -1014,7 +1024,7 @@ export function DashboardSidebar() {
 	const filteredSettingsItems = useMemo(() => filterItemsByRole(settingsSidebarItems, userRole), [userRole]);
 
 	return (
-		<Sidebar variant="floating" collapsible="icon" role="navigation" aria-label={t`Dashboard navigation`}>
+		<Sidebar variant="floating" collapsible="icon" role="navigation" aria-label={t`Navigation du tableau de bord`}>
 			<SidebarHeader>
 				<SidebarMenu>
 					<SidebarMenuItem>

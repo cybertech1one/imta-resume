@@ -17,9 +17,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { authClient } from "@/integrations/auth/client";
 import { SocialAuth } from "./-components/social-auth";
 
+const registerSearchSchema = z.object({
+	// Pre-fill the email field (e.g. when arriving from a partner invitation link).
+	email: z.string().email().toLowerCase().optional().catch(undefined),
+	// Invite token passed through for UX; the email-keyed signup hook performs the
+	// actual partner promotion, so the token itself is not strictly required.
+	invite: z.string().optional().catch(undefined),
+});
+
 export const Route = createFileRoute("/auth/register")({
 	component: RouteComponent,
 	errorComponent: ErrorComponent,
+	validateSearch: registerSearchSchema,
 	beforeLoad: async ({ context }) => {
 		if (context.session) throw redirect({ to: "/dashboard", replace: true });
 		if (context.flags.disableSignups) throw redirect({ to: "/auth/login", replace: true });
@@ -90,13 +99,15 @@ function RouteComponent() {
 	const [submitted, setSubmitted] = useState(false);
 	const [showPassword, toggleShowPassword] = useToggle(false);
 	const { flags } = Route.useRouteContext();
+	const { email: invitedEmail, invite: inviteToken } = Route.useSearch();
+	const isInvited = !!invitedEmail && !!inviteToken;
 
 	const form = useForm<FormValues>({
 		resolver: zodResolver(getFormSchema()),
 		defaultValues: {
 			name: "",
 			username: "",
-			email: "",
+			email: invitedEmail ?? "",
 			password: "",
 			imtaProgram: "",
 		},
@@ -149,6 +160,19 @@ function RouteComponent() {
 					</Trans>
 				</div>
 			</div>
+
+			{isInvited && (
+				<Alert>
+					<AlertTitle>
+						<Trans>Vous avez été invité comme partenaire</Trans>
+					</AlertTitle>
+					<AlertDescription>
+						<Trans>
+							Créez votre compte avec l'email invité ci-dessous. Votre accès partenaire sera activé automatiquement.
+						</Trans>
+					</AlertDescription>
+				</Alert>
+			)}
 
 			{!flags.disableEmailAuth && (
 				<Form {...form}>
@@ -223,6 +247,7 @@ function RouteComponent() {
 											placeholder="mohammed.elalami@exemple.ma"
 											className="lowercase"
 											aria-required="true"
+											readOnly={isInvited}
 											{...field}
 										/>
 									</FormControl>

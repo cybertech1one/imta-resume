@@ -13,17 +13,17 @@ export function NotFoundScreen(_props: NotFoundRouteProps) {
 			<Alert>
 				<WarningIcon />
 				<AlertTitle>
-					<Trans>Page not found</Trans>
+					<Trans>Page introuvable</Trans>
 				</AlertTitle>
 				<AlertDescription>
-					<Trans>The page you are looking for does not exist or has been moved.</Trans>
+					<Trans>La page que vous recherchez n'existe pas ou a été déplacée.</Trans>
 				</AlertDescription>
 			</Alert>
 
 			<Button asChild>
 				<Link to="/dashboard">
 					<ArrowLeftIcon />
-					<Trans>Go to Dashboard</Trans>
+					<Trans>Aller au tableau de bord</Trans>
 				</Link>
 			</Button>
 		</div>

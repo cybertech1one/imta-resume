@@ -47,6 +47,7 @@ import type {
 	WelcomeBannerProps,
 } from "./dashboard-index-types";
 import { formatFutureDate, formatLocalizedDate, formatRelativeTime } from "./dashboard-index-utils";
+import { formatActivityAction, formatActivityCategory } from "./display-utils";
 
 const ProgressRing = memo(({ value, size = 140, strokeWidth = 8, label }: ProgressRingProps) => {
 	const radius = (size - strokeWidth) / 2;
@@ -593,7 +594,9 @@ export const RecentActivitySection = memo(
 								{recentActivity.map((activity, index) => {
 									const ActivityIcon = activityIcons[activity.activityType] || FileTextIcon;
 									const activityDescriptor = activityLabels[activity.activityType];
-									const activityLabel = activityDescriptor ? i18n.t(activityDescriptor) : activity.activityType;
+									const activityLabel = activityDescriptor
+										? i18n.t(activityDescriptor)
+										: formatActivityAction(activity.activityType);
 									return (
 										<motion.li
 											key={activity.id}
@@ -612,7 +615,7 @@ export const RecentActivitySection = memo(
 											<div className="min-w-0 flex-1">
 												<p className="font-medium text-sm">{activityLabel}</p>
 												<p className="truncate text-muted-foreground text-xs">
-													{activity.category || activity.resourceType}
+													{formatActivityCategory(activity.category) || formatActivityCategory(activity.resourceType)}
 												</p>
 											</div>
 											<time className="shrink-0 text-muted-foreground text-xs">

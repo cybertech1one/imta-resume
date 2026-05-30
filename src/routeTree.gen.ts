@@ -17,6 +17,7 @@ import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
 import { Route as AuthIndexRouteImport } from "./routes/auth/index";
 import { Route as HomeIndexRouteImport } from "./routes/_home/index";
 import { Route as PrinterResumeIdRouteImport } from "./routes/printer/$resumeId";
+import { Route as PartnerJoinRouteImport } from "./routes/partner.join";
 import { Route as AuthVerify2faBackupRouteImport } from "./routes/auth/verify-2fa-backup";
 import { Route as AuthVerify2faRouteImport } from "./routes/auth/verify-2fa";
 import { Route as AuthSignUpRouteImport } from "./routes/auth/sign-up";
@@ -102,6 +103,7 @@ import { Route as DashboardResourcesCompareRouteImport } from "./routes/dashboar
 import { Route as DashboardProfileAchievementsRouteImport } from "./routes/dashboard/profile/achievements";
 import { Route as DashboardPortfolioSamplesRouteImport } from "./routes/dashboard/portfolio/samples";
 import { Route as DashboardPortfolioFreelanceRouteImport } from "./routes/dashboard/portfolio/freelance";
+import { Route as DashboardPartnerProfileRouteImport } from "./routes/dashboard/partner/profile";
 import { Route as DashboardPartnerPostJobRouteImport } from "./routes/dashboard/partner/post-job";
 import { Route as DashboardPartnerJobsRouteImport } from "./routes/dashboard/partner/jobs";
 import { Route as DashboardPartnerApplicationsRouteImport } from "./routes/dashboard/partner/applications";
@@ -183,6 +185,7 @@ import { Route as DashboardAdminUsersIndexRouteImport } from "./routes/dashboard
 import { Route as DashboardAdminSupportIndexRouteImport } from "./routes/dashboard/admin/support/index";
 import { Route as DashboardAdminResumesIndexRouteImport } from "./routes/dashboard/admin/resumes/index";
 import { Route as DashboardAdminReferenceDataIndexRouteImport } from "./routes/dashboard/admin/reference-data/index";
+import { Route as DashboardAdminPartnersIndexRouteImport } from "./routes/dashboard/admin/partners/index";
 import { Route as DashboardAdminCohortsIndexRouteImport } from "./routes/dashboard/admin/cohorts/index";
 import { Route as DashboardAdminAiSettingsIndexRouteImport } from "./routes/dashboard/admin/ai-settings/index";
 import { Route as DashboardAdminAiQuotasIndexRouteImport } from "./routes/dashboard/admin/ai-quotas/index";
@@ -232,6 +235,11 @@ const HomeIndexRoute = HomeIndexRouteImport.update({
 const PrinterResumeIdRoute = PrinterResumeIdRouteImport.update({
   id: "/printer/$resumeId",
   path: "/printer/$resumeId",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const PartnerJoinRoute = PartnerJoinRouteImport.update({
+  id: "/partner/join",
+  path: "/partner/join",
   getParentRoute: () => rootRouteImport,
 } as any);
 const AuthVerify2faBackupRoute = AuthVerify2faBackupRouteImport.update({
@@ -696,6 +704,11 @@ const DashboardPortfolioFreelanceRoute =
     path: "/portfolio/freelance",
     getParentRoute: () => DashboardRouteRoute,
   } as any);
+const DashboardPartnerProfileRoute = DashboardPartnerProfileRouteImport.update({
+  id: "/partner/profile",
+  path: "/partner/profile",
+  getParentRoute: () => DashboardRouteRoute,
+} as any);
 const DashboardPartnerPostJobRoute = DashboardPartnerPostJobRouteImport.update({
   id: "/partner/post-job",
   path: "/partner/post-job",
@@ -1152,6 +1165,12 @@ const DashboardAdminReferenceDataIndexRoute =
     path: "/reference-data/",
     getParentRoute: () => DashboardAdminRouteRoute,
   } as any);
+const DashboardAdminPartnersIndexRoute =
+  DashboardAdminPartnersIndexRouteImport.update({
+    id: "/partners/",
+    path: "/partners/",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
 const DashboardAdminCohortsIndexRoute =
   DashboardAdminCohortsIndexRouteImport.update({
     id: "/cohorts/",
@@ -1248,6 +1267,7 @@ export interface FileRoutesByFullPath {
   "/auth/sign-up": typeof AuthSignUpRoute;
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
+  "/partner/join": typeof PartnerJoinRoute;
   "/printer/$resumeId": typeof PrinterResumeIdRoute;
   "/auth/": typeof AuthIndexRoute;
   "/dashboard/": typeof DashboardIndexRoute;
@@ -1326,6 +1346,7 @@ export interface FileRoutesByFullPath {
   "/dashboard/partner/applications": typeof DashboardPartnerApplicationsRoute;
   "/dashboard/partner/jobs": typeof DashboardPartnerJobsRoute;
   "/dashboard/partner/post-job": typeof DashboardPartnerPostJobRoute;
+  "/dashboard/partner/profile": typeof DashboardPartnerProfileRoute;
   "/dashboard/portfolio/freelance": typeof DashboardPortfolioFreelanceRoute;
   "/dashboard/portfolio/samples": typeof DashboardPortfolioSamplesRoute;
   "/dashboard/profile/achievements": typeof DashboardProfileAchievementsRoute;
@@ -1398,6 +1419,7 @@ export interface FileRoutesByFullPath {
   "/dashboard/admin/ai-quotas/": typeof DashboardAdminAiQuotasIndexRoute;
   "/dashboard/admin/ai-settings/": typeof DashboardAdminAiSettingsIndexRoute;
   "/dashboard/admin/cohorts/": typeof DashboardAdminCohortsIndexRoute;
+  "/dashboard/admin/partners/": typeof DashboardAdminPartnersIndexRoute;
   "/dashboard/admin/reference-data/": typeof DashboardAdminReferenceDataIndexRoute;
   "/dashboard/admin/resumes/": typeof DashboardAdminResumesIndexRoute;
   "/dashboard/admin/support/": typeof DashboardAdminSupportIndexRoute;
@@ -1428,6 +1450,7 @@ export interface FileRoutesByTo {
   "/auth/sign-up": typeof AuthSignUpRoute;
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
+  "/partner/join": typeof PartnerJoinRoute;
   "/printer/$resumeId": typeof PrinterResumeIdRoute;
   "/": typeof HomeIndexRoute;
   "/auth": typeof AuthIndexRoute;
@@ -1507,6 +1530,7 @@ export interface FileRoutesByTo {
   "/dashboard/partner/applications": typeof DashboardPartnerApplicationsRoute;
   "/dashboard/partner/jobs": typeof DashboardPartnerJobsRoute;
   "/dashboard/partner/post-job": typeof DashboardPartnerPostJobRoute;
+  "/dashboard/partner/profile": typeof DashboardPartnerProfileRoute;
   "/dashboard/portfolio/freelance": typeof DashboardPortfolioFreelanceRoute;
   "/dashboard/portfolio/samples": typeof DashboardPortfolioSamplesRoute;
   "/dashboard/profile/achievements": typeof DashboardProfileAchievementsRoute;
@@ -1579,6 +1603,7 @@ export interface FileRoutesByTo {
   "/dashboard/admin/ai-quotas": typeof DashboardAdminAiQuotasIndexRoute;
   "/dashboard/admin/ai-settings": typeof DashboardAdminAiSettingsIndexRoute;
   "/dashboard/admin/cohorts": typeof DashboardAdminCohortsIndexRoute;
+  "/dashboard/admin/partners": typeof DashboardAdminPartnersIndexRoute;
   "/dashboard/admin/reference-data": typeof DashboardAdminReferenceDataIndexRoute;
   "/dashboard/admin/resumes": typeof DashboardAdminResumesIndexRoute;
   "/dashboard/admin/support": typeof DashboardAdminSupportIndexRoute;
@@ -1616,6 +1641,7 @@ export interface FileRoutesById {
   "/auth/sign-up": typeof AuthSignUpRoute;
   "/auth/verify-2fa": typeof AuthVerify2faRoute;
   "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
+  "/partner/join": typeof PartnerJoinRoute;
   "/printer/$resumeId": typeof PrinterResumeIdRoute;
   "/_home/": typeof HomeIndexRoute;
   "/auth/": typeof AuthIndexRoute;
@@ -1695,6 +1721,7 @@ export interface FileRoutesById {
   "/dashboard/partner/applications": typeof DashboardPartnerApplicationsRoute;
   "/dashboard/partner/jobs": typeof DashboardPartnerJobsRoute;
   "/dashboard/partner/post-job": typeof DashboardPartnerPostJobRoute;
+  "/dashboard/partner/profile": typeof DashboardPartnerProfileRoute;
   "/dashboard/portfolio/freelance": typeof DashboardPortfolioFreelanceRoute;
   "/dashboard/portfolio/samples": typeof DashboardPortfolioSamplesRoute;
   "/dashboard/profile/achievements": typeof DashboardProfileAchievementsRoute;
@@ -1767,6 +1794,7 @@ export interface FileRoutesById {
   "/dashboard/admin/ai-quotas/": typeof DashboardAdminAiQuotasIndexRoute;
   "/dashboard/admin/ai-settings/": typeof DashboardAdminAiSettingsIndexRoute;
   "/dashboard/admin/cohorts/": typeof DashboardAdminCohortsIndexRoute;
+  "/dashboard/admin/partners/": typeof DashboardAdminPartnersIndexRoute;
   "/dashboard/admin/reference-data/": typeof DashboardAdminReferenceDataIndexRoute;
   "/dashboard/admin/resumes/": typeof DashboardAdminResumesIndexRoute;
   "/dashboard/admin/support/": typeof DashboardAdminSupportIndexRoute;
@@ -1805,6 +1833,7 @@ export interface FileRouteTypes {
     | "/auth/sign-up"
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
+    | "/partner/join"
     | "/printer/$resumeId"
     | "/auth/"
     | "/dashboard/"
@@ -1883,6 +1912,7 @@ export interface FileRouteTypes {
     | "/dashboard/partner/applications"
     | "/dashboard/partner/jobs"
     | "/dashboard/partner/post-job"
+    | "/dashboard/partner/profile"
     | "/dashboard/portfolio/freelance"
     | "/dashboard/portfolio/samples"
     | "/dashboard/profile/achievements"
@@ -1955,6 +1985,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/ai-quotas/"
     | "/dashboard/admin/ai-settings/"
     | "/dashboard/admin/cohorts/"
+    | "/dashboard/admin/partners/"
     | "/dashboard/admin/reference-data/"
     | "/dashboard/admin/resumes/"
     | "/dashboard/admin/support/"
@@ -1985,6 +2016,7 @@ export interface FileRouteTypes {
     | "/auth/sign-up"
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
+    | "/partner/join"
     | "/printer/$resumeId"
     | "/"
     | "/auth"
@@ -2064,6 +2096,7 @@ export interface FileRouteTypes {
     | "/dashboard/partner/applications"
     | "/dashboard/partner/jobs"
     | "/dashboard/partner/post-job"
+    | "/dashboard/partner/profile"
     | "/dashboard/portfolio/freelance"
     | "/dashboard/portfolio/samples"
     | "/dashboard/profile/achievements"
@@ -2136,6 +2169,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/ai-quotas"
     | "/dashboard/admin/ai-settings"
     | "/dashboard/admin/cohorts"
+    | "/dashboard/admin/partners"
     | "/dashboard/admin/reference-data"
     | "/dashboard/admin/resumes"
     | "/dashboard/admin/support"
@@ -2172,6 +2206,7 @@ export interface FileRouteTypes {
     | "/auth/sign-up"
     | "/auth/verify-2fa"
     | "/auth/verify-2fa-backup"
+    | "/partner/join"
     | "/printer/$resumeId"
     | "/_home/"
     | "/auth/"
@@ -2251,6 +2286,7 @@ export interface FileRouteTypes {
     | "/dashboard/partner/applications"
     | "/dashboard/partner/jobs"
     | "/dashboard/partner/post-job"
+    | "/dashboard/partner/profile"
     | "/dashboard/portfolio/freelance"
     | "/dashboard/portfolio/samples"
     | "/dashboard/profile/achievements"
@@ -2323,6 +2359,7 @@ export interface FileRouteTypes {
     | "/dashboard/admin/ai-quotas/"
     | "/dashboard/admin/ai-settings/"
     | "/dashboard/admin/cohorts/"
+    | "/dashboard/admin/partners/"
     | "/dashboard/admin/reference-data/"
     | "/dashboard/admin/resumes/"
     | "/dashboard/admin/support/"
@@ -2339,6 +2376,7 @@ export interface RootRouteChildren {
   BuilderResumeIdRouteRoute: typeof BuilderResumeIdRouteRouteWithChildren;
   UsernameSlugRoute: typeof UsernameSlugRouteWithChildren;
   ApiHealthRoute: typeof ApiHealthRoute;
+  PartnerJoinRoute: typeof PartnerJoinRoute;
   PrinterResumeIdRoute: typeof PrinterResumeIdRoute;
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
   ApiOpenapiSplatRoute: typeof ApiOpenapiSplatRoute;
@@ -2402,6 +2440,13 @@ declare module "@tanstack/react-router" {
       path: "/printer/$resumeId";
       fullPath: "/printer/$resumeId";
       preLoaderRoute: typeof PrinterResumeIdRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/partner/join": {
+      id: "/partner/join";
+      path: "/partner/join";
+      fullPath: "/partner/join";
+      preLoaderRoute: typeof PartnerJoinRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/auth/verify-2fa-backup": {
@@ -2999,6 +3044,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardPortfolioFreelanceRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
+    "/dashboard/partner/profile": {
+      id: "/dashboard/partner/profile";
+      path: "/partner/profile";
+      fullPath: "/dashboard/partner/profile";
+      preLoaderRoute: typeof DashboardPartnerProfileRouteImport;
+      parentRoute: typeof DashboardRouteRoute;
+    };
     "/dashboard/partner/post-job": {
       id: "/dashboard/partner/post-job";
       path: "/partner/post-job";
@@ -3566,6 +3618,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardAdminReferenceDataIndexRouteImport;
       parentRoute: typeof DashboardAdminRouteRoute;
     };
+    "/dashboard/admin/partners/": {
+      id: "/dashboard/admin/partners/";
+      path: "/partners";
+      fullPath: "/dashboard/admin/partners/";
+      preLoaderRoute: typeof DashboardAdminPartnersIndexRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
     "/dashboard/admin/cohorts/": {
       id: "/dashboard/admin/cohorts/";
       path: "/cohorts";
@@ -3725,6 +3784,7 @@ interface DashboardAdminRouteRouteChildren {
   DashboardAdminAiQuotasIndexRoute: typeof DashboardAdminAiQuotasIndexRoute;
   DashboardAdminAiSettingsIndexRoute: typeof DashboardAdminAiSettingsIndexRoute;
   DashboardAdminCohortsIndexRoute: typeof DashboardAdminCohortsIndexRoute;
+  DashboardAdminPartnersIndexRoute: typeof DashboardAdminPartnersIndexRoute;
   DashboardAdminReferenceDataIndexRoute: typeof DashboardAdminReferenceDataIndexRoute;
   DashboardAdminResumesIndexRoute: typeof DashboardAdminResumesIndexRoute;
   DashboardAdminSupportIndexRoute: typeof DashboardAdminSupportIndexRoute;
@@ -3740,6 +3800,7 @@ const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
   DashboardAdminAiQuotasIndexRoute: DashboardAdminAiQuotasIndexRoute,
   DashboardAdminAiSettingsIndexRoute: DashboardAdminAiSettingsIndexRoute,
   DashboardAdminCohortsIndexRoute: DashboardAdminCohortsIndexRoute,
+  DashboardAdminPartnersIndexRoute: DashboardAdminPartnersIndexRoute,
   DashboardAdminReferenceDataIndexRoute: DashboardAdminReferenceDataIndexRoute,
   DashboardAdminResumesIndexRoute: DashboardAdminResumesIndexRoute,
   DashboardAdminSupportIndexRoute: DashboardAdminSupportIndexRoute,
@@ -3836,6 +3897,7 @@ interface DashboardRouteRouteChildren {
   DashboardPartnerApplicationsRoute: typeof DashboardPartnerApplicationsRoute;
   DashboardPartnerJobsRoute: typeof DashboardPartnerJobsRoute;
   DashboardPartnerPostJobRoute: typeof DashboardPartnerPostJobRoute;
+  DashboardPartnerProfileRoute: typeof DashboardPartnerProfileRoute;
   DashboardPortfolioFreelanceRoute: typeof DashboardPortfolioFreelanceRoute;
   DashboardPortfolioSamplesRoute: typeof DashboardPortfolioSamplesRoute;
   DashboardProfileAchievementsRoute: typeof DashboardProfileAchievementsRoute;
@@ -3973,6 +4035,7 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardPartnerApplicationsRoute: DashboardPartnerApplicationsRoute,
   DashboardPartnerJobsRoute: DashboardPartnerJobsRoute,
   DashboardPartnerPostJobRoute: DashboardPartnerPostJobRoute,
+  DashboardPartnerProfileRoute: DashboardPartnerProfileRoute,
   DashboardPortfolioFreelanceRoute: DashboardPortfolioFreelanceRoute,
   DashboardPortfolioSamplesRoute: DashboardPortfolioSamplesRoute,
   DashboardProfileAchievementsRoute: DashboardProfileAchievementsRoute,
@@ -4078,6 +4141,7 @@ const rootRouteChildren: RootRouteChildren = {
   BuilderResumeIdRouteRoute: BuilderResumeIdRouteRouteWithChildren,
   UsernameSlugRoute: UsernameSlugRouteWithChildren,
   ApiHealthRoute: ApiHealthRoute,
+  PartnerJoinRoute: PartnerJoinRoute,
   PrinterResumeIdRoute: PrinterResumeIdRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiOpenapiSplatRoute: ApiOpenapiSplatRoute,

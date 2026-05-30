@@ -25,6 +25,7 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { authClient } from "@/integrations/auth/client";
 import { orpc } from "@/integrations/orpc/client";
+import { formatFieldName } from "../-components/display-utils";
 import { DashboardHeader } from "../-components/header";
 
 const LearningDashboardLazy = lazy(() => Promise.resolve({ default: LearningDashboard }));
@@ -288,7 +289,7 @@ function LearningDashboard() {
 											<div className="mb-2 flex items-start justify-between gap-2">
 												<div className="min-w-0 flex-1">
 													<p className="truncate font-medium text-sm">{path.titleFr || path.title}</p>
-													{path.field && <p className="text-muted-foreground text-xs capitalize">{path.field}</p>}
+													{path.field && <p className="text-muted-foreground text-xs">{formatFieldName(path.field)}</p>}
 												</div>
 												<PathStatusBadge status={path.status} />
 											</div>

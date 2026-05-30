@@ -390,9 +390,9 @@ export function ApplicationsTab({
 			{/* Filters and bulk actions */}
 			<Card>
 				<CardContent className="p-4">
-					<div className="flex flex-wrap items-center justify-between gap-4">
-						<div className="flex flex-1 flex-wrap items-center gap-4">
-							<div className="relative min-w-[200px] flex-1 lg:max-w-xs">
+					<div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+						<div className="flex flex-1 flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+							<div className="relative w-full min-w-[200px] sm:flex-1 lg:max-w-xs">
 								<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-muted-foreground" />
 								<Input
 									placeholder={t`Search...`}
@@ -403,7 +403,7 @@ export function ApplicationsTab({
 							</div>
 
 							<Select value={statusFilter} onValueChange={(v) => setStatusFilter(v as FollowUpStatus | "all")}>
-								<SelectTrigger className="w-[180px]">
+								<SelectTrigger className="w-full sm:w-[180px]">
 									<FunnelIcon className="mr-2 size-4" />
 									<SelectValue placeholder={t`Filter by status`} />
 								</SelectTrigger>

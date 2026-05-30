@@ -185,9 +185,9 @@ export function FiltersCard({ filters }: { filters: InsightsFilterState }) {
 							className="pl-10"
 						/>
 					</div>
-					<div className="flex flex-wrap items-center gap-2">
+					<div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
 						<Select value={filters.selectedSector} onValueChange={filters.setSelectedSector}>
-							<SelectTrigger className="w-[180px]">
+							<SelectTrigger className="w-full sm:w-[180px]">
 								<SelectValue placeholder={t`Sector`} />
 							</SelectTrigger>
 							<SelectContent>
@@ -200,7 +200,7 @@ export function FiltersCard({ filters }: { filters: InsightsFilterState }) {
 						</Select>
 
 						<Select value={filters.selectedRegion} onValueChange={filters.setSelectedRegion}>
-							<SelectTrigger className="w-[200px]">
+							<SelectTrigger className="w-full sm:w-[200px]">
 								<SelectValue placeholder={t`Region`} />
 							</SelectTrigger>
 							<SelectContent>
@@ -213,7 +213,7 @@ export function FiltersCard({ filters }: { filters: InsightsFilterState }) {
 						</Select>
 
 						<Select value={filters.selectedTimeRange} onValueChange={filters.setSelectedTimeRange}>
-							<SelectTrigger className="w-[140px]">
+							<SelectTrigger className="w-full sm:w-[140px]">
 								<CalendarIcon className="mr-2 size-4" />
 								<SelectValue placeholder={t`Time Range`} />
 							</SelectTrigger>

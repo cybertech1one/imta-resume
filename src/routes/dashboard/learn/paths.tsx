@@ -28,6 +28,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { authClient } from "@/integrations/auth/client";
 import { orpc } from "@/integrations/orpc/client";
+import { formatFieldName } from "../-components/display-utils";
 import { DashboardHeader } from "../-components/header";
 
 const LearningPathsLazy = lazy(() => Promise.resolve({ default: LearningPaths }));
@@ -194,7 +195,7 @@ function PathCard({
 								{path.field && (
 									<span className="flex items-center gap-1">
 										<PathIcon className="size-3" />
-										<span className="capitalize">{path.field}</span>
+										<span>{formatFieldName(path.field)}</span>
 									</span>
 								)}
 								{path.estimatedHours != null && (

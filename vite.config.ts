@@ -331,7 +331,10 @@ const config = defineConfig({
 		lingui(),
 		tailwindcss(),
 		nitro({
-			plugins: ["plugins/1.migrate.ts", "plugins/2.security-headers.ts"],
+			// 3.compression.ts wraps nitro.fetch to gzip/brotli-compress dynamic
+			// SSR/RPC responses (security-headers runs first via the `response` hook;
+			// its headers are copied onto the new compressed Response).
+			plugins: ["plugins/1.migrate.ts", "plugins/2.security-headers.ts", "plugins/3.compression.ts"],
 			// Pre-compress public/static assets at build time so the server can serve
 			// gzip/brotli variants (.gz/.br) without compressing on every request.
 			// Cuts first-load transfer size substantially (responses were ~2.4MB uncompressed).

@@ -64,23 +64,23 @@ type ErrorFallbackProps = {
 };
 
 function ErrorFallback({ error, section, onReset }: ErrorFallbackProps) {
-	const sectionLabel = section ? ` in ${section}` : "";
+	const sectionLabel = section ? ` dans ${section}` : "";
 
 	return (
 		<div className="flex h-full min-h-[200px] w-full flex-col items-center justify-center gap-y-4 p-4">
 			<Alert variant="destructive" className="max-w-md">
 				<WarningIcon className="size-4" />
 				<AlertTitle>
-					<Trans>Something went wrong{sectionLabel}</Trans>
+					<Trans>Un problème est survenu{sectionLabel}</Trans>
 				</AlertTitle>
 				<AlertDescription>
-					{error?.message || <Trans>An unexpected error occurred. Please try again.</Trans>}
+					{error?.message || <Trans>Une erreur inattendue est survenue. Veuillez réessayer.</Trans>}
 				</AlertDescription>
 			</Alert>
 
 			<Button variant="outline" onClick={onReset}>
 				<ArrowClockwiseIcon />
-				<Trans>Try Again</Trans>
+				<Trans>Réessayer</Trans>
 			</Button>
 		</div>
 	);

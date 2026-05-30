@@ -164,9 +164,9 @@ function PostJobPage() {
 	const handleSaveDraft = async () => {
 		try {
 			await createJobMutation.mutateAsync(buildJobPayload());
-			toast.success(t`Draft saved`);
+			toast.success(t`Brouillon enregistré`);
 		} catch {
-			toast.error(t`Failed to save draft`);
+			toast.error(t`Impossible d'enregistrer le brouillon`);
 		}
 	};
 
@@ -177,10 +177,10 @@ function PostJobPage() {
 			if (jobId) {
 				await publishJobMutation.mutateAsync({ id: jobId });
 			}
-			toast.success(t`Job submitted for review`);
+			toast.success(t`Offre envoyée pour validation`);
 			navigate({ to: "/dashboard/partner/jobs" as string });
 		} catch {
-			toast.error(t`Failed to submit job`);
+			toast.error(t`Impossible d'envoyer l'offre`);
 		}
 	};
 
@@ -196,26 +196,29 @@ function PostJobPage() {
 
 	return (
 		<div className="mx-auto w-full max-w-4xl space-y-6 p-4 md:p-6">
-			<DashboardHeader title={t`Post a Job`} icon={NotePencilIcon} />
+			<DashboardHeader title={t`Publier une offre`} icon={NotePencilIcon} />
 
 			<p className="text-muted-foreground text-sm">
-				<Trans>Fill in the details below to create a new job posting. Fields marked with * are required.</Trans>
+				<Trans>
+					Renseignez les informations ci-dessous pour créer une nouvelle offre. Les champs marqués d'un * sont
+					obligatoires.
+				</Trans>
 			</p>
 
 			{/* Job title */}
 			<Card>
 				<CardHeader>
 					<CardTitle className="text-base">
-						<Trans>Job Title</Trans>
+						<Trans>Intitulé du poste</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Provide the job title in French and optionally in English.</Trans>
+						<Trans>Indiquez l'intitulé en français et, si nécessaire, en anglais.</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
 					<div className="space-y-2">
 						<Label htmlFor="titleFr">
-							<Trans>Title (French)</Trans> *
+							<Trans>Titre en français</Trans> *
 						</Label>
 						<Input
 							id="titleFr"
@@ -226,11 +229,11 @@ function PostJobPage() {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="title">
-							<Trans>Title (English)</Trans>
+							<Trans>Titre en anglais</Trans>
 						</Label>
 						<Input
 							id="title"
-							placeholder={t`e.g. General Care Nurse, Welder, Forklift Operator...`}
+							placeholder={t`ex. General Care Nurse, Welder, Forklift Operator...`}
 							value={formData.title}
 							onChange={(e) => updateField("title", e.target.value)}
 						/>
@@ -245,17 +248,17 @@ function PostJobPage() {
 						<Trans>Description</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Describe the role, responsibilities, and requirements.</Trans>
+						<Trans>Décrivez le rôle, les responsabilités et les critères attendus.</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
 					<div className="space-y-2">
 						<Label htmlFor="descriptionFr">
-							<Trans>Description (French)</Trans> *
+							<Trans>Description en français</Trans> *
 						</Label>
 						<Textarea
 							id="descriptionFr"
-							placeholder={t`Describe the position in French...`}
+							placeholder={t`Décrivez le poste en français...`}
 							value={formData.descriptionFr}
 							onChange={(e) => updateField("descriptionFr", e.target.value)}
 							rows={6}
@@ -263,11 +266,11 @@ function PostJobPage() {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="description">
-							<Trans>Description (English)</Trans>
+							<Trans>Description en anglais</Trans>
 						</Label>
 						<Textarea
 							id="description"
-							placeholder={t`Describe the position in English...`}
+							placeholder={t`Décrivez le poste en anglais...`}
 							value={formData.description}
 							onChange={(e) => updateField("description", e.target.value)}
 							rows={6}
@@ -280,28 +283,28 @@ function PostJobPage() {
 			<Card>
 				<CardHeader>
 					<CardTitle className="text-base">
-						<Trans>Location & Type</Trans>
+						<Trans>Lieu et type de contrat</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent className="grid gap-4 md:grid-cols-2">
 					<div className="space-y-2">
 						<Label htmlFor="location">
-							<Trans>City</Trans> *
+							<Trans>Ville</Trans> *
 						</Label>
 						<Input
 							id="location"
-							placeholder={t`e.g. Casablanca`}
+							placeholder={t`ex. Casablanca`}
 							value={formData.location}
 							onChange={(e) => updateField("location", e.target.value)}
 						/>
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="region">
-							<Trans>Region</Trans>
+							<Trans>Région</Trans>
 						</Label>
 						<Select value={formData.region} onValueChange={(val) => updateField("region", val)}>
 							<SelectTrigger id="region">
-								<SelectValue placeholder={t`Select a region`} />
+								<SelectValue placeholder={t`Sélectionner une région`} />
 							</SelectTrigger>
 							<SelectContent>
 								{REGIONS.map((r) => (
@@ -314,11 +317,11 @@ function PostJobPage() {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="jobType">
-							<Trans>Job Type</Trans> *
+							<Trans>Type de contrat</Trans> *
 						</Label>
 						<Select value={formData.jobType} onValueChange={(val) => updateField("jobType", val)}>
 							<SelectTrigger id="jobType">
-								<SelectValue placeholder={t`Select job type`} />
+								<SelectValue placeholder={t`Sélectionner un type`} />
 							</SelectTrigger>
 							<SelectContent>
 								{JOB_TYPES.map((jt) => (
@@ -331,11 +334,11 @@ function PostJobPage() {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="experienceLevel">
-							<Trans>Experience Level</Trans>
+							<Trans>Niveau d'expérience</Trans>
 						</Label>
 						<Select value={formData.experienceLevel} onValueChange={(val) => updateField("experienceLevel", val)}>
 							<SelectTrigger id="experienceLevel">
-								<SelectValue placeholder={t`Select level`} />
+								<SelectValue placeholder={t`Sélectionner un niveau`} />
 							</SelectTrigger>
 							<SelectContent>
 								{EXPERIENCE_LEVELS.map((el) => (
@@ -353,17 +356,17 @@ function PostJobPage() {
 			<Card>
 				<CardHeader>
 					<CardTitle className="text-base">
-						<Trans>Field & Skills</Trans>
+						<Trans>Domaine et compétences</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent className="space-y-4">
 					<div className="space-y-2">
 						<Label htmlFor="field">
-							<Trans>Field</Trans> *
+							<Trans>Domaine</Trans> *
 						</Label>
 						<Select value={formData.field} onValueChange={(val) => updateField("field", val)}>
 							<SelectTrigger id="field">
-								<SelectValue placeholder={t`Select field`} />
+								<SelectValue placeholder={t`Sélectionner un domaine`} />
 							</SelectTrigger>
 							<SelectContent>
 								{FIELDS.map((f) => (
@@ -376,7 +379,7 @@ function PostJobPage() {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="skills">
-							<Trans>Required Skills</Trans>
+							<Trans>Compétences requises</Trans>
 						</Label>
 						<Input
 							id="skills"
@@ -385,7 +388,7 @@ function PostJobPage() {
 							onChange={(e) => updateField("skills", e.target.value)}
 						/>
 						<p className="text-muted-foreground text-xs">
-							<Trans>Separate skills with commas</Trans>
+							<Trans>Séparez les compétences par des virgules</Trans>
 						</p>
 					</div>
 				</CardContent>
@@ -396,31 +399,31 @@ function PostJobPage() {
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2 text-base">
 						<CurrencyCircleDollarIcon className="size-5" />
-						<Trans>Compensation</Trans>
+						<Trans>Rémunération</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent className="space-y-4">
 					<div className="grid gap-4 md:grid-cols-2">
 						<div className="space-y-2">
 							<Label htmlFor="salaryMin">
-								<Trans>Salary Min (MAD/month)</Trans>
+								<Trans>Salaire min. (MAD/mois)</Trans>
 							</Label>
 							<Input
 								id="salaryMin"
 								type="number"
-								placeholder={t`e.g. 8000`}
+								placeholder={t`ex. 8000`}
 								value={formData.salaryMin}
 								onChange={(e) => updateField("salaryMin", e.target.value)}
 							/>
 						</div>
 						<div className="space-y-2">
 							<Label htmlFor="salaryMax">
-								<Trans>Salary Max (MAD/month)</Trans>
+								<Trans>Salaire max. (MAD/mois)</Trans>
 							</Label>
 							<Input
 								id="salaryMax"
 								type="number"
-								placeholder={t`e.g. 15000`}
+								placeholder={t`ex. 15000`}
 								value={formData.salaryMax}
 								onChange={(e) => updateField("salaryMax", e.target.value)}
 							/>
@@ -428,11 +431,11 @@ function PostJobPage() {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="benefits">
-							<Trans>Benefits</Trans>
+							<Trans>Avantages</Trans>
 						</Label>
 						<Textarea
 							id="benefits"
-							placeholder={t`e.g. Assurance maladie, Transport, Restaurant d'entreprise...`}
+							placeholder={t`ex. Assurance maladie, transport, restaurant d'entreprise...`}
 							value={formData.benefits}
 							onChange={(e) => updateField("benefits", e.target.value)}
 							rows={3}
@@ -446,13 +449,13 @@ function PostJobPage() {
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2 text-base">
 						<CalendarIcon className="size-5" />
-						<Trans>Timeline & Capacity</Trans>
+						<Trans>Calendrier et capacité</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent className="grid gap-4 md:grid-cols-3">
 					<div className="space-y-2">
 						<Label htmlFor="deadline">
-							<Trans>Application Deadline</Trans>
+							<Trans>Date limite de candidature</Trans>
 						</Label>
 						<Input
 							id="deadline"
@@ -463,7 +466,7 @@ function PostJobPage() {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="startDate">
-							<Trans>Start Date</Trans>
+							<Trans>Date de début</Trans>
 						</Label>
 						<Input
 							id="startDate"
@@ -474,7 +477,7 @@ function PostJobPage() {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="positions">
-							<Trans>Number of Positions</Trans>
+							<Trans>Nombre de postes</Trans>
 						</Label>
 						<Input
 							id="positions"
@@ -492,18 +495,18 @@ function PostJobPage() {
 				<div className="flex items-center gap-2">
 					{!isFormValid && (
 						<Badge variant="outline" className="text-yellow-700 dark:text-yellow-300">
-							<Trans>Required fields missing</Trans>
+							<Trans>Champs obligatoires manquants</Trans>
 						</Badge>
 					)}
 				</div>
 				<div className="flex items-center gap-3">
 					<Button variant="outline" className="gap-2" onClick={handleSaveDraft} disabled={isSaving}>
 						<FloppyDiskIcon className="size-4" />
-						{isSaving ? <Trans>Saving...</Trans> : <Trans>Save as Draft</Trans>}
+						{isSaving ? <Trans>Enregistrement...</Trans> : <Trans>Enregistrer comme brouillon</Trans>}
 					</Button>
 					<Button className="gap-2" onClick={handleSubmitForReview} disabled={!isFormValid || isSubmitting}>
 						<PaperPlaneTiltIcon className="size-4" />
-						{isSubmitting ? <Trans>Submitting...</Trans> : <Trans>Submit for Review</Trans>}
+						{isSubmitting ? <Trans>Envoi...</Trans> : <Trans>Envoyer pour validation</Trans>}
 					</Button>
 				</div>
 			</div>

@@ -5,7 +5,7 @@ import { betterAuth } from "better-auth/minimal";
 import { apiKey, type GenericOAuthConfig, genericOAuth, twoFactor } from "better-auth/plugins";
 import { username } from "better-auth/plugins/username";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
-import { and, eq, or } from "drizzle-orm";
+import { and, eq, gt, or } from "drizzle-orm";
 import { db } from "@/integrations/drizzle/client";
 import { env } from "@/utils/env";
 import { hashPassword, verifyPassword } from "@/utils/password";
@@ -226,14 +226,99 @@ const getAuthConfig = () => {
 							attempt = toUsername(`${candidate}.${suffix}`);
 						}
 
+						// Email-keyed auto-promotion (security gate): if the admin invited
+						// this exact email as a partner and the invite is still pending and
+						// not expired, the new user is created with role "partner".
+						// `role` has input:false so the client cannot set it — only this
+						// server-side hook (keyed off a real, admin-created invite) can.
+						let role: "user" | "partner" | undefined;
+						const emailLower = typeof data.email === "string" ? data.email.trim().toLowerCase() : null;
+						if (emailLower) {
+							const [invite] = await db
+								.select({ id: schema.partnerInvite.id })
+								.from(schema.partnerInvite)
+								.where(
+									and(
+										eq(schema.partnerInvite.email, emailLower),
+										eq(schema.partnerInvite.status, "pending"),
+										gt(schema.partnerInvite.expiresAt, new Date()),
+									),
+								)
+								.limit(1);
+							if (invite) role = "partner";
+						}
+
 						return {
 							data: {
 								...data,
+								...(role ? { role } : {}),
 								username: attempt,
 								displayUsername:
 									typeof data.displayUsername === "string" && data.displayUsername ? data.displayUsername : attempt,
 							},
 						};
+					},
+					// After the user row exists, if their email matches a pending partner
+					// invite, provision a (pending) partner_profile from the invite data and
+					// mark the invite accepted. Guarded against duplicate profiles via the
+					// unique userId constraint on partner_profile.
+					after: async (createdUser) => {
+						const u = createdUser as { id?: string; email?: string };
+						const emailLower = typeof u.email === "string" ? u.email.trim().toLowerCase() : null;
+						if (!u.id || !emailLower) return;
+
+						try {
+							const [invite] = await db
+								.select()
+								.from(schema.partnerInvite)
+								.where(
+									and(
+										eq(schema.partnerInvite.email, emailLower),
+										eq(schema.partnerInvite.status, "pending"),
+										gt(schema.partnerInvite.expiresAt, new Date()),
+									),
+								)
+								.limit(1);
+
+							if (!invite) return;
+
+							// Guard: only create a profile if the user does not already have one.
+							const [existingProfile] = await db
+								.select({ id: schema.partnerProfile.id })
+								.from(schema.partnerProfile)
+								.where(eq(schema.partnerProfile.userId, u.id))
+								.limit(1);
+
+							if (!existingProfile) {
+								const partnerType = (
+									["employer", "recruiter", "training_center", "government", "ngo"].includes(invite.partnerType)
+										? invite.partnerType
+										: "employer"
+								) as "employer" | "recruiter" | "training_center" | "government" | "ngo";
+
+								await db.insert(schema.partnerProfile).values({
+									userId: u.id,
+									companyName: invite.companyName,
+									companyNameFr: invite.companyNameFr ?? null,
+									partnerType,
+									// Required NOT NULL columns get safe placeholders the partner
+									// completes via the profile setup UI.
+									industry: "À compléter",
+									description: "À compléter",
+									headquarters: "À compléter",
+									contactEmail: emailLower,
+									status: "pending",
+								});
+							}
+
+							await db
+								.update(schema.partnerInvite)
+								.set({ status: "accepted", acceptedUserId: u.id, updatedAt: new Date() })
+								.where(eq(schema.partnerInvite.id, invite.id));
+						} catch (error) {
+							// Never block signup on partner provisioning failure.
+							console.error("[partner-invite] Failed to provision partner profile on signup:", error);
+						}
 					},
 				},
 			},

@@ -65,37 +65,37 @@ type PartnerJobOption = {
 function ApplicationStatusBadge({ status }: { status: string }) {
 	const variants: Record<string, { label: string; className: string; icon: React.ElementType }> = {
 		submitted: {
-			label: t`Submitted`,
+			label: t`Soumise`,
 			className: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
 			icon: ClipboardTextIcon,
 		},
 		reviewed: {
-			label: t`Reviewed`,
+			label: t`Consultée`,
 			className: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
 			icon: EyeIcon,
 		},
 		shortlisted: {
-			label: t`Shortlisted`,
+			label: t`Présélectionnée`,
 			className: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
 			icon: StarIcon,
 		},
 		interviewed: {
-			label: t`Interviewed`,
+			label: t`Entretien effectué`,
 			className: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
 			icon: CalendarIcon,
 		},
 		offered: {
-			label: t`Offered`,
+			label: t`Offre envoyée`,
 			className: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
 			icon: StarIcon,
 		},
 		rejected: {
-			label: t`Rejected`,
+			label: t`Refusée`,
 			className: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
 			icon: XCircleIcon,
 		},
 		hired: {
-			label: t`Hired`,
+			label: t`Recrutée`,
 			className: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
 			icon: CheckCircleIcon,
 		},
@@ -118,7 +118,7 @@ function MatchScoreBadge({ score }: { score: number }) {
 
 	return (
 		<Badge variant="outline" className={`font-semibold ${colorClass}`}>
-			{score}% <Trans>match</Trans>
+			{score}% <Trans>de correspondance</Trans>
 		</Badge>
 	);
 }
@@ -216,11 +216,11 @@ function ApplicationCard({
 						</div>
 						<div>
 							<CardTitle className="text-base">
-								<Trans>Applicant</Trans> {application.userId.slice(0, 8)}
+								<Trans>Candidat</Trans> {application.userId.slice(0, 8)}
 							</CardTitle>
 							<CardDescription className="flex items-center gap-1 text-xs">
 								<EnvelopeSimpleIcon className="size-3" />
-								<Trans>Applied</Trans>{" "}
+								<Trans>Candidature reçue le</Trans>{" "}
 								{new Date(application.createdAt).toLocaleDateString("fr-FR", {
 									day: "numeric",
 									month: "short",
@@ -238,7 +238,7 @@ function ApplicationCard({
 					{application.resumeId && (
 						<Badge variant="outline" className="gap-1">
 							<FileTextIcon className="size-3" />
-							<Trans>Resume attached</Trans>
+							<Trans>CV joint</Trans>
 						</Badge>
 					)}
 				</div>
@@ -262,14 +262,14 @@ function ApplicationCard({
 					{application.status === "submitted" && (
 						<Button variant="outline" size="sm" className="gap-1.5" onClick={() => onReview(application.id)}>
 							<EyeIcon className="size-3.5" />
-							<Trans>Review</Trans>
+							<Trans>Consulter</Trans>
 						</Button>
 					)}
 
 					{(application.status === "submitted" || application.status === "reviewed") && (
 						<Button variant="outline" size="sm" className="gap-1.5" onClick={() => onShortlist(application.id)}>
 							<StarIcon className="size-3.5" />
-							<Trans>Shortlist</Trans>
+							<Trans>Présélectionner</Trans>
 						</Button>
 					)}
 
@@ -282,11 +282,11 @@ function ApplicationCard({
 								onClick={() => onScheduleInterview(application.id)}
 							>
 								<CalendarIcon className="size-3.5" />
-								<Trans>Schedule Interview</Trans>
+								<Trans>Planifier un entretien</Trans>
 							</Button>
 							<Button variant="outline" size="sm" className="gap-1.5" onClick={() => onHire(application.id)}>
 								<CheckCircleIcon className="size-3.5" />
-								<Trans>Hire</Trans>
+								<Trans>Recruter</Trans>
 							</Button>
 						</>
 					)}
@@ -299,7 +299,7 @@ function ApplicationCard({
 							onClick={() => onReject(application.id)}
 						>
 							<ProhibitIcon className="size-3.5" />
-							<Trans>Reject</Trans>
+							<Trans>Refuser</Trans>
 						</Button>
 					)}
 				</div>
@@ -404,10 +404,10 @@ function PartnerApplicationsPage() {
 				applicationId,
 				status: status as "submitted" | "reviewed" | "shortlisted" | "interviewed" | "offered" | "hired" | "rejected",
 			});
-			toast.success(t`Status updated`);
+			toast.success(t`Statut mis à jour`);
 			queryClient.invalidateQueries({ queryKey: ["partner"] });
 		} catch {
-			toast.error(t`Failed to update status`);
+			toast.error(t`Impossible de mettre à jour le statut`);
 		}
 	};
 
@@ -419,10 +419,10 @@ function PartnerApplicationsPage() {
 
 	return (
 		<div className="mx-auto w-full max-w-6xl space-y-6 p-4 md:p-6">
-			<DashboardHeader title={t`Applications`} icon={ClipboardTextIcon} />
+			<DashboardHeader title={t`Candidatures`} icon={ClipboardTextIcon} />
 
 			<p className="text-muted-foreground text-sm">
-				<Trans>Review and manage candidate applications for your job postings.</Trans>
+				<Trans>Consultez et gérez les candidatures reçues pour vos offres.</Trans>
 			</p>
 
 			{/* Filters */}
@@ -436,11 +436,11 @@ function PartnerApplicationsPage() {
 					</div>
 					<Select value={jobFilter} onValueChange={setJobFilter}>
 						<SelectTrigger className="w-[200px]">
-							<SelectValue placeholder={t`All Jobs`} />
+							<SelectValue placeholder={t`Toutes les offres`} />
 						</SelectTrigger>
 						<SelectContent>
 							<SelectItem value="all">
-								<Trans>All Jobs</Trans>
+								<Trans>Toutes les offres</Trans>
 							</SelectItem>
 							{jobOptions.map((job) => (
 								<SelectItem key={job.id} value={job.id}>
@@ -451,32 +451,32 @@ function PartnerApplicationsPage() {
 					</Select>
 					<Select value={statusFilter} onValueChange={setStatusFilter}>
 						<SelectTrigger className="w-[180px]">
-							<SelectValue placeholder={t`All Statuses`} />
+							<SelectValue placeholder={t`Tous les statuts`} />
 						</SelectTrigger>
 						<SelectContent>
 							<SelectItem value="all">
-								<Trans>All Statuses</Trans> ({statusCounts.all ?? 0})
+								<Trans>Tous les statuts</Trans> ({statusCounts.all ?? 0})
 							</SelectItem>
 							<SelectItem value="submitted">
-								<Trans>Submitted</Trans> ({statusCounts.submitted ?? 0})
+								<Trans>Soumises</Trans> ({statusCounts.submitted ?? 0})
 							</SelectItem>
 							<SelectItem value="reviewed">
-								<Trans>Reviewed</Trans> ({statusCounts.reviewed ?? 0})
+								<Trans>Consultées</Trans> ({statusCounts.reviewed ?? 0})
 							</SelectItem>
 							<SelectItem value="shortlisted">
-								<Trans>Shortlisted</Trans> ({statusCounts.shortlisted ?? 0})
+								<Trans>Présélectionnées</Trans> ({statusCounts.shortlisted ?? 0})
 							</SelectItem>
 							<SelectItem value="interviewed">
-								<Trans>Interviewed</Trans> ({statusCounts.interviewed ?? 0})
+								<Trans>Entretiens effectués</Trans> ({statusCounts.interviewed ?? 0})
 							</SelectItem>
 							<SelectItem value="offered">
-								<Trans>Offered</Trans> ({statusCounts.offered ?? 0})
+								<Trans>Offres envoyées</Trans> ({statusCounts.offered ?? 0})
 							</SelectItem>
 							<SelectItem value="rejected">
-								<Trans>Rejected</Trans> ({statusCounts.rejected ?? 0})
+								<Trans>Refusées</Trans> ({statusCounts.rejected ?? 0})
 							</SelectItem>
 							<SelectItem value="hired">
-								<Trans>Hired</Trans> ({statusCounts.hired ?? 0})
+								<Trans>Recrutées</Trans> ({statusCounts.hired ?? 0})
 							</SelectItem>
 						</SelectContent>
 					</Select>
@@ -490,10 +490,10 @@ function PartnerApplicationsPage() {
 				<Card>
 					<CardContent className="py-8 text-center text-muted-foreground">
 						<p className="font-medium">
-							<Trans>Unable to load applications</Trans>
+							<Trans>Impossible de charger les candidatures</Trans>
 						</p>
 						<p className="mt-1 text-sm">
-							<Trans>Please try again later or contact support.</Trans>
+							<Trans>Veuillez réessayer plus tard ou contacter le support.</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -502,13 +502,13 @@ function PartnerApplicationsPage() {
 					<CardContent className="py-12 text-center">
 						<ClipboardTextIcon className="mx-auto mb-3 size-10 text-muted-foreground opacity-50" />
 						<p className="font-medium text-muted-foreground">
-							<Trans>No applications found</Trans>
+							<Trans>Aucune candidature trouvée</Trans>
 						</p>
 						<p className="mt-1 text-muted-foreground text-sm">
 							{jobFilter !== "all" || statusFilter !== "all" ? (
-								<Trans>Try adjusting your filters to see more results.</Trans>
+								<Trans>Modifiez vos filtres pour afficher plus de résultats.</Trans>
 							) : (
-								<Trans>Applications will appear here when candidates apply to your job postings.</Trans>
+								<Trans>Les candidatures apparaîtront ici lorsque les candidats répondront à vos offres.</Trans>
 							)}
 						</p>
 					</CardContent>
@@ -517,7 +517,7 @@ function PartnerApplicationsPage() {
 				<div className="space-y-4">
 					<p className="text-muted-foreground text-sm">
 						{allApplications.length}{" "}
-						{allApplications.length === 1 ? <Trans>application</Trans> : <Trans>applications</Trans>}
+						{allApplications.length === 1 ? <Trans>candidature</Trans> : <Trans>candidatures</Trans>}
 					</p>
 					{allApplications.map((app) => (
 						<ApplicationCard

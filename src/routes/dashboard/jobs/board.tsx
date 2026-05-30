@@ -373,8 +373,8 @@ function JobBoardPage() {
 						/>
 					</div>
 
-					<div className="flex flex-wrap items-center gap-3">
-						<FunnelIcon className="size-4 text-muted-foreground" />
+					<div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+						<FunnelIcon className="hidden size-4 shrink-0 text-muted-foreground sm:block" />
 						<Select
 							value={locationFilter}
 							onValueChange={(val) => {
@@ -382,7 +382,7 @@ function JobBoardPage() {
 								setCurrentPage(1);
 							}}
 						>
-							<SelectTrigger className="w-[170px]">
+							<SelectTrigger className="w-full sm:w-[170px]">
 								<SelectValue />
 							</SelectTrigger>
 							<SelectContent>
@@ -401,7 +401,7 @@ function JobBoardPage() {
 								setCurrentPage(1);
 							}}
 						>
-							<SelectTrigger className="w-[180px]">
+							<SelectTrigger className="w-full sm:w-[180px]">
 								<SelectValue />
 							</SelectTrigger>
 							<SelectContent>
@@ -420,7 +420,7 @@ function JobBoardPage() {
 								setCurrentPage(1);
 							}}
 						>
-							<SelectTrigger className="w-[160px]">
+							<SelectTrigger className="w-full sm:w-[160px]">
 								<SelectValue />
 							</SelectTrigger>
 							<SelectContent>

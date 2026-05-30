@@ -7663,6 +7663,41 @@ export const partnerProfile = pg.pgTable(
 	],
 );
 
+// Partner invitations - admin invites a company by email; whoever signs up with
+// that email is auto-promoted to a partner (see auth/config.ts databaseHooks).
+export const partnerInvite = pg.pgTable(
+	"partner_invite",
+	{
+		id: pg
+			.uuid("id")
+			.notNull()
+			.primaryKey()
+			.$defaultFn(() => generateId()),
+		email: pg.text("email").notNull(),
+		companyName: pg.text("company_name").notNull(),
+		companyNameFr: pg.text("company_name_fr"),
+		partnerType: pg.text("partner_type").notNull().default("employer"),
+		token: pg.text("token").notNull().unique(),
+		invitedBy: pg
+			.uuid("invited_by")
+			.notNull()
+			.references(() => user.id, { onDelete: "cascade" }),
+		status: pg.text("status").notNull().default("pending"), // pending | accepted | revoked | expired
+		acceptedUserId: pg.uuid("accepted_user_id").references(() => user.id, { onDelete: "set null" }),
+		expiresAt: pg
+			.timestamp("expires_at", { withTimezone: true })
+			.notNull()
+			.$defaultFn(() => new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)),
+		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+		updatedAt: pg
+			.timestamp("updated_at", { withTimezone: true })
+			.notNull()
+			.defaultNow()
+			.$onUpdate(() => /* @__PURE__ */ new Date()),
+	},
+	(t) => [pg.index().on(t.email), pg.index().on(t.token), pg.index().on(t.status)],
+);
+
 // Partner job posting status
 export const partnerJobStatusEnum = pg.pgEnum("partner_job_status", [
 	"draft",

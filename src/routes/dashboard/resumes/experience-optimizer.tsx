@@ -110,7 +110,7 @@ function ExperienceOptimizerComponent() {
 		orpc.experienceOptimizer.addFavoriteKeyword.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({ queryKey: ["experienceOptimizer", "getIndustryPreference"] });
-				toast.success(t`Keyword added to favorites`);
+				toast.success(t`Mot-clé ajouté aux favoris`);
 			},
 		}),
 	);
@@ -119,7 +119,7 @@ function ExperienceOptimizerComponent() {
 		orpc.experienceOptimizer.addFavoritePhrase.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({ queryKey: ["experienceOptimizer", "getIndustryPreference"] });
-				toast.success(t`Phrase added to favorites`);
+				toast.success(t`Phrase ajoutée aux favoris`);
 			},
 		}),
 	);
@@ -136,7 +136,7 @@ function ExperienceOptimizerComponent() {
 		orpc.experienceOptimizer.createActionVerb.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({ queryKey: ["experienceOptimizer", "getActionVerbs"] });
-				toast.success(t`Action verb added to favorites`);
+				toast.success(t`Verbe d'action ajouté aux favoris`);
 			},
 		}),
 	);
@@ -147,23 +147,29 @@ function ExperienceOptimizerComponent() {
 
 	const copyToClipboard = useCallback((text: string) => {
 		navigator.clipboard.writeText(text);
-		toast.success(t`Copied to clipboard`);
+		toast.success(t`Copié dans le presse-papiers`);
 	}, []);
 
 	const optimizeText = useCallback(async () => {
 		if (!inputText.trim()) {
-			toast.error(t`Please enter text to optimize`);
+			toast.error(t`Veuillez saisir un texte à améliorer`);
 			return;
 		}
 		setIsOptimizing(true);
 
 		await new Promise((resolve) => setTimeout(resolve, 1500));
 
-		const optimized = `${inputText.charAt(0).toUpperCase()}${inputText.slice(1).replace(/^(I was |I have |responsible for |in charge of )/gi, "")}`;
+		const cleanedInput = inputText
+			.trim()
+			.replace(
+				/^(je\s+suis\s+|j['’]ai\s+|j['’]etais\s+|j['’]étais\s+|responsable\s+de\s+|chargé(?:e)?\s+de\s+|chargee\s+de\s+|en\s+charge\s+de\s+|i was\s+|i have\s+|responsible for\s+|in charge of\s+)/i,
+				"",
+			);
+		const optimized = `${cleanedInput.charAt(0).toUpperCase()}${cleanedInput.slice(1)}`;
 		const enhanced =
-			optimized.includes("%") || optimized.includes("EUR") || optimized.includes("+")
+			optimized.includes("%") || optimized.includes("MAD") || optimized.includes("DH") || optimized.includes("+")
 				? optimized
-				: `${optimized}, resulting in a 25% performance improvement and a 15% cost reduction`;
+				: `${optimized}, avec un gain estimé de 25 % sur la performance et une réduction des coûts de 15 %`;
 
 		setOptimizedText(enhanced);
 		setIsOptimizing(false);
@@ -174,7 +180,7 @@ function ExperienceOptimizerComponent() {
 			industry: selectedIndustry,
 		});
 
-		toast.success(t`Text optimized successfully`);
+		toast.success(t`Texte amélioré`);
 	}, [inputText, selectedIndustry, createHistoryMutation]);
 
 	const handleToggleTip = useCallback(
@@ -227,7 +233,7 @@ function ExperienceOptimizerComponent() {
 	if (isLoadingExamples || isLoadingPreference) {
 		return (
 			<div className="space-y-8">
-				<DashboardHeader icon={BriefcaseIcon} title={t`Professional Experience Optimizer`} />
+				<DashboardHeader icon={BriefcaseIcon} title={t`Optimiseur d'expérience professionnelle`} />
 				<LoadingSkeleton />
 			</div>
 		);
@@ -239,7 +245,7 @@ function ExperienceOptimizerComponent() {
 
 	return (
 		<motion.div className="space-y-8" initial="hidden" animate="visible" variants={containerVariants}>
-			<DashboardHeader icon={BriefcaseIcon} title={t`Professional Experience Optimizer`} />
+			<DashboardHeader icon={BriefcaseIcon} title={t`Optimiseur d'expérience professionnelle`} />
 
 			<HeroSection optimizationHistoryLength={optimizationHistory.length} />
 

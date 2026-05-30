@@ -194,7 +194,7 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 		mutationFn: async () => {
 			const content = editor.getHTML();
 			if (!content.trim() || content === "<p></p>") {
-				throw new Error(t`No content to improve`);
+				throw new Error(t`Aucun contenu à améliorer`);
 			}
 
 			aiAbortControllerRef.current = new AbortController();
@@ -221,13 +221,13 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 			editor.commands.setContent(stripMarkdownFences(improvedContent));
 			setIsAIStreaming(false);
 			setAIStreamedContent("");
-			toast.success(t`Content improved with AI`);
+			toast.success(t`Contenu amélioré avec l'IA`);
 		},
 		onError: (error) => {
 			setIsAIStreaming(false);
 			setAIStreamedContent("");
 			if (error.name !== "AbortError") {
-				toast.error(error.message || t`Failed to improve content`);
+				toast.error(error.message || t`Impossible d'améliorer le contenu`);
 			}
 		},
 	});
@@ -244,7 +244,7 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 		mutationFn: async () => {
 			const content = editor.getHTML();
 			if (!content.trim() || content === "<p></p>") {
-				throw new Error(t`No content to fix`);
+				throw new Error(t`Aucun contenu à corriger`);
 			}
 
 			grammarAbortControllerRef.current = new AbortController();
@@ -270,13 +270,13 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 			editor.commands.setContent(stripMarkdownFences(fixedContent));
 			setIsGrammarStreaming(false);
 			setGrammarStreamedContent("");
-			toast.success(t`Grammar fixed with AI`);
+			toast.success(t`Grammaire corrigée avec l'IA`);
 		},
 		onError: (error) => {
 			setIsGrammarStreaming(false);
 			setGrammarStreamedContent("");
 			if (error.name !== "AbortError") {
-				toast.error(error.message || t`Failed to fix grammar`);
+				toast.error(error.message || t`Impossible de corriger la grammaire`);
 			}
 		},
 	});
@@ -394,7 +394,7 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				// Link
 				isLink: ctx.editor.isActive("link") ?? false,
 				setLink: async () => {
-					const url = await prompt(t`Please enter the URL you want to link to:`, {
+					const url = await prompt(t`Saisissez l'URL à associer :`, {
 						defaultValue: "https://",
 					});
 
@@ -404,8 +404,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 					}
 
 					if (!z.url({ protocol: /^https?$/ }).safeParse(url).success) {
-						toast.error(t`The URL you entered is not valid.`, {
-							description: t`Valid URLs must start with http:// or https://.`,
+						toast.error(t`L'URL saisie n'est pas valide.`, {
+							description: t`Les URL valides doivent commencer par http:// ou https://.`,
 						});
 						return;
 					}
@@ -454,15 +454,15 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 	return (
 		<div
 			role="toolbar"
-			aria-label={t`Text formatting toolbar`}
+			aria-label={t`Barre de mise en forme du texte`}
 			className="flex flex-wrap items-center gap-y-0.5 rounded-md rounded-b-none border border-b-0"
 		>
 			<Toggle
 				size="sm"
 				tabIndex={-1}
 				className="rounded-none"
-				title={t`Bold`}
-				aria-label={t`Bold`}
+				title={t`Gras`}
+				aria-label={t`Gras`}
 				pressed={state.isBold}
 				disabled={!state.canBold}
 				onPressedChange={state.toggleBold}
@@ -474,8 +474,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				size="sm"
 				tabIndex={-1}
 				className="rounded-none"
-				title={t`Italic`}
-				aria-label={t`Italic`}
+				title={t`Italique`}
+				aria-label={t`Italique`}
 				pressed={state.isItalic}
 				disabled={!state.canItalic}
 				onPressedChange={state.toggleItalic}
@@ -487,8 +487,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				size="sm"
 				tabIndex={-1}
 				className="rounded-none"
-				title={t`Underline`}
-				aria-label={t`Underline`}
+				title={t`Souligner`}
+				aria-label={t`Souligner`}
 				pressed={state.isUnderline}
 				disabled={!state.canUnderline}
 				onPressedChange={state.toggleUnderline}
@@ -500,8 +500,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				size="sm"
 				tabIndex={-1}
 				className="rounded-none"
-				title={t`Strike`}
-				aria-label={t`Strikethrough`}
+				title={t`Barré`}
+				aria-label={t`Barré`}
 				pressed={state.isStrike}
 				disabled={!state.canStrike}
 				onPressedChange={state.toggleStrike}
@@ -513,8 +513,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				size="sm"
 				tabIndex={-1}
 				className="rounded-none"
-				title={t`Highlight`}
-				aria-label={t`Highlight`}
+				title={t`Surligner`}
+				aria-label={t`Surligner`}
 				pressed={state.isHighlight}
 				disabled={!state.canHighlight}
 				onPressedChange={state.toggleHighlight}
@@ -526,7 +526,7 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button size="sm" tabIndex={-1} variant="ghost" className="rounded-none" aria-label={t`Text style`}>
+					<Button size="sm" tabIndex={-1} variant="ghost" className="rounded-none" aria-label={t`Style du texte`}>
 						{match(state)
 							.with({ isParagraph: true }, () => <ParagraphIcon className="size-3.5" aria-hidden="true" />)
 							.with({ isHeading1: true }, () => <TextHOneIcon className="size-3.5" aria-hidden="true" />)
@@ -546,7 +546,7 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 						checked={state.isParagraph}
 						onCheckedChange={state.setParagraph}
 					>
-						<Trans>Paragraph</Trans>
+						<Trans>Paragraphe</Trans>
 					</DropdownMenuCheckboxItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuCheckboxItem
@@ -554,49 +554,49 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 						checked={state.isHeading1}
 						onCheckedChange={state.toggleHeading1}
 					>
-						<Trans>Heading 1</Trans>
+						<Trans>Titre 1</Trans>
 					</DropdownMenuCheckboxItem>
 					<DropdownMenuCheckboxItem
 						disabled={!state.canHeading2}
 						checked={state.isHeading2}
 						onCheckedChange={state.toggleHeading2}
 					>
-						<Trans>Heading 2</Trans>
+						<Trans>Titre 2</Trans>
 					</DropdownMenuCheckboxItem>
 					<DropdownMenuCheckboxItem
 						disabled={!state.canHeading3}
 						checked={state.isHeading3}
 						onCheckedChange={state.toggleHeading3}
 					>
-						<Trans>Heading 3</Trans>
+						<Trans>Titre 3</Trans>
 					</DropdownMenuCheckboxItem>
 					<DropdownMenuCheckboxItem
 						disabled={!state.canHeading4}
 						checked={state.isHeading4}
 						onCheckedChange={state.toggleHeading4}
 					>
-						<Trans>Heading 4</Trans>
+						<Trans>Titre 4</Trans>
 					</DropdownMenuCheckboxItem>
 					<DropdownMenuCheckboxItem
 						disabled={!state.canHeading5}
 						checked={state.isHeading5}
 						onCheckedChange={state.toggleHeading5}
 					>
-						<Trans>Heading 5</Trans>
+						<Trans>Titre 5</Trans>
 					</DropdownMenuCheckboxItem>
 					<DropdownMenuCheckboxItem
 						disabled={!state.canHeading6}
 						checked={state.isHeading6}
 						onCheckedChange={state.toggleHeading6}
 					>
-						<Trans>Heading 6</Trans>
+						<Trans>Titre 6</Trans>
 					</DropdownMenuCheckboxItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
 
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button size="sm" tabIndex={-1} variant="ghost" className="rounded-none" aria-label={t`Text alignment`}>
+					<Button size="sm" tabIndex={-1} variant="ghost" className="rounded-none" aria-label={t`Alignement du texte`}>
 						{match(state)
 							.with({ isLeftAlign: true }, () => <TextAlignLeftIcon className="size-3.5" aria-hidden="true" />)
 							.with({ isCenterAlign: true }, () => <TextAlignCenterIcon className="size-3.5" aria-hidden="true" />)
@@ -613,28 +613,28 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 						checked={state.isLeftAlign}
 						onCheckedChange={state.toggleLeftAlign}
 					>
-						<Trans>Left Align</Trans>
+						<Trans>Aligner à gauche</Trans>
 					</DropdownMenuCheckboxItem>
 					<DropdownMenuCheckboxItem
 						disabled={!state.canCenterAlign}
 						checked={state.isCenterAlign}
 						onCheckedChange={state.toggleCenterAlign}
 					>
-						<Trans>Center Align</Trans>
+						<Trans>Centrer</Trans>
 					</DropdownMenuCheckboxItem>
 					<DropdownMenuCheckboxItem
 						disabled={!state.canRightAlign}
 						checked={state.isRightAlign}
 						onCheckedChange={state.toggleRightAlign}
 					>
-						<Trans>Right Align</Trans>
+						<Trans>Aligner à droite</Trans>
 					</DropdownMenuCheckboxItem>
 					<DropdownMenuCheckboxItem
 						disabled={!state.canJustifyAlign}
 						checked={state.isJustifyAlign}
 						onCheckedChange={state.toggleJustifyAlign}
 					>
-						<Trans>Justify Align</Trans>
+						<Trans>Justifier</Trans>
 					</DropdownMenuCheckboxItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
@@ -645,8 +645,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				size="sm"
 				tabIndex={-1}
 				className="rounded-none"
-				title={t`Bullet List`}
-				aria-label={t`Bullet List`}
+				title={t`Liste à puces`}
+				aria-label={t`Liste à puces`}
 				pressed={state.isBulletList}
 				disabled={!state.canBulletList}
 				onPressedChange={state.toggleBulletList}
@@ -658,8 +658,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				size="sm"
 				tabIndex={-1}
 				className="rounded-none"
-				title={t`Ordered List`}
-				aria-label={t`Ordered List`}
+				title={t`Liste numérotée`}
+				aria-label={t`Liste numérotée`}
 				pressed={state.isOrderedList}
 				disabled={!state.canOrderedList}
 				onPressedChange={state.toggleOrderedList}
@@ -672,8 +672,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				tabIndex={-1}
 				variant="ghost"
 				className="rounded-none"
-				title={t`Decrease indent`}
-				aria-label={t`Decrease indent`}
+				title={t`Réduire le retrait`}
+				aria-label={t`Réduire le retrait`}
 				disabled={!state.canLiftListItem}
 				onClick={state.liftListItem}
 			>
@@ -685,8 +685,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				tabIndex={-1}
 				variant="ghost"
 				className="rounded-none"
-				title={t`Increase indent`}
-				aria-label={t`Increase indent`}
+				title={t`Augmenter le retrait`}
+				aria-label={t`Augmenter le retrait`}
 				disabled={!state.canSinkListItem}
 				onClick={state.sinkListItem}
 			>
@@ -701,8 +701,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 					tabIndex={-1}
 					variant="ghost"
 					className="rounded-none"
-					title={t`Remove link`}
-					aria-label={t`Remove link`}
+					title={t`Supprimer le lien`}
+					aria-label={t`Supprimer le lien`}
 					onClick={state.unsetLink}
 				>
 					<LinkBreakIcon className="size-3.5" aria-hidden="true" />
@@ -713,8 +713,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 					tabIndex={-1}
 					variant="ghost"
 					className="rounded-none"
-					title={t`Add link`}
-					aria-label={t`Add link`}
+					title={t`Ajouter un lien`}
+					aria-label={t`Ajouter un lien`}
 					onClick={state.setLink}
 				>
 					<LinkIcon className="size-3.5" aria-hidden="true" />
@@ -725,8 +725,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				size="sm"
 				tabIndex={-1}
 				className="rounded-none"
-				title={t`Inline Code`}
-				aria-label={t`Inline Code`}
+				title={t`Code en ligne`}
+				aria-label={t`Code en ligne`}
 				pressed={state.isInlineCode}
 				disabled={!state.canInlineCode}
 				onPressedChange={state.toggleInlineCode}
@@ -738,8 +738,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				size="sm"
 				tabIndex={-1}
 				className="rounded-none"
-				title={t`Code Block`}
-				aria-label={t`Code Block`}
+				title={t`Bloc de code`}
+				aria-label={t`Bloc de code`}
 				pressed={state.isCodeBlock}
 				disabled={!state.canCodeBlock}
 				onPressedChange={state.toggleCodeBlock}
@@ -754,8 +754,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 						tabIndex={-1}
 						variant="ghost"
 						className="rounded-none"
-						title={t`Table`}
-						aria-label={t`Table options`}
+						title={t`Tableau`}
+						aria-label={t`Options du tableau`}
 					>
 						<TableIcon className="size-3.5" aria-hidden="true" />
 					</Button>
@@ -764,39 +764,39 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				<DropdownMenuContent>
 					<DropdownMenuItem disabled={!state.canInsertTable} onSelect={state.insertTable}>
 						<PlusIcon aria-hidden="true" />
-						<Trans>Insert Table</Trans>
+						<Trans>Insérer un tableau</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem disabled={!state.canAddColumnBefore} onSelect={state.addColumnBefore}>
 						<ColumnsPlusLeftIcon aria-hidden="true" />
-						<Trans>Add Column Before</Trans>
+						<Trans>Ajouter une colonne avant</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuItem disabled={!state.canAddColumnAfter} onSelect={state.addColumnAfter}>
 						<ColumnsPlusRightIcon aria-hidden="true" />
-						<Trans>Add Column After</Trans>
+						<Trans>Ajouter une colonne après</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem disabled={!state.canAddRowBefore} onSelect={state.addRowBefore}>
 						<RowsPlusTopIcon aria-hidden="true" />
-						<Trans>Add Row Before</Trans>
+						<Trans>Ajouter une ligne avant</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuItem disabled={!state.canAddRowAfter} onSelect={state.addRowAfter}>
 						<RowsPlusBottomIcon aria-hidden="true" />
-						<Trans>Add Row After</Trans>
+						<Trans>Ajouter une ligne après</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem disabled={!state.canDeleteColumn} onSelect={state.deleteColumn}>
 						<TrashSimpleIcon aria-hidden="true" />
-						<Trans>Delete Column</Trans>
+						<Trans>Supprimer la colonne</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuItem disabled={!state.canDeleteRow} onSelect={state.deleteRow}>
 						<TrashSimpleIcon aria-hidden="true" />
-						<Trans>Delete Row</Trans>
+						<Trans>Supprimer la ligne</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem variant="destructive" disabled={!state.canDeleteTable} onSelect={state.deleteTable}>
 						<TrashSimpleIcon aria-hidden="true" />
-						<Trans>Delete Table</Trans>
+						<Trans>Supprimer le tableau</Trans>
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
@@ -806,8 +806,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				tabIndex={-1}
 				variant="ghost"
 				className="rounded-none"
-				title={t`New Line`}
-				aria-label={t`Insert line break`}
+				title={t`Nouvelle ligne`}
+				aria-label={t`Insérer un saut de ligne`}
 				onClick={state.setHardBreak}
 			>
 				<KeyReturnIcon className="size-3.5" aria-hidden="true" />
@@ -818,8 +818,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 				tabIndex={-1}
 				variant="ghost"
 				className="rounded-none"
-				title={t`Separator`}
-				aria-label={t`Insert horizontal rule`}
+				title={t`Séparateur`}
+				aria-label={t`Insérer une ligne horizontale`}
 				onClick={state.setHorizontalRule}
 			>
 				<MinusIcon className="size-3.5" aria-hidden="true" />
@@ -833,8 +833,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 						tabIndex={-1}
 						variant="ghost"
 						className="rounded-none text-purple-600 hover:bg-purple-50 dark:text-purple-400 dark:hover:bg-purple-900/20"
-						title={isAIStreaming ? t`Stop AI` : t`Improve with AI`}
-						aria-label={isAIStreaming ? t`Stop AI improvement` : t`Improve content with AI`}
+						title={isAIStreaming ? t`Arrêter l'IA` : t`Améliorer avec l'IA`}
+						aria-label={isAIStreaming ? t`Arrêter l'amélioration IA` : t`Améliorer le contenu avec l'IA`}
 						disabled={(aiImproveMutation.isPending && !isAIStreaming) || isGrammarStreaming}
 						onClick={isAIStreaming ? handleAIStop : () => aiImproveMutation.mutate()}
 					>
@@ -851,8 +851,8 @@ function EditorToolbar({ editor, aiContext, language }: { editor: Editor; aiCont
 						tabIndex={-1}
 						variant="ghost"
 						className="rounded-none text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/20"
-						title={isGrammarStreaming ? t`Stop` : t`Fix Grammar`}
-						aria-label={isGrammarStreaming ? t`Stop grammar fix` : t`Fix grammar with AI`}
+						title={isGrammarStreaming ? t`Arrêter` : t`Corriger la grammaire`}
+						aria-label={isGrammarStreaming ? t`Arrêter la correction grammaticale` : t`Corriger la grammaire avec l'IA`}
 						disabled={(fixGrammarMutation.isPending && !isGrammarStreaming) || isAIStreaming}
 						onClick={isGrammarStreaming ? handleGrammarStop : () => fixGrammarMutation.mutate()}
 					>

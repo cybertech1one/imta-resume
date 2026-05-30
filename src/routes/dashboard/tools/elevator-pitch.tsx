@@ -94,9 +94,9 @@ function ElevatorPitchGenerator() {
 			queryClient.invalidateQueries({
 				queryKey: orpc.elevatorPitch.list.queryOptions({ input: {} }).queryKey,
 			});
-			toast.success(t`Pitch saved`);
+			toast.success(t`Pitch enregistré`);
 		},
-		onError: () => toast.error(t`Failed to save pitch`),
+		onError: () => toast.error(t`Impossible d'enregistrer le pitch`),
 	});
 
 	const updatePitchMutation = useMutation({
@@ -105,9 +105,9 @@ function ElevatorPitchGenerator() {
 			queryClient.invalidateQueries({
 				queryKey: orpc.elevatorPitch.list.queryOptions({ input: {} }).queryKey,
 			});
-			toast.success(t`Pitch updated`);
+			toast.success(t`Pitch mis à jour`);
 		},
-		onError: () => toast.error(t`Failed to update pitch`),
+		onError: () => toast.error(t`Impossible de mettre à jour le pitch`),
 	});
 
 	const deletePitchMutation = useMutation({
@@ -116,9 +116,9 @@ function ElevatorPitchGenerator() {
 			queryClient.invalidateQueries({
 				queryKey: orpc.elevatorPitch.list.queryOptions({ input: {} }).queryKey,
 			});
-			toast.success(t`Pitch deleted`);
+			toast.success(t`Pitch supprimé`);
 		},
-		onError: () => toast.error(t`Failed to delete pitch`),
+		onError: () => toast.error(t`Impossible de supprimer le pitch`),
 	});
 
 	// Timer effect for recording
@@ -136,10 +136,11 @@ function ElevatorPitchGenerator() {
 
 	// Computed values
 	const generatedPitch = useMemo(() => {
-		return pitchSteps
+		const guidedPitch = pitchSteps
 			.map((step) => stepContents[step.id] || "")
 			.filter(Boolean)
 			.join(" ");
+		return guidedPitch || stepContents.custom || "";
 	}, [stepContents]);
 
 	const wordCount = useMemo(() => countWords(generatedPitch), [generatedPitch]);
@@ -155,6 +156,7 @@ function ElevatorPitchGenerator() {
 	const handleStepChange = useCallback((stepId: string, content: string) => {
 		setStepContents((prev) => ({
 			...prev,
+			custom: "",
 			[stepId]: content,
 		}));
 	}, []);
@@ -183,20 +185,20 @@ function ElevatorPitchGenerator() {
 				why: templateContent.split(".").slice(3, 4).join("."),
 				cta: templateContent.split(".").slice(-1)[0],
 			});
-			toast.success(t`Template applied successfully`);
+			toast.success(t`Modèle appliqué`);
 		}
 	}, [selectedIndustry, selectedLength]);
 
 	const handleSavePitch = useCallback(() => {
 		if (!generatedPitch.trim()) {
-			toast.error(t`Please create a pitch before saving`);
+			toast.error(t`Créez un pitch avant de l'enregistrer`);
 			return;
 		}
 
 		if (editingPitch) {
 			updatePitchMutation.mutate({
 				id: editingPitch.id,
-				name: pitchName || `Pitch ${new Date().toLocaleDateString(undefined)}`,
+				name: pitchName || `Pitch ${new Date().toLocaleDateString("fr-FR")}`,
 				content: generatedPitch,
 				length: selectedLength,
 				context: selectedContext,
@@ -206,7 +208,7 @@ function ElevatorPitchGenerator() {
 			});
 		} else {
 			createPitchMutation.mutate({
-				name: pitchName || `Pitch ${new Date().toLocaleDateString(undefined)}`,
+				name: pitchName || `Pitch ${new Date().toLocaleDateString("fr-FR")}`,
 				content: generatedPitch,
 				length: selectedLength,
 				context: selectedContext,
@@ -240,7 +242,7 @@ function ElevatorPitchGenerator() {
 		// Simple content loading - could be improved with proper parsing
 		setStepContents({ custom: pitch.content });
 		setActiveTab("builder");
-		toast.info(t`Pitch loaded for editing`);
+		toast.info(t`Pitch chargé pour modification`);
 	}, []);
 
 	const handleDeletePitch = useCallback(
@@ -252,7 +254,7 @@ function ElevatorPitchGenerator() {
 
 	const handleCopyPitch = useCallback(() => {
 		navigator.clipboard.writeText(generatedPitch);
-		toast.success(t`Pitch copied to clipboard`);
+		toast.success(t`Pitch copié`);
 	}, [generatedPitch]);
 
 	const handleStartRecording = useCallback(() => {
@@ -266,11 +268,11 @@ function ElevatorPitchGenerator() {
 		setIsPaused(false);
 		const targetTime = pitchLengthConfig[selectedLength].seconds;
 		if (recordingTime < targetTime * 0.8) {
-			toast.info(t`You finished in ${recordingTime}s - try slowing down a bit!`);
+			toast.info(t`Vous avez terminé en ${recordingTime}s. Parlez un peu plus lentement.`);
 		} else if (recordingTime > targetTime * 1.2) {
-			toast.info(t`You took ${recordingTime}s - try shortening your pitch!`);
+			toast.info(t`Vous avez pris ${recordingTime}s. Essayez de raccourcir le pitch.`);
 		} else {
-			toast.success(t`Excellent timing! ${recordingTime}s out of ${targetTime}s target`);
+			toast.success(t`Très bon timing : ${recordingTime}s pour un objectif de ${targetTime}s`);
 		}
 	}, [recordingTime, selectedLength]);
 
@@ -286,7 +288,7 @@ function ElevatorPitchGenerator() {
 
 	return (
 		<>
-			<DashboardHeader icon={MicrophoneIcon} title={t`Elevator Pitch Generator`} />
+			<DashboardHeader icon={MicrophoneIcon} title={t`Pitch entretien`} />
 
 			<HeroSection />
 
@@ -294,12 +296,12 @@ function ElevatorPitchGenerator() {
 			<Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
 				<TabsList className="flex h-auto flex-wrap gap-2 bg-transparent p-0">
 					{[
-						{ value: "builder", icon: PencilSimpleIcon, label: t`Builder` },
-						{ value: "templates", icon: ListBulletsIcon, label: t`Templates` },
-						{ value: "practice", icon: MicrophoneIcon, label: t`Practice` },
-						{ value: "tips", icon: LightbulbIcon, label: t`Tips` },
-						{ value: "examples", icon: StarIcon, label: t`Examples` },
-						{ value: "saved", icon: BookmarkSimpleIcon, label: t`Saved` },
+						{ value: "builder", icon: PencilSimpleIcon, label: t`Créer` },
+						{ value: "templates", icon: ListBulletsIcon, label: t`Modèles` },
+						{ value: "practice", icon: MicrophoneIcon, label: t`S'entraîner` },
+						{ value: "tips", icon: LightbulbIcon, label: t`Conseils` },
+						{ value: "examples", icon: StarIcon, label: t`Exemples` },
+						{ value: "saved", icon: BookmarkSimpleIcon, label: t`Enregistrés` },
 					].map((tab) => (
 						<TabsTrigger
 							key={tab.value}

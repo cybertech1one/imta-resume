@@ -240,7 +240,7 @@ export function FilterBar({
 
 			{activeTab === "requests" && (
 				<Select value={filterStatus} onValueChange={(value) => setFilterStatus(value as RequestStatus | "all")}>
-					<SelectTrigger className="w-[160px]">
+					<SelectTrigger className="w-full sm:w-[160px]">
 						<FunnelIcon className="mr-2 size-4" />
 						<SelectValue placeholder={t`Status`} />
 					</SelectTrigger>
@@ -254,7 +254,7 @@ export function FilterBar({
 			)}
 
 			<Select value={filterType} onValueChange={(value) => setFilterType(value as RecommenderType | "all")}>
-				<SelectTrigger className="w-[160px]">
+				<SelectTrigger className="w-full sm:w-[160px]">
 					<FunnelIcon className="mr-2 size-4" />
 					<SelectValue placeholder={t`Type`} />
 				</SelectTrigger>

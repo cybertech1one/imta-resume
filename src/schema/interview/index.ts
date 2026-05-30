@@ -14,33 +14,70 @@ export const interviewTypeSchema = z.enum([
 ]);
 export type InterviewType = z.infer<typeof interviewTypeSchema>;
 
-// Field specializations for IMTA students
+// Field specializations for IMTA students.
+// NOTE: This enum is the canonical taxonomy and is kept in sync with the
+// production `imta_program.field` column. The production DB exposes 5 active
+// fields (healthcare, hse, industrial, management, technology) plus the
+// "general" multi-field bucket used by fallbacks and the AI interview path.
 export const interviewFieldSchema = z.enum([
-	"healthcare", // Soins Infirmiers, Aide-Soignant
-	"industrial", // Maintenance Industrielle, Electromecanique
+	"healthcare", // Soins Infirmiers, Sage-Femme, Aide-Soignant, Labo, Anesthesie...
+	"industrial", // Maintenance, Electromecanique, Soudure, Genie Civil, Energies...
 	"hse", // Hygiene, Securite et Environnement
-	"general", // General/Multi-field
+	"management", // Finance, RH, Commerce, Supply Chain, Management de Projets
+	"technology", // Informatique, Reseaux, Data/IA, Cybersecurite, Telecoms
+	"general", // General/Multi-field (fallback bucket, "other" programs)
 ]);
 export type InterviewField = z.infer<typeof interviewFieldSchema>;
 
-// Specific IMTA Programs
+// Specific IMTA Programs.
+// Aligned with the production `imta_program` table (33 active programs across 5
+// fields). Legacy ids that predate the prod taxonomy are intentionally retained
+// (not deleted) because existing users may have selected them — alignment, not
+// removal. Each id below carries its canonical field in a trailing comment.
 export const imtaProgramSchema = z.enum([
-	// Healthcare Programs
-	"sage_femme", // Midwife - 3 years
-	"infirmier_polyvalent", // General Nurse - 3 years
-	"aide_soignant", // Nursing Assistant - 1 year
-	"infirmier_auxiliaire", // Auxiliary Nurse - 2 years
-	// Industrial Programs
-	"conducteur_engins", // Heavy Equipment Operator - Certifying
-	"mecanique_engins", // Heavy Equipment Mechanic - 2 years
-	"tourneur_industriel", // Industrial Turner - 1 year
-	"cariste", // Forklift Operator - Certifying
-	"electromecanique", // Electromechanical - 2 years
-	"soudure", // Welding - 1 year
-	// Safety Programs
-	"hse_specialist", // HSE Specialist - 2 years
-	// Other/Custom
-	"other", // Custom program
+	// ---- Healthcare ----
+	"sage_femme", // Sage-Femme (healthcare)
+	"infirmier_polyvalent", // Infirmier Polyvalent (healthcare)
+	"aide_soignant", // Aide Soignant (healthcare)
+	"infirmier_auxiliaire", // Infirmier Auxiliaire (healthcare) — legacy, retained
+	"auxiliaire_puericulture", // Auxiliaire de Puericulture (healthcare)
+	"genie_biomedical", // Genie Biomedical (healthcare)
+	"sciences_infirmieres_sante", // Sciences Infirmieres et Techniques de Sante (healthcare)
+	"technicien_anesthesie", // Technicien d'Anesthesie (healthcare)
+	"technicien_laboratoire", // Technicien de Laboratoire (healthcare)
+	// ---- HSE ----
+	"hse_specialist", // Specialiste HSE (hse)
+	"hse_advanced", // Hygiene, Securite et Environnement avance (hse)
+	// ---- Industrial ----
+	"conducteur_engins", // Conducteur d'Engins (industrial)
+	"mecanique_engins", // Mecanique d'Engins (industrial) — legacy, retained
+	"tourneur_industriel", // Tourneur Industriel (industrial) — legacy, retained
+	"cariste", // Cariste / Conducteur d'Engins (industrial)
+	"electromecanique", // Technicien Electromecanique (industrial)
+	"soudure", // Soudeur (industrial)
+	"maintenance_industrielle", // Technicien de Maintenance Industrielle (industrial)
+	"maintenance_industrielle_avancee", // Maintenance Industrielle Avancee (industrial)
+	"automatique_informatique_industrielle", // Automatique et Informatique Industrielle (industrial)
+	"energies_renouvelables_dd", // Energies Renouvelables et Developpement Durable (industrial)
+	"genie_civil_btp", // Genie Civil et BTP (industrial)
+	"genie_electrique_energies", // Genie Electrique et Energies Renouvelables (industrial)
+	"genie_industriel_logistique", // Genie Industriel et Logistique (industrial)
+	"genie_procedes_environnement", // Genie des Procedes et Environnement (industrial)
+	"qualite_amelioration_continue", // Qualite et Amelioration Continue (industrial)
+	"technicien_froid", // Technicien en Froid et Climatisation (industrial)
+	// ---- Management ----
+	"commerce_marketing_digital", // Commerce et Marketing Digital (management)
+	"finance_comptabilite", // Finance et Comptabilite (management)
+	"management_projets_industriels", // Management de Projets Industriels (management)
+	"ressources_humaines_droit", // Ressources Humaines et Droit Social (management)
+	"supply_chain_logistique", // Supply Chain et Logistique (management)
+	// ---- Technology ----
+	"cybersecurite_confiance", // Cybersecurite et Confiance Numerique (technology)
+	"data_science_ia", // Data Science et Intelligence Artificielle (technology)
+	"genie_informatique_reseaux", // Genie Informatique et Reseaux (technology)
+	"telecommunications_reseaux", // Telecommunications et Reseaux (technology)
+	// ---- Other/Custom ----
+	"other", // Programme personnalise/externe (general)
 ]);
 export type ImtaProgram = z.infer<typeof imtaProgramSchema>;
 

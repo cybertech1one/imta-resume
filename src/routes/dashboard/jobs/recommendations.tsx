@@ -186,7 +186,7 @@ function JobRecommendationsPage() {
 			<DashboardHeader icon={SparkleIcon} title={t`AI Recommendations`} />
 
 			{/* Stats Cards */}
-			<div className="grid gap-4 md:grid-cols-5">
+			<div className="grid grid-cols-2 gap-4 md:grid-cols-5">
 				<Card>
 					<CardHeader className="pb-2">
 						<CardDescription className="flex items-center gap-2">
@@ -288,7 +288,7 @@ function JobRecommendationsPage() {
 
 						{resumes && resumes.length > 0 && (
 							<Select onValueChange={(resumeId) => generateMutation.mutate({ resumeId })}>
-								<SelectTrigger className="w-[200px]">
+								<SelectTrigger className="w-full sm:w-[200px]">
 									<SelectValue placeholder={t`Use a resume`} />
 								</SelectTrigger>
 								<SelectContent>
@@ -307,9 +307,9 @@ function JobRecommendationsPage() {
 						</Button>
 					</div>
 
-					<div className="flex flex-wrap items-center gap-2">
+					<div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
 						<Select value={`${minScore}`} onValueChange={(v) => setMinScore(Number(v))}>
-							<SelectTrigger className="w-[160px]">
+							<SelectTrigger className="w-full sm:w-[160px]">
 								<FunnelIcon className="mr-2 size-4" />
 								<SelectValue placeholder={t`Minimum score`} />
 							</SelectTrigger>
@@ -324,7 +324,7 @@ function JobRecommendationsPage() {
 						</Select>
 
 						<Select value={sortBy} onValueChange={(v) => setSortBy(v as "score" | "date")}>
-							<SelectTrigger className="w-[160px]">
+							<SelectTrigger className="w-full sm:w-[160px]">
 								<SelectValue />
 							</SelectTrigger>
 							<SelectContent>
@@ -346,11 +346,15 @@ function JobRecommendationsPage() {
 				<div className="lg:col-span-2">
 					<Card>
 						<CardHeader>
-							<div className="flex items-center justify-between">
+							<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 								<CardTitle>
 									<Trans>Recommended Jobs</Trans>
 								</CardTitle>
-								<Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)}>
+								<Tabs
+									value={activeTab}
+									onValueChange={(v) => setActiveTab(v as typeof activeTab)}
+									className="-mx-1 max-w-full overflow-x-auto px-1"
+								>
 									<TabsList>
 										<TabsTrigger value="new" className="gap-1">
 											<LightningIcon className="size-4" />

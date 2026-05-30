@@ -135,7 +135,7 @@ function ShortcutItem({
 					<span className="font-medium text-sm">{shortcut.label}</span>
 					{shortcut.isCustomized && (
 						<Badge variant="secondary" className="h-5 px-1.5 text-[10px]">
-							<Trans>Customized</Trans>
+							<Trans>Personnalisé</Trans>
 						</Badge>
 					)}
 				</div>
@@ -179,8 +179,8 @@ function CategorySection({
 	const categoryLabels: Record<ShortcutCategory, string> = {
 		navigation: t`Navigation`,
 		actions: t`Actions`,
-		editor: t`Editor`,
-		general: t`General`,
+		editor: t`Éditeur`,
+		general: t`Général`,
 	};
 
 	return (
@@ -239,7 +239,7 @@ export function KeyboardShortcutsModal({ open, onOpenChange }: KeyboardShortcuts
 				await updateShortcutMutation.mutateAsync({ shortcutId, enabled: !shortcut.enabled });
 				queryClient.invalidateQueries({ queryKey: ["shortcuts"] });
 			} catch {
-				toast.error(t`Failed to toggle shortcut`);
+				toast.error(t`Impossible de modifier le raccourci`);
 			}
 		},
 		[shortcuts, updateShortcutMutation, queryClient],
@@ -253,9 +253,9 @@ export function KeyboardShortcutsModal({ open, onOpenChange }: KeyboardShortcuts
 				await resetMutation.mutateAsync({ category: activeTab });
 			}
 			queryClient.invalidateQueries({ queryKey: ["shortcuts"] });
-			toast.success(t`Shortcuts reset to defaults`);
+			toast.success(t`Raccourcis réinitialisés`);
 		} catch {
-			toast.error(t`Failed to reset shortcuts`);
+			toast.error(t`Impossible de réinitialiser les raccourcis`);
 		}
 	}, [activeTab, resetMutation, queryClient]);
 
@@ -313,7 +313,7 @@ export function KeyboardShortcutsModal({ open, onOpenChange }: KeyboardShortcuts
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogHeader className="sr-only">
 				<DialogTitle>
-					<Trans>Keyboard Shortcuts</Trans>
+					<Trans>Raccourcis clavier</Trans>
 				</DialogTitle>
 				<DialogDescription>
 					<Trans>Voir et personnaliser les raccourcis clavier</Trans>
@@ -329,11 +329,11 @@ export function KeyboardShortcutsModal({ open, onOpenChange }: KeyboardShortcuts
 						</div>
 						<div>
 							<h2 className="font-semibold text-lg">
-								<Trans>Keyboard Shortcuts</Trans>
+								<Trans>Raccourcis clavier</Trans>
 							</h2>
 							<p className="text-muted-foreground text-sm">
 								<Trans>
-									Press <Kbd>?</Kbd> or <Kbd>{isMac ? "Cmd" : "Ctrl"}</Kbd>+<Kbd>/</Kbd> to open this panel anytime
+									Appuyez sur <Kbd>?</Kbd> ou <Kbd>{isMac ? "Cmd" : "Ctrl"}</Kbd>+<Kbd>/</Kbd> pour ouvrir ce panneau
 								</Trans>
 							</p>
 						</div>
@@ -343,7 +343,7 @@ export function KeyboardShortcutsModal({ open, onOpenChange }: KeyboardShortcuts
 					<div className="relative mt-4">
 						<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
 						<Input
-							placeholder={t`Search shortcuts...`}
+							placeholder={t`Rechercher un raccourci...`}
 							value={search}
 							onChange={(e) => setSearch(e.target.value)}
 							className="h-9 pl-9"
@@ -357,7 +357,7 @@ export function KeyboardShortcutsModal({ open, onOpenChange }: KeyboardShortcuts
 						<TabsList className="w-full justify-start">
 							<TabsTrigger value="all" className="flex items-center gap-1.5">
 								<ArrowsOutCardinalIcon className="size-4" />
-								<Trans>All</Trans>
+								<Trans>Tous</Trans>
 							</TabsTrigger>
 							<TabsTrigger value="navigation" className="flex items-center gap-1.5">
 								<NavigationArrowIcon className="size-4" />
@@ -369,11 +369,11 @@ export function KeyboardShortcutsModal({ open, onOpenChange }: KeyboardShortcuts
 							</TabsTrigger>
 							<TabsTrigger value="editor" className="flex items-center gap-1.5">
 								<PencilSimpleIcon className="size-4" />
-								<Trans>Editor</Trans>
+								<Trans>Éditeur</Trans>
 							</TabsTrigger>
 							<TabsTrigger value="general" className="flex items-center gap-1.5">
 								<GearIcon className="size-4" />
-								<Trans>General</Trans>
+								<Trans>Général</Trans>
 							</TabsTrigger>
 						</TabsList>
 
@@ -387,7 +387,7 @@ export function KeyboardShortcutsModal({ open, onOpenChange }: KeyboardShortcuts
 									<div className="py-12 text-center text-muted-foreground">
 										<KeyboardIcon className="mx-auto mb-3 size-12 opacity-50" />
 										<p>
-											<Trans>No shortcuts found</Trans>
+											<Trans>Aucun raccourci trouvé</Trans>
 										</p>
 									</div>
 								) : (
@@ -421,7 +421,7 @@ export function KeyboardShortcutsModal({ open, onOpenChange }: KeyboardShortcuts
 											<div className="py-12 text-center text-muted-foreground">
 												<KeyboardIcon className="mx-auto mb-3 size-12 opacity-50" />
 												<p>
-													<Trans>No shortcuts in this category</Trans>
+													<Trans>Aucun raccourci dans cette catégorie</Trans>
 												</p>
 											</div>
 										)}
@@ -436,17 +436,17 @@ export function KeyboardShortcutsModal({ open, onOpenChange }: KeyboardShortcuts
 				<div className="flex items-center justify-between border-border border-t bg-muted/30 p-4">
 					<div className="flex items-center gap-2 text-muted-foreground text-sm">
 						<CommandIcon className="size-4" />
-						<span>{isMac ? <Trans>Use Cmd on Mac</Trans> : <Trans>Use Ctrl on Windows/Linux</Trans>}</span>
+						<span>{isMac ? <Trans>Utilisez Cmd sur Mac</Trans> : <Trans>Utilisez Ctrl sur Windows/Linux</Trans>}</span>
 					</div>
 
 					<div className="flex items-center gap-2">
 						{hasCustomizations && (
 							<Button variant="outline" size="sm" onClick={handleReset} disabled={resetMutation.isPending}>
-								<Trans>Reset to Defaults</Trans>
+								<Trans>Réinitialiser</Trans>
 							</Button>
 						)}
 						<Button size="sm" onClick={() => onOpenChange(false)}>
-							<Trans>Done</Trans>
+							<Trans>Terminé</Trans>
 						</Button>
 					</div>
 				</div>

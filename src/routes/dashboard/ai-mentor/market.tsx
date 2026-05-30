@@ -35,6 +35,7 @@ import { authClient } from "@/integrations/auth/client";
 import { orpc } from "@/integrations/orpc/client";
 import { cn } from "@/utils/style";
 
+import { formatFieldName, formatSkillCategory } from "../-components/display-utils";
 import { DashboardHeader } from "../-components/header";
 
 // biome-ignore lint/suspicious/noExplicitAny: Route path not in generated route tree
@@ -634,7 +635,7 @@ function MarketIntelligencePage() {
 													<div className="flex-1">
 														<p className="font-medium">{skill.skillFr || skill.skill}</p>
 														<p className="text-muted-foreground text-xs">
-															{skill.category} • {skill.field}
+															{formatSkillCategory(skill.category)} • {formatFieldName(skill.field)}
 														</p>
 													</div>
 													<div className="text-right">
