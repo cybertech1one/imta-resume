@@ -33,7 +33,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 function getFormSchema() {
 	return z.object({
-		identifier: z.string().trim().toLowerCase().min(1, { message: t`Email or username is required` }),
+		identifier: z.string().trim().toLowerCase().min(1, { message: t`L'e-mail ou le nom d'utilisateur est requis` }),
 		password: z
 			.string()
 			.trim()
@@ -57,7 +57,7 @@ function RouteComponent() {
 	});
 
 	const onSubmit = async (data: FormValues) => {
-		const toastId = toast.loading(t`Signing in...`);
+		const toastId = toast.loading(t`Connexion en cours...`);
 
 		const fetchOptions: BetterFetchOption = {
 			onSuccess: (context) => {
@@ -101,7 +101,7 @@ function RouteComponent() {
 		<>
 			<div className="space-y-1 text-center">
 				<h1 className="font-bold text-2xl tracking-tight">
-					<Trans>Sign in to your account</Trans>
+					<Trans>Connectez-vous à votre compte</Trans>
 				</h1>
 
 				{!flags.disableSignups && (
@@ -120,14 +120,19 @@ function RouteComponent() {
 
 			{!flags.disableEmailAuth && (
 				<Form {...form}>
-					<form method="POST" className="space-y-6" onSubmit={form.handleSubmit(onSubmit)} aria-label={t`Sign in form`}>
+					<form
+						method="POST"
+						className="space-y-6"
+						onSubmit={form.handleSubmit(onSubmit)}
+						aria-label={t`Formulaire de connexion`}
+					>
 						<FormField
 							control={form.control}
 							name="identifier"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>
-										<Trans>Email Address</Trans>
+										<Trans>Adresse e-mail</Trans>
 									</FormLabel>
 									<FormControl>
 										<Input
@@ -140,7 +145,7 @@ function RouteComponent() {
 									</FormControl>
 									<FormMessage />
 									<FormDescription>
-										<Trans>You can also use your username to login.</Trans>
+										<Trans>Vous pouvez également utiliser votre nom d'utilisateur pour vous connecter.</Trans>
 									</FormDescription>
 								</FormItem>
 							)}
@@ -153,12 +158,12 @@ function RouteComponent() {
 								<FormItem>
 									<div className="flex items-center justify-between">
 										<FormLabel>
-											<Trans>Password</Trans>
+											<Trans>Mot de passe</Trans>
 										</FormLabel>
 
 										<Button asChild tabIndex={-1} variant="link" className="h-auto p-0 text-xs leading-none">
 											<Link to="/auth/forgot-password">
-												<Trans>Forgot Password?</Trans>
+												<Trans>Mot de passe oublié ?</Trans>
 											</Link>
 										</Button>
 									</div>
@@ -178,7 +183,7 @@ function RouteComponent() {
 											type="button"
 											size="icon"
 											variant="ghost"
-											aria-label={showPassword ? t`Hide password` : t`Show password`}
+											aria-label={showPassword ? t`Masquer le mot de passe` : t`Afficher le mot de passe`}
 											aria-pressed={showPassword}
 											onClick={toggleShowPassword}
 										>
@@ -191,7 +196,7 @@ function RouteComponent() {
 						/>
 
 						<Button type="submit" className="w-full">
-							<Trans>Sign in</Trans>
+							<Trans>Se connecter</Trans>
 						</Button>
 					</form>
 				</Form>

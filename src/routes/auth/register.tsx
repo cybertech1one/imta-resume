@@ -188,7 +188,7 @@ function RouteComponent() {
 			return;
 		}
 
-		const toastId = toast.loading(t`Signing up...`);
+		const toastId = toast.loading(t`Inscription en cours...`);
 
 		const { error } = await authClient.signUp.email({
 			name: data.name,
@@ -230,15 +230,15 @@ function RouteComponent() {
 		<>
 			<div className="space-y-1 text-center">
 				<h1 className="font-bold text-2xl tracking-tight">
-					<Trans>Create a new account</Trans>
+					<Trans>Créer un nouveau compte</Trans>
 				</h1>
 
 				<div className="text-muted-foreground">
 					<Trans>
-						Already have an account?{" "}
+						Vous avez déjà un compte ?{" "}
 						<Button asChild variant="link" className="h-auto gap-1.5 px-1! py-0">
 							<Link to="/auth/login">
-								Sign in now <ArrowRightIcon />
+								Connectez-vous <ArrowRightIcon />
 							</Link>
 						</Button>
 					</Trans>
@@ -264,7 +264,7 @@ function RouteComponent() {
 						method="POST"
 						className="space-y-6"
 						onSubmit={form.handleSubmit(onSubmit)}
-						aria-label={t`Create account form`}
+						aria-label={t`Formulaire de création de compte`}
 					>
 						{/*
 						 * Honeypot: hidden from humans (and screen readers) but present in
@@ -409,7 +409,7 @@ function RouteComponent() {
 											type="button"
 											size="icon"
 											variant="ghost"
-											aria-label={showPassword ? t`Hide password` : t`Show password`}
+											aria-label={showPassword ? t`Masquer le mot de passe` : t`Afficher le mot de passe`}
 											aria-pressed={showPassword}
 											onClick={toggleShowPassword}
 										>
@@ -427,7 +427,7 @@ function RouteComponent() {
 						{turnstileEnabled && <div ref={turnstileContainerRef} className="flex justify-center" />}
 
 						<Button type="submit" className="w-full" disabled={turnstileEnabled && !turnstileToken}>
-							<Trans>Sign up</Trans>
+							<Trans>S'inscrire</Trans>
 						</Button>
 					</form>
 				</Form>
@@ -461,7 +461,7 @@ function PostSignupScreen() {
 
 			<Button asChild>
 				<Link to="/dashboard">
-					<Trans>Continue</Trans> <ArrowRightIcon />
+					<Trans>Continuer</Trans> <ArrowRightIcon />
 				</Link>
 			</Button>
 		</>
