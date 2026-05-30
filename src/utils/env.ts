@@ -6,8 +6,6 @@ export const env = createEnv({
 	runtimeEnv: typeof process !== "undefined" ? process.env : {},
 	emptyStringAsUndefined: true,
 
-	client: {},
-
 	server: {
 		// Server
 		TZ: z.string().default("Etc/UTC"),
@@ -88,5 +86,39 @@ export const env = createEnv({
 			.string()
 			.default("false")
 			.transform((val) => val === "true"),
+
+		// ──────────────────────────────────────────────────────────────────────
+		// Auth Abuse Protection (anti-spam / anti-bot / brute-force)
+		// All optional with safe defaults — the app is fully protected (honeypot,
+		// disposable-email block, throttling, per-email lockout) WITHOUT any of
+		// these being set. They only tune behaviour or enable Turnstile.
+		// ──────────────────────────────────────────────────────────────────────
+
+		// Registration mode env fallback. The admin DB-backed setting (app_setting
+		// key "registration_mode") takes precedence when present; this env value is
+		// the default used when no DB row exists yet.
+		//   open        → anyone may register (default for the controlled launch)
+		//   invite_only → only emails with a valid pending partner invite (or admins)
+		//   closed      → no new signups at all
+		REGISTRATION_MODE: z.enum(["open", "invite_only", "closed"]).default("open"),
+
+		// Maximum number of NEW signups allowed per calendar day (UTC). Once
+		// exceeded, further signups are rejected with a clear French message until
+		// the next day. Default tuned for a ~200-student controlled launch.
+		DAILY_SIGNUP_CAP: z.coerce.number().int().min(1).default(200),
+
+		// Cloudflare Turnstile (KEYLESS by default). Captcha is ONLY enforced when
+		// BOTH the site key and secret are set. If either is missing, signup runs
+		// in keyless mode (honeypot + disposable-email block only). No code change
+		// is needed to enable Turnstile later — just set both vars.
+		// The site key is also exposed to the client via VITE_TURNSTILE_SITE_KEY.
+		TURNSTILE_SECRET: z.string().min(1).optional(),
+	},
+
+	client: {
+		// Public Turnstile site key — safe to expose to the browser. When set
+		// (together with the server-side TURNSTILE_SECRET), the register form
+		// renders the Turnstile widget. Leave unset for keyless mode.
+		VITE_TURNSTILE_SITE_KEY: z.string().min(1).optional(),
 	},
 });

@@ -18,6 +18,18 @@ import type {
 } from "@/integrations/drizzle/schema";
 import { generateId } from "@/utils/string";
 
+// Deterministic improvement percentage between a baseline (before) and a latest (after) score.
+// Avoids divide-by-zero and the misleading "0%" when the baseline was 0:
+//   - baseline 0, latest > 0  -> 100% (full gain from nothing to something)
+//   - baseline 0, latest 0    -> 0%
+//   - otherwise               -> standard relative change, rounded
+function computeImprovement(before: number, after: number): number {
+	if (before > 0) {
+		return Math.round(((after - before) / before) * 100);
+	}
+	return after > 0 ? 100 : 0;
+}
+
 // Re-export types for router usage
 export type {
 	EffortLevel,
@@ -383,49 +395,39 @@ export const resumeScoringService = {
 
 		const [latest, previous] = history;
 
+		// Use computeImprovement so a 0 baseline reports a real gain (100% / absolute) not a misleading 0%.
 		return [
 			{
 				metric: "Score global",
 				before: previous.overallScore,
 				after: latest.overallScore,
-				improvement:
-					previous.overallScore > 0
-						? Math.round(((latest.overallScore - previous.overallScore) / previous.overallScore) * 100)
-						: 0,
+				improvement: computeImprovement(previous.overallScore, latest.overallScore),
 			},
 			{
 				metric: "Score ATS",
 				before: previous.atsScore,
 				after: latest.atsScore,
-				improvement:
-					previous.atsScore > 0 ? Math.round(((latest.atsScore - previous.atsScore) / previous.atsScore) * 100) : 0,
+				improvement: computeImprovement(previous.atsScore, latest.atsScore),
 			},
 			{
-				metric: "Lisibilite",
+				// Fixed accent: "Lisibilite" -> "Lisibilité"
+				metric: "Lisibilité",
 				before: previous.readabilityScore,
 				after: latest.readabilityScore,
-				improvement:
-					previous.readabilityScore > 0
-						? Math.round(((latest.readabilityScore - previous.readabilityScore) / previous.readabilityScore) * 100)
-						: 0,
+				improvement: computeImprovement(previous.readabilityScore, latest.readabilityScore),
 			},
 			{
-				metric: "Completude",
+				// Fixed accent: "Completude" -> "Complétude"
+				metric: "Complétude",
 				before: previous.completenessScore,
 				after: latest.completenessScore,
-				improvement:
-					previous.completenessScore > 0
-						? Math.round(((latest.completenessScore - previous.completenessScore) / previous.completenessScore) * 100)
-						: 0,
+				improvement: computeImprovement(previous.completenessScore, latest.completenessScore),
 			},
 			{
 				metric: "Score visuel",
 				before: previous.visualScore,
 				after: latest.visualScore,
-				improvement:
-					previous.visualScore > 0
-						? Math.round(((latest.visualScore - previous.visualScore) / previous.visualScore) * 100)
-						: 0,
+				improvement: computeImprovement(previous.visualScore, latest.visualScore),
 			},
 		];
 	},

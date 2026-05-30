@@ -3,7 +3,7 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { ArrowRightIcon, EyeIcon, EyeSlashIcon } from "@phosphor-icons/react";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useToggle } from "usehooks-ts";
@@ -14,8 +14,23 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { FORM_RENDER_TS_FIELD, HONEYPOT_FIELD } from "@/integrations/auth/abuse-guard-constants";
 import { authClient } from "@/integrations/auth/client";
+import { env } from "@/utils/env";
 import { SocialAuth } from "./-components/social-auth";
+
+// Public Turnstile site key (keyless when unset → widget never renders).
+const TURNSTILE_SITE_KEY = env.VITE_TURNSTILE_SITE_KEY;
+
+// Minimal global typing for the optionally-loaded Turnstile script.
+declare global {
+	interface Window {
+		turnstile?: {
+			render: (el: HTMLElement, opts: { sitekey: string; callback: (token: string) => void }) => string;
+			reset: (id?: string) => void;
+		};
+	}
+}
 
 const registerSearchSchema = z.object({
 	// Pre-fill the email field (e.g. when arriving from a partner invitation link).
@@ -102,6 +117,43 @@ function RouteComponent() {
 	const { email: invitedEmail, invite: inviteToken } = Route.useSearch();
 	const isInvited = !!invitedEmail && !!inviteToken;
 
+	// Anti-bot: capture the moment the form mounts so the server can reject
+	// implausibly fast (automated) submissions. Honeypot is a hidden field that
+	// only bots fill.
+	const formRenderTsRef = useRef<number>(Date.now());
+	const honeypotRef = useRef<HTMLInputElement>(null);
+
+	// Optional Cloudflare Turnstile (only when a public site key is configured).
+	const turnstileEnabled = !!TURNSTILE_SITE_KEY;
+	const turnstileContainerRef = useRef<HTMLDivElement>(null);
+	const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
+	useEffect(() => {
+		if (!turnstileEnabled || !TURNSTILE_SITE_KEY) return;
+		const SCRIPT_ID = "cf-turnstile-script";
+
+		const renderWidget = () => {
+			if (!window.turnstile || !turnstileContainerRef.current) return;
+			if (turnstileContainerRef.current.childElementCount > 0) return;
+			window.turnstile.render(turnstileContainerRef.current, {
+				sitekey: TURNSTILE_SITE_KEY,
+				callback: (token: string) => setTurnstileToken(token),
+			});
+		};
+
+		if (document.getElementById(SCRIPT_ID)) {
+			renderWidget();
+			return;
+		}
+		const script = document.createElement("script");
+		script.id = SCRIPT_ID;
+		script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+		script.async = true;
+		script.defer = true;
+		script.onload = renderWidget;
+		document.head.appendChild(script);
+	}, [turnstileEnabled]);
+
 	const form = useForm<FormValues>({
 		resolver: zodResolver(getFormSchema()),
 		defaultValues: {
@@ -115,6 +167,12 @@ function RouteComponent() {
 	});
 
 	const onSubmit = async (data: FormValues) => {
+		// Require the captcha token only when Turnstile is enabled.
+		if (turnstileEnabled && !turnstileToken) {
+			toast.error(t`Veuillez compléter la vérification anti-robot.`);
+			return;
+		}
+
 		const toastId = toast.loading(t`Signing up...`);
 
 		const { error } = await authClient.signUp.email({
@@ -125,14 +183,25 @@ function RouteComponent() {
 			displayUsername: data.username,
 			imtaProgram: data.imtaProgram,
 			callbackURL: "/dashboard",
-		});
+			// Anti-abuse fields read server-side by the auth before-hook.
+			[HONEYPOT_FIELD]: honeypotRef.current?.value ?? "",
+			[FORM_RENDER_TS_FIELD]: formRenderTsRef.current,
+			...(turnstileToken ? { turnstileToken } : {}),
+		} as Parameters<typeof authClient.signUp.email>[0]);
 
 		if (error) {
+			// The server returns French messages for abuse rejections; fall back
+			// to a generic message for the account-exists case (no enumeration).
 			const message =
 				error.code === "FAILED_TO_CREATE_USER" || error.message?.includes("FAILED_TO_CREATE_USER")
-					? t`An account with this email already exists. Please sign in instead.`
-					: error.message;
+					? t`Un compte avec cet e-mail existe déjà. Veuillez vous connecter.`
+					: (error.message ?? t`Inscription refusée. Veuillez réessayer.`);
 			toast.error(message, { id: toastId });
+			// Reset Turnstile so the user can retry.
+			if (turnstileEnabled) {
+				window.turnstile?.reset();
+				setTurnstileToken(null);
+			}
 			return;
 		}
 
@@ -182,6 +251,24 @@ function RouteComponent() {
 						onSubmit={form.handleSubmit(onSubmit)}
 						aria-label={t`Create account form`}
 					>
+						{/*
+						 * Honeypot: hidden from humans (and screen readers) but present in
+						 * the DOM so naive bots fill it. A non-empty value is rejected
+						 * server-side. Not a normal form field — kept out of react-hook-form.
+						 */}
+						<div aria-hidden="true" className="absolute -z-10 h-0 w-0 overflow-hidden opacity-0">
+							<label htmlFor={HONEYPOT_FIELD}>Company website</label>
+							<input
+								ref={honeypotRef}
+								id={HONEYPOT_FIELD}
+								name={HONEYPOT_FIELD}
+								type="text"
+								tabIndex={-1}
+								autoComplete="off"
+								defaultValue=""
+							/>
+						</div>
+
 						<FormField
 							control={form.control}
 							name="name"
@@ -322,7 +409,9 @@ function RouteComponent() {
 							)}
 						/>
 
-						<Button type="submit" className="w-full">
+						{turnstileEnabled && <div ref={turnstileContainerRef} className="flex justify-center" />}
+
+						<Button type="submit" className="w-full" disabled={turnstileEnabled && !turnstileToken}>
 							<Trans>Sign up</Trans>
 						</Button>
 					</form>

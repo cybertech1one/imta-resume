@@ -174,6 +174,7 @@ import { Route as DashboardAnalyticsActivityRouteImport } from "./routes/dashboa
 import { Route as DashboardAiMentorMarketRouteImport } from "./routes/dashboard/ai-mentor/market";
 import { Route as DashboardAiMentorConversationsRouteImport } from "./routes/dashboard/ai-mentor/conversations";
 import { Route as DashboardAdminSystemRouteImport } from "./routes/dashboard/admin/system";
+import { Route as DashboardAdminRegistrationRouteImport } from "./routes/dashboard/admin/registration";
 import { Route as DashboardAdminAuditLogRouteImport } from "./routes/dashboard/admin/audit-log";
 import { Route as ApiRpcSplatRouteImport } from "./routes/api/rpc.$";
 import { Route as ApiOpenapiSplatRouteImport } from "./routes/api/openapi.$";
@@ -1104,6 +1105,12 @@ const DashboardAdminSystemRoute = DashboardAdminSystemRouteImport.update({
   path: "/system",
   getParentRoute: () => DashboardAdminRouteRoute,
 } as any);
+const DashboardAdminRegistrationRoute =
+  DashboardAdminRegistrationRouteImport.update({
+    id: "/registration",
+    path: "/registration",
+    getParentRoute: () => DashboardAdminRouteRoute,
+  } as any);
 const DashboardAdminAuditLogRoute = DashboardAdminAuditLogRouteImport.update({
   id: "/audit-log",
   path: "/audit-log",
@@ -1276,6 +1283,7 @@ export interface FileRoutesByFullPath {
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
   "/dashboard/admin/audit-log": typeof DashboardAdminAuditLogRoute;
+  "/dashboard/admin/registration": typeof DashboardAdminRegistrationRoute;
   "/dashboard/admin/system": typeof DashboardAdminSystemRoute;
   "/dashboard/ai-mentor/conversations": typeof DashboardAiMentorConversationsRoute;
   "/dashboard/ai-mentor/market": typeof DashboardAiMentorMarketRoute;
@@ -1460,6 +1468,7 @@ export interface FileRoutesByTo {
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
   "/dashboard/admin/audit-log": typeof DashboardAdminAuditLogRoute;
+  "/dashboard/admin/registration": typeof DashboardAdminRegistrationRoute;
   "/dashboard/admin/system": typeof DashboardAdminSystemRoute;
   "/dashboard/ai-mentor/conversations": typeof DashboardAiMentorConversationsRoute;
   "/dashboard/ai-mentor/market": typeof DashboardAiMentorMarketRoute;
@@ -1651,6 +1660,7 @@ export interface FileRoutesById {
   "/api/openapi/$": typeof ApiOpenapiSplatRoute;
   "/api/rpc/$": typeof ApiRpcSplatRoute;
   "/dashboard/admin/audit-log": typeof DashboardAdminAuditLogRoute;
+  "/dashboard/admin/registration": typeof DashboardAdminRegistrationRoute;
   "/dashboard/admin/system": typeof DashboardAdminSystemRoute;
   "/dashboard/ai-mentor/conversations": typeof DashboardAiMentorConversationsRoute;
   "/dashboard/ai-mentor/market": typeof DashboardAiMentorMarketRoute;
@@ -1842,6 +1852,7 @@ export interface FileRouteTypes {
     | "/api/openapi/$"
     | "/api/rpc/$"
     | "/dashboard/admin/audit-log"
+    | "/dashboard/admin/registration"
     | "/dashboard/admin/system"
     | "/dashboard/ai-mentor/conversations"
     | "/dashboard/ai-mentor/market"
@@ -2026,6 +2037,7 @@ export interface FileRouteTypes {
     | "/api/openapi/$"
     | "/api/rpc/$"
     | "/dashboard/admin/audit-log"
+    | "/dashboard/admin/registration"
     | "/dashboard/admin/system"
     | "/dashboard/ai-mentor/conversations"
     | "/dashboard/ai-mentor/market"
@@ -2216,6 +2228,7 @@ export interface FileRouteTypes {
     | "/api/openapi/$"
     | "/api/rpc/$"
     | "/dashboard/admin/audit-log"
+    | "/dashboard/admin/registration"
     | "/dashboard/admin/system"
     | "/dashboard/ai-mentor/conversations"
     | "/dashboard/ai-mentor/market"
@@ -3541,6 +3554,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardAdminSystemRouteImport;
       parentRoute: typeof DashboardAdminRouteRoute;
     };
+    "/dashboard/admin/registration": {
+      id: "/dashboard/admin/registration";
+      path: "/registration";
+      fullPath: "/dashboard/admin/registration";
+      preLoaderRoute: typeof DashboardAdminRegistrationRouteImport;
+      parentRoute: typeof DashboardAdminRouteRoute;
+    };
     "/dashboard/admin/audit-log": {
       id: "/dashboard/admin/audit-log";
       path: "/audit-log";
@@ -3777,6 +3797,7 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 
 interface DashboardAdminRouteRouteChildren {
   DashboardAdminAuditLogRoute: typeof DashboardAdminAuditLogRoute;
+  DashboardAdminRegistrationRoute: typeof DashboardAdminRegistrationRoute;
   DashboardAdminSystemRoute: typeof DashboardAdminSystemRoute;
   DashboardAdminIndexRoute: typeof DashboardAdminIndexRoute;
   DashboardAdminUsersUserIdRoute: typeof DashboardAdminUsersUserIdRoute;
@@ -3793,6 +3814,7 @@ interface DashboardAdminRouteRouteChildren {
 
 const DashboardAdminRouteRouteChildren: DashboardAdminRouteRouteChildren = {
   DashboardAdminAuditLogRoute: DashboardAdminAuditLogRoute,
+  DashboardAdminRegistrationRoute: DashboardAdminRegistrationRoute,
   DashboardAdminSystemRoute: DashboardAdminSystemRoute,
   DashboardAdminIndexRoute: DashboardAdminIndexRoute,
   DashboardAdminUsersUserIdRoute: DashboardAdminUsersUserIdRoute,

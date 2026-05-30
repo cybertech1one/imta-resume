@@ -1,6 +1,7 @@
 import { BetterAuthError } from "@better-auth/core/error";
 import { passkey } from "@better-auth/passkey";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { APIError, createAuthMiddleware } from "better-auth/api";
 import { betterAuth } from "better-auth/minimal";
 import { apiKey, type GenericOAuthConfig, genericOAuth, twoFactor } from "better-auth/plugins";
 import { username } from "better-auth/plugins/username";
@@ -12,6 +13,33 @@ import { hashPassword, verifyPassword } from "@/utils/password";
 import { generateId, toUsername } from "@/utils/string";
 import { schema } from "../drizzle";
 import { sendEmail } from "../email/service";
+import {
+	clearFailedLogins,
+	evaluateSignup,
+	FORM_RENDER_TS_FIELD,
+	HONEYPOT_FIELD,
+	isLoginLocked,
+	recordFailedLogin,
+} from "./abuse-guard";
+
+/** Sign-in endpoint paths guarded by the per-email failed-attempt lockout. */
+const SIGN_IN_PATHS = new Set(["/sign-in/email", "/sign-in/username"]);
+
+/** Extracts the client IP from forwarding headers for Turnstile remoteip. */
+function clientIpFromHeaders(headers: Headers | undefined): string | null {
+	if (!headers) return null;
+	const fwd = headers.get("x-forwarded-for");
+	if (fwd) return fwd.split(",")[0]?.trim() ?? null;
+	return headers.get("x-real-ip");
+}
+
+/** Reads the login identifier (email or username) from a sign-in request body. */
+function loginIdentifier(body: Record<string, unknown> | undefined): string | null {
+	if (!body) return null;
+	const email = typeof body.email === "string" ? body.email : null;
+	const uname = typeof body.username === "string" ? body.username : null;
+	return email ?? uname;
+}
 
 function isCustomOAuthProviderEnabled() {
 	const hasDiscovery = Boolean(env.OAUTH_DISCOVERY_URL);
@@ -77,6 +105,102 @@ const getAuthConfig = () => {
 			env.APP_URL,
 			...(env.APP_URL.includes("localhost") ? [env.APP_URL.replace("localhost", "127.0.0.1")] : []),
 		],
+
+		// ──────────────────────────────────────────────────────────────────────
+		// Brute-force / abuse throttling (IP-based, Better Auth built-in).
+		// A sane global window protects ALL auth endpoints; customRules tighten
+		// the credential endpoints. This is layered with the per-EMAIL lockout
+		// enforced in the hooks below.
+		// ──────────────────────────────────────────────────────────────────────
+		rateLimit: {
+			enabled: true,
+			window: 60, // seconds
+			max: 60, // global: 60 auth requests / minute / IP
+			customRules: {
+				// Login: 5 attempts / 60s / IP.
+				"/sign-in/email": { window: 60, max: 5 },
+				"/sign-in/username": { window: 60, max: 5 },
+				// Signup: 3 attempts / 60s / IP (short window) — the per-day cap and
+				// per-email lockout provide the longer-window protection.
+				"/sign-up/email": { window: 60, max: 3 },
+				// Password reset / email verification: prevent email bombing.
+				"/forget-password": { window: 60 * 15, max: 3 },
+				"/request-password-reset": { window: 60 * 15, max: 3 },
+				"/send-verification-email": { window: 60 * 15, max: 3 },
+			},
+		},
+
+		// ──────────────────────────────────────────────────────────────────────
+		// Abuse-guard hooks:
+		//  - before: pre-check per-email login lockout; run keyless signup checks
+		//    (honeypot, disposable email, registration mode/cap, Turnstile).
+		//  - after: record failed logins / clear on success for the lockout.
+		// ──────────────────────────────────────────────────────────────────────
+		hooks: {
+			before: createAuthMiddleware(async (ctx) => {
+				const path = ctx.path;
+
+				// Per-email failed-login lockout pre-check.
+				if (SIGN_IN_PATHS.has(path)) {
+					const identifier = loginIdentifier(ctx.body as Record<string, unknown> | undefined);
+					if (identifier) {
+						const { locked, retryAfter } = await isLoginLocked(identifier);
+						if (locked) {
+							const minutes = Math.max(1, Math.ceil(retryAfter / 60));
+							throw new APIError("TOO_MANY_REQUESTS", {
+								message: `Trop de tentatives de connexion. Réessayez dans environ ${minutes} minute(s).`,
+							});
+						}
+					}
+					return;
+				}
+
+				// Keyless signup gate.
+				if (path === "/sign-up/email") {
+					const body = (ctx.body ?? {}) as Record<string, unknown>;
+					const email = typeof body.email === "string" ? body.email : "";
+					if (!email) return; // let Better Auth's own validation handle it
+
+					const result = await evaluateSignup({
+						email,
+						honeypot: body[HONEYPOT_FIELD],
+						formRenderTs: body[FORM_RENDER_TS_FIELD],
+						turnstileToken: typeof body.turnstileToken === "string" ? body.turnstileToken : undefined,
+						remoteIp: clientIpFromHeaders(ctx.headers),
+					});
+
+					if (!result.ok) {
+						throw new APIError("BAD_REQUEST", {
+							message: result.message ?? "Inscription refusée.",
+							code: result.code,
+						});
+					}
+				}
+			}),
+			after: createAuthMiddleware(async (ctx) => {
+				if (!SIGN_IN_PATHS.has(ctx.path)) return;
+
+				const identifier = loginIdentifier(ctx.body as Record<string, unknown> | undefined);
+				if (!identifier) return;
+
+				// Success: a new session was created → clear the failure counter.
+				if (ctx.context.newSession) {
+					await clearFailedLogins(identifier);
+					return;
+				}
+
+				// Failure: the endpoint returned an error (bad credentials, etc.)
+				// → record a failed attempt toward the lockout threshold.
+				const returned = ctx.context.returned;
+				const isError =
+					returned instanceof APIError ||
+					returned instanceof Error ||
+					(typeof returned === "object" && returned !== null && "status" in returned && !("token" in returned));
+				if (isError) {
+					await recordFailedLogin(identifier);
+				}
+			}),
+		},
 
 		// Session security configuration
 		session: {

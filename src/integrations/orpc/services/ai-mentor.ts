@@ -558,9 +558,18 @@ export const onboardingService = {
 
 	async getRecommendedMentors(userId: string) {
 		const onboarding = await this.get(userId);
-		if (!onboarding) return [];
 
 		const templates = await mentorTemplateService.list();
+
+		// Fallback: when the user hasn't completed onboarding, still show mentors.
+		// Return the top 3 templates ranked by a stable tiebreak (display name) so the
+		// result is deterministic across refreshes instead of an empty/random list.
+		if (!onboarding) {
+			return [...templates]
+				.sort((a, b) => a.name.localeCompare(b.name))
+				.slice(0, 3)
+				.map((t) => ({ ...t, matchScore: 0 }));
+		}
 
 		// Score templates based on onboarding data
 		const scored = templates.map((template) => {
@@ -594,9 +603,10 @@ export const onboardingService = {
 			return { template, score };
 		});
 
-		// Sort by score and return top 3
+		// Sort by score (desc), with a stable name tiebreak so equal scores
+		// (e.g. unmatched/null field) produce a deterministic order, not a random one.
 		return scored
-			.sort((a, b) => b.score - a.score)
+			.sort((a, b) => b.score - a.score || a.template.name.localeCompare(b.template.name))
 			.slice(0, 3)
 			.map((s) => ({ ...s.template, matchScore: s.score }));
 	},

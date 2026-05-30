@@ -1,4 +1,4 @@
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, desc, eq } from "drizzle-orm";
 import { schema } from "@/integrations/drizzle";
 import { db } from "@/integrations/drizzle/client";
 import { generateId } from "@/utils/string";
@@ -245,7 +245,8 @@ export const careerQuizService = {
 				.select()
 				.from(schema.userQuizResult)
 				.where(and(eq(schema.userQuizResult.userId, userId), eq(schema.userQuizResult.quizType, quizType)))
-				.orderBy(asc(schema.userQuizResult.completedAt))
+				// Order DESC so "latest" returns the most recent result, not the oldest.
+				.orderBy(desc(schema.userQuizResult.completedAt))
 				.limit(1);
 			return result;
 		},

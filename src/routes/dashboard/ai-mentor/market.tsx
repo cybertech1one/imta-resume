@@ -635,7 +635,7 @@ function MarketIntelligencePage() {
 													<div className="flex-1">
 														<p className="font-medium">{skill.skillFr || skill.skill}</p>
 														<p className="text-muted-foreground text-xs">
-															{formatSkillCategory(skill.category)} • {formatFieldName(skill.field)}
+															{formatSkillCategory(skill.category)} • {formatFieldName(skill.field ?? "general")}
 														</p>
 													</div>
 													<div className="text-right">

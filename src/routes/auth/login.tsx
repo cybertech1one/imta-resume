@@ -72,7 +72,13 @@ function RouteComponent() {
 				window.location.href = "/dashboard";
 			},
 			onError: ({ error }) => {
-				toast.error(error.message, { id: toastId });
+				// French fallback for IP-based throttling (Better Auth returns 429
+				// with an English message); per-email lockout already returns French.
+				const message =
+					error.status === 429
+						? t`Trop de tentatives. Veuillez patienter quelques instants avant de réessayer.`
+						: error.message;
+				toast.error(message, { id: toastId });
 			},
 		};
 

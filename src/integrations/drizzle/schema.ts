@@ -390,7 +390,8 @@ export type InterviewQuestion = {
 	question: string;
 	questionFr?: string;
 	type: InterviewType;
-	field: "healthcare" | "industrial" | "hse" | "general";
+	// Aligned with interviewFieldSchema (src/schema/interview) which now covers all IMTA fields.
+	field: "healthcare" | "industrial" | "hse" | "general" | "technology" | "management";
 	difficulty: "beginner" | "intermediate" | "advanced";
 	expectedPoints?: string[];
 	followUpQuestions?: string[];
@@ -6939,6 +6940,25 @@ export const aiGlobalSettings = pg.pgTable("ai_global_settings", {
 		.notNull()
 		.defaultNow()
 		.$onUpdate(() => new Date()),
+});
+
+// ============================================================================
+// App Settings (generic admin-controllable key/value runtime settings)
+// ============================================================================
+
+// Stores small admin-controllable runtime settings as JSON values keyed by a
+// stable string key (e.g. "registration_mode"). Used so admins can flip the
+// registration mode without an env change / redeploy. Env vars act as the
+// fallback default when no row exists for a key.
+export const appSetting = pg.pgTable("app_setting", {
+	key: pg.text("key").primaryKey(),
+	value: pg.jsonb("value").notNull(),
+	updatedAt: pg
+		.timestamp("updated_at", { withTimezone: true })
+		.notNull()
+		.defaultNow()
+		.$onUpdate(() => new Date()),
+	updatedBy: pg.text("updated_by"),
 });
 
 // ============================================================================

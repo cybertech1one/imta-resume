@@ -536,6 +536,11 @@ const adminSidebarItems: SidebarItem[] = [
 				href: "/dashboard/admin/ai-settings",
 			},
 			{
+				icon: <ShieldCheckIcon />,
+				label: msg`Inscriptions & sécurité`,
+				href: "/dashboard/admin/registration",
+			},
+			{
 				icon: <DatabaseIcon />,
 				label: msg`Données de référence`,
 				href: "/dashboard/admin/reference-data",

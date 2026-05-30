@@ -3,6 +3,17 @@ import { db } from "@/integrations/drizzle/client";
 import * as schema from "@/integrations/drizzle/schema";
 import { generateId } from "@/utils/string";
 
+// Tiny deterministic string hash (FNV-1a 32-bit, unsigned) — no new deps.
+// Used to pick a stable daily affirmation per user per day.
+function hashString(input: string): number {
+	let hash = 0x811c9dc5;
+	for (let i = 0; i < input.length; i++) {
+		hash ^= input.charCodeAt(i);
+		hash = Math.imul(hash, 0x01000193);
+	}
+	return hash >>> 0;
+}
+
 // Default affirmations for seeding
 const DEFAULT_AFFIRMATIONS = {
 	career: [
@@ -589,9 +600,15 @@ export const careerCoachingService = {
 		const seenIds = new Set(seenToday.map((s) => s.affirmationId));
 		const unseenAffirmations = affirmations.filter((a) => !seenIds.has(a.id));
 
-		// If all seen, pick a random one; otherwise pick from unseen
-		const pool = unseenAffirmations.length > 0 ? unseenAffirmations : affirmations;
-		const selected = pool[Math.floor(Math.random() * pool.length)];
+		// Pick from unseen if any remain, otherwise from the full set.
+		// Deterministic per user per day: sort the pool by id for a stable order, then
+		// index by a hash of `userId + YYYY-MM-DD` so each user gets ONE stable affirmation
+		// per day (same across refreshes) instead of a random one each time.
+		const pool = [...(unseenAffirmations.length > 0 ? unseenAffirmations : affirmations)].sort((a, b) =>
+			a.id.localeCompare(b.id),
+		);
+		const dayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+		const selected = pool[hashString(`${userId}-${dayKey}`) % pool.length];
 
 		// Mark as seen
 		if (selected) {

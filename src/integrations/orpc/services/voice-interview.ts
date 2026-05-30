@@ -772,7 +772,9 @@ Provide detailed feedback in both English and French. For panel interviews, incl
 						return {
 							personaId: p.personaId,
 							personaName: p.persona.name,
-							score: avgScore + Math.floor(Math.random() * 10) - 5, // Slight variation
+							// Deterministic: each panelist reports the computed average score (no random ±5 noise)
+							// so the same answers always score consistently.
+							score: avgScore,
 							feedback: `${p.persona.name} evaluated your performance based on their expertise in ${p.persona.focusAreas?.join(", ") || "general interview skills"}.`,
 							feedbackFr: `${p.persona.nameFr || p.persona.name} a evalue votre performance en fonction de son expertise en ${p.persona.focusAreas?.join(", ") || "competences generales d'entretien"}.`,
 						};

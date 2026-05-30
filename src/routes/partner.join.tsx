@@ -139,7 +139,7 @@ function PartnerJoinPage() {
 						<Trans>Vous avez été invité comme partenaire</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>IMTA Resume vous invite à rejoindre la plateforme en tant que partenaire pour {companyLabel}.</Trans>
+						{`IMTA Resume vous invite à rejoindre la plateforme en tant que partenaire pour ${companyLabel}.`}
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
@@ -186,10 +186,7 @@ function PartnerJoinPage() {
 						</>
 					) : (
 						<p className="rounded-lg bg-amber-500/10 p-3 text-amber-700 text-sm dark:text-amber-400">
-							<Trans>
-								Vous êtes connecté avec un email différent ({sessionEmail}). Déconnectez-vous, puis créez ou
-								connectez-vous avec {invite.email} pour accepter cette invitation.
-							</Trans>
+							{`Vous êtes connecté avec un email différent (${sessionEmail}). Déconnectez-vous, puis créez ou connectez-vous avec ${invite.email} pour accepter cette invitation.`}
 						</p>
 					)}
 				</CardContent>
