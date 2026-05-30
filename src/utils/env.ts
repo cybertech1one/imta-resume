@@ -43,7 +43,17 @@ export const env = createEnv({
 			.transform((value) => value.split(" "))
 			.default(["openid", "profile", "email"]),
 
-		// Email (SMTP)
+		// Email — Brevo transactional API (preferred when set; free tier = 300/day).
+		// BREVO_API_KEY is the v3 API key (starts with "xkeysib-"). The sender email
+		// MUST be a verified sender on the Brevo account, else sends are rejected.
+		BREVO_API_KEY: z.string().min(1).optional(),
+		// Sender identity (used by both Brevo API and SMTP). EMAIL_FROM is the bare
+		// address; EMAIL_FROM_NAME is the display name; EMAIL_REPLY_TO is optional.
+		EMAIL_FROM: z.string().email().optional(),
+		EMAIL_FROM_NAME: z.string().min(1).default("IMTA Resume"),
+		EMAIL_REPLY_TO: z.string().email().optional(),
+
+		// Email — SMTP (fallback when Brevo is not configured)
 		SMTP_HOST: z.string().min(1).optional(),
 		SMTP_PORT: z.coerce.number().int().min(1).max(65535).default(587),
 		SMTP_USER: z.string().min(1).optional(),

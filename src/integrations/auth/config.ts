@@ -13,6 +13,7 @@ import { hashPassword, verifyPassword } from "@/utils/password";
 import { generateId, toUsername } from "@/utils/string";
 import { schema } from "../drizzle";
 import { sendEmail } from "../email/service";
+import { changeEmailConfirmationEmail, passwordResetEmail, verificationEmail } from "../email/templates";
 import {
 	clearFailedLogins,
 	evaluateSignup,
@@ -239,11 +240,8 @@ const getAuthConfig = () => {
 			requireEmailVerification: process.env.NODE_ENV === "production" && !env.DISABLE_EMAIL_VERIFICATION,
 			disableSignUp: env.FLAG_DISABLE_SIGNUPS || env.FLAG_DISABLE_EMAIL_AUTH,
 			sendResetPassword: async ({ user, url }) => {
-				await sendEmail({
-					to: user.email,
-					subject: "Reset your password",
-					text: `You requested a password reset for your IMTA Resume account.\n\nTo reset your password, please visit the following URL:\n${url}.\n\nIf you did not request a password reset, please ignore this email.`,
-				});
+				const { subject, html, text } = passwordResetEmail(url);
+				await sendEmail({ to: user.email, subject, html, text });
 			},
 			password: {
 				hash: (password) => hashPassword(password),
@@ -255,11 +253,8 @@ const getAuthConfig = () => {
 			sendOnSignUp: true,
 			autoSignInAfterVerification: true,
 			sendVerificationEmail: async ({ user, url }) => {
-				await sendEmail({
-					to: user.email,
-					subject: "Verify your email",
-					text: `You recently signed up for an account on IMTA Resume.\n\nTo verify your email, please visit the following URL:\n${url}`,
-				});
+				const { subject, html, text } = verificationEmail(url);
+				await sendEmail({ to: user.email, subject, html, text });
 			},
 		},
 
@@ -267,11 +262,8 @@ const getAuthConfig = () => {
 			changeEmail: {
 				enabled: true,
 				sendChangeEmailConfirmation: async ({ user, newEmail, url }) => {
-					await sendEmail({
-						to: newEmail,
-						subject: "Verify your new email",
-						text: `You recently requested to change your email on IMTA Resume from ${user.email} to ${newEmail}.\n\nTo verify this change, please visit the following URL:\n${url}\n\nIf you did not request this change, please ignore this email.`,
-					});
+					const { subject, html, text } = changeEmailConfirmationEmail({ oldEmail: user.email, newEmail, url });
+					await sendEmail({ to: newEmail, subject, html, text });
 				},
 			},
 			additionalFields: {
