@@ -406,35 +406,45 @@ const getAuthConfig = () => {
 
 							if (!invite) return;
 
-							// Guard: only create a profile if the user does not already have one.
-							const [existingProfile] = await db
-								.select({ id: schema.partnerProfile.id })
-								.from(schema.partnerProfile)
-								.where(eq(schema.partnerProfile.userId, u.id))
-								.limit(1);
+							// Provision the partner profile best-effort. A failure here (transient
+							// DB error, race) must NOT leave the invite pending — the before-hook
+							// already granted partner role and the email is now taken, so a lingering
+							// "pending" invite is just a reuse hazard. We therefore consume the invite
+							// regardless; a missing profile is completed via the profile setup UI.
+							try {
+								// Guard: only create a profile if the user does not already have one.
+								const [existingProfile] = await db
+									.select({ id: schema.partnerProfile.id })
+									.from(schema.partnerProfile)
+									.where(eq(schema.partnerProfile.userId, u.id))
+									.limit(1);
 
-							if (!existingProfile) {
-								const partnerType = (
-									["employer", "recruiter", "training_center", "government", "ngo"].includes(invite.partnerType)
-										? invite.partnerType
-										: "employer"
-								) as "employer" | "recruiter" | "training_center" | "government" | "ngo";
+								if (!existingProfile) {
+									const partnerType = (
+										["employer", "recruiter", "training_center", "government", "ngo"].includes(invite.partnerType)
+											? invite.partnerType
+											: "employer"
+									) as "employer" | "recruiter" | "training_center" | "government" | "ngo";
 
-								await db.insert(schema.partnerProfile).values({
-									userId: u.id,
-									companyName: invite.companyName,
-									companyNameFr: invite.companyNameFr ?? null,
-									partnerType,
-									// Required NOT NULL columns get safe placeholders the partner
-									// completes via the profile setup UI.
-									industry: "À compléter",
-									description: "À compléter",
-									headquarters: "À compléter",
-									contactEmail: emailLower,
-									status: "pending",
-								});
+									await db.insert(schema.partnerProfile).values({
+										userId: u.id,
+										companyName: invite.companyName,
+										companyNameFr: invite.companyNameFr ?? null,
+										partnerType,
+										// Required NOT NULL columns get safe placeholders the partner
+										// completes via the profile setup UI.
+										industry: "À compléter",
+										description: "À compléter",
+										headquarters: "À compléter",
+										contactEmail: emailLower,
+										status: "pending",
+									});
+								}
+							} catch (profileError) {
+								console.error("[partner-invite] Profile provisioning failed; consuming invite anyway:", profileError);
 							}
 
+							// Always consume the invite so it cannot be reused.
 							await db
 								.update(schema.partnerInvite)
 								.set({ status: "accepted", acceptedUserId: u.id, updatedAt: new Date() })
