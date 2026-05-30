@@ -747,7 +747,7 @@ Provide comprehensive session analysis in JSON format.`,
 	getTips: protectedProcedure
 		.input(
 			z.object({
-				field: z.enum(["healthcare", "industrial", "hse", "general"]).optional(),
+				field: z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]).optional(),
 				category: z
 					.enum(["preparation", "during", "after", "common_questions", "body_language", "field_specific"])
 					.optional(),
@@ -764,7 +764,7 @@ Provide comprehensive session analysis in JSON format.`,
 	getCommonQuestions: protectedProcedure
 		.input(
 			z.object({
-				field: z.enum(["healthcare", "industrial", "hse", "general"]),
+				field: z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]),
 				type: z.enum(["behavioral", "technical", "situational", "motivational", "general"]).optional(),
 				language: z.enum(["fr", "en"]).default("fr"),
 			}),
@@ -781,7 +781,7 @@ Provide comprehensive session analysis in JSON format.`,
 		.input(
 			z.object({
 				program: z.string().optional(),
-				field: z.enum(["healthcare", "industrial", "hse", "general"]).optional(),
+				field: z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]).optional(),
 				type: z.enum(["behavioral", "technical", "situational", "motivational", "general"]).optional(),
 			}),
 		)
@@ -882,7 +882,7 @@ Provide comprehensive session analysis in JSON format.`,
 					)
 					.max(50),
 				mode: z.enum(["quick_practice", "mock_interview", "topic_focus"]).default("quick_practice"),
-				field: z.enum(["healthcare", "industrial", "hse", "general"]).default("general"),
+				field: z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]).default("general"),
 				topic: z.string().optional(),
 				language: z.enum(["fr", "en", "ar"]).default("fr"),
 				isFirstMessage: z.boolean().default(false),
@@ -1068,7 +1068,7 @@ Continue the interview naturally:
 						}),
 					)
 					.max(50),
-				field: z.enum(["healthcare", "industrial", "hse", "general"]),
+				field: z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]),
 				mode: z.enum(["quick_practice", "mock_interview", "topic_focus"]),
 				language: z.enum(["fr", "en", "ar"]).default("fr"),
 			}),
@@ -1229,7 +1229,7 @@ ${messages.map((m) => `${m.role === "user" ? "Candidate" : "Interviewer"}: ${m.r
 			z.object({
 				question: z.string().min(1).max(2000),
 				userAnswer: z.string().min(1).max(5000),
-				field: z.enum(["healthcare", "industrial", "hse", "general"]),
+				field: z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]),
 				difficulty: z.enum(["beginner", "intermediate", "advanced"]).default("intermediate"),
 				language: z.enum(["fr", "en", "ar"]).default("fr"),
 			}),
@@ -1373,7 +1373,7 @@ Please evaluate this answer and provide coaching feedback.`,
 				question: z.string().min(1).max(2000),
 				draftAnswer: z.string().min(1).max(5000),
 				targetRole: z.string().max(200).optional(),
-				field: z.enum(["healthcare", "industrial", "hse", "general"]),
+				field: z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]),
 				language: z.enum(["fr", "en", "ar"]).default("fr"),
 			}),
 		)

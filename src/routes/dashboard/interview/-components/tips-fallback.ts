@@ -6,7 +6,7 @@ type InterviewTipCategory =
 	| "body_language"
 	| "field_specific";
 
-type InterviewField = "healthcare" | "industrial" | "hse" | "general";
+type InterviewField = "healthcare" | "industrial" | "hse" | "technology" | "management" | "general";
 
 export type InterviewTip = {
 	id: string;

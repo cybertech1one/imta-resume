@@ -86,7 +86,7 @@ function CompanyResearchPage() {
 			queryClient.invalidateQueries({ queryKey: ["companyResearch", "favorites"] });
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error updating favorites`);
+			toast.error(error.message || t`Erreur lors de la mise à jour des favoris`);
 		},
 	});
 
@@ -145,7 +145,7 @@ function CompanyResearchPage() {
 				return prev.filter((id) => id !== companyId);
 			}
 			if (prev.length >= 3) {
-				toast.error(t`Maximum 3 companies to compare`);
+				toast.error(t`Maximum 3 entreprises à comparer`);
 				return prev;
 			}
 			return [...prev, companyId];
@@ -162,7 +162,7 @@ function CompanyResearchPage() {
 	if (isLoading) {
 		return (
 			<>
-				<DashboardHeader icon={BuildingsIcon} title={t`Company Research`} />
+				<DashboardHeader icon={BuildingsIcon} title={t`Recherche d'entreprise`} />
 				<div className="flex h-64 items-center justify-center">
 					<SpinnerIcon className="size-8 animate-spin text-primary" />
 				</div>
@@ -174,15 +174,15 @@ function CompanyResearchPage() {
 	if (isError) {
 		return (
 			<>
-				<DashboardHeader icon={BuildingsIcon} title={t`Company Research`} />
+				<DashboardHeader icon={BuildingsIcon} title={t`Recherche d'entreprise`} />
 				<Card className="border-destructive">
 					<CardContent className="flex flex-col items-center justify-center py-16">
 						<XIcon className="mb-4 size-16 text-destructive" weight="duotone" />
 						<h3 className="mb-2 font-semibold text-lg">
-							<Trans>Loading error</Trans>
+							<Trans>Erreur de chargement</Trans>
 						</h3>
 						<p className="text-muted-foreground">
-							<Trans>Unable to load companies</Trans>
+							<Trans>Impossible de charger les entreprises</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -194,7 +194,7 @@ function CompanyResearchPage() {
 	if (selectedCompany) {
 		return (
 			<>
-				<DashboardHeader icon={BuildingsIcon} title={t`Company Research`} />
+				<DashboardHeader icon={BuildingsIcon} title={t`Recherche d'entreprise`} />
 				<CompanyDetailView
 					company={selectedCompany}
 					favoriteIds={favoriteIds}
@@ -216,7 +216,7 @@ function CompanyResearchPage() {
 	// Main listing view
 	return (
 		<>
-			<DashboardHeader icon={BuildingsIcon} title={t`Company Research`} />
+			<DashboardHeader icon={BuildingsIcon} title={t`Recherche d'entreprise`} />
 
 			<HeroSection statistics={statistics} companiesCount={companies.length} favoriteIdsCount={favoriteIds.length} />
 

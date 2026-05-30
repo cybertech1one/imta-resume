@@ -55,7 +55,7 @@ export type CreateRecordingInput = {
 	title: string;
 	date: string;
 	duration: number;
-	field: "healthcare" | "industrial" | "hse" | "general";
+	field: "healthcare" | "industrial" | "hse" | "technology" | "management" | "general";
 	program?: string;
 	videoUrl?: string;
 	thumbnailUrl?: string;

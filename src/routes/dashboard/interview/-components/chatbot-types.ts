@@ -7,7 +7,7 @@ export type Message = {
 };
 
 export type ChatbotMode = "quick_practice" | "mock_interview" | "topic_focus";
-export type ChatbotField = "healthcare" | "industrial" | "hse" | "general";
+export type ChatbotField = "healthcare" | "industrial" | "hse" | "technology" | "management" | "general";
 export type ChatbotLanguage = "fr" | "en" | "ar";
 
 export type SessionSummary = {

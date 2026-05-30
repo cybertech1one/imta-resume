@@ -330,7 +330,7 @@ function CultureMatchPage() {
 	if (isLoading) {
 		return (
 			<>
-				<DashboardHeader icon={HeartIcon} title={t`Culture Match`} />
+				<DashboardHeader icon={HeartIcon} title={t`Compatibilité culturelle`} />
 				<CultureMatchLoading />
 			</>
 		);
@@ -340,7 +340,7 @@ function CultureMatchPage() {
 	if (isError) {
 		return (
 			<>
-				<DashboardHeader icon={HeartIcon} title={t`Culture Match`} />
+				<DashboardHeader icon={HeartIcon} title={t`Compatibilité culturelle`} />
 				<CultureMatchError
 					onRetry={() => queryClient.invalidateQueries({ queryKey: orpc.cultureMatch.get.queryOptions().queryKey })}
 				/>
@@ -350,7 +350,7 @@ function CultureMatchPage() {
 
 	return (
 		<>
-			<DashboardHeader icon={HeartIcon} title={t`Culture Match`} />
+			<DashboardHeader icon={HeartIcon} title={t`Compatibilité culturelle`} />
 
 			<HeroSection overallProgress={overallProgress} />
 

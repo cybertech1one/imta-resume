@@ -22,30 +22,30 @@ import type {
 
 export const templateConfig: Record<TemplateType, TemplateConfig> = {
 	formal: {
-		label: msg`Formal`,
+		label: msg`Formelle`,
 		icon: BriefcaseIcon,
-		description: msg`Traditional tone with classic structure`,
+		description: msg`Structure classique et ton sérieux`,
 		color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
 		gradient: "from-blue-500/20 via-indigo-500/10 to-transparent",
 	},
 	creative: {
-		label: msg`Creative`,
+		label: msg`Créative`,
 		icon: PaletteIcon,
-		description: msg`Original and eye-catching to stand out`,
+		description: msg`Style plus personnel pour se démarquer`,
 		color: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
 		gradient: "from-purple-500/20 via-violet-500/10 to-transparent",
 	},
 	"tech-focused": {
-		label: msg`Technical`,
+		label: msg`Technique`,
 		icon: GlobeIcon,
-		description: msg`Ideal for IT and tech positions`,
+		description: msg`Adaptée aux métiers techniques et digitaux`,
 		color: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400",
 		gradient: "from-cyan-500/20 via-teal-500/10 to-transparent",
 	},
 	executive: {
-		label: msg`Executive`,
+		label: msg`Cadre`,
 		icon: StarIcon,
-		description: msg`Leadership and strategic vision`,
+		description: msg`Leadership, impact et vision stratégique`,
 		color: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 		gradient: "from-amber-500/20 via-orange-500/10 to-transparent",
 	},
@@ -53,31 +53,31 @@ export const templateConfig: Record<TemplateType, TemplateConfig> = {
 
 export const toneConfig: Record<ToneType, ToneConfig> = {
 	professional: {
-		label: msg`Professional`,
+		label: msg`Professionnel`,
 		icon: BriefcaseIcon,
-		description: msg`Balanced and formal`,
+		description: msg`Équilibré et formel`,
 	},
 	friendly: {
-		label: msg`Friendly`,
+		label: msg`Accessible`,
 		icon: ThumbsUpIcon,
-		description: msg`Warm and approachable`,
+		description: msg`Chaleureux et humain`,
 	},
 	confident: {
-		label: msg`Confident`,
+		label: msg`Confiant`,
 		icon: RocketLaunchIcon,
-		description: msg`Assertive and impactful`,
+		description: msg`Direct et orienté résultats`,
 	},
 	enthusiastic: {
-		label: msg`Enthusiastic`,
+		label: msg`Enthousiaste`,
 		icon: SparkleIcon,
-		description: msg`Energetic and passionate`,
+		description: msg`Énergique et motivé`,
 	},
 };
 
 export const sectionLabels: Record<SectionType, ReturnType<typeof msg>> = {
 	intro: msg`Introduction`,
-	body: msg`Body`,
-	closing: msg`Closing`,
+	body: msg`Argumentaire`,
+	closing: msg`Conclusion`,
 };
 
 const sampleContent: Record<TemplateType, Record<ToneType, CoverLetterData>> = {
@@ -219,18 +219,22 @@ const sampleContent: Record<TemplateType, Record<ToneType, CoverLetterData>> = {
 
 export function extractKeywords(description: string): KeywordMatch[] {
 	const keywordPatterns = [
-		{ pattern: /project\s*management/gi, keyword: "Project Management", category: "Skill" },
-		{ pattern: /leadership/gi, keyword: "Leadership", category: "Soft Skill" },
-		{ pattern: /communication/gi, keyword: "Communication", category: "Soft Skill" },
-		{ pattern: /innovation/gi, keyword: "Innovation", category: "Value" },
-		{ pattern: /team\s*work|team\s*player/gi, keyword: "Teamwork", category: "Soft Skill" },
-		{ pattern: /result[s]?/gi, keyword: "Results", category: "Value" },
-		{ pattern: /python|javascript|java|typescript/gi, keyword: "Programming", category: "Skill" },
-		{ pattern: /cloud|aws|azure|gcp/gi, keyword: "Cloud", category: "Skill" },
-		{ pattern: /agile|scrum/gi, keyword: "Agile Methodology", category: "Skill" },
-		{ pattern: /analy/gi, keyword: "Analytics", category: "Skill" },
-		{ pattern: /strateg/gi, keyword: "Strategy", category: "Skill" },
-		{ pattern: /client[s]?|customer[s]?/gi, keyword: "Client Relations", category: "Soft Skill" },
+		{ pattern: /gestion\s+de\s+projet|project\s*management/gi, keyword: "Gestion de projet", category: "Compétence" },
+		{ pattern: /leadership|encadrement|management/gi, keyword: "Leadership", category: "Savoir-être" },
+		{ pattern: /communication/gi, keyword: "Communication", category: "Savoir-être" },
+		{ pattern: /innovation|amélioration|amelioration/gi, keyword: "Innovation", category: "Valeur" },
+		{
+			pattern: /travail\s+d['’]équipe|team\s*work|team\s*player/gi,
+			keyword: "Travail d'équipe",
+			category: "Savoir-être",
+		},
+		{ pattern: /résultat|result[s]?|objectif/gi, keyword: "Résultats", category: "Valeur" },
+		{ pattern: /python|javascript|java|typescript|react|sql/gi, keyword: "Programmation", category: "Compétence" },
+		{ pattern: /cloud|aws|azure|gcp/gi, keyword: "Cloud", category: "Compétence" },
+		{ pattern: /agile|scrum/gi, keyword: "Méthode agile", category: "Compétence" },
+		{ pattern: /analyse|analy/gi, keyword: "Analyse", category: "Compétence" },
+		{ pattern: /stratég|strateg/gi, keyword: "Stratégie", category: "Compétence" },
+		{ pattern: /client[s]?|customer[s]?|relation client/gi, keyword: "Relation client", category: "Savoir-être" },
 	];
 
 	const keywords: KeywordMatch[] = [];
@@ -246,17 +250,33 @@ export function extractKeywords(description: string): KeywordMatch[] {
 }
 
 export function generateCoverLetter(jobDetails: JobDetails, template: TemplateType, tone: ToneType): CoverLetterData {
-	const baseContent = sampleContent[template][tone];
-
-	const replaceVariables = (text: string) =>
-		text
-			.replace(/\[COMPANY\]/g, jobDetails.company || "[Company Name]")
-			.replace(/\[POSITION\]/g, jobDetails.position || "[Target Position]");
+	const company = jobDetails.company || "[Nom de l'entreprise]";
+	const position = jobDetails.position || "[Poste visé]";
+	const fallbackKeywordCount = sampleContent[template][tone].keywords.length;
+	const styleNote: Record<TemplateType, string> = {
+		formal: "Je vous adresse ma candidature avec sérieux et motivation.",
+		creative: "Je souhaite vous proposer une candidature claire, humaine et orientée impact.",
+		"tech-focused": "Mon profil technique me permet d'aborder ce poste avec méthode, rigueur et sens du résultat.",
+		executive: "Mon parcours m'a appris à transformer des objectifs ambitieux en résultats concrets.",
+	};
+	const toneNote: Record<ToneType, string> = {
+		professional: "Mon objectif est de contribuer avec fiabilité, discipline et esprit d'équipe.",
+		friendly: "J'apprécie les environnements où la confiance, l'entraide et la communication font avancer les projets.",
+		confident:
+			"Je peux apporter rapidement une contribution utile grâce à une approche structurée et orientée résultats.",
+		enthusiastic:
+			"Ce poste représente une vraie opportunité de m'investir pleinement et de progresser avec votre équipe.",
+	};
+	const keywords = extractKeywords(jobDetails.description).map((keyword) => keyword.keyword);
+	const relevantKeywords =
+		keywords.length > 0
+			? keywords
+			: ["Motivation", "Rigueur", "Travail d'équipe"].slice(0, Math.min(3, fallbackKeywordCount));
 
 	return {
-		intro: replaceVariables(baseContent.intro),
-		body: replaceVariables(baseContent.body),
-		closing: replaceVariables(baseContent.closing),
-		keywords: baseContent.keywords,
+		intro: `Madame, Monsieur,\n\nJe vous adresse ma candidature pour le poste de ${position} au sein de ${company}. ${styleNote[template]}`,
+		body: `Votre offre correspond à mon projet professionnel et aux compétences que je souhaite mobiliser dans un environnement exigeant. ${toneNote[tone]}\n\nJe peux notamment contribuer sur les points suivants :\n- Comprendre les priorités du poste et m'adapter rapidement aux méthodes de l'équipe\n- Mettre en avant une communication claire, une organisation rigoureuse et le respect des délais\n- Valoriser mes expériences, stages et compétences techniques selon les besoins de ${company}\n\n${jobDetails.description ? "Les éléments clés de votre offre m'ont permis d'adapter cette lettre aux attentes du poste." : "Je reste disponible pour compléter cette lettre avec les détails précis de votre offre."}`,
+		closing: `Je serais heureux d'échanger avec vous afin de présenter plus en détail ma motivation et la manière dont je peux contribuer à vos objectifs.\n\nJe vous remercie pour votre attention et vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.`,
+		keywords: relevantKeywords,
 	};
 }

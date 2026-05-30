@@ -1,6 +1,6 @@
 import type { Icon } from "@phosphor-icons/react";
 
-export type DomainCategory = "healthcare" | "industrial" | "hse" | "general";
+export type DomainCategory = "healthcare" | "industrial" | "hse" | "technology" | "management" | "general";
 export type TypeCategory = "spontaneous" | "response" | "internship" | "first_job";
 
 export interface CoverLetterTemplate {

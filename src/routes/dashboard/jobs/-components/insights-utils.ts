@@ -9,25 +9,20 @@ import type {
 } from "./insights-types";
 
 export function formatCurrency(value: number): string {
-	if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M MAD`;
-	if (value >= 1_000) return `${(value / 1_000).toFixed(0)}K MAD`;
-	return `${value.toLocaleString()} MAD`;
+	if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M DH`;
+	if (value >= 1_000) return `${(value / 1_000).toFixed(0)}K DH`;
+	return `${value.toLocaleString("fr-FR")} DH`;
 }
 
 export function formatNumber(value: number): string {
 	if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`;
 	if (value >= 1_000) return `${(value / 1_000).toFixed(1)}K`;
-	return value.toLocaleString();
+	return value.toLocaleString("fr-FR");
 }
 
-export function computeFilteredEmployers(
-	employers:
-		| Array<{ name: string; fields?: string[] | null; location?: string | null; openPositions?: number | null }>
-		| undefined,
-	selectedSector: string,
-	selectedRegion: string,
-	searchQuery: string,
-) {
+export function computeFilteredEmployers<
+	T extends { name: string; fields?: string[] | null; location?: string | null; openPositions?: number | null },
+>(employers: T[] | undefined, selectedSector: string, selectedRegion: string, searchQuery: string) {
 	if (!employers) return [];
 	return employers.filter((e) => {
 		if (selectedSector !== "all" && !e.fields?.includes(selectedSector)) return false;
@@ -102,7 +97,7 @@ export function computeSalaryChartData(
 				roles?: Array<{
 					role: string;
 					roleFr?: string | null;
-					levels: Record<string, { min?: number; median?: number; max?: number } | undefined>;
+					levels: Record<string, { min?: number | null; median?: number | null; max?: number | null } | undefined>;
 				}>;
 		  }
 		| undefined,
@@ -152,7 +147,7 @@ export function computeTrendLineData(
 ): TrendLineItem[] {
 	const baseJobs = marketOverview?.summary?.totalJobs || 100000;
 	const growth = marketOverview?.summary?.avgJobGrowth || 7.5;
-	const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+	const months = ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin"];
 	return months.map((month, i) => ({
 		month,
 		jobs: Math.round(baseJobs * (1 - (5 - i) * (growth / 100))),

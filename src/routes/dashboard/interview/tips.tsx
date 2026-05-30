@@ -131,7 +131,14 @@ function InterviewTipsPage() {
 					| "body_language"
 					| "field_specific"
 					| undefined,
-				field: selectedField as "healthcare" | "industrial" | "hse" | "general" | undefined,
+				field: selectedField as
+					| "healthcare"
+					| "industrial"
+					| "hse"
+					| "technology"
+					| "management"
+					| "general"
+					| undefined,
 				language: "fr",
 			},
 		}),

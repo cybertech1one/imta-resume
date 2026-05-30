@@ -19,7 +19,7 @@ export const searchSchema = z.object({
 		.enum(["preparation", "during", "after", "common_questions", "body_language", "field_specific"])
 		.optional()
 		.default("preparation"),
-	field: z.enum(["healthcare", "industrial", "hse", "general"]).optional(),
+	field: z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]).optional(),
 });
 
 function getCategoryConfig(): Record<string, CategoryConfigItem> {

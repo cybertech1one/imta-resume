@@ -45,6 +45,8 @@ export const fieldConfig: Record<ChatbotField, { label: MessageDescriptor; label
 	healthcare: { label: msg`Santé / Soins infirmiers`, labelFr: "Santé / Soins infirmiers", emoji: "🏥" },
 	industrial: { label: msg`Industrial Maintenance`, labelFr: "Maintenance Industrielle", emoji: "🔧" },
 	hse: { label: msg`HSE / Safety`, labelFr: "HSE / Sécurité", emoji: "⚠️" },
+	management: { label: msg`Management / Gestion`, labelFr: "Management / Gestion", emoji: "📊" },
+	technology: { label: msg`Technologie / Informatique`, labelFr: "Technologie / Informatique", emoji: "💻" },
 	general: { label: msg`Général`, labelFr: "Général", emoji: "💼" },
 };
 

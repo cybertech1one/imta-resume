@@ -45,10 +45,10 @@ export function ErrorAlert() {
 				</div>
 				<div>
 					<p className="font-medium text-destructive">
-						<Trans>Loading Error</Trans>
+						<Trans>Erreur de chargement</Trans>
 					</p>
 					<p className="text-muted-foreground text-sm">
-						<Trans>Some data could not be loaded. Please refresh the page.</Trans>
+						<Trans>Certaines données n'ont pas pu être chargées. Actualise la page.</Trans>
 					</p>
 				</div>
 			</CardContent>
@@ -85,7 +85,7 @@ export function QuickStats({
 				<CardHeader className="pb-2">
 					<CardDescription className="flex items-center gap-2">
 						<BriefcaseIcon className="size-4" />
-						<Trans>Open Positions</Trans>
+						<Trans>Postes ouverts</Trans>
 					</CardDescription>
 					<CardTitle className="text-3xl">
 						{isLoading ? (
@@ -99,7 +99,7 @@ export function QuickStats({
 					<div className="flex items-center gap-1 text-green-500 text-sm">
 						<ArrowUpIcon className="size-4" />
 						<span>
-							<Trans>+{marketOverview?.summary?.avgJobGrowth || 7.5}% this month</Trans>
+							<Trans>+{marketOverview?.summary?.avgJobGrowth || 7.5}% ce mois-ci</Trans>
 						</span>
 					</div>
 				</CardContent>
@@ -109,7 +109,7 @@ export function QuickStats({
 				<CardHeader className="pb-2">
 					<CardDescription className="flex items-center gap-2">
 						<CurrencyCircleDollarIcon className="size-4" />
-						<Trans>Avg. Salary</Trans>
+						<Trans>Salaire moyen</Trans>
 					</CardDescription>
 					<CardTitle className="text-3xl">
 						{isLoading ? (
@@ -121,7 +121,7 @@ export function QuickStats({
 				</CardHeader>
 				<CardContent>
 					<p className="text-muted-foreground text-sm">
-						<Trans>median annual</Trans>
+						<Trans>médiane annuelle</Trans>
 					</p>
 				</CardContent>
 			</Card>
@@ -130,7 +130,7 @@ export function QuickStats({
 				<CardHeader className="pb-2">
 					<CardDescription className="flex items-center gap-2">
 						<BuildingOfficeIcon className="size-4" />
-						<Trans>Active Employers</Trans>
+						<Trans>Employeurs actifs</Trans>
 					</CardDescription>
 					<CardTitle className="text-3xl">
 						{isLoading ? (
@@ -142,7 +142,7 @@ export function QuickStats({
 				</CardHeader>
 				<CardContent>
 					<p className="text-muted-foreground text-sm">
-						<Trans>hiring now</Trans>
+						<Trans>recrutent maintenant</Trans>
 					</p>
 				</CardContent>
 			</Card>
@@ -151,7 +151,7 @@ export function QuickStats({
 				<CardHeader className="pb-2">
 					<CardDescription className="flex items-center gap-2">
 						<TrendUpIcon className="size-4" />
-						<Trans>Skills Tracked</Trans>
+						<Trans>Compétences suivies</Trans>
 					</CardDescription>
 					<CardTitle className="text-3xl">
 						{isLoading ? (
@@ -163,7 +163,7 @@ export function QuickStats({
 				</CardHeader>
 				<CardContent>
 					<p className="text-muted-foreground text-sm">
-						<Trans>in-demand skills</Trans>
+						<Trans>compétences demandées</Trans>
 					</p>
 				</CardContent>
 			</Card>
@@ -179,7 +179,7 @@ export function FiltersCard({ filters }: { filters: InsightsFilterState }) {
 					<div className="relative flex-1">
 						<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
 						<Input
-							placeholder={t`Search employers...`}
+							placeholder={t`Rechercher des employeurs...`}
 							value={filters.searchQuery}
 							onChange={(e) => filters.setSearchQuery(e.target.value)}
 							className="pl-10"
@@ -188,7 +188,7 @@ export function FiltersCard({ filters }: { filters: InsightsFilterState }) {
 					<div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
 						<Select value={filters.selectedSector} onValueChange={filters.setSelectedSector}>
 							<SelectTrigger className="w-full sm:w-[180px]">
-								<SelectValue placeholder={t`Sector`} />
+								<SelectValue placeholder={t`Secteur`} />
 							</SelectTrigger>
 							<SelectContent>
 								{SECTORS.map((sector) => (
@@ -201,7 +201,7 @@ export function FiltersCard({ filters }: { filters: InsightsFilterState }) {
 
 						<Select value={filters.selectedRegion} onValueChange={filters.setSelectedRegion}>
 							<SelectTrigger className="w-full sm:w-[200px]">
-								<SelectValue placeholder={t`Region`} />
+								<SelectValue placeholder={t`Région`} />
 							</SelectTrigger>
 							<SelectContent>
 								{REGIONS.map((region) => (
@@ -215,7 +215,7 @@ export function FiltersCard({ filters }: { filters: InsightsFilterState }) {
 						<Select value={filters.selectedTimeRange} onValueChange={filters.setSelectedTimeRange}>
 							<SelectTrigger className="w-full sm:w-[140px]">
 								<CalendarIcon className="mr-2 size-4" />
-								<SelectValue placeholder={t`Time Range`} />
+								<SelectValue placeholder={t`Période`} />
 							</SelectTrigger>
 							<SelectContent>
 								{TIME_RANGES.map((range) => (
@@ -253,10 +253,10 @@ export function MarketHighlightsCard({
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<LightbulbIcon className="size-5" />
-					<Trans>Market Highlights</Trans>
+					<Trans>Signaux du marché</Trans>
 				</CardTitle>
 				<CardDescription>
-					<Trans>Key insights and statistics</Trans>
+					<Trans>Données utiles pour orienter ta recherche</Trans>
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -303,7 +303,7 @@ export function MarketHighlightsCard({
 					<div className="flex flex-col items-center gap-4 py-8 text-center">
 						<ChartBarIcon className="size-12 text-muted-foreground" />
 						<p className="text-muted-foreground">
-							<Trans>No market data available</Trans>
+							<Trans>Aucune donnée de marché disponible.</Trans>
 						</p>
 					</div>
 				)}
@@ -324,7 +324,7 @@ export function IndustryDistributionCard({
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<ChartBarIcon className="size-5" />
-					<Trans>By Industry</Trans>
+					<Trans>Par secteur</Trans>
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
@@ -355,7 +355,7 @@ export function IndustryDistributionCard({
 				) : (
 					<div className="flex h-56 items-center justify-center">
 						<p className="text-muted-foreground text-sm">
-							<Trans>No industry data</Trans>
+							<Trans>Aucune donnée par secteur.</Trans>
 						</p>
 					</div>
 				)}
@@ -376,10 +376,10 @@ export function RegionalJobMarketCard({
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<MapPinIcon className="size-5" />
-					<Trans>Regional Job Market</Trans>
+					<Trans>Marché régional</Trans>
 				</CardTitle>
 				<CardDescription>
-					<Trans>Job distribution by region</Trans>
+					<Trans>Répartition des offres par région</Trans>
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -406,7 +406,7 @@ export function RegionalJobMarketCard({
 										<span className="font-medium text-sm">{region.regionName}</span>
 										<div className="flex items-center gap-2">
 											<span className="text-muted-foreground text-sm">
-												<Trans>{formatNumber(region.totalJobs)} jobs</Trans>
+												<Trans>{formatNumber(region.totalJobs)} offres</Trans>
 											</span>
 											<Badge
 												variant="outline"
@@ -425,7 +425,7 @@ export function RegionalJobMarketCard({
 					<div className="flex flex-col items-center gap-4 py-8 text-center">
 						<MapPinIcon className="size-12 text-muted-foreground" />
 						<p className="text-muted-foreground">
-							<Trans>No regional data available</Trans>
+							<Trans>Aucune donnée régionale disponible.</Trans>
 						</p>
 					</div>
 				)}
@@ -446,10 +446,10 @@ export function TopHiringSectorsCard({
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<TrendUpIcon className="size-5" />
-					<Trans>Top Hiring Sectors</Trans>
+					<Trans>Secteurs qui recrutent le plus</Trans>
 				</CardTitle>
 				<CardDescription>
-					<Trans>Sectors with most opportunities</Trans>
+					<Trans>Secteurs avec le plus d'opportunités</Trans>
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -475,11 +475,11 @@ export function TopHiringSectorsCard({
 								<div className="min-w-0 flex-1">
 									<p className="truncate font-medium">{sector.sectorName}</p>
 									<p className="text-muted-foreground text-sm">
-										<Trans>{sector.count} employer(s)</Trans>
+										<Trans>{sector.count} employeur(s)</Trans>
 									</p>
 								</div>
 								<Badge variant="secondary">
-									<Trans>{formatNumber(sector.positions)} positions</Trans>
+									<Trans>{formatNumber(sector.positions)} postes</Trans>
 								</Badge>
 							</motion.div>
 						))}
@@ -488,7 +488,7 @@ export function TopHiringSectorsCard({
 					<div className="flex flex-col items-center gap-4 py-8 text-center">
 						<BuildingOfficeIcon className="size-12 text-muted-foreground" />
 						<p className="text-muted-foreground">
-							<Trans>No sector data available</Trans>
+							<Trans>Aucune donnée sectorielle disponible.</Trans>
 						</p>
 					</div>
 				)}
@@ -509,7 +509,7 @@ export function SalaryByFieldCard({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<ChartBarIcon className="size-5" />
-						<Trans>Average Salary by Field</Trans>
+						<Trans>Salaire moyen par domaine</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
@@ -525,7 +525,7 @@ export function SalaryByFieldCard({
 									<CardContent className="p-4 text-center">
 										<p className="font-bold text-2xl text-primary">{formatCurrency(item.averageSalary)}</p>
 										<p className="text-muted-foreground text-sm capitalize">
-											{SECTORS.find((s) => s.id === item.field)?.name || item.field}
+											{SECTORS.find((s) => s.id === item.field)?.nameFr || item.field}
 										</p>
 									</CardContent>
 								</Card>
@@ -559,13 +559,13 @@ export function RecommendedSkillsCard({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<StarIcon className="size-5" />
-						<Trans>Recommended Skills</Trans>
+						<Trans>Compétences recommandées</Trans>
 					</CardTitle>
 					<CardDescription>
 						{selectedSector !== "all" ? (
-							<Trans>Top skills for {SECTORS.find((s) => s.id === selectedSector)?.name}</Trans>
+							<Trans>Compétences prioritaires pour {SECTORS.find((s) => s.id === selectedSector)?.nameFr}</Trans>
 						) : (
-							<Trans>Most sought-after skills in the market</Trans>
+							<Trans>Compétences les plus recherchées sur le marché</Trans>
 						)}
 					</CardDescription>
 				</CardHeader>
@@ -595,7 +595,7 @@ export function RecommendedSkillsCard({
 									</div>
 									{skill.isRecommended && (
 										<Badge variant="outline" className="shrink-0 text-xs">
-											<Trans>Hot</Trans>
+											<Trans>Demandée</Trans>
 										</Badge>
 									)}
 								</motion.div>
@@ -605,7 +605,7 @@ export function RecommendedSkillsCard({
 						<div className="flex flex-col items-center gap-4 py-8 text-center">
 							<SparkleIcon className="size-12 text-muted-foreground" />
 							<p className="text-muted-foreground">
-								<Trans>No skills found</Trans>
+								<Trans>Aucune compétence trouvée.</Trans>
 							</p>
 						</div>
 					)}
@@ -626,16 +626,16 @@ export function SkillDevelopmentCta() {
 						</div>
 						<div>
 							<h3 className="font-semibold">
-								<Trans>Develop Your Skills</Trans>
+								<Trans>Développe tes compétences</Trans>
 							</h3>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Track your skills and identify gaps to fill</Trans>
+								<Trans>Repère les écarts et priorise les compétences à renforcer.</Trans>
 							</p>
 						</div>
 					</div>
 					<Button asChild>
 						<Link to="/dashboard/career/skills">
-							<Trans>Manage My Skills</Trans>
+							<Trans>Gérer mes compétences</Trans>
 							<ArrowRightIcon className="ml-2 size-4" />
 						</Link>
 					</Button>
@@ -668,12 +668,10 @@ export function EmployersCard({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<BuildingOfficeIcon className="size-5" />
-						<Trans>Top Employers</Trans>
+						<Trans>Employeurs actifs</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>
-							{filteredEmployers.length} employer{filteredEmployers.length !== 1 ? "s" : ""} found
-						</Trans>
+						<Trans>{filteredEmployers.length} employeur(s) trouvé(s)</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -710,7 +708,7 @@ export function EmployersCard({
 														</Badge>
 														{employer.openPositions && employer.openPositions > 0 && (
 															<Badge className="bg-green-100 text-green-700 text-xs dark:bg-green-900/30 dark:text-green-400">
-																<Trans>{employer.openPositions} position(s)</Trans>
+																<Trans>{employer.openPositions} poste(s)</Trans>
 															</Badge>
 														)}
 													</div>
@@ -726,14 +724,14 @@ export function EmployersCard({
 							<MagnifyingGlassIcon className="size-12 text-muted-foreground" />
 							<div>
 								<h3 className="font-semibold">
-									<Trans>No employers found</Trans>
+									<Trans>Aucun employeur trouvé</Trans>
 								</h3>
 								<p className="text-muted-foreground text-sm">
-									<Trans>Try modifying your search filters</Trans>
+									<Trans>Essaie de modifier ta recherche ou tes filtres.</Trans>
 								</p>
 							</div>
 							<Button variant="outline" onClick={onResetFilters}>
-								<Trans>Reset Filters</Trans>
+								<Trans>Réinitialiser les filtres</Trans>
 							</Button>
 						</div>
 					)}
@@ -749,7 +747,7 @@ export function NextStepsCard() {
 			<Card>
 				<CardHeader>
 					<CardTitle>
-						<Trans>Next Steps</Trans>
+						<Trans>Prochaines étapes</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
@@ -759,10 +757,10 @@ export function NextStepsCard() {
 								<RocketLaunchIcon className="mr-3 size-5 text-purple-500" />
 								<div className="text-left">
 									<p className="font-medium">
-										<Trans>Plan a Transition</Trans>
+										<Trans>Planifier une transition</Trans>
 									</p>
 									<p className="text-muted-foreground text-xs">
-										<Trans>Change your career</Trans>
+										<Trans>Changer de voie</Trans>
 									</p>
 								</div>
 							</Link>
@@ -772,10 +770,10 @@ export function NextStepsCard() {
 								<BriefcaseIcon className="mr-3 size-5 text-blue-500" />
 								<div className="text-left">
 									<p className="font-medium">
-										<Trans>Prepare Your CV</Trans>
+										<Trans>Préparer ton CV</Trans>
 									</p>
 									<p className="text-muted-foreground text-xs">
-										<Trans>Update it now</Trans>
+										<Trans>Le mettre à jour</Trans>
 									</p>
 								</div>
 							</Link>
@@ -785,10 +783,10 @@ export function NextStepsCard() {
 								<UsersIcon className="mr-3 size-5 text-green-500" />
 								<div className="text-left">
 									<p className="font-medium">
-										<Trans>Prepare Interviews</Trans>
+										<Trans>Préparer les entretiens</Trans>
 									</p>
 									<p className="text-muted-foreground text-xs">
-										<Trans>Practice now</Trans>
+										<Trans>S'entraîner maintenant</Trans>
 									</p>
 								</div>
 							</Link>

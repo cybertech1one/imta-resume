@@ -78,10 +78,10 @@ function CoverLetterGenerator() {
 		orpc.coverLetter.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({ queryKey: ["coverLetter"] });
-				toast.success(t`Cover letter saved!`);
+				toast.success(t`Lettre enregistrée`);
 			},
 			onError: (error) => {
-				toast.error(error.message || t`Error during save`);
+				toast.error(error.message || t`Erreur pendant l'enregistrement`);
 			},
 		}),
 	);
@@ -91,10 +91,10 @@ function CoverLetterGenerator() {
 		orpc.coverLetter.delete.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({ queryKey: ["coverLetter"] });
-				toast.success(t`Cover letter deleted`);
+				toast.success(t`Lettre supprimée`);
 			},
 			onError: (error) => {
-				toast.error(error.message || t`Error during deletion`);
+				toast.error(error.message || t`Erreur pendant la suppression`);
 			},
 		}),
 	);
@@ -123,10 +123,10 @@ function CoverLetterGenerator() {
 			categories[kw.category] = (categories[kw.category] || 0) + kw.count;
 		}
 		const colors: Record<string, string> = {
-			Skill: "#3b82f6",
-			"Soft skill": "#8b5cf6",
-			Value: "#10b981",
-			Experience: "#f59e0b",
+			Compétence: "#3b82f6",
+			"Savoir-être": "#8b5cf6",
+			Valeur: "#10b981",
+			Expérience: "#f59e0b",
 		};
 		return Object.entries(categories).map(([name, value]) => ({
 			name,
@@ -138,7 +138,7 @@ function CoverLetterGenerator() {
 	// Handlers
 	const handleGenerate = useCallback(async () => {
 		if (!jobDetails.company && !jobDetails.position) {
-			toast.error(t`Please fill in at least the company or position`);
+			toast.error(t`Renseigne au moins l'entreprise ou le poste`);
 			return;
 		}
 
@@ -152,9 +152,9 @@ function CoverLetterGenerator() {
 			const letter = generateCoverLetter(jobDetails, selectedTemplate, selectedTone);
 			setGeneratedLetter(letter);
 			setEditedSections({});
-			toast.success(t`Cover letter generated successfully!`);
+			toast.success(t`Lettre générée`);
 		} catch {
-			toast.error(t`Error during generation`);
+			toast.error(t`Erreur pendant la génération`);
 		} finally {
 			setIsProcessing(false);
 		}
@@ -162,11 +162,11 @@ function CoverLetterGenerator() {
 
 	const handleSaveLetter = useCallback(() => {
 		if (!generatedLetter || !fullLetter) {
-			toast.error(t`Please generate a letter first`);
+			toast.error(t`Génère d'abord une lettre`);
 			return;
 		}
 
-		const name = `${jobDetails.position || "Letter"} - ${jobDetails.company || "Company"} - ${new Date().toLocaleDateString()}`;
+		const name = `${jobDetails.position || "Lettre"} - ${jobDetails.company || "Entreprise"} - ${new Date().toLocaleDateString("fr-FR")}`;
 
 		createMutation.mutate({
 			name,
@@ -202,7 +202,7 @@ function CoverLetterGenerator() {
 		});
 		setEditedSections({});
 		setActiveTab("generate");
-		toast.success(t`Letter loaded`);
+		toast.success(t`Lettre chargée`);
 	}, []);
 
 	const handleDeleteLetter = useCallback(
@@ -224,9 +224,9 @@ function CoverLetterGenerator() {
 					...prev,
 					[section]: newLetter[section],
 				}));
-				toast.success(t`Section regenerated!`);
+				toast.success(t`Section régénérée`);
 			} catch {
-				toast.error(t`Error during regeneration`);
+				toast.error(t`Erreur pendant la régénération`);
 			} finally {
 				setIsProcessing(false);
 			}
@@ -236,7 +236,7 @@ function CoverLetterGenerator() {
 
 	const copyToClipboard = useCallback((text: string) => {
 		navigator.clipboard.writeText(text);
-		toast.success(t`Copied to clipboard`);
+		toast.success(t`Copié dans le presse-papiers`);
 	}, []);
 
 	const downloadAsTextFile = useCallback(() => {
@@ -244,12 +244,12 @@ function CoverLetterGenerator() {
 		const url = URL.createObjectURL(blob);
 		const link = document.createElement("a");
 		link.href = url;
-		link.download = `cover-letter-${jobDetails.company || "company"}.txt`;
+		link.download = `lettre-motivation-${jobDetails.company || "entreprise"}.txt`;
 		document.body.appendChild(link);
 		link.click();
 		document.body.removeChild(link);
 		URL.revokeObjectURL(url);
-		toast.success(t`Letter downloaded`);
+		toast.success(t`Lettre téléchargée`);
 	}, [fullLetter, jobDetails.company]);
 
 	const handleSectionEdit = useCallback((section: SectionType, content: string) => {
@@ -297,7 +297,7 @@ function CoverLetterGenerator() {
 	if (loadError) {
 		return (
 			<>
-				<DashboardHeader icon={EnvelopeIcon} title={t`Cover Letter Generator`} />
+				<DashboardHeader icon={EnvelopeIcon} title={t`Générateur de lettre de motivation`} />
 				<ErrorState />
 			</>
 		);
@@ -305,7 +305,7 @@ function CoverLetterGenerator() {
 
 	return (
 		<>
-			<DashboardHeader icon={EnvelopeIcon} title={t`Cover Letter Generator`} />
+			<DashboardHeader icon={EnvelopeIcon} title={t`Générateur de lettre de motivation`} />
 
 			<HeroSection statisticsTotal={statistics?.total ?? 0} />
 
@@ -313,10 +313,10 @@ function CoverLetterGenerator() {
 			<Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
 				<TabsList className="flex h-auto flex-wrap gap-2 bg-transparent p-0">
 					{[
-						{ value: "generate", icon: MagicWandIcon, label: t`Generate` },
-						{ value: "saved", icon: FileTextIcon, label: t`My Letters (${savedCoverLetters.length})` },
-						{ value: "preview", icon: EyeIcon, label: t`Preview` },
-						{ value: "analysis", icon: TargetIcon, label: t`Analysis` },
+						{ value: "generate", icon: MagicWandIcon, label: t`Générer` },
+						{ value: "saved", icon: FileTextIcon, label: t`Mes lettres (${savedCoverLetters.length})` },
+						{ value: "preview", icon: EyeIcon, label: t`Aperçu` },
+						{ value: "analysis", icon: TargetIcon, label: t`Analyse` },
 					].map((tab) => (
 						<TabsTrigger
 							key={tab.value}

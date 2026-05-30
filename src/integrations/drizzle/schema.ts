@@ -352,7 +352,14 @@ export const skillsQuizResult = pg.pgTable(
 // ============================================
 
 // Interview field specialization enum
-export const interviewFieldEnum = pg.pgEnum("interview_field", ["healthcare", "industrial", "hse", "general"]);
+export const interviewFieldEnum = pg.pgEnum("interview_field", [
+	"healthcare",
+	"industrial",
+	"hse",
+	"management",
+	"technology",
+	"general",
+]);
 
 // Interview difficulty enum
 export const interviewDifficultyEnum = pg.pgEnum("interview_difficulty", ["beginner", "intermediate", "advanced"]);
@@ -391,7 +398,7 @@ export type InterviewQuestion = {
 	questionFr?: string;
 	type: InterviewType;
 	// Aligned with interviewFieldSchema (src/schema/interview) which now covers all IMTA fields.
-	field: "healthcare" | "industrial" | "hse" | "general" | "technology" | "management";
+	field: "healthcare" | "industrial" | "hse" | "technology" | "management" | "general";
 	difficulty: "beginner" | "intermediate" | "advanced";
 	expectedPoints?: string[];
 	followUpQuestions?: string[];
@@ -2370,13 +2377,19 @@ export const confidenceExerciseStats = pg.pgTable(
 // ============================================
 
 // Practice interview (mock AI) field enum
-export const mockAiFieldEnum = pg.pgEnum("mock_ai_field", ["healthcare", "industrial", "hse"]);
+export const mockAiFieldEnum = pg.pgEnum("mock_ai_field", [
+	"healthcare",
+	"industrial",
+	"hse",
+	"technology",
+	"management",
+]);
 
 // Practice interview (mock AI) difficulty enum
 export const mockAiDifficultyEnum = pg.pgEnum("mock_ai_difficulty", ["debutant", "intermediaire", "avance"]);
 
 // TypeScript types for practice (mock AI) interviews
-export type MockAiField = "healthcare" | "industrial" | "hse";
+export type MockAiField = "healthcare" | "industrial" | "hse" | "technology" | "management";
 export type MockAiDifficulty = "debutant" | "intermediaire" | "avance";
 
 // Message feedback type stored in JSONB

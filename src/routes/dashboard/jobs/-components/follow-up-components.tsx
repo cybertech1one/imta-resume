@@ -122,23 +122,11 @@ interface HeroSectionProps {
 export function HeroSection({ stats }: HeroSectionProps) {
 	return (
 		<motion.div
-			className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 p-8 md:p-12"
-			style={{
-				background:
-					"linear-gradient(135deg, oklch(0.65 0.18 220 / 0.15) 0%, oklch(0.6 0.2 200 / 0.1) 50%, oklch(0.7 0.15 180 / 0.08) 100%)",
-			}}
+			className="relative mb-8 overflow-hidden rounded-2xl border bg-card p-6 shadow-sm md:p-8"
 			initial={false}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.6, ease: "easeOut" }}
 		>
-			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/10 blur-3xl"
-					animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.3, 0.5] }}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-			</div>
-
 			<div className="relative z-10">
 				<motion.div
 					className="mb-3 flex items-center gap-2"
@@ -148,17 +136,17 @@ export function HeroSection({ stats }: HeroSectionProps) {
 				>
 					<EnvelopeIcon className="size-5 text-primary" weight="fill" />
 					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>Follow-Up Management</Trans>
+						<Trans>Gestion des relances</Trans>
 					</span>
 				</motion.div>
 
 				<motion.h2
-					className="mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text font-bold text-3xl text-transparent tracking-tight md:text-4xl lg:text-5xl"
+					className="mb-4 max-w-4xl font-bold text-3xl tracking-tight md:text-4xl"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.3 }}
 				>
-					<Trans>Follow-Up Tracking</Trans>
+					<Trans>Suivi des relances</Trans>
 				</motion.h2>
 
 				<motion.p
@@ -168,8 +156,7 @@ export function HeroSection({ stats }: HeroSectionProps) {
 					transition={{ delay: 0.4 }}
 				>
 					<Trans>
-						Optimize your response chances by tracking your application follow-ups. Optimal timing, email templates, and
-						response statistics.
+						Planifie tes relances, garde le bon ton et suis les réponses sans perdre le fil de tes candidatures.
 					</Trans>
 				</motion.p>
 
@@ -182,25 +169,25 @@ export function HeroSection({ stats }: HeroSectionProps) {
 					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
 						<p className="font-bold text-2xl">{stats.total}</p>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Applications</Trans>
+							<Trans>Candidatures</Trans>
 						</p>
 					</div>
 					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
 						<p className="font-bold text-2xl text-green-600 dark:text-green-400">{stats.responseRate}%</p>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Response rate</Trans>
+							<Trans>Taux de réponse</Trans>
 						</p>
 					</div>
 					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
 						<p className="font-bold text-2xl text-amber-600 dark:text-amber-400">{stats.pendingFollowUps}</p>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Pending follow-ups</Trans>
+							<Trans>Relances à faire</Trans>
 						</p>
 					</div>
 					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
 						<p className="font-bold text-2xl text-red-600 dark:text-red-400">{stats.overdueFollowUps}</p>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Overdue</Trans>
+							<Trans>En retard</Trans>
 						</p>
 					</div>
 				</motion.div>
@@ -230,10 +217,10 @@ export function TimelineTab({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<CalendarIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Follow-Up Calendar</Trans>
+						<Trans>Calendrier des relances</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Plan your follow-ups to maximize your response chances</Trans>
+						<Trans>Planifie tes relances pour augmenter tes chances de réponse</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -301,7 +288,7 @@ export function TimelineTab({
 												}}
 											>
 												<PaperPlaneTiltIcon className="size-4" />
-												<Trans>Send</Trans>
+												<Trans>Envoyer</Trans>
 											</Button>
 										</div>
 									</motion.div>
@@ -312,10 +299,10 @@ export function TimelineTab({
 						<div className="flex flex-col items-center justify-center py-12 text-center">
 							<CheckCircleIcon className="mb-4 size-12 text-green-500" weight="duotone" />
 							<h3 className="font-semibold text-lg">
-								<Trans>No follow-ups scheduled</Trans>
+								<Trans>Aucune relance planifiée</Trans>
 							</h3>
 							<p className="text-muted-foreground">
-								<Trans>All your follow-ups are up to date!</Trans>
+								<Trans>Toutes tes relances sont à jour.</Trans>
 							</p>
 						</div>
 					)}
@@ -327,7 +314,7 @@ export function TimelineTab({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<TimerIcon className="size-5 text-primary" weight="duotone" />
-						<Trans>Optimal Timing</Trans>
+						<Trans>Bon timing</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
@@ -339,7 +326,7 @@ export function TimelineTab({
 									<span className="font-medium">{config.label}</span>
 								</div>
 								<p className="text-muted-foreground text-sm">
-									<Trans>Recommended after</Trans> <span className="font-bold text-foreground">{config.days} days</span>
+									<Trans>Recommandé après</Trans> <span className="font-bold text-foreground">{config.days} jours</span>
 								</p>
 							</div>
 						))}
@@ -395,7 +382,7 @@ export function ApplicationsTab({
 							<div className="relative w-full min-w-[200px] sm:flex-1 lg:max-w-xs">
 								<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-muted-foreground" />
 								<Input
-									placeholder={t`Search...`}
+									placeholder={t`Rechercher...`}
 									value={searchQuery}
 									onChange={(e) => setSearchQuery(e.target.value)}
 									className="pl-10"
@@ -405,11 +392,11 @@ export function ApplicationsTab({
 							<Select value={statusFilter} onValueChange={(v) => setStatusFilter(v as FollowUpStatus | "all")}>
 								<SelectTrigger className="w-full sm:w-[180px]">
 									<FunnelIcon className="mr-2 size-4" />
-									<SelectValue placeholder={t`Filter by status`} />
+									<SelectValue placeholder={t`Filtrer par statut`} />
 								</SelectTrigger>
 								<SelectContent>
 									<SelectItem value="all">
-										<Trans>All statuses</Trans>
+										<Trans>Tous les statuts</Trans>
 									</SelectItem>
 									{(Object.entries(statusConfig) as [FollowUpStatus, (typeof statusConfig)[FollowUpStatus]][]).map(
 										([key, config]) => {
@@ -442,17 +429,17 @@ export function ApplicationsTab({
 									) : (
 										<PaperPlaneTiltIcon className="size-4" />
 									)}
-									<Trans>Mark as sent</Trans>
+									<Trans>Marquer comme envoyée</Trans>
 								</Button>
 								<Button size="sm" variant="ghost" onClick={clearSelection}>
-									<Trans>Cancel</Trans>
+									<Trans>Annuler</Trans>
 								</Button>
 							</div>
 						)}
 
 						{selectedApplicationIds.length === 0 && (
 							<Button variant="outline" size="sm" onClick={selectAllApplications}>
-								<Trans>Select all</Trans>
+								<Trans>Tout sélectionner</Trans>
 							</Button>
 						)}
 					</div>
@@ -503,12 +490,12 @@ export function ApplicationsTab({
 															</span>
 															<span className="flex items-center gap-1">
 																<CalendarIcon className="size-4" />
-																<Trans>Applied {daysSinceApplied} days ago</Trans>
+																<Trans>Candidature envoyée il y a {daysSinceApplied} jours</Trans>
 															</span>
 															{app.followUpCount > 0 && (
 																<span className="flex items-center gap-1">
 																	<EnvelopeIcon className="size-4" />
-																	<Trans>{app.followUpCount} follow-up(s)</Trans>
+																	<Trans>{app.followUpCount} relance(s)</Trans>
 																</span>
 															)}
 														</div>
@@ -574,13 +561,15 @@ export function ApplicationsTab({
 						<CardContent className="flex flex-col items-center justify-center py-16">
 							<EnvelopeIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 							<h3 className="mb-2 font-semibold text-lg">
-								<Trans>No applications found</Trans>
+								<Trans>Aucune candidature trouvée</Trans>
 							</h3>
 							<p className="text-muted-foreground">
 								{searchQuery || statusFilter !== "all" ? (
-									<Trans>Try changing your filters</Trans>
+									<Trans>Modifie tes filtres</Trans>
 								) : (
-									<Trans>No applications to follow up on. Add applications in the "My Applications" section.</Trans>
+									<Trans>
+										Aucune candidature à relancer. Ajoute des candidatures dans la section "Mes candidatures".
+									</Trans>
 								)}
 							</p>
 						</CardContent>
@@ -630,7 +619,7 @@ export function TemplatesTab({ emailTemplates, handleCopyTemplate, setSelectedTe
 												onClick={() => handleCopyTemplate(template)}
 											>
 												<CopyIcon className="size-4" />
-												<Trans>Copy</Trans>
+												<Trans>Copier</Trans>
 											</Button>
 											<Button
 												size="sm"
@@ -681,28 +670,28 @@ export function AnalyticsTab({
 }: AnalyticsTabProps) {
 	const metricsCards = [
 		{
-			label: "Overall response rate",
+			label: "Taux de réponse global",
 			value: `${stats.responseRate}%`,
 			icon: TargetIcon,
 			color: "text-green-600 dark:text-green-400",
 			bgColor: "bg-green-100 dark:bg-green-900/30",
 		},
 		{
-			label: "Follow-ups sent",
+			label: "Relances envoyées",
 			value: applications.reduce((sum, a) => sum + a.followUpCount, 0).toString(),
 			icon: PaperPlaneTiltIcon,
 			color: "text-blue-600 dark:text-blue-400",
 			bgColor: "bg-blue-100 dark:bg-blue-900/30",
 		},
 		{
-			label: "Responses received",
+			label: "Réponses reçues",
 			value: stats.responded.toString(),
 			icon: CheckCircleIcon,
 			color: "text-emerald-600 dark:text-emerald-400",
 			bgColor: "bg-emerald-100 dark:bg-emerald-900/30",
 		},
 		{
-			label: "Rate this week",
+			label: "Taux cette semaine",
 			value: `${statisticsData?.responseRate ?? 0}%`,
 			icon: ClockIcon,
 			color: "text-purple-600 dark:text-purple-400",
@@ -746,7 +735,7 @@ export function AnalyticsTab({
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<TrendUpIcon className="size-5 text-primary" weight="duotone" />
-							<Trans>Response Rate Trends</Trans>
+							<Trans>Évolution du taux de réponse</Trans>
 						</CardTitle>
 					</CardHeader>
 					<CardContent>
@@ -781,7 +770,7 @@ export function AnalyticsTab({
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<TimerIcon className="size-5 text-primary" weight="duotone" />
-							<Trans>Effectiveness by Follow-Up Delay</Trans>
+							<Trans>Efficacité selon le délai de relance</Trans>
 						</CardTitle>
 					</CardHeader>
 					<CardContent>
@@ -810,7 +799,7 @@ export function AnalyticsTab({
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<ChartBarIcon className="size-5 text-primary" weight="duotone" />
-							<Trans>Status Distribution</Trans>
+							<Trans>Répartition par statut</Trans>
 						</CardTitle>
 					</CardHeader>
 					<CardContent>
@@ -842,7 +831,7 @@ export function AnalyticsTab({
 								</ResponsiveContainer>
 							) : (
 								<div className="flex h-full items-center justify-center text-muted-foreground">
-									<Trans>No data available</Trans>
+									<Trans>Aucune donnée disponible</Trans>
 								</div>
 							)}
 						</div>
@@ -854,7 +843,7 @@ export function AnalyticsTab({
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<EnvelopeIcon className="size-5 text-primary" weight="duotone" />
-							<Trans>Follow-Ups Sent vs Responses</Trans>
+							<Trans>Relances envoyées vs réponses</Trans>
 						</CardTitle>
 					</CardHeader>
 					<CardContent>
@@ -907,10 +896,10 @@ export function TipsTab() {
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<LightbulbIcon className="size-5 text-amber-500" weight="fill" />
-						<Trans>Follow-Up Best Practices</Trans>
+						<Trans>Bonnes pratiques de relance</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Follow these tips to maximize your response chances</Trans>
+						<Trans>Utilise ces conseils pour augmenter tes chances de réponse</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -949,7 +938,7 @@ export function TipsTab() {
 						</div>
 						<div>
 							<h3 className="mb-2 font-semibold text-lg">
-								<Trans>Pro Tip</Trans>
+								<Trans>Conseil pro</Trans>
 							</h3>
 							<p className="text-muted-foreground">
 								<Trans>
@@ -999,7 +988,7 @@ export function TemplateSendDialog({
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
 						<EnvelopeIcon className="size-5 text-primary" />
-						<Trans>Send a Follow-Up</Trans>
+						<Trans>Envoyer une relance</Trans>
 					</DialogTitle>
 					<DialogDescription>
 						{selectedApplication && (
@@ -1013,7 +1002,7 @@ export function TemplateSendDialog({
 				<div className="space-y-4 py-4">
 					<div className="space-y-2">
 						<Label>
-							<Trans>Choose a template</Trans>
+							<Trans>Choisis un modèle</Trans>
 						</Label>
 						<Select
 							value={selectedTemplate?.id || ""}
@@ -1023,7 +1012,7 @@ export function TemplateSendDialog({
 							}}
 						>
 							<SelectTrigger>
-								<SelectValue placeholder={t`Select a template`} />
+								<SelectValue placeholder={t`Sélectionner un modèle`} />
 							</SelectTrigger>
 							<SelectContent>
 								{emailTemplates.map((template) => (
@@ -1042,14 +1031,14 @@ export function TemplateSendDialog({
 						<>
 							<div className="space-y-2">
 								<Label>
-									<Trans>Subject</Trans>
+									<Trans>Objet</Trans>
 								</Label>
 								<Input value={selectedTemplate.subject} readOnly className="bg-muted" />
 							</div>
 
 							<div className="space-y-2">
 								<Label>
-									<Trans>Message body</Trans>
+									<Trans>Corps du message</Trans>
 								</Label>
 								<Textarea value={selectedTemplate.body} readOnly className="min-h-[200px] bg-muted" />
 							</div>
@@ -1057,9 +1046,7 @@ export function TemplateSendDialog({
 							<div className="rounded-lg bg-blue-50 p-4 dark:bg-blue-950/20">
 								<p className="flex items-center gap-2 text-blue-700 text-sm dark:text-blue-400">
 									<InfoIcon className="size-4" />
-									<Trans>
-										Replace the placeholders [Position], [Recruiter name], [Date] and [Your name] before sending.
-									</Trans>
+									<Trans>Remplace les champs [Poste], [Nom du recruteur], [Date] et [Votre nom] avant l'envoi.</Trans>
 								</p>
 							</div>
 						</>
@@ -1069,7 +1056,7 @@ export function TemplateSendDialog({
 				<DialogFooter>
 					<DialogClose asChild>
 						<Button variant="outline">
-							<Trans>Cancel</Trans>
+							<Trans>Annuler</Trans>
 						</Button>
 					</DialogClose>
 					<Button
@@ -1092,7 +1079,7 @@ export function TemplateSendDialog({
 						) : (
 							<CopyIcon className="size-4" />
 						)}
-						<Trans>Copy and Mark as Sent</Trans>
+						<Trans>Copier et marquer comme envoyée</Trans>
 					</Button>
 				</DialogFooter>
 			</DialogContent>
@@ -1121,10 +1108,10 @@ export function ReminderSettingsDialog({
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
 						<BellRingingIcon className="size-5 text-primary" />
-						<Trans>Reminder Settings</Trans>
+						<Trans>Paramètres des rappels</Trans>
 					</DialogTitle>
 					<DialogDescription>
-						<Trans>Configure reminders for your application follow-ups</Trans>
+						<Trans>Configure les rappels pour tes relances de candidature</Trans>
 					</DialogDescription>
 				</DialogHeader>
 
@@ -1132,10 +1119,10 @@ export function ReminderSettingsDialog({
 					<div className="flex items-center justify-between">
 						<div className="space-y-0.5">
 							<Label>
-								<Trans>Enable reminders</Trans>
+								<Trans>Activer les rappels</Trans>
 							</Label>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Receive notifications for your follow-ups</Trans>
+								<Trans>Recevoir des notifications pour les relances</Trans>
 							</p>
 						</div>
 						<Switch
@@ -1146,14 +1133,14 @@ export function ReminderSettingsDialog({
 
 					<div className="space-y-4">
 						<h4 className="font-medium">
-							<Trans>Reminder delays (days)</Trans>
+							<Trans>Délais de rappel (jours)</Trans>
 						</h4>
 
 						<div className="grid gap-4">
 							<div className="flex items-center justify-between">
 								<Label className="flex items-center gap-2">
 									<div className="size-2 rounded-full bg-blue-500" />
-									<Trans>First follow-up</Trans>
+									<Trans>Première relance</Trans>
 								</Label>
 								<Input
 									type="number"
@@ -1173,7 +1160,7 @@ export function ReminderSettingsDialog({
 							<div className="flex items-center justify-between">
 								<Label className="flex items-center gap-2">
 									<div className="size-2 rounded-full bg-amber-500" />
-									<Trans>Second follow-up</Trans>
+									<Trans>Deuxième relance</Trans>
 								</Label>
 								<Input
 									type="number"
@@ -1193,7 +1180,7 @@ export function ReminderSettingsDialog({
 							<div className="flex items-center justify-between">
 								<Label className="flex items-center gap-2">
 									<div className="size-2 rounded-full bg-red-500" />
-									<Trans>Final follow-up</Trans>
+									<Trans>Dernière relance</Trans>
 								</Label>
 								<Input
 									type="number"
@@ -1214,12 +1201,12 @@ export function ReminderSettingsDialog({
 
 					<div className="space-y-4">
 						<h4 className="font-medium">
-							<Trans>Notification type</Trans>
+							<Trans>Type de notification</Trans>
 						</h4>
 
 						<div className="flex items-center justify-between">
 							<Label>
-								<Trans>Email notifications</Trans>
+								<Trans>Notifications email</Trans>
 							</Label>
 							<Switch
 								checked={reminderSettings.emailNotifications}
@@ -1229,7 +1216,7 @@ export function ReminderSettingsDialog({
 
 						<div className="flex items-center justify-between">
 							<Label>
-								<Trans>Browser notifications</Trans>
+								<Trans>Notifications navigateur</Trans>
 							</Label>
 							<Switch
 								checked={reminderSettings.browserNotifications}
@@ -1244,16 +1231,16 @@ export function ReminderSettingsDialog({
 				<DialogFooter>
 					<DialogClose asChild>
 						<Button variant="outline">
-							<Trans>Cancel</Trans>
+							<Trans>Annuler</Trans>
 						</Button>
 					</DialogClose>
 					<Button
 						onClick={() => {
-							toast.success(t`Settings saved`);
+							toast.success(t`Paramètres enregistrés`);
 							onOpenChange(false);
 						}}
 					>
-						<Trans>Save</Trans>
+						<Trans>Enregistrer</Trans>
 					</Button>
 				</DialogFooter>
 			</DialogContent>

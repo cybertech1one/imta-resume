@@ -1,7 +1,7 @@
 import type { FirstAidKitIcon } from "@phosphor-icons/react";
 
 // Core domain types
-export type Field = "healthcare" | "industrial" | "hse";
+export type Field = "healthcare" | "industrial" | "hse" | "technology" | "management";
 export type Difficulty = "debutant" | "intermediaire" | "avance";
 export type Program = string;
 

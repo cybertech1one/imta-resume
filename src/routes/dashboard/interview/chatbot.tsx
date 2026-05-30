@@ -22,7 +22,7 @@ import type { ChatbotField, ChatbotLanguage, ChatbotMode, Message, SessionSummar
 
 const searchSchema = z.object({
 	mode: z.enum(["quick_practice", "mock_interview", "topic_focus"]).optional(),
-	field: z.enum(["healthcare", "industrial", "hse", "general"]).optional(),
+	field: z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]).optional(),
 	language: z.enum(["fr", "en", "ar"]).optional(),
 });
 

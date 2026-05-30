@@ -433,9 +433,9 @@ function EmployersDirectoryPage() {
 								).map(([key, config]) => {
 									const FieldIcon = config.icon;
 									return (
-											<SelectItem key={key} value={key}>
-												<div className="flex items-center gap-2">
-													<FieldIcon aria-hidden="true" className="size-4" />
+										<SelectItem key={key} value={key}>
+											<div className="flex items-center gap-2">
+												<FieldIcon aria-hidden="true" className="size-4" />
 												{config.label}
 											</div>
 										</SelectItem>
@@ -584,9 +584,9 @@ function EmployersDirectoryPage() {
 											<div className="flex items-center gap-2">
 												<div className="flex items-center gap-1">
 													{[1, 2, 3, 4, 5].map((star) => (
-													<StarIcon
-														key={star}
-														aria-hidden="true"
+														<StarIcon
+															key={star}
+															aria-hidden="true"
 															className={cn(
 																"size-4",
 																star <= Math.floor(employer.rating) ? "text-amber-500" : "text-muted-foreground/30",
@@ -627,14 +627,14 @@ function EmployersDirectoryPage() {
 												{employer.website && (
 													<Button variant="outline" size="sm" asChild>
 														<a href={employer.website} target="_blank" rel="noopener noreferrer">
-															<GlobeIcon className="size-4" />
+															<GlobeIcon aria-hidden="true" className="size-4" />
 														</a>
 													</Button>
 												)}
 												{employer.linkedIn && (
 													<Button variant="outline" size="sm" asChild>
 														<a href={employer.linkedIn} target="_blank" rel="noopener noreferrer">
-															<LinkedinLogoIcon className="size-4" />
+															<LinkedinLogoIcon aria-hidden="true" className="size-4" />
 														</a>
 													</Button>
 												)}
@@ -648,7 +648,7 @@ function EmployersDirectoryPage() {
 				) : (
 					<Card className="border-dashed">
 						<CardContent className="flex flex-col items-center justify-center py-16">
-							<BuildingsIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
+							<BuildingsIcon aria-hidden="true" className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 							<h3 className="mb-2 font-semibold text-lg">
 								<Trans>Aucune entreprise trouvée</Trans>
 							</h3>
@@ -680,7 +680,7 @@ function EmployersDirectoryPage() {
 					<div className="flex flex-wrap justify-center gap-4">
 						<Link to="/dashboard/resumes">
 							<Button size="lg" className="gap-2">
-								<Trans>Create my resume</Trans>
+								<Trans>Créer mon CV</Trans>
 								<CaretRightIcon aria-hidden="true" className="size-5" />
 							</Button>
 						</Link>

@@ -1,6 +1,6 @@
 // Static interview tips data
 export function getInterviewTips(
-	field?: "healthcare" | "industrial" | "hse" | "general",
+	field?: "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 	category?: "preparation" | "during" | "after" | "common_questions" | "body_language" | "field_specific",
 	language: "fr" | "en" = "fr",
 ) {
@@ -541,7 +541,7 @@ export function getInterviewTips(
 
 // Static common questions data
 export function getCommonQuestions(
-	field: "healthcare" | "industrial" | "hse" | "general",
+	field: "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 	type?: "behavioral" | "technical" | "situational" | "motivational" | "general",
 	language: "fr" | "en" = "fr",
 ) {

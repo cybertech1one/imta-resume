@@ -36,36 +36,11 @@ import type { Field, IndustryOutlook, RegionalData, SalaryTrend, SkillDemand, Tr
 export function HeroSection({ marketOverview }: { marketOverview: TrendData[] }) {
 	return (
 		<motion.div
-			className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 p-8 md:p-12"
-			style={{
-				background:
-					"linear-gradient(135deg, oklch(0.65 0.18 260 / 0.15) 0%, oklch(0.6 0.2 220 / 0.1) 50%, oklch(0.7 0.15 180 / 0.08) 100%)",
-			}}
+			className="relative mb-8 overflow-hidden rounded-2xl border bg-card p-6 shadow-sm md:p-8"
 			initial={false}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.6, ease: "easeOut" }}
 		>
-			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-purple-500/20 to-indigo-500/10 blur-3xl"
-					animate={{
-						scale: [1, 1.2, 1],
-						rotate: [0, 10, 0],
-						opacity: [0.5, 0.3, 0.5],
-					}}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute -bottom-32 -left-32 size-96 rounded-full bg-gradient-to-tr from-blue-500/15 to-cyan-500/10 blur-3xl"
-					animate={{
-						scale: [1.2, 1, 1.2],
-						rotate: [0, -10, 0],
-						opacity: [0.3, 0.5, 0.3],
-					}}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-			</div>
-
 			<div className="relative z-10">
 				<motion.div
 					className="mb-3 flex items-center gap-2"
@@ -75,17 +50,17 @@ export function HeroSection({ marketOverview }: { marketOverview: TrendData[] })
 				>
 					<ChartLineUpIcon className="size-5 text-primary" weight="fill" />
 					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>Market Analysis</Trans>
+						<Trans>Analyse du marché</Trans>
 					</span>
 				</motion.div>
 
 				<motion.h2
-					className="mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text font-bold text-3xl text-transparent tracking-tight md:text-4xl lg:text-5xl"
+					className="mb-4 max-w-4xl font-bold text-3xl tracking-tight md:text-4xl"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.3 }}
 				>
-					<Trans>Job Market Trends</Trans>
+					<Trans>Tendances du marché de l'emploi</Trans>
 				</motion.h2>
 
 				<motion.p
@@ -95,8 +70,8 @@ export function HeroSection({ marketOverview }: { marketOverview: TrendData[] })
 					transition={{ delay: 0.4 }}
 				>
 					<Trans>
-						Decouvrez les dernieres tendances, competences recherchees et opportunites sur le marche de l'emploi
-						marocain. Donnees actualisees pour guider vos choix de carriere.
+						Découvre les tendances, les compétences recherchées et les opportunités du marché marocain. Les données sont
+						présentées pour t'aider à choisir les bons domaines et à préparer tes candidatures.
 					</Trans>
 				</motion.p>
 
@@ -160,8 +135,8 @@ export function FieldFilter({
 				onClick={() => setSelectedField("all")}
 				className="gap-2"
 			>
-				<GlobeIcon className="size-4" />
-				<Trans>All sectors</Trans>
+				<GlobeIcon className="size-4" aria-hidden="true" />
+				<Trans>Tous les secteurs</Trans>
 			</Button>
 			{(Object.entries(fieldConfig) as [Field, (typeof fieldConfig)[Field]][]).map(([key, config]) => {
 				const FieldIcon = config.icon;
@@ -173,7 +148,7 @@ export function FieldFilter({
 						onClick={() => setSelectedField(key)}
 						className="gap-2"
 					>
-						<FieldIcon className="size-4" />
+						<FieldIcon className="size-4" aria-hidden="true" />
 						{config.label}
 					</Button>
 				);
@@ -186,18 +161,18 @@ export function TrendsTabsList() {
 	return (
 		<TabsList className="flex h-auto flex-wrap gap-2 bg-transparent p-0">
 			{[
-				{ value: "overview", icon: ChartBarIcon, label: "Overview" },
-				{ value: "skills", icon: StarIcon, label: "Skills" },
-				{ value: "salaries", icon: CurrencyCircleDollarIcon, label: "Salaries" },
-				{ value: "regions", icon: MapPinIcon, label: "Regions" },
-				{ value: "outlook", icon: RocketLaunchIcon, label: "Outlook" },
+				{ value: "overview", icon: ChartBarIcon, label: "Vue d'ensemble" },
+				{ value: "skills", icon: StarIcon, label: "Compétences" },
+				{ value: "salaries", icon: CurrencyCircleDollarIcon, label: "Salaires" },
+				{ value: "regions", icon: MapPinIcon, label: "Régions" },
+				{ value: "outlook", icon: RocketLaunchIcon, label: "Perspectives" },
 			].map((tab) => (
 				<TabsTrigger
 					key={tab.value}
 					value={tab.value}
 					className="gap-2 rounded-full border border-transparent bg-muted/50 px-6 py-2.5 data-[state=active]:border-primary/30 data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
 				>
-					<tab.icon className="size-4" />
+					<tab.icon className="size-4" aria-hidden="true" />
 					{tab.label}
 				</TabsTrigger>
 			))}
@@ -217,7 +192,7 @@ export function OverviewTab({
 			<section>
 				<h3 className="mb-6 flex items-center gap-2 font-semibold text-2xl">
 					<TrendUpIcon className="size-6 text-primary" weight="duotone" />
-					<Trans>Industry Outlook</Trans>
+					<Trans>Perspectives par secteur</Trans>
 				</h3>
 
 				<div className="grid gap-6 md:grid-cols-3">
@@ -241,7 +216,7 @@ export function OverviewTab({
 												<div>
 													<CardTitle className="text-lg">{config.label}</CardTitle>
 													<CardDescription>
-														<Trans>Growth</Trans>: +{industry.growthRate}%
+														<Trans>Croissance</Trans>: +{industry.growthRate}%
 													</CardDescription>
 												</div>
 											</div>
@@ -264,7 +239,7 @@ export function OverviewTab({
 									<CardContent className="space-y-4">
 										<div>
 											<p className="mb-2 font-medium text-sm">
-												<Trans>Growth Drivers</Trans>
+												<Trans>Facteurs de croissance</Trans>
 											</p>
 											<ul className="space-y-1">
 												{industry.keyDrivers.slice(0, 2).map((driver) => (
@@ -299,7 +274,7 @@ export function OverviewTab({
 			<section>
 				<h3 className="mb-6 flex items-center gap-2 font-semibold text-2xl">
 					<SparkleIcon className="size-6 text-amber-500" weight="fill" />
-					<Trans>Emerging Jobs</Trans>
+					<Trans>Métiers émergents</Trans>
 				</h3>
 
 				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -343,7 +318,7 @@ export function SkillsTab({ filteredSkills }: { filteredSkills: SkillDemand[] })
 			<section>
 				<h3 className="mb-6 flex items-center gap-2 font-semibold text-2xl">
 					<StarIcon className="size-6 text-amber-500" weight="fill" />
-					<Trans>Most In-Demand Skills</Trans>
+					<Trans>Compétences les plus demandées</Trans>
 				</h3>
 
 				<Card>
@@ -387,7 +362,7 @@ export function SkillsTab({ filteredSkills }: { filteredSkills: SkillDemand[] })
 						</div>
 						<div>
 							<h4 className="mb-2 font-semibold">
-								<Trans>Advice for developing your skills</Trans>
+								<Trans>Conseils pour développer tes compétences</Trans>
 							</h4>
 							<p className="text-muted-foreground text-sm">
 								<Trans>
@@ -416,7 +391,7 @@ export function SalariesTab({ filteredSalaryTrends }: { filteredSalaryTrends: Sa
 			<section>
 				<h3 className="mb-6 flex items-center gap-2 font-semibold text-2xl">
 					<CurrencyCircleDollarIcon className="size-6 text-green-500" weight="duotone" />
-					<Trans>Salary Trends</Trans>
+					<Trans>Tendances salariales</Trans>
 				</h3>
 
 				<div className="grid gap-4 lg:grid-cols-2">
@@ -498,7 +473,7 @@ export function SalariesTab({ filteredSalaryTrends }: { filteredSalaryTrends: Sa
 						</div>
 						<div className="flex-1">
 							<h3 className="mb-2 font-bold text-xl">
-								<Trans>Calculate your potential salary</Trans>
+								<Trans>Calcule ton salaire potentiel</Trans>
 							</h3>
 							<p className="text-muted-foreground">
 								<Trans>
@@ -526,7 +501,7 @@ export function RegionsTab({ regionalData }: { regionalData: RegionalData[] }) {
 			<section>
 				<h3 className="mb-6 flex items-center gap-2 font-semibold text-2xl">
 					<MapPinIcon className="size-6 text-primary" weight="duotone" />
-					<Trans>Job Market by Region</Trans>
+					<Trans>Marché de l'emploi par région</Trans>
 				</h3>
 
 				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -570,7 +545,7 @@ export function RegionsTab({ regionalData }: { regionalData: RegionalData[] }) {
 												</div>
 												<div className="flex items-center justify-between">
 													<span className="text-muted-foreground text-sm">
-														<Trans>Growth</Trans>
+														<Trans>Croissance</Trans>
 													</span>
 													<Badge className="gap-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
 														<TrendUpIcon className="size-3" />+{region.growth}%
@@ -607,7 +582,7 @@ export function RegionsTab({ regionalData }: { regionalData: RegionalData[] }) {
 							</div>
 							<div>
 								<h4 className="mb-2 font-semibold text-blue-800 dark:text-blue-300">
-									<Trans>Regional Insights</Trans>
+									<Trans>Analyse régionale</Trans>
 								</h4>
 								<ul className="space-y-2 text-blue-700 text-sm dark:text-blue-400">
 									<li className="flex items-start gap-2">
@@ -672,7 +647,7 @@ export function OutlookTab({
 													<Trans>{config.label} Sector</Trans>
 												</CardTitle>
 												<CardDescription className="flex items-center gap-2">
-													<Trans>2025-2026 Outlook</Trans>
+													<Trans>Perspectives 2025-2026</Trans>
 													<Badge
 														className={cn(
 															industry.outlook === "positive" &&
@@ -698,7 +673,7 @@ export function OutlookTab({
 									<div>
 										<h4 className="mb-3 flex items-center gap-2 font-semibold">
 											<TrendUpIcon className="size-5 text-green-500" weight="fill" />
-											<Trans>Growth Drivers</Trans>
+											<Trans>Facteurs de croissance</Trans>
 										</h4>
 										<ul className="space-y-2">
 											{industry.keyDrivers.map((driver) => (
@@ -751,7 +726,7 @@ export function OutlookTab({
 						<GraduationCapIcon className="size-8 text-primary" weight="duotone" />
 					</div>
 					<h3 className="mb-2 font-bold text-2xl">
-						<Trans>Prepare Your Future</Trans>
+						<Trans>Prépare ton avenir</Trans>
 					</h3>
 					<p className="mx-auto mb-6 max-w-lg text-muted-foreground">
 						<Trans>
@@ -771,7 +746,7 @@ export function OutlookTab({
 						<Link to={"/dashboard/career" as any}>
 							<Button size="lg" variant="outline" className="gap-2">
 								<UsersIcon className="size-5" />
-								<Trans>Career assessment</Trans>
+								<Trans>Bilan carrière</Trans>
 							</Button>
 						</Link>
 					</div>

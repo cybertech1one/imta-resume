@@ -265,6 +265,8 @@ export const mockAiService = {
 			healthcare: [],
 			industrial: [],
 			hse: [],
+			technology: [],
+			management: [],
 		};
 
 		for (const program of programs) {

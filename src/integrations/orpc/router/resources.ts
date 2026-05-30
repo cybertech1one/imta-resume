@@ -6,7 +6,7 @@ const programSchema = z.object({
 	id: z.string().uuid(),
 	name: z.string(),
 	nameFr: z.string(),
-	category: z.enum(["healthcare", "industrial", "hse"]),
+	category: z.enum(["healthcare", "industrial", "hse", "technology", "management"]),
 	duration: z.string(),
 	durationFr: z.string(),
 	requirements: z.array(z.string()),
@@ -61,7 +61,7 @@ const learningPathSchema = z.object({
 	titleFr: z.string(),
 	description: z.string(),
 	descriptionFr: z.string(),
-	category: z.enum(["healthcare", "industrial", "hse"]),
+	category: z.enum(["healthcare", "industrial", "hse", "technology", "management"]),
 	steps: z.array(
 		z.object({
 			order: z.number(),
@@ -1392,7 +1392,7 @@ export const resourcesRouter = {
 	getPrograms: publicProcedure
 		.input(
 			z.object({
-				category: z.enum(["healthcare", "industrial", "hse"]).optional(),
+				category: z.enum(["healthcare", "industrial", "hse", "technology", "management"]).optional(),
 				language: z.enum(["fr", "en"]).default("fr"),
 			}),
 		)
@@ -1507,7 +1507,7 @@ export const resourcesRouter = {
 	getLearningPaths: publicProcedure
 		.input(
 			z.object({
-				category: z.enum(["healthcare", "industrial", "hse"]).optional(),
+				category: z.enum(["healthcare", "industrial", "hse", "technology", "management"]).optional(),
 				language: z.enum(["fr", "en"]).default("fr"),
 			}),
 		)
@@ -1540,7 +1540,7 @@ export const resourcesRouter = {
 	getSuccessStories: publicProcedure
 		.input(
 			z.object({
-				category: z.enum(["healthcare", "industrial", "hse"]).optional(),
+				category: z.enum(["healthcare", "industrial", "hse", "technology", "management"]).optional(),
 				language: z.enum(["fr", "en"]).default("fr"),
 				limit: z.number().min(1).max(20).default(10),
 			}),

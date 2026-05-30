@@ -80,44 +80,11 @@ interface HeroSectionProps {
 export function HeroSection({ statisticsTotal }: HeroSectionProps) {
 	return (
 		<motion.div
-			className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 p-8 md:p-12"
-			style={{
-				background:
-					"linear-gradient(135deg, oklch(0.7 0.18 340 / 0.15) 0%, oklch(0.6 0.2 280 / 0.1) 50%, oklch(0.65 0.15 200 / 0.08) 100%)",
-			}}
+			className="relative mb-8 overflow-hidden rounded-2xl border bg-card p-6 shadow-sm md:p-8"
 			initial={false}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.6, ease: "easeOut" }}
 		>
-			{/* Animated background elements */}
-			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-rose-500/20 to-pink-500/10 blur-3xl"
-					animate={{
-						scale: [1, 1.2, 1],
-						rotate: [0, 10, 0],
-						opacity: [0.5, 0.3, 0.5],
-					}}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute -bottom-32 -left-32 size-96 rounded-full bg-gradient-to-tr from-purple-500/15 to-indigo-500/10 blur-3xl"
-					animate={{
-						scale: [1.2, 1, 1.2],
-						rotate: [0, -10, 0],
-						opacity: [0.3, 0.5, 0.3],
-					}}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute top-1/2 left-1/2 size-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-3xl"
-					animate={{
-						scale: [1, 1.3, 1],
-					}}
-					transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-				/>
-			</div>
-
 			<div className="relative z-10">
 				<motion.div
 					className="mb-3 flex items-center gap-2"
@@ -127,28 +94,27 @@ export function HeroSection({ statisticsTotal }: HeroSectionProps) {
 				>
 					<SparkleIcon className="size-5 text-primary" weight="fill" />
 					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>Powered by AI</Trans>
+						<Trans>Assistant de candidature</Trans>
 					</span>
 				</motion.div>
 
 				<motion.h2
-					className="mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text font-bold text-3xl text-transparent tracking-tight md:text-4xl lg:text-5xl"
+					className="mb-4 max-w-3xl font-bold text-2xl tracking-tight md:text-3xl"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.3 }}
 				>
-					<Trans>Cover Letter Generator</Trans>
+					<Trans>Lettre de motivation prête à personnaliser</Trans>
 				</motion.h2>
 
 				<motion.p
-					className="mb-8 max-w-2xl text-lg text-muted-foreground"
+					className="mb-8 max-w-2xl text-muted-foreground text-sm md:text-base"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.4 }}
 				>
 					<Trans>
-						Create personalized and impactful cover letters powered by artificial intelligence. Choose your template,
-						adjust the tone, and let the magic happen.
+						Renseigne le poste, choisis un ton et génère une base claire en français que tu peux ajuster avant l'envoi.
 					</Trans>
 				</motion.p>
 
@@ -166,7 +132,7 @@ export function HeroSection({ statisticsTotal }: HeroSectionProps) {
 						<div>
 							<p className="font-bold text-xl">{statisticsTotal}</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Saved letters</Trans>
+								<Trans>Lettres enregistrées</Trans>
 							</p>
 						</div>
 					</div>
@@ -177,7 +143,7 @@ export function HeroSection({ statisticsTotal }: HeroSectionProps) {
 						<div>
 							<p className="font-bold text-xl">4</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Tones</Trans>
+								<Trans>Tons</Trans>
 							</p>
 						</div>
 					</div>
@@ -188,7 +154,7 @@ export function HeroSection({ statisticsTotal }: HeroSectionProps) {
 						<div>
 							<p className="font-bold text-xl">Auto</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Keyword detection</Trans>
+								<Trans>Mots-clés détectés</Trans>
 							</p>
 						</div>
 					</div>
@@ -206,7 +172,7 @@ export function LoadingState() {
 			<div className="flex flex-col items-center gap-4">
 				<div className="size-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
 				<p className="text-muted-foreground">
-					<Trans>Loading...</Trans>
+					<Trans>Chargement...</Trans>
 				</p>
 			</div>
 		</div>
@@ -221,10 +187,10 @@ export function ErrorState() {
 			<CardContent className="flex flex-col items-center py-12 text-center">
 				<WarningCircleIcon className="mb-4 size-12 text-destructive" />
 				<h3 className="mb-2 font-medium text-lg">
-					<Trans>Loading error</Trans>
+					<Trans>Erreur de chargement</Trans>
 				</h3>
 				<p className="max-w-sm text-muted-foreground">
-					<Trans>Unable to load your cover letters. Please try again.</Trans>
+					<Trans>Impossible de charger tes lettres. Réessaie dans un instant.</Trans>
 				</p>
 			</CardContent>
 		</Card>
@@ -288,19 +254,19 @@ export function GenerateTab({
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2 text-xl">
 							<BuildingsIcon className="size-5 text-primary" weight="duotone" />
-							<Trans>Position Details</Trans>
+							<Trans>Détails du poste</Trans>
 						</CardTitle>
 						<CardDescription>
-							<Trans>Enter information about the company and target position</Trans>
+							<Trans>Renseigne l'entreprise et le poste visé</Trans>
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-4">
 						<div className="space-y-2">
 							<Label>
-								<Trans>Company name</Trans>
+								<Trans>Nom de l'entreprise</Trans>
 							</Label>
 							<Input
-								placeholder={t`E.g.: OCP, Renault Tanger, ONCF...`}
+								placeholder={t`Ex. : OCP, Renault Tanger, ONCF...`}
 								value={jobDetails.company}
 								onChange={(e) => setJobDetails((prev) => ({ ...prev, company: e.target.value }))}
 							/>
@@ -308,10 +274,10 @@ export function GenerateTab({
 
 						<div className="space-y-2">
 							<Label>
-								<Trans>Target position</Trans>
+								<Trans>Poste visé</Trans>
 							</Label>
 							<Input
-								placeholder={t`E.g.: Industrial Technician, HSE Officer, Nurse...`}
+								placeholder={t`Ex. : Technicien industriel, agent HSE, infirmier...`}
 								value={jobDetails.position}
 								onChange={(e) => setJobDetails((prev) => ({ ...prev, position: e.target.value }))}
 							/>
@@ -319,16 +285,16 @@ export function GenerateTab({
 
 						<div className="space-y-2">
 							<Label>
-								<Trans>Job description (optional)</Trans>
+								<Trans>Description du poste (facultatif)</Trans>
 							</Label>
 							<Textarea
-								placeholder={t`Paste the job description for optimal personalization...`}
+								placeholder={t`Colle la description du poste pour personnaliser la lettre...`}
 								className="min-h-32 resize-none"
 								value={jobDetails.description}
 								onChange={(e) => setJobDetails((prev) => ({ ...prev, description: e.target.value }))}
 							/>
 							<p className="text-muted-foreground text-xs">
-								<Trans>AI will analyze keywords to adapt your letter</Trans>
+								<Trans>Les mots-clés seront détectés pour adapter la lettre</Trans>
 							</p>
 						</div>
 					</CardContent>
@@ -345,12 +311,12 @@ export function GenerateTab({
 					{isProcessing ? (
 						<>
 							<SpinnerIcon className="size-5 animate-spin" />
-							<Trans>Generating...</Trans>
+							<Trans>Génération...</Trans>
 						</>
 					) : (
 						<>
 							<SparkleIcon className="size-5" weight="fill" />
-							<Trans>Generate my Cover Letter</Trans>
+							<Trans>Générer ma lettre</Trans>
 						</>
 					)}
 				</Button>
@@ -432,7 +398,7 @@ export function GenerateTab({
 									<CardHeader className="pb-2">
 										<CardTitle className="flex items-center gap-2 text-sm">
 											<TagIcon className="size-4 text-green-600 dark:text-green-400" />
-											<Trans>Integrated Keywords</Trans>
+											<Trans>Mots-clés intégrés</Trans>
 										</CardTitle>
 									</CardHeader>
 									<CardContent>
@@ -455,11 +421,11 @@ export function GenerateTab({
 							<div className="flex gap-3">
 								<Button className="flex-1 gap-2" onClick={() => copyToClipboard(fullLetter)}>
 									<CopyIcon className="size-4" />
-									<Trans>Copy all</Trans>
+									<Trans>Tout copier</Trans>
 								</Button>
 								<Button variant="outline" className="flex-1 gap-2" onClick={downloadAsTextFile}>
 									<DownloadSimpleIcon className="size-4" />
-									<Trans>Download</Trans>
+									<Trans>Télécharger</Trans>
 								</Button>
 							</div>
 
@@ -475,7 +441,7 @@ export function GenerateTab({
 								) : (
 									<PlusIcon className="size-4" />
 								)}
-								<Trans>Save this letter</Trans>
+								<Trans>Enregistrer cette lettre</Trans>
 							</Button>
 						</motion.div>
 					) : (
@@ -487,10 +453,10 @@ export function GenerateTab({
 						>
 							<EnvelopeIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 							<h3 className="mb-2 font-semibold text-lg">
-								<Trans>Your letter will appear here</Trans>
+								<Trans>Ta lettre apparaîtra ici</Trans>
 							</h3>
 							<p className="max-w-sm text-muted-foreground text-sm">
-								<Trans>Fill in the job information and click "Generate" to create your personalized letter</Trans>
+								<Trans>Renseigne les informations du poste puis clique sur "Générer".</Trans>
 							</p>
 						</motion.div>
 					)}
@@ -514,10 +480,10 @@ function TemplateSelectionCard({ selectedTemplate, setSelectedTemplate }: Templa
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2 text-lg">
 					<PaletteIcon className="size-5 text-primary" weight="duotone" />
-					<Trans>Template Selection</Trans>
+					<Trans>Style de lettre</Trans>
 				</CardTitle>
 				<CardDescription>
-					<Trans>Select your letter style</Trans>
+					<Trans>Choisis la structure la plus adaptée</Trans>
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -529,7 +495,7 @@ function TemplateSelectionCard({ selectedTemplate, setSelectedTemplate }: Templa
 								<motion.div key={key} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
 									<Card
 										className={cn(
-											"cursor-pointer border-2 transition-all",
+											"cursor-pointer border-2 transition-colors",
 											selectedTemplate === key
 												? "border-primary bg-primary/5"
 												: "border-transparent hover:border-primary/30",
@@ -573,10 +539,10 @@ function ToneSelectionCard({ selectedTone, setSelectedTone }: ToneSelectionCardP
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2 text-lg">
 					<TextAaIcon className="size-5 text-primary" weight="duotone" />
-					<Trans>Writing Tone</Trans>
+					<Trans>Ton d'écriture</Trans>
 				</CardTitle>
 				<CardDescription>
-					<Trans>Adjust the tone to match your personality and the company</Trans>
+					<Trans>Adapte le ton à ton profil et à l'entreprise</Trans>
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -587,7 +553,7 @@ function ToneSelectionCard({ selectedTone, setSelectedTone }: ToneSelectionCardP
 							<div
 								key={key}
 								className={cn(
-									"flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all hover:bg-muted/50",
+									"flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50",
 									selectedTone === key ? "border-primary bg-primary/10" : "border-muted",
 								)}
 								onClick={() => setSelectedTone(key)}
@@ -631,14 +597,14 @@ export function SavedLettersTab({
 				<CardContent className="flex flex-col items-center py-12 text-center">
 					<FileTextIcon className="mb-4 size-12 text-muted-foreground/50" />
 					<h3 className="mb-2 font-medium text-lg">
-						<Trans>No saved letters</Trans>
+						<Trans>Aucune lettre enregistrée</Trans>
 					</h3>
 					<p className="mb-4 max-w-sm text-muted-foreground">
-						<Trans>Generate and save your cover letters to find them here.</Trans>
+						<Trans>Génère et enregistre tes lettres pour les retrouver ici.</Trans>
 					</p>
 					<Button onClick={() => setActiveTab("generate")}>
 						<PlusIcon className="mr-2 size-4" />
-						<Trans>Create a letter</Trans>
+						<Trans>Créer une lettre</Trans>
 					</Button>
 				</CardContent>
 			</Card>
@@ -649,7 +615,7 @@ export function SavedLettersTab({
 		<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 			{savedCoverLetters.map((letter, index) => (
 				<motion.div key={letter.id} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}>
-					<Card className="h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+					<Card className="h-full transition-shadow hover:shadow-lg">
 						<CardHeader className="pb-2">
 							<div className="flex items-start justify-between">
 								<div className="flex items-center gap-2">
@@ -687,20 +653,20 @@ export function SavedLettersTab({
 									<AlertDialogContent>
 										<AlertDialogHeader>
 											<AlertDialogTitle>
-												<Trans>Delete this letter?</Trans>
+												<Trans>Supprimer cette lettre ?</Trans>
 											</AlertDialogTitle>
 											<AlertDialogDescription>
 												<Trans>
-													This action is irreversible. The letter "{letter.name}" will be permanently deleted.
+													Cette action est irréversible. La lettre "{letter.name}" sera supprimée définitivement.
 												</Trans>
 											</AlertDialogDescription>
 										</AlertDialogHeader>
 										<AlertDialogFooter>
 											<AlertDialogCancel>
-												<Trans>Cancel</Trans>
+												<Trans>Annuler</Trans>
 											</AlertDialogCancel>
 											<AlertDialogAction onClick={() => handleDeleteLetter(letter.id)}>
-												<Trans>Delete</Trans>
+												<Trans>Supprimer</Trans>
 											</AlertDialogAction>
 										</AlertDialogFooter>
 									</AlertDialogContent>
@@ -710,7 +676,7 @@ export function SavedLettersTab({
 							<CardDescription className="text-xs">
 								{letter.companyName && letter.position
 									? `${letter.position} - ${letter.companyName}`
-									: letter.companyName || letter.position || t`Untitled`}
+									: letter.companyName || letter.position || t`Sans titre`}
 							</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-3">
@@ -746,7 +712,7 @@ export function SavedLettersTab({
 								onClick={() => handleLoadSavedLetter(letter)}
 							>
 								<EyeIcon className="size-4" />
-								<Trans>Load</Trans>
+								<Trans>Charger</Trans>
 							</Button>
 						</CardContent>
 					</Card>
@@ -786,14 +752,14 @@ export function PreviewTab({
 				<CardContent className="flex flex-col items-center justify-center py-16">
 					<EyeIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 					<h3 className="mb-2 font-semibold text-lg">
-						<Trans>No letters to display</Trans>
+						<Trans>Aucune lettre à afficher</Trans>
 					</h3>
 					<p className="mb-4 text-center text-muted-foreground">
-						<Trans>Generate a letter first to see the preview</Trans>
+						<Trans>Génère d'abord une lettre pour voir l'aperçu.</Trans>
 					</p>
 					<Button onClick={() => setActiveTab("generate")}>
 						<CaretRightIcon className="mr-2 size-4" />
-						<Trans>Go to generator</Trans>
+						<Trans>Aller au générateur</Trans>
 					</Button>
 				</CardContent>
 			</Card>
@@ -809,7 +775,7 @@ export function PreviewTab({
 						<div className="flex items-center justify-between">
 							<CardTitle className="flex items-center gap-2">
 								<FileTextIcon className="size-5 text-primary" weight="duotone" />
-								<Trans>Letter Preview</Trans>
+								<Trans>Aperçu de la lettre</Trans>
 							</CardTitle>
 							<div className="flex gap-2">
 								<Badge className={templateConfig[selectedTemplate].color}>
@@ -829,7 +795,7 @@ export function PreviewTab({
 								/>
 								<p className="mt-4 flex items-center gap-1 border-t pt-3 text-muted-foreground/60 text-xs">
 									<SparkleIcon className="size-3" weight="fill" />
-									{t`AI-generated content. Review for accuracy before use.`}
+									{t`Contenu généré automatiquement. Relis et adapte avant l'envoi.`}
 								</p>
 							</div>
 						</ScrollArea>
@@ -840,7 +806,7 @@ export function PreviewTab({
 			{/* Side Panel */}
 			<div className="space-y-6">
 				{/* Template Info */}
-				<Card className={cn("bg-gradient-to-br", templateConfig[selectedTemplate].gradient)}>
+				<Card className="bg-card">
 					<CardContent className="p-6">
 						<div className="mb-4 flex items-center gap-3">
 							{(() => {
@@ -868,7 +834,7 @@ export function PreviewTab({
 									<>
 										<ToneIcon className="size-4 text-muted-foreground" />
 										<span className="text-muted-foreground text-sm">
-											<Trans>Tone:</Trans> {i18n.t(toneConfig[selectedTone].label)}
+											<Trans>Ton :</Trans> {i18n.t(toneConfig[selectedTone].label)}
 										</span>
 									</>
 								);
@@ -887,15 +853,15 @@ export function PreviewTab({
 					<CardContent className="space-y-3">
 						<Button className="w-full gap-2" onClick={() => copyToClipboard(fullLetter)}>
 							<CopyIcon className="size-4" />
-							<Trans>Copy letter</Trans>
+							<Trans>Copier la lettre</Trans>
 						</Button>
 						<Button variant="outline" className="w-full gap-2" onClick={downloadAsTextFile}>
 							<DownloadSimpleIcon className="size-4" />
-							<Trans>Download (.txt)</Trans>
+							<Trans>Télécharger (.txt)</Trans>
 						</Button>
 						<Button variant="outline" className="w-full gap-2" onClick={() => setActiveTab("generate")}>
 							<PencilSimpleIcon className="size-4" />
-							<Trans>Edit</Trans>
+							<Trans>Modifier</Trans>
 						</Button>
 					</CardContent>
 				</Card>
@@ -907,12 +873,11 @@ export function PreviewTab({
 							<LightbulbIcon className="mt-0.5 size-5 shrink-0 text-amber-600 dark:text-amber-400" weight="fill" />
 							<div>
 								<h4 className="mb-1 font-semibold text-amber-800 text-sm dark:text-amber-300">
-									<Trans>Tip</Trans>
+									<Trans>Conseil</Trans>
 								</h4>
 								<p className="text-amber-700 text-xs dark:text-amber-400">
 									<Trans>
-										Don't forget to personalize the elements in brackets and adapt the content to your specific
-										background.
+										Personnalise les éléments entre crochets et adapte le contenu à ton parcours avant l'envoi.
 									</Trans>
 								</p>
 							</div>
@@ -949,14 +914,14 @@ export function AnalysisTab({
 				<CardContent className="flex flex-col items-center justify-center py-16">
 					<TargetIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 					<h3 className="mb-2 font-semibold text-lg">
-						<Trans>No analysis available</Trans>
+						<Trans>Aucune analyse disponible</Trans>
 					</h3>
 					<p className="mb-4 text-center text-muted-foreground">
-						<Trans>Generate a letter first to see the analysis</Trans>
+						<Trans>Génère d'abord une lettre pour voir l'analyse.</Trans>
 					</p>
 					<Button onClick={() => setActiveTab("generate")}>
 						<CaretRightIcon className="mr-2 size-4" />
-						<Trans>Go to generator</Trans>
+						<Trans>Aller au générateur</Trans>
 					</Button>
 				</CardContent>
 			</Card>
@@ -970,21 +935,21 @@ export function AnalysisTab({
 				{[
 					{
 						icon: FileTextIcon,
-						label: t`Words`,
+						label: t`Mots`,
 						value: fullLetter.split(/\s+/).length,
 						color: "text-blue-500",
 						bg: "bg-blue-500/10",
 					},
 					{
 						icon: TextAaIcon,
-						label: t`Characters`,
+						label: t`Caractères`,
 						value: fullLetter.length,
 						color: "text-purple-500",
 						bg: "bg-purple-500/10",
 					},
 					{
 						icon: TagIcon,
-						label: t`Keywords`,
+						label: t`Mots-clés`,
 						value: generatedLetter.keywords.length,
 						color: "text-green-500",
 						bg: "bg-green-500/10",
@@ -1029,10 +994,10 @@ export function AnalysisTab({
 						<CardHeader>
 							<CardTitle className="flex items-center gap-2">
 								<TrendUpIcon className="size-5 text-primary" weight="duotone" />
-								<Trans>Keyword Frequency</Trans>
+								<Trans>Fréquence des mots-clés</Trans>
 							</CardTitle>
 							<CardDescription>
-								<Trans>Distribution of keywords detected in the listing</Trans>
+								<Trans>Répartition des mots-clés détectés dans l'offre</Trans>
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
@@ -1059,10 +1024,10 @@ export function AnalysisTab({
 						<CardHeader>
 							<CardTitle className="flex items-center gap-2">
 								<TargetIcon className="size-5 text-primary" weight="duotone" />
-								<Trans>Category Distribution</Trans>
+								<Trans>Répartition par catégorie</Trans>
 							</CardTitle>
 							<CardDescription>
-								<Trans>Types of skills highlighted</Trans>
+								<Trans>Types de compétences mises en avant</Trans>
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
@@ -1102,10 +1067,10 @@ export function AnalysisTab({
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<TagIcon className="size-5 text-primary" weight="duotone" />
-							<Trans>Keyword Details</Trans>
+							<Trans>Détail des mots-clés</Trans>
 						</CardTitle>
 						<CardDescription>
-							<Trans>Detected keywords and their relevance</Trans>
+							<Trans>Mots-clés détectés et niveau de pertinence</Trans>
 						</CardDescription>
 					</CardHeader>
 					<CardContent>
@@ -1122,10 +1087,11 @@ export function AnalysisTab({
 										<div
 											className={cn(
 												"flex size-8 items-center justify-center rounded-lg",
-												kw.category === "Skill" && "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
-												kw.category === "Soft Skill" &&
+												kw.category === "Compétence" &&
+													"bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
+												kw.category === "Savoir-être" &&
 													"bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400",
-												kw.category === "Value" &&
+												kw.category === "Valeur" &&
 													"bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400",
 											)}
 										>
@@ -1147,11 +1113,11 @@ export function AnalysisTab({
 			)}
 
 			{/* Recommendations */}
-			<Card className="border-primary/30 bg-gradient-to-br from-primary/10 to-transparent">
+			<Card className="border-primary/20 bg-card">
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<LightbulbIcon className="size-5 text-primary" weight="fill" />
-						<Trans>Recommendations</Trans>
+						<Trans>Recommandations</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
@@ -1159,18 +1125,22 @@ export function AnalysisTab({
 						{[
 							{
 								icon: CheckCircleIcon,
-								title: t`Strengths`,
+								title: t`Points forts`,
 								items: [
-									t`Tone adapted to the chosen style`,
-									t`Clear and professional structure`,
-									t`Keywords well integrated`,
+									t`Ton adapté au style choisi`,
+									t`Structure claire et professionnelle`,
+									t`Mots-clés bien intégrés`,
 								],
 								color: "text-green-600 dark:text-green-400",
 							},
 							{
 								icon: CaretDownIcon,
-								title: t`To improve`,
-								items: [t`Add concrete examples`, t`Personalize more for the company`, t`Include numbers if possible`],
+								title: t`À améliorer`,
+								items: [
+									t`Ajouter des exemples concrets`,
+									t`Personnaliser davantage pour l'entreprise`,
+									t`Inclure des chiffres si possible`,
+								],
 								color: "text-amber-600 dark:text-amber-400",
 							},
 						].map((section) => {
@@ -1204,19 +1174,19 @@ export function AnalysisTab({
 export function TipsSection() {
 	return (
 		<motion.div className="mt-8" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-			<Card className="border-primary/30 border-dashed bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5">
+			<Card className="border-primary/30 border-dashed bg-card">
 				<CardContent className="flex flex-col items-center gap-4 p-6 md:flex-row">
 					<div className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-primary/20">
 						<LightbulbIcon className="size-7 text-primary" weight="fill" />
 					</div>
 					<div className="flex-1 text-center md:text-left">
 						<h3 className="mb-1 font-semibold text-lg">
-							<Trans>Tips for an Effective Letter</Trans>
+							<Trans>Conseils pour une lettre efficace</Trans>
 						</h3>
 						<p className="text-muted-foreground text-sm">
 							<Trans>
-								Always personalize your letter for each application. Mention specific elements about the company, adapt
-								the tone to the industry, and don't forget to proofread carefully before sending.
+								Personnalise chaque lettre. Mentionne un élément précis sur l'entreprise, adapte le ton au secteur et
+								relis attentivement avant l'envoi.
 							</Trans>
 						</p>
 					</div>

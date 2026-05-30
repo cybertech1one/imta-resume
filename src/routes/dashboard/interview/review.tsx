@@ -32,7 +32,7 @@ function InterviewRecordingReview() {
 	// Upload form state
 	const [uploadForm, setUploadForm] = useState({
 		title: "",
-		field: "healthcare" as "healthcare" | "industrial" | "hse" | "general",
+		field: "healthcare" as "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 		program: "",
 	});
 

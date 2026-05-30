@@ -105,7 +105,7 @@ function CountdownTimer({ deadline }: { deadline: Deadline }) {
 			<div className="flex items-center gap-2 text-green-600 dark:text-green-400">
 				<CheckCircleIcon className="size-5" weight="fill" />
 				<span className="font-medium">
-					<Trans>Complete</Trans>
+					<Trans>Terminée</Trans>
 				</span>
 			</div>
 		);
@@ -116,7 +116,7 @@ function CountdownTimer({ deadline }: { deadline: Deadline }) {
 			<div className="flex items-center gap-2 text-red-600 dark:text-red-400">
 				<XCircleIcon className="size-5" weight="fill" />
 				<span className="font-medium">
-					<Trans>Deadline passed</Trans>
+					<Trans>Échéance dépassée</Trans>
 				</span>
 			</div>
 		);
@@ -198,7 +198,7 @@ function DeadlineCard({
 		>
 			<Card
 				className={cn(
-					"group transition-all duration-300 hover:shadow-lg",
+					"group transition-shadow duration-300 hover:shadow-lg",
 					deadline.completed && "opacity-60",
 					urgencyConf && !deadline.completed && `border-l-4 ${urgencyConf.borderColor}`,
 				)}
@@ -222,7 +222,7 @@ function DeadlineCard({
 									{deadline.completed && (
 										<Badge className="gap-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
 											<CheckCircleIcon className="size-3" weight="fill" />
-											<Trans>Complete</Trans>
+											<Trans>Terminée</Trans>
 										</Badge>
 									)}
 								</div>
@@ -341,7 +341,7 @@ export function StatsPanel({ stats }: StatsPanelProps) {
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<NoteIcon className="size-5 text-primary" weight="duotone" />
-					<Trans>Distribution by Priority</Trans>
+					<Trans>Répartition par priorité</Trans>
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
@@ -398,28 +398,11 @@ interface HeroSectionProps {
 export function HeroSection({ stats }: HeroSectionProps) {
 	return (
 		<motion.div
-			className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 p-8 md:p-12"
-			style={{
-				background:
-					"linear-gradient(135deg, oklch(0.65 0.18 30 / 0.15) 0%, oklch(0.6 0.2 50 / 0.1) 50%, oklch(0.7 0.15 70 / 0.08) 100%)",
-			}}
+			className="relative mb-8 overflow-hidden rounded-2xl border bg-card p-6 shadow-sm md:p-8"
 			initial={false}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.6, ease: "easeOut" }}
 		>
-			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-orange-500/20 to-red-500/10 blur-3xl"
-					animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.3, 0.5] }}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute -bottom-32 -left-32 size-96 rounded-full bg-gradient-to-tr from-amber-500/15 to-yellow-500/10 blur-3xl"
-					animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3] }}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-			</div>
-
 			<div className="relative z-10">
 				<motion.div
 					className="mb-3 flex items-center gap-2"
@@ -429,17 +412,17 @@ export function HeroSection({ stats }: HeroSectionProps) {
 				>
 					<TimerIcon className="size-5 text-primary" weight="fill" />
 					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>Application Management</Trans>
+						<Trans>Gestion des candidatures</Trans>
 					</span>
 				</motion.div>
 
 				<motion.h2
-					className="mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text font-bold text-3xl text-transparent tracking-tight md:text-4xl lg:text-5xl"
+					className="mb-4 max-w-4xl font-bold text-3xl tracking-tight md:text-4xl"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.3 }}
 				>
-					<Trans>Deadline Tracking</Trans>
+					<Trans>Suivi des échéances</Trans>
 				</motion.h2>
 
 				<motion.p
@@ -449,8 +432,8 @@ export function HeroSection({ stats }: HeroSectionProps) {
 					transition={{ delay: 0.4 }}
 				>
 					<Trans>
-						Never miss an application deadline. Track your due dates, set up reminders, and stay in control of your job
-						search.
+						Ne manque plus aucune date limite. Suis tes candidatures, active les rappels et garde une vision claire de
+						tes prochaines actions.
 					</Trans>
 				</motion.p>
 
@@ -470,7 +453,7 @@ export function HeroSection({ stats }: HeroSectionProps) {
 					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
 						<p className="font-bold text-2xl text-blue-600 dark:text-blue-400">{stats.upcoming}</p>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Upcoming</Trans>
+							<Trans>À venir</Trans>
 						</p>
 					</div>
 					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
@@ -482,19 +465,19 @@ export function HeroSection({ stats }: HeroSectionProps) {
 					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
 						<p className="font-bold text-2xl text-amber-600 dark:text-amber-400">{stats.thisWeek}</p>
 						<p className="text-muted-foreground text-sm">
-							<Trans>This week</Trans>
+							<Trans>Cette semaine</Trans>
 						</p>
 					</div>
 					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
 						<p className="font-bold text-2xl text-green-600 dark:text-green-400">{stats.completed}</p>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Completed</Trans>
+							<Trans>Terminées</Trans>
 						</p>
 					</div>
 					<div className="rounded-xl border border-white/20 bg-white/50 p-4 backdrop-blur-sm dark:bg-black/20">
 						<p className="font-bold text-2xl text-gray-600 dark:text-gray-400">{stats.past}</p>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Past due</Trans>
+							<Trans>En retard</Trans>
 						</p>
 					</div>
 				</motion.div>
@@ -560,16 +543,16 @@ export function TimelineView({
 										</h3>
 										<p className="text-muted-foreground text-sm">
 											{isTodayDate ? (
-												<Trans>Today</Trans>
+												<Trans>Aujourd'hui</Trans>
 											) : isPast ? (
-												<Trans>{Math.abs(days)} day(s) ago</Trans>
+												<Trans>Il y a {Math.abs(days)} jour(s)</Trans>
 											) : (
-												<Trans>In {days} day(s)</Trans>
+												<Trans>Dans {days} jour(s)</Trans>
 											)}
 										</p>
 									</div>
 									<Badge variant="secondary" className="ml-auto">
-										{dateDeadlines.length} <Trans>deadline(s)</Trans>
+										{dateDeadlines.length} <Trans>échéance(s)</Trans>
 									</Badge>
 								</div>
 
@@ -635,7 +618,7 @@ export function CalendarView({
 								<CaretLeftIcon className="size-4" />
 							</Button>
 							<Button variant="outline" size="sm" onClick={() => onSetCurrentMonth(new Date())}>
-								<Trans>Today</Trans>
+								<Trans>Aujourd'hui</Trans>
 							</Button>
 							<Button variant="outline" size="icon" onClick={() => onNavigateMonth("next")}>
 								<CaretRightIcon className="size-4" />
@@ -751,7 +734,7 @@ export function CalendarView({
 								</div>
 							) : (
 								<p className="text-center text-muted-foreground">
-									<Trans>No deadlines today</Trans>
+									<Trans>Aucune échéance aujourd'hui</Trans>
 								</p>
 							)}
 						</CardContent>
@@ -819,7 +802,7 @@ export function UpcomingWidget({ filteredDeadlines, statsUpcoming, activeTab, ca
 		<section className="mt-8">
 			<h3 className="mb-4 flex items-center gap-2 font-semibold text-xl">
 				<StarIcon className="size-5 text-amber-500" weight="fill" />
-				<Trans>Upcoming urgent deadlines</Trans>
+				<Trans>Échéances urgentes à venir</Trans>
 			</h3>
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 				{filteredDeadlines
@@ -849,19 +832,19 @@ function EmptyState({ searchQuery, statusFilter, priorityFilter, onOpenAddDialog
 			<CardContent className="flex flex-col items-center justify-center py-16">
 				<CalendarIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 				<h3 className="mb-2 font-semibold text-lg">
-					<Trans>No deadlines found</Trans>
+					<Trans>Aucune échéance trouvée</Trans>
 				</h3>
 				<p className="mb-4 text-center text-muted-foreground">
 					{searchQuery || statusFilter !== "all" || priorityFilter !== "all" ? (
-						<Trans>Try changing your filters</Trans>
+						<Trans>Modifie tes filtres</Trans>
 					) : (
-						<Trans>Start adding deadlines</Trans>
+						<Trans>Commence par ajouter une échéance</Trans>
 					)}
 				</p>
 				{!searchQuery && statusFilter === "all" && priorityFilter === "all" && (
 					<Button onClick={onOpenAddDialog}>
 						<PlusIcon className="mr-2 size-4" />
-						<Trans>Add a deadline</Trans>
+						<Trans>Ajouter une échéance</Trans>
 					</Button>
 				)}
 			</CardContent>
@@ -895,12 +878,14 @@ export function DeadlineFormDialog({
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
 				<DialogHeader>
-					<DialogTitle>{editingDeadline ? <Trans>Edit deadline</Trans> : <Trans>New deadline</Trans>}</DialogTitle>
+					<DialogTitle>
+						{editingDeadline ? <Trans>Modifier l'échéance</Trans> : <Trans>Nouvelle échéance</Trans>}
+					</DialogTitle>
 					<DialogDescription>
 						{editingDeadline ? (
-							<Trans>Update the information for this deadline</Trans>
+							<Trans>Mets à jour les informations de cette échéance</Trans>
 						) : (
-							<Trans>Add a new deadline to track</Trans>
+							<Trans>Ajoute une nouvelle échéance à suivre</Trans>
 						)}
 					</DialogDescription>
 				</DialogHeader>
@@ -914,10 +899,10 @@ export function DeadlineFormDialog({
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>
-										<Trans>Title</Trans> *
+										<Trans>Titre</Trans> *
 									</FormLabel>
 									<FormControl>
-										<Input placeholder={t`E.g.: Nurse Application`} {...field} />
+										<Input placeholder={t`Ex. : candidature infirmier`} {...field} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -932,10 +917,10 @@ export function DeadlineFormDialog({
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>
-											<Trans>Company</Trans> *
+											<Trans>Entreprise</Trans> *
 										</FormLabel>
 										<FormControl>
-											<Input placeholder={t`E.g.: CHU Ibn Sina`} {...field} />
+											<Input placeholder={t`Ex. : CHU Ibn Sina`} {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -947,10 +932,10 @@ export function DeadlineFormDialog({
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>
-											<Trans>Position</Trans>
+											<Trans>Poste</Trans>
 										</FormLabel>
 										<FormControl>
-											<Input placeholder={t`E.g.: Nurse`} {...field} />
+											<Input placeholder={t`Ex. : Infirmier`} {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -966,7 +951,7 @@ export function DeadlineFormDialog({
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>
-											<Trans>Deadline date</Trans> *
+											<Trans>Date limite</Trans> *
 										</FormLabel>
 										<FormControl>
 											<Input type="date" {...field} />
@@ -981,7 +966,7 @@ export function DeadlineFormDialog({
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>
-											<Trans>Deadline time</Trans>
+											<Trans>Heure limite</Trans>
 										</FormLabel>
 										<FormControl>
 											<Input type="time" {...field} />
@@ -999,7 +984,7 @@ export function DeadlineFormDialog({
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>
-										<Trans>Priority</Trans>
+										<Trans>Priorité</Trans>
 									</FormLabel>
 									<Select value={field.value} onValueChange={field.onChange}>
 										<FormControl>
@@ -1037,7 +1022,7 @@ export function DeadlineFormDialog({
 										<Trans>Notes</Trans>
 									</FormLabel>
 									<FormControl>
-										<Textarea placeholder={t`Notes or instructions...`} rows={3} {...field} />
+										<Textarea placeholder={t`Notes ou consignes...`} rows={3} {...field} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -1054,7 +1039,7 @@ export function DeadlineFormDialog({
 										<div className="flex items-center gap-2">
 											<BellIcon className="size-5 text-primary" />
 											<FormLabel className="cursor-pointer">
-												<Trans>Enable reminder</Trans>
+												<Trans>Activer le rappel</Trans>
 											</FormLabel>
 										</div>
 										<FormControl>
@@ -1072,7 +1057,7 @@ export function DeadlineFormDialog({
 										render={({ field }) => (
 											<FormItem>
 												<FormLabel>
-													<Trans>Reminder date</Trans>
+													<Trans>Date du rappel</Trans>
 												</FormLabel>
 												<FormControl>
 													<Input
@@ -1091,7 +1076,7 @@ export function DeadlineFormDialog({
 										render={({ field }) => (
 											<FormItem>
 												<FormLabel>
-													<Trans>Reminder time</Trans>
+													<Trans>Heure du rappel</Trans>
 												</FormLabel>
 												<FormControl>
 													<Input
@@ -1118,7 +1103,7 @@ export function DeadlineFormDialog({
 										<div className="flex items-center gap-2">
 											<CheckCircleIcon className="size-5 text-green-600" />
 											<FormLabel className="cursor-pointer">
-												<Trans>Mark as complete</Trans>
+												<Trans>Marquer comme terminée</Trans>
 											</FormLabel>
 										</div>
 										<FormControl>
@@ -1132,12 +1117,12 @@ export function DeadlineFormDialog({
 						<DialogFooter>
 							<DialogClose asChild>
 								<Button type="button" variant="outline">
-									<Trans>Cancel</Trans>
+									<Trans>Annuler</Trans>
 								</Button>
 							</DialogClose>
 							<Button type="submit" disabled={createPending || updatePending}>
 								{(createPending || updatePending) && <SpinnerIcon className="mr-2 size-4 animate-spin" />}
-								{editingDeadline ? <Trans>Update</Trans> : <Trans>Add</Trans>}
+								{editingDeadline ? <Trans>Mettre à jour</Trans> : <Trans>Ajouter</Trans>}
 							</Button>
 						</DialogFooter>
 					</form>
@@ -1168,16 +1153,16 @@ export function DeleteConfirmDialog({
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>
-						<Trans>Delete this deadline?</Trans>
+						<Trans>Supprimer cette échéance ?</Trans>
 					</DialogTitle>
 					<DialogDescription>
-						<Trans>This action is irreversible. The deadline will be permanently deleted.</Trans>
+						<Trans>Cette action est irréversible. L'échéance sera supprimée définitivement.</Trans>
 					</DialogDescription>
 				</DialogHeader>
 				<DialogFooter>
 					<DialogClose asChild>
 						<Button variant="outline">
-							<Trans>Cancel</Trans>
+							<Trans>Annuler</Trans>
 						</Button>
 					</DialogClose>
 					<Button
@@ -1186,7 +1171,7 @@ export function DeleteConfirmDialog({
 						disabled={deletePending}
 					>
 						{deletePending && <SpinnerIcon className="mr-2 size-4 animate-spin" />}
-						<Trans>Delete</Trans>
+						<Trans>Supprimer</Trans>
 					</Button>
 				</DialogFooter>
 			</DialogContent>

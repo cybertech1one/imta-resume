@@ -80,11 +80,11 @@ const getCategoryColor = (category: string) => {
 const getDifficultyLabel = (difficulty: string) => {
 	switch (difficulty) {
 		case "easy":
-			return { label: "Easy", color: "text-green-600 dark:text-green-400" };
+			return { label: "Facile", color: "text-green-600 dark:text-green-400" };
 		case "medium":
-			return { label: "Medium", color: "text-amber-600 dark:text-amber-400" };
+			return { label: "Moyen", color: "text-amber-600 dark:text-amber-400" };
 		case "hard":
-			return { label: "Hard", color: "text-red-600 dark:text-red-400" };
+			return { label: "Difficile", color: "text-red-600 dark:text-red-400" };
 		default:
 			return { label: difficulty, color: "text-gray-600" };
 	}
@@ -140,7 +140,7 @@ export function CompanyDetailView({
 			<motion.div initial={false} animate={{ opacity: 1, y: 0 }} className="mb-6">
 				<Button variant="ghost" className="mb-4 gap-2" onClick={onBack}>
 					<CaretRightIcon className="size-4 rotate-180" />
-					<Trans>Back to results</Trans>
+					<Trans>Retour aux résultats</Trans>
 				</Button>
 
 				<Card className="overflow-hidden">
@@ -171,10 +171,10 @@ export function CompanyDetailView({
 										{company.headquarters}
 										<span className="mx-2">|</span>
 										<UsersIcon className="size-4" />
-										{company.employeeCount} employees
+										{company.employeeCount} <Trans>employés</Trans>
 										<span className="mx-2">|</span>
 										<CalendarIcon className="size-4" />
-										Founded in {company.founded}
+										<Trans>Créée en</Trans> {company.founded}
 									</p>
 								</div>
 							</div>
@@ -195,7 +195,7 @@ export function CompanyDetailView({
 										</Button>
 									</TooltipTrigger>
 									<TooltipContent>
-										{isFavorite ? <Trans>Remove from favorites</Trans> : <Trans>Add to favorites</Trans>}
+										{isFavorite ? <Trans>Retirer des favoris</Trans> : <Trans>Ajouter aux favoris</Trans>}
 									</TooltipContent>
 								</Tooltip>
 								{company.website && (
@@ -222,14 +222,14 @@ export function CompanyDetailView({
 			<Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
 				<TabsList className="flex h-auto flex-wrap gap-2 bg-transparent p-0">
 					{[
-						{ value: "overview", icon: BuildingsIcon, label: "Overview" },
+						{ value: "overview", icon: BuildingsIcon, label: "Aperçu" },
 						{ value: "culture", icon: HeartIcon, label: "Culture" },
-						{ value: "reviews", icon: ChatCircleDotsIcon, label: "Reviews" },
-						{ value: "interview", icon: QuestionIcon, label: "Interviews" },
-						{ value: "salaries", icon: CurrencyCircleDollarIcon, label: "Salaries" },
-						{ value: "benefits", icon: GraduationCapIcon, label: "Benefits" },
-						{ value: "news", icon: NewspaperIcon, label: "News" },
-						{ value: "people", icon: UserCircleIcon, label: "Key People" },
+						{ value: "reviews", icon: ChatCircleDotsIcon, label: "Avis" },
+						{ value: "interview", icon: QuestionIcon, label: "Entretiens" },
+						{ value: "salaries", icon: CurrencyCircleDollarIcon, label: "Salaires" },
+						{ value: "benefits", icon: GraduationCapIcon, label: "Avantages" },
+						{ value: "news", icon: NewspaperIcon, label: "Actualités" },
+						{ value: "people", icon: UserCircleIcon, label: "Dirigeants" },
 					].map((tab) => (
 						<TabsTrigger
 							key={tab.value}
@@ -368,7 +368,7 @@ function OverviewTab({ company }: { company: Company }) {
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<HeartIcon className="size-5 text-red-500" weight="fill" />
-						<Trans>Company Values</Trans>
+						<Trans>Valeurs de l'entreprise</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
@@ -399,7 +399,7 @@ function CultureTab({ company }: { company: Company }) {
 				<CardTitle className="flex items-center justify-between">
 					<span className="flex items-center gap-2">
 						<ChartBarIcon className="size-5 text-primary" />
-						<Trans>Company Culture</Trans>
+						<Trans>Culture d'entreprise</Trans>
 					</span>
 					<Badge className="bg-primary/10 text-primary">Overall score: {company.cultureOverallScore}/100</Badge>
 				</CardTitle>
@@ -445,7 +445,7 @@ function ReviewsTab({ company }: { company: Company }) {
 							<span className="font-bold text-4xl">{company.reviewsAverageRating.toFixed(1)}</span>
 						</div>
 						<p className="text-muted-foreground text-sm">
-							{company.reviewsTotalCount} <Trans>reviews</Trans>
+							{company.reviewsTotalCount} <Trans>avis</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -469,7 +469,7 @@ function ReviewsTab({ company }: { company: Company }) {
 					<CardContent className="flex flex-col items-center justify-center py-6">
 						<span className="font-bold text-3xl">{company.reviews.length}</span>
 						<p className="text-muted-foreground text-sm">
-							<Trans>Recent reviews</Trans>
+							<Trans>Avis récents</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -656,10 +656,10 @@ function InterviewTab({ company, expandedQuestions, toggleQuestion }: InterviewT
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<QuestionIcon className="size-5 text-purple-500" />
-						<Trans>Common Questions</Trans>
+						<Trans>Questions fréquentes</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Questions asked by former candidates</Trans>
+						<Trans>Questions posées par d'anciens candidats</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-3">
@@ -725,7 +725,7 @@ function SalariesTab({ company }: { company: Company }) {
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<CurrencyCircleDollarIcon className="size-5 text-green-500" weight="duotone" />
-					<Trans>Salary Grid</Trans>
+					<Trans>Grille salariale</Trans>
 				</CardTitle>
 				<CardDescription>
 					<Trans>Monthly salaries reported by employees (in DH)</Trans>
@@ -941,34 +941,11 @@ type HeroSectionProps = {
 export function HeroSection({ statistics, companiesCount, favoriteIdsCount }: HeroSectionProps) {
 	return (
 		<motion.div
-			className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 p-8 md:p-12"
-			style={{
-				background:
-					"linear-gradient(135deg, oklch(0.65 0.18 220 / 0.15) 0%, oklch(0.6 0.2 260 / 0.1) 50%, oklch(0.7 0.15 200 / 0.08) 100%)",
-			}}
+			className="relative mb-8 overflow-hidden rounded-2xl border bg-card p-6 shadow-sm md:p-8"
 			initial={false}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.6, ease: "easeOut" }}
 		>
-			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/10 blur-3xl"
-					animate={{
-						scale: [1, 1.2, 1],
-						opacity: [0.5, 0.3, 0.5],
-					}}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute -bottom-32 -left-32 size-96 rounded-full bg-gradient-to-tr from-indigo-500/15 to-purple-500/10 blur-3xl"
-					animate={{
-						scale: [1.2, 1, 1.2],
-						opacity: [0.3, 0.5, 0.3],
-					}}
-					transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-				/>
-			</div>
-
 			<div className="relative z-10">
 				<motion.div
 					className="mb-3 flex items-center gap-2"
@@ -978,17 +955,17 @@ export function HeroSection({ statistics, companiesCount, favoriteIdsCount }: He
 				>
 					<MagnifyingGlassIcon className="size-5 text-primary" weight="fill" />
 					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>Company Intelligence</Trans>
+						<Trans>Analyse employeur</Trans>
 					</span>
 				</motion.div>
 
 				<motion.h2
-					className="mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text font-bold text-3xl text-transparent tracking-tight md:text-4xl lg:text-5xl"
+					className="mb-4 max-w-4xl font-bold text-3xl tracking-tight md:text-4xl"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.3 }}
 				>
-					<Trans>Company Research</Trans>
+					<Trans>Recherche d'entreprise</Trans>
 				</motion.h2>
 
 				<motion.p
@@ -998,7 +975,8 @@ export function HeroSection({ statistics, companiesCount, favoriteIdsCount }: He
 					transition={{ delay: 0.4 }}
 				>
 					<Trans>
-						Explore companies in depth. Discover their culture, salaries, employee reviews, and prepare for interviews.
+						Compare les employeurs, comprends leur culture, consulte les salaires indicatifs et prépare des entretiens
+						mieux ciblés.
 					</Trans>
 				</motion.p>
 
@@ -1016,7 +994,7 @@ export function HeroSection({ statistics, companiesCount, favoriteIdsCount }: He
 						<div>
 							<p className="font-bold text-xl">{statistics?.totalCompanies ?? companiesCount}</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Companies</Trans>
+								<Trans>Entreprises</Trans>
 							</p>
 						</div>
 					</div>
@@ -1027,7 +1005,7 @@ export function HeroSection({ statistics, companiesCount, favoriteIdsCount }: He
 						<div>
 							<p className="font-bold text-xl">{statistics?.totalFavorites ?? favoriteIdsCount}</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Favorites</Trans>
+								<Trans>Favoris</Trans>
 							</p>
 						</div>
 					</div>
@@ -1038,7 +1016,7 @@ export function HeroSection({ statistics, companiesCount, favoriteIdsCount }: He
 						<div>
 							<p className="font-bold text-xl">{statistics?.totalReviews ?? 0}+</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Reviews</Trans>
+								<Trans>Avis</Trans>
 							</p>
 						</div>
 					</div>
@@ -1081,7 +1059,7 @@ export function SearchAndFilters({
 						<div className="relative">
 							<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-muted-foreground" />
 							<Input
-								placeholder={t`Search for a company...`}
+								placeholder={t`Rechercher une entreprise...`}
 								value={searchQuery}
 								onChange={(e) => setSearchQuery(e.target.value)}
 								className="pl-10"
@@ -1090,11 +1068,11 @@ export function SearchAndFilters({
 					</div>
 					<Select value={selectedIndustry} onValueChange={(v) => setSelectedIndustry(v as CompanyIndustry | "all")}>
 						<SelectTrigger>
-							<SelectValue placeholder={t`Sector`} />
+							<SelectValue placeholder={t`Secteur`} />
 						</SelectTrigger>
 						<SelectContent>
 							<SelectItem value="all">
-								<Trans>All sectors</Trans>
+								<Trans>Tous les secteurs</Trans>
 							</SelectItem>
 							{(Object.entries(industryConfig) as [CompanyIndustry, (typeof industryConfig)[CompanyIndustry]][]).map(
 								([key, config]) => {
@@ -1125,17 +1103,17 @@ export function SearchAndFilters({
 							className="gap-2"
 						>
 							<ScalesIcon className="size-4" />
-							<Trans>Compare mode</Trans>
+							<Trans>Mode comparaison</Trans>
 						</Button>
 						{compareMode && compareCompanies.length >= 2 && (
 							<Button size="sm" onClick={() => setShowCompareDialog(true)} className="gap-2">
-								<Trans>Compare ({compareCompanies.length})</Trans>
+								<Trans>Comparer ({compareCompanies.length})</Trans>
 								<ArrowRightIcon className="size-4" />
 							</Button>
 						)}
 					</div>
 					<p className="text-muted-foreground text-sm">
-						{filteredCount} <Trans>company(ies)</Trans>
+						{filteredCount} <Trans>entreprise(s)</Trans>
 					</p>
 				</div>
 			</CardContent>
@@ -1153,7 +1131,7 @@ export function FavoritesSection({ favoriteCompanies, onSelectCompany }: Favorit
 		<section className="mb-8">
 			<h3 className="mb-4 flex items-center gap-2 font-semibold text-xl">
 				<BookmarkIcon className="size-5 text-amber-500" weight="fill" />
-				<Trans>My favorite companies</Trans>
+				<Trans>Mes entreprises favorites</Trans>
 			</h3>
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 				{favoriteCompanies.map((company, index) => {
@@ -1306,7 +1284,7 @@ export function CompaniesGrid({
 													<span className="font-bold text-sm">{company.reviewsAverageRating.toFixed(1)}</span>
 												</div>
 												<p className="text-muted-foreground text-xs">
-													<Trans>Rating</Trans>
+													<Trans>Note</Trans>
 												</p>
 											</div>
 											<div className="rounded-lg bg-muted/50 p-2 text-center">
@@ -1338,7 +1316,7 @@ export function CompaniesGrid({
 										{/* View More */}
 										{!compareMode && (
 											<Button variant="outline" className="w-full gap-2" size="sm">
-												<Trans>View details</Trans>
+												<Trans>Voir les détails</Trans>
 												<CaretRightIcon className="size-4" />
 											</Button>
 										)}
@@ -1353,13 +1331,13 @@ export function CompaniesGrid({
 					<CardContent className="flex flex-col items-center justify-center py-16">
 						<MagnifyingGlassIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 						<h3 className="mb-2 font-semibold text-lg">
-							<Trans>No companies found</Trans>
+							<Trans>Aucune entreprise trouvée</Trans>
 						</h3>
 						<p className="mb-4 text-center text-muted-foreground">
-							<Trans>Try changing your search criteria</Trans>
+							<Trans>Modifie tes critères de recherche</Trans>
 						</p>
 						<Button onClick={onResetSearch}>
-							<Trans>Reset search</Trans>
+							<Trans>Réinitialiser la recherche</Trans>
 						</Button>
 					</CardContent>
 				</Card>
@@ -1376,10 +1354,10 @@ export function CtaSection() {
 					<SparkleIcon className="size-8 text-primary" weight="fill" />
 				</div>
 				<h3 className="mb-2 font-bold text-2xl">
-					<Trans>Prepare your application</Trans>
+					<Trans>Prépare ta candidature</Trans>
 				</h3>
 				<p className="mb-6 max-w-md text-muted-foreground">
-					<Trans>Use this information to customize your resume and prepare for interviews.</Trans>
+					<Trans>Utilise ces informations pour adapter ton CV et préparer tes entretiens.</Trans>
 				</p>
 				<div className="flex flex-wrap justify-center gap-4">
 					<Link to="/dashboard/resumes">
@@ -1413,10 +1391,10 @@ export function CompareDialog({ open, onOpenChange, companiesForComparison }: Co
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
 						<ScalesIcon className="size-5" />
-						<Trans>Company Comparison</Trans>
+						<Trans>Comparaison d'entreprises</Trans>
 					</DialogTitle>
 					<DialogDescription>
-						<Trans>Compare selected companies side by side</Trans>
+						<Trans>Compare les entreprises sélectionnées côte à côte</Trans>
 					</DialogDescription>
 				</DialogHeader>
 
@@ -1447,12 +1425,12 @@ export function CompareDialog({ open, onOpenChange, companiesForComparison }: Co
 
 							{/* Comparison Metrics */}
 							{[
-								{ label: "Overall rating", getValue: (c: Company) => `${c.reviewsAverageRating.toFixed(1)}/5` },
-								{ label: "Recommend", getValue: (c: Company) => `${c.reviewsRecommendRate}%` },
-								{ label: "Culture score", getValue: (c: Company) => `${c.cultureOverallScore}/100` },
-								{ label: "Interview difficulty", getValue: (c: Company) => `${c.interviewDifficulty.toFixed(1)}/5` },
-								{ label: "Employees", getValue: (c: Company) => c.employeeCount },
-								{ label: "Year founded", getValue: (c: Company) => c.founded.toString() },
+								{ label: "Note globale", getValue: (c: Company) => `${c.reviewsAverageRating.toFixed(1)}/5` },
+								{ label: "Recommandation", getValue: (c: Company) => `${c.reviewsRecommendRate}%` },
+								{ label: "Score culture", getValue: (c: Company) => `${c.cultureOverallScore}/100` },
+								{ label: "Difficulté entretien", getValue: (c: Company) => `${c.interviewDifficulty.toFixed(1)}/5` },
+								{ label: "Employés", getValue: (c: Company) => c.employeeCount },
+								{ label: "Année de création", getValue: (c: Company) => c.founded.toString() },
 							].map((metric) => (
 								<div key={metric.label} className="rounded-lg border p-4">
 									<p className="mb-3 font-medium text-sm">{metric.label}</p>
@@ -1497,7 +1475,7 @@ export function CompareDialog({ open, onOpenChange, companiesForComparison }: Co
 				<DialogFooter>
 					<DialogClose asChild>
 						<Button variant="outline">
-							<Trans>Close</Trans>
+							<Trans>Fermer</Trans>
 						</Button>
 					</DialogClose>
 				</DialogFooter>

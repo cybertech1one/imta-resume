@@ -14,6 +14,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { formatDistanceToNow } from "date-fns";
+import { fr } from "date-fns/locale";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -37,41 +38,41 @@ export const Route = createFileRoute("/dashboard/tools/ai-history" as any)({
 });
 
 const SOURCE_LABELS: Record<string, { label: string; color: string }> = {
-	improve_content: { label: t`Improvement`, color: "blue" },
-	generate_summary: { label: t`Summary`, color: "green" },
-	fix_grammar: { label: t`Grammar Fix`, color: "purple" },
-	suggest_skills: { label: t`Skills`, color: "orange" },
-	generate_headline: { label: t`Headline`, color: "pink" },
-	analyze_resume: { label: t`Analysis`, color: "red" },
+	improve_content: { label: t`Amélioration`, color: "blue" },
+	generate_summary: { label: t`Résumé`, color: "green" },
+	fix_grammar: { label: t`Correction`, color: "purple" },
+	suggest_skills: { label: t`Compétences`, color: "orange" },
+	generate_headline: { label: t`Titre`, color: "pink" },
+	analyze_resume: { label: t`Analyse`, color: "red" },
 	parse_pdf: { label: t`Import PDF`, color: "cyan" },
 	parse_docx: { label: t`Import DOCX`, color: "cyan" },
-	ai_writer_bullet_point: { label: t`Bullet Points`, color: "indigo" },
-	ai_writer_summary: { label: t`Resume Pro`, color: "teal" },
-	ai_writer_achievement: { label: t`Achievement`, color: "amber" },
-	ai_writer_cover_letter: { label: t`Letter`, color: "violet" },
+	ai_writer_bullet_point: { label: t`Phrases d'impact`, color: "indigo" },
+	ai_writer_summary: { label: t`CV Pro`, color: "teal" },
+	ai_writer_achievement: { label: t`Réussite`, color: "amber" },
+	ai_writer_cover_letter: { label: t`Lettre`, color: "violet" },
 	ai_writer_linkedin_summary: { label: t`LinkedIn`, color: "sky" },
 	ai_writer_skill_extraction: { label: t`Extraction`, color: "lime" },
 	interview_questions: { label: t`Questions`, color: "rose" },
-	interview_evaluation: { label: t`Evaluation`, color: "fuchsia" },
-	interview_chat: { label: t`AI Chat`, color: "emerald" },
-	interview_analysis: { label: t`Session Analysis`, color: "slate" },
-	interview_coach: { label: t`Interview Coach`, color: "cyan" },
-	interview_improve: { label: t`Answer Improvement`, color: "teal" },
-	career_prediction: { label: t`Career Prediction`, color: "amber" },
-	job_match: { label: t`Job Match`, color: "green" },
-	career_trajectory: { label: t`Career Trajectory`, color: "blue" },
-	transferable_skills: { label: t`Transferable Skills`, color: "purple" },
-	success_factors: { label: t`Success Factors`, color: "orange" },
+	interview_evaluation: { label: t`Évaluation`, color: "fuchsia" },
+	interview_chat: { label: t`Chat IA`, color: "emerald" },
+	interview_analysis: { label: t`Analyse d'entretien`, color: "slate" },
+	interview_coach: { label: t`Coach entretien`, color: "cyan" },
+	interview_improve: { label: t`Réponse améliorée`, color: "teal" },
+	career_prediction: { label: t`Projection carrière`, color: "amber" },
+	job_match: { label: t`Compatibilité offre`, color: "green" },
+	career_trajectory: { label: t`Trajectoire carrière`, color: "blue" },
+	transferable_skills: { label: t`Compétences transférables`, color: "purple" },
+	success_factors: { label: t`Facteurs de réussite`, color: "orange" },
 	ai_mentor_chat: { label: t`Mentor Chat`, color: "violet" },
-	learning_path_generate: { label: t`Learning Path`, color: "indigo" },
-	learning_path_recommend: { label: t`Path Recommendation`, color: "sky" },
-	voice_interview: { label: t`Voice Interview`, color: "rose" },
-	adaptive_quiz: { label: t`Adaptive Quiz`, color: "lime" },
-	resume_gap_analysis: { label: t`Resume Gap Analysis`, color: "emerald" },
-	resume_adapt_job: { label: t`Job Adaptation`, color: "blue" },
-	resume_wizard_chat: { label: t`Resume Wizard`, color: "violet" },
-	generate_resume: { label: t`Resume Generation`, color: "green" },
-	apply_gap_fixes: { label: t`Gap Fix Application`, color: "emerald" },
+	learning_path_generate: { label: t`Parcours d'apprentissage`, color: "indigo" },
+	learning_path_recommend: { label: t`Recommandation parcours`, color: "sky" },
+	voice_interview: { label: t`Entretien vocal`, color: "rose" },
+	adaptive_quiz: { label: t`Quiz adaptatif`, color: "lime" },
+	resume_gap_analysis: { label: t`Écarts du CV`, color: "emerald" },
+	resume_adapt_job: { label: t`Adaptation à l'offre`, color: "blue" },
+	resume_wizard_chat: { label: t`Assistant CV`, color: "violet" },
+	generate_resume: { label: t`Génération CV`, color: "green" },
+	apply_gap_fixes: { label: t`Correction des écarts`, color: "emerald" },
 };
 
 function AIHistoryPage() {
@@ -82,15 +83,19 @@ function AIHistoryPage() {
 	const [favoritesOnly, setFavoritesOnly] = useState(false);
 
 	// Fetch AI history
-	const historyInput = {
+	const historyInput: {
+		search?: string;
+		source?: AiContentSource;
+		isFavorite?: boolean;
+		limit: number;
+	} = {
 		search: search || undefined,
 		source: sourceFilter !== "all" ? (sourceFilter as AiContentSource) : undefined,
 		isFavorite: favoritesOnly || undefined,
 		limit: 100,
 	};
 	const { data: history, isLoading } = useQuery({
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any -- ORPC type inference quirk with pgEnum-derived union
-		...orpc.aiHistory.list.queryOptions({ input: historyInput as any }),
+		...orpc.aiHistory.list.queryOptions({ input: historyInput }),
 		enabled: !!session?.user,
 	});
 
@@ -105,7 +110,7 @@ function AIHistoryPage() {
 		mutationFn: (id: string) => orpc.aiHistory.toggleFavorite.call({ id }),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["aiHistory"] });
-			toast.success(t`Favorite updated`);
+			toast.success(t`Favori mis à jour`);
 		},
 	});
 
@@ -113,7 +118,7 @@ function AIHistoryPage() {
 		mutationFn: (id: string) => orpc.aiHistory.markApplied.call({ id }),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["aiHistory"] });
-			toast.success(t`Marked as applied`);
+			toast.success(t`Marqué comme appliqué`);
 		},
 	});
 
@@ -121,18 +126,18 @@ function AIHistoryPage() {
 		mutationFn: (id: string) => orpc.aiHistory.delete.call({ id }),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["aiHistory"] });
-			toast.success(t`Deleted`);
+			toast.success(t`Supprimé`);
 		},
 	});
 
 	const copyToClipboard = (text: string) => {
 		navigator.clipboard.writeText(text);
-		toast.success(t`Copied to clipboard`);
+		toast.success(t`Copié dans le presse-papiers`);
 	};
 
 	return (
 		<div className="space-y-6">
-			<DashboardHeader icon={SparkleIcon} title={t`AI History`} />
+			<DashboardHeader icon={SparkleIcon} title={t`Historique IA`} />
 
 			{/* Statistics Cards */}
 			<div className="grid gap-4 md:grid-cols-4">
@@ -146,7 +151,7 @@ function AIHistoryPage() {
 					</CardHeader>
 					<CardContent>
 						<p className="text-muted-foreground text-xs">
-							<Trans>contents generated</Trans>
+							<Trans>contenus générés</Trans>
 						</p>
 					</CardContent>
 				</Card>
@@ -155,7 +160,7 @@ function AIHistoryPage() {
 					<CardHeader className="pb-2">
 						<CardDescription className="flex items-center gap-2">
 							<HeartIcon className="size-4" />
-							<Trans>Favorites</Trans>
+							<Trans>Favoris</Trans>
 						</CardDescription>
 						<CardTitle className="text-3xl">{stats?.favorites ?? 0}</CardTitle>
 					</CardHeader>
@@ -165,7 +170,7 @@ function AIHistoryPage() {
 					<CardHeader className="pb-2">
 						<CardDescription className="flex items-center gap-2">
 							<CheckCircleIcon className="size-4" />
-							<Trans>Applied</Trans>
+							<Trans>Appliqués</Trans>
 						</CardDescription>
 						<CardTitle className="text-3xl">{stats?.applied ?? 0}</CardTitle>
 					</CardHeader>
@@ -175,7 +180,7 @@ function AIHistoryPage() {
 					<CardHeader className="pb-2">
 						<CardDescription className="flex items-center gap-2">
 							<TrendUpIcon className="size-4" />
-							<Trans>This week</Trans>
+							<Trans>Cette semaine</Trans>
 						</CardDescription>
 						<CardTitle className="text-3xl">{stats?.lastWeek ?? 0}</CardTitle>
 					</CardHeader>
@@ -188,7 +193,7 @@ function AIHistoryPage() {
 					<div className="relative min-w-[200px] flex-1">
 						<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
 						<Input
-							placeholder={t`Search...`}
+							placeholder={t`Rechercher...`}
 							value={search}
 							onChange={(e) => setSearch(e.target.value)}
 							className="pl-10"
@@ -202,7 +207,7 @@ function AIHistoryPage() {
 						</SelectTrigger>
 						<SelectContent>
 							<SelectItem value="all">
-								<Trans>All types</Trans>
+								<Trans>Tous les types</Trans>
 							</SelectItem>
 							{Object.entries(SOURCE_LABELS).map(([key, { label }]) => (
 								<SelectItem key={key} value={key}>
@@ -218,7 +223,7 @@ function AIHistoryPage() {
 						className="gap-2"
 					>
 						<HeartIcon className={favoritesOnly ? "fill-current" : ""} />
-						<Trans>Favorites</Trans>
+						<Trans>Favoris</Trans>
 					</Button>
 				</div>
 			</Card>
@@ -243,10 +248,10 @@ function AIHistoryPage() {
 					<Card className="flex flex-col items-center justify-center p-12">
 						<SparkleIcon className="mb-4 size-16 text-muted-foreground/50" />
 						<h3 className="font-semibold text-xl">
-							<Trans>No history</Trans>
+							<Trans>Aucun historique</Trans>
 						</h3>
 						<p className="mt-2 text-center text-muted-foreground">
-							<Trans>Use AI features to generate content</Trans>
+							<Trans>Utilise les outils IA pour générer du contenu.</Trans>
 						</p>
 					</Card>
 				) : (
@@ -258,7 +263,7 @@ function AIHistoryPage() {
 											label: item.contentSource,
 											color: "gray",
 										}
-									: { label: t`Content`, color: "gray" };
+									: { label: t`Contenu`, color: "gray" };
 
 								return (
 									<motion.div
@@ -277,7 +282,7 @@ function AIHistoryPage() {
 															{item.appliedAt && (
 																<Badge variant="default" className="gap-1">
 																	<CheckCircleIcon className="size-3" />
-																	<Trans>Applied</Trans>
+																	<Trans>Appliqué</Trans>
 																</Badge>
 															)}
 														</div>
@@ -285,10 +290,11 @@ function AIHistoryPage() {
 															<ClockIcon className="size-3" />
 															{formatDistanceToNow(new Date(item.createdAt), {
 																addSuffix: true,
+																locale: fr,
 															})}
 															{item.expiresAt && (
 																<span className="text-xs">
-																	· <Trans>Expires on {new Date(item.expiresAt).toLocaleDateString()}</Trans>
+																	· <Trans>Expire le {new Date(item.expiresAt).toLocaleDateString("fr-FR")}</Trans>
 																</span>
 															)}
 														</CardDescription>
@@ -324,7 +330,7 @@ function AIHistoryPage() {
 															variant="ghost"
 															size="icon"
 															onClick={() => {
-																if (confirm(t`Delete this item?`)) {
+																if (confirm(t`Supprimer cet élément ?`)) {
 																	deleteMutation.mutate(item.id);
 																}
 															}}
@@ -341,7 +347,7 @@ function AIHistoryPage() {
 														<p className="line-clamp-4 whitespace-pre-wrap text-sm">{item.generatedContent}</p>
 														<p className="mt-2 flex items-center gap-1 text-muted-foreground/60 text-xs">
 															<SparkleIcon className="size-3" weight="fill" />
-															{t`AI-generated content`}
+															{t`Contenu généré par IA`}
 														</p>
 													</div>
 												)}

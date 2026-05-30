@@ -78,9 +78,9 @@ function getScoreBg(score: number): string {
 
 function getScoreLabel(score: number): string {
 	if (score >= 80) return t`Excellent`;
-	if (score >= 60) return t`Good`;
-	if (score >= 40) return t`Needs Work`;
-	return t`Poor`;
+	if (score >= 60) return t`Bon`;
+	if (score >= 40) return t`À améliorer`;
+	return t`Faible`;
 }
 
 function getScoreRingColor(score: number): string {
@@ -185,16 +185,16 @@ function AtsChecker() {
 		...orpc.atsChecker.checkAtsScore.mutationOptions(),
 		onSuccess: (data) => {
 			setResult(data);
-			toast.success(t`ATS analysis completed`);
+			toast.success(t`Analyse ATS terminée`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Failed to analyze resume`);
+			toast.error(error.message || t`Impossible d'analyser ce CV`);
 		},
 	});
 
 	const handleAnalyze = useCallback(() => {
 		if (!selectedResumeData?.data) {
-			toast.error(t`Please select a resume first`);
+			toast.error(t`Sélectionne d'abord un CV`);
 			return;
 		}
 
@@ -228,18 +228,18 @@ function AtsChecker() {
 
 	return (
 		<div className="space-y-6">
-			<DashboardHeader title={t`ATS Score Checker`} icon={ShieldCheckIcon} />
+			<DashboardHeader title={t`Score ATS du CV`} icon={ShieldCheckIcon} />
 
 			{/* Hero Section */}
 			<Card>
 				<CardHeader>
 					<CardTitle>
-						<Trans>Check Your Resume's ATS Compatibility</Trans>
+						<Trans>Vérifie si ton CV passe les filtres ATS</Trans>
 					</CardTitle>
 					<CardDescription>
 						<Trans>
-							Applicant Tracking Systems (ATS) filter out 75% of resumes before a human ever sees them. Check your
-							resume against industry standards to ensure it passes through.
+							Analyse la structure, les mots-clés et les points attendus par les recruteurs marocains avant d'envoyer ta
+							candidature.
 						</Trans>
 					</CardDescription>
 				</CardHeader>
@@ -247,16 +247,16 @@ function AtsChecker() {
 					{/* Resume selector */}
 					<div className="space-y-2">
 						<label className="font-medium text-sm">
-							<Trans>Select Resume</Trans>
+							<Trans>Sélectionner un CV</Trans>
 						</label>
 						<Select value={selectedResumeId} onValueChange={setSelectedResumeId}>
 							<SelectTrigger>
-								<SelectValue placeholder={t`Choose a resume to analyze...`} />
+								<SelectValue placeholder={t`Choisir un CV à analyser...`} />
 							</SelectTrigger>
 							<SelectContent>
 								{isLoadingResumes ? (
 									<SelectItem value="loading" disabled>
-										<Trans>Loading resumes...</Trans>
+										<Trans>Chargement des CV...</Trans>
 									</SelectItem>
 								) : resumes && resumes.length > 0 ? (
 									resumes.map((resume) => (
@@ -266,7 +266,7 @@ function AtsChecker() {
 									))
 								) : (
 									<SelectItem value="none" disabled>
-										<Trans>No resumes found. Create one first.</Trans>
+										<Trans>Aucun CV trouvé. Crée d'abord un CV.</Trans>
 									</SelectItem>
 								)}
 							</SelectContent>
@@ -276,13 +276,13 @@ function AtsChecker() {
 					{/* Job description (optional) */}
 					<div className="space-y-2">
 						<label className="font-medium text-sm">
-							<Trans>Job Description</Trans>
+							<Trans>Description du poste</Trans>
 							<span className="ml-1 text-muted-foreground">
-								(<Trans>optional - for keyword matching</Trans>)
+								(<Trans>facultatif - pour comparer les mots-clés</Trans>)
 							</span>
 						</label>
 						<Textarea
-							placeholder={t`Paste the job description here to check keyword match...`}
+							placeholder={t`Colle la description du poste ici pour vérifier les mots-clés...`}
 							value={jobDescription}
 							onChange={(e) => setJobDescription(e.target.value)}
 							rows={5}
@@ -298,12 +298,12 @@ function AtsChecker() {
 						{checkMutation.isPending ? (
 							<>
 								<ArrowClockwiseIcon className="animate-spin" />
-								<Trans>Analyzing...</Trans>
+								<Trans>Analyse en cours...</Trans>
 							</>
 						) : (
 							<>
 								<MagnifyingGlassIcon />
-								<Trans>Check ATS Score</Trans>
+								<Trans>Vérifier le score ATS</Trans>
 							</>
 						)}
 					</Button>
@@ -323,7 +323,7 @@ function AtsChecker() {
 										{getScoreLabel(result.overallScore)}
 									</p>
 									<p className="text-muted-foreground text-sm">
-										<Trans>Overall ATS Score</Trans>
+										<Trans>Score ATS global</Trans>
 									</p>
 								</div>
 							</div>
@@ -337,7 +337,7 @@ function AtsChecker() {
 										{result.formatting.score}
 									</div>
 									<p className="text-muted-foreground text-xs">
-										<Trans>Formatting</Trans>
+										<Trans>Mise en forme</Trans>
 									</p>
 								</div>
 								<div>
@@ -346,7 +346,7 @@ function AtsChecker() {
 										{issueCount}
 									</div>
 									<p className="text-muted-foreground text-xs">
-										<Trans>Issues</Trans>
+										<Trans>Problèmes</Trans>
 									</p>
 								</div>
 								<div>
@@ -365,7 +365,7 @@ function AtsChecker() {
 					{/* Section-by-Section Breakdown */}
 					<div>
 						<h3 className="mb-3 font-semibold text-lg">
-							<Trans>Section Analysis</Trans>
+							<Trans>Analyse par section</Trans>
 						</h3>
 						<div className="grid gap-4 md:grid-cols-2">
 							{result.sections.map((section) => (
@@ -381,7 +381,7 @@ function AtsChecker() {
 								<div className="flex items-center gap-2">
 									<TagIcon className="size-5" weight="fill" />
 									<CardTitle>
-										<Trans>Keyword Match Analysis</Trans>
+										<Trans>Analyse des mots-clés</Trans>
 									</CardTitle>
 								</div>
 								<div className="flex items-center gap-3">
@@ -408,7 +408,7 @@ function AtsChecker() {
 									<div>
 										<p className="mb-2 flex items-center gap-1 font-medium text-sm">
 											<CheckCircleIcon className="size-4 text-emerald-500" weight="fill" />
-											<Trans>Keywords Found ({result.keywords.found.length})</Trans>
+											<Trans>Mots-clés trouvés ({result.keywords.found.length})</Trans>
 										</p>
 										<div className="flex flex-wrap gap-1.5">
 											{result.keywords.found.map((keyword) => (
@@ -429,7 +429,7 @@ function AtsChecker() {
 									<div>
 										<p className="mb-2 flex items-center gap-1 font-medium text-sm">
 											<WarningIcon className="size-4 text-amber-500" weight="fill" />
-											<Trans>Missing Keywords ({result.keywords.missing.length})</Trans>
+											<Trans>Mots-clés manquants ({result.keywords.missing.length})</Trans>
 										</p>
 										<div className="flex flex-wrap gap-1.5">
 											{result.keywords.missing.slice(0, 25).map((keyword) => (
@@ -443,7 +443,7 @@ function AtsChecker() {
 											))}
 											{result.keywords.missing.length > 25 && (
 												<Badge variant="outline">
-													+{result.keywords.missing.length - 25} <Trans>more</Trans>
+													+{result.keywords.missing.length - 25} <Trans>autres</Trans>
 												</Badge>
 											)}
 										</div>
@@ -461,7 +461,7 @@ function AtsChecker() {
 									<div className="flex items-center gap-2">
 										<GaugeIcon className="size-5" weight="fill" />
 										<CardTitle>
-											<Trans>Formatting & Structure</Trans>
+											<Trans>Mise en forme et structure</Trans>
 										</CardTitle>
 									</div>
 									<Badge
@@ -502,7 +502,7 @@ function AtsChecker() {
 									<div className="flex items-center gap-2">
 										<FlagIcon className="size-5" weight="fill" />
 										<CardTitle>
-											<Trans>Morocco-Specific Tips</Trans>
+											<Trans>Conseils adaptés au marché marocain</Trans>
 										</CardTitle>
 									</div>
 									<Badge
@@ -518,7 +518,7 @@ function AtsChecker() {
 									</Badge>
 								</div>
 								<CardDescription>
-									<Trans>Tips specific to the Moroccan job market and employer expectations.</Trans>
+									<Trans>Conseils liés aux attentes des recruteurs et écoles au Maroc.</Trans>
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="space-y-2">
@@ -539,51 +539,51 @@ function AtsChecker() {
 				<Card>
 					<CardHeader>
 						<CardTitle>
-							<Trans>ATS Tips for Moroccan Job Seekers</Trans>
+							<Trans>Conseils ATS pour les candidats au Maroc</Trans>
 						</CardTitle>
 					</CardHeader>
 					<CardContent>
 						<div className="grid gap-4 md:grid-cols-2">
 							<div className={`rounded-lg p-4 ${getScoreBg(80)}`}>
 								<h4 className="mb-2 font-medium text-sm">
-									<Trans>Use Standard Section Headings</Trans>
+									<Trans>Utilise des titres de sections standards</Trans>
 								</h4>
 								<p className="text-muted-foreground text-xs">
 									<Trans>
-										Stick to headings like "Experience", "Education", "Skills". ATS systems may not recognize creative
-										alternatives.
+										Garde des intitulés clairs comme "Expérience", "Formation" et "Compétences". Les systèmes ATS
+										comprennent mal les titres trop créatifs.
 									</Trans>
 								</p>
 							</div>
 							<div className={`rounded-lg p-4 ${getScoreBg(80)}`}>
 								<h4 className="mb-2 font-medium text-sm">
-									<Trans>Include Both French and English</Trans>
+									<Trans>Ajoute les bons mots-clés en français</Trans>
 								</h4>
 								<p className="text-muted-foreground text-xs">
 									<Trans>
-										Moroccan employers often use ATS systems in both languages. A bilingual CV increases your match
-										rate.
+										Reprends les mots importants de l'offre : métier, outils, certifications, région et type de contrat.
 									</Trans>
 								</p>
 							</div>
 							<div className={`rounded-lg p-4 ${getScoreBg(80)}`}>
 								<h4 className="mb-2 font-medium text-sm">
-									<Trans>Quantify Your Achievements</Trans>
+									<Trans>Chiffre tes réalisations</Trans>
 								</h4>
 								<p className="text-muted-foreground text-xs">
 									<Trans>
-										Use numbers and percentages. "Managed team of 5" is better than "Managed a team" for ATS scoring.
+										Ajoute des nombres, volumes, délais ou résultats. Une phrase concrète sera mieux comprise qu'une
+										formulation générale.
 									</Trans>
 								</p>
 							</div>
 							<div className={`rounded-lg p-4 ${getScoreBg(80)}`}>
 								<h4 className="mb-2 font-medium text-sm">
-									<Trans>Add Your Internships (Stages)</Trans>
+									<Trans>Mets en avant tes stages</Trans>
 								</h4>
 								<p className="text-muted-foreground text-xs">
 									<Trans>
-										For IMTA and vocational training graduates, internship sections are critical. Include your stage de
-										fin d'etudes.
+										Pour les étudiants et diplômés IMTA, les stages sont essentiels. Précise les missions, outils et
+										compétences validées.
 									</Trans>
 								</p>
 							</div>

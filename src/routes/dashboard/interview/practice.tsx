@@ -28,7 +28,7 @@ import { client, orpc } from "@/integrations/orpc/client";
 import { imtaProgramSchema } from "@/schema/interview";
 
 const searchSchema = z.object({
-	field: z.enum(["healthcare", "industrial", "hse", "general"]).default("general"),
+	field: z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]).default("general"),
 	difficulty: z.enum(["beginner", "intermediate", "advanced"]).default("intermediate"),
 	program: imtaProgramSchema.optional(),
 });
@@ -89,7 +89,7 @@ type InterviewQuestion = {
 	question: string;
 	questionFr?: string;
 	type: "behavioral" | "technical" | "situational" | "motivational" | "general";
-	field: "healthcare" | "industrial" | "hse" | "general" | "technology" | "management";
+	field: "healthcare" | "industrial" | "hse" | "technology" | "management" | "general";
 	difficulty: "beginner" | "intermediate" | "advanced";
 	expectedPoints?: string[];
 	followUpQuestions?: string[];
@@ -605,7 +605,7 @@ function PracticeSession() {
 												const res = await coachMutation.mutateAsync({
 													question: currentQuestion.question,
 													userAnswer: responses[currentQuestion.id] || answer,
-													field: field as "healthcare" | "industrial" | "hse" | "general",
+													field: field as "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 													difficulty: difficulty as "beginner" | "intermediate" | "advanced",
 													language: "fr",
 												});
@@ -636,7 +636,7 @@ function PracticeSession() {
 												const res = await improveMutation.mutateAsync({
 													question: currentQuestion.question,
 													draftAnswer: responses[currentQuestion.id] || answer,
-													field: field as "healthcare" | "industrial" | "hse" | "general",
+													field: field as "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 													language: "fr",
 												});
 												setImproveResults((prev) => ({

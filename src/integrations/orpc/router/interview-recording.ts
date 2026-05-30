@@ -9,7 +9,7 @@ import { interviewRecordingService } from "../services/interview-recording";
 
 const recordingStatusSchema = z.enum(["pending", "processing", "analyzed", "failed"]);
 
-const interviewFieldSchema = z.enum(["healthcare", "industrial", "hse", "general"]);
+const interviewFieldSchema = z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]);
 
 const bodyLanguageCategorySchema = z.enum(["posture", "eye_contact", "gestures", "facial", "movement"]);
 

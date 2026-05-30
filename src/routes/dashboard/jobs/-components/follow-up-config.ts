@@ -23,25 +23,25 @@ import type {
 // Status configuration
 export const statusConfig: Record<FollowUpStatus, StatusConfigEntry> = {
 	not_sent: {
-		label: "Not Sent",
+		label: "Non envoyée",
 		icon: EnvelopeSimpleIcon,
 		color: "text-gray-600 dark:text-gray-400",
 		bgColor: "bg-gray-100 dark:bg-gray-800/30",
 	},
 	sent: {
-		label: "Sent",
+		label: "Envoyée",
 		icon: PaperPlaneTiltIcon,
 		color: "text-blue-600 dark:text-blue-400",
 		bgColor: "bg-blue-100 dark:bg-blue-900/30",
 	},
 	responded: {
-		label: "Response Received",
+		label: "Réponse reçue",
 		icon: CheckCircleIcon,
 		color: "text-green-600 dark:text-green-400",
 		bgColor: "bg-green-100 dark:bg-green-900/30",
 	},
 	no_response: {
-		label: "No Response",
+		label: "Sans réponse",
 		icon: XCircleIcon,
 		color: "text-red-600 dark:text-red-400",
 		bgColor: "bg-red-100 dark:bg-red-900/30",
@@ -51,17 +51,17 @@ export const statusConfig: Record<FollowUpStatus, StatusConfigEntry> = {
 // Follow-up type configuration
 export const followUpTypeConfig: Record<FollowUpType, FollowUpTypeConfigEntry> = {
 	initial: {
-		label: "First Follow-up",
+		label: "Première relance",
 		color: "bg-blue-500",
 		days: 7,
 	},
 	second: {
-		label: "Second Follow-up",
+		label: "Deuxième relance",
 		color: "bg-amber-500",
 		days: 14,
 	},
 	final: {
-		label: "Final Follow-up",
+		label: "Dernière relance",
 		color: "bg-red-500",
 		days: 21,
 	},
@@ -72,54 +72,54 @@ export const defaultEmailTemplates: EmailTemplate[] = [
 	{
 		id: "initial-1",
 		type: "initial",
-		name: "First Follow-up - Standard",
-		subject: "Following up on my application - [Position]",
-		body: `Dear [Recruiter Name],
+		name: "Première relance - standard",
+		subject: "Relance concernant ma candidature - [Poste]",
+		body: `Bonjour [Nom du recruteur],
 
-I hope this message finds you well. I am writing to follow up on my application for the [Position] role that I submitted on [Date].
+J'espère que vous allez bien. Je me permets de revenir vers vous au sujet de ma candidature pour le poste de [Poste], envoyée le [Date].
 
-I remain very interested in this opportunity and would be happy to discuss my application with you. Please do not hesitate to contact me if you need any additional information.
+Je reste très intéressé par cette opportunité et serais ravi d'échanger avec vous. N'hésitez pas à me contacter si vous avez besoin d'informations complémentaires.
 
-Thank you for your time and consideration.
+Merci pour votre temps et votre considération.
 
-Best regards,
-[Your Name]`,
+Cordialement,
+[Votre nom]`,
 	},
 	{
 		id: "second-1",
 		type: "second",
-		name: "Second Follow-up - Reminder",
-		subject: "Follow-up - Application for [Position]",
-		body: `Dear [Recruiter Name],
+		name: "Deuxième relance - rappel",
+		subject: "Relance - candidature au poste de [Poste]",
+		body: `Bonjour [Nom du recruteur],
 
-I am reaching out again regarding my application for the [Position] role. I contacted you a week ago and wanted to check if you have had the chance to review my application.
+Je me permets de vous relancer concernant ma candidature au poste de [Poste]. Je vous avais contacté la semaine dernière et souhaitais savoir si vous aviez pu l'examiner.
 
-I remain very motivated by this opportunity and confident that my skills match your team's needs.
+Je reste très motivé par cette opportunité et convaincu que mes compétences peuvent répondre aux besoins de votre équipe.
 
-Would it be possible to arrange a phone call to discuss further?
+Serait-il possible d'organiser un échange téléphonique pour en discuter ?
 
-Thank you in advance for your response.
+Merci d'avance pour votre retour.
 
-Best regards,
-[Your Name]`,
+Cordialement,
+[Votre nom]`,
 	},
 	{
 		id: "final-1",
 		type: "final",
-		name: "Final Follow-up - Closing",
-		subject: "Final follow-up - Application for [Position]",
-		body: `Dear [Recruiter Name],
+		name: "Dernière relance - clôture",
+		subject: "Dernière relance - candidature au poste de [Poste]",
+		body: `Bonjour [Nom du recruteur],
 
-I am reaching out one last time regarding my application for the [Position] role submitted on [Date].
+Je me permets de vous contacter une dernière fois au sujet de ma candidature au poste de [Poste], envoyée le [Date].
 
-I completely understand that you have many applications to review. If the position has been filled or if my application was not selected, I would appreciate being informed so that I can focus my search accordingly.
+Je comprends tout à fait que vous receviez de nombreuses candidatures. Si le poste est déjà pourvu ou si ma candidature n'a pas été retenue, je vous serais reconnaissant de m'en informer afin d'orienter mes recherches.
 
-I remain available should an opportunity matching my profile arise in the future.
+Je reste disponible si une opportunité correspondant à mon profil se présente à l'avenir.
 
-Thank you for your attention.
+Merci pour votre attention.
 
-Best regards,
-[Your Name]`,
+Cordialement,
+[Votre nom]`,
 	},
 ];
 
@@ -128,40 +128,41 @@ export const bestPracticesTips: BestPracticeTip[] = [
 	{
 		id: "1",
 		icon: ClockIcon,
-		title: "Optimal Timing",
+		title: "Bon timing",
 		description:
-			"Send your first follow-up 7 days after the application. This is the optimal delay to maximize your chances of a response.",
+			"Envoie la première relance environ 7 jours après la candidature. C'est un délai simple, professionnel et facile à suivre.",
 	},
 	{
 		id: "2",
 		icon: EnvelopeIcon,
-		title: "Personalization",
+		title: "Personnalisation",
 		description:
-			"Personalize each email with the recruiter's name and specific details about the position to show your interest.",
+			"Personnalise chaque message avec le nom du recruteur et un détail précis sur le poste pour montrer ton intérêt.",
 	},
 	{
 		id: "3",
 		icon: TargetIcon,
-		title: "Conciseness",
-		description: "Keep your follow-up emails short and direct. 3-4 paragraphs maximum are sufficient.",
+		title: "Concision",
+		description: "Garde tes emails courts et directs. Trois ou quatre paragraphes suffisent.",
 	},
 	{
 		id: "4",
 		icon: LightbulbIcon,
-		title: "Added Value",
+		title: "Valeur ajoutée",
 		description:
-			"Include a new relevant piece of information in each follow-up: a recent article, a new project, or a certification earned.",
+			"Ajoute un élément utile à chaque relance : projet récent, certification, disponibilité ou précision sur ton profil.",
 	},
 	{
 		id: "5",
 		icon: HandWavingIcon,
-		title: "Professional Tone",
-		description: "Stay courteous and professional, even without a response. Your attitude can open future doors.",
+		title: "Ton professionnel",
+		description: "Reste courtois et professionnel, même sans réponse. Le ton compte autant que le contenu.",
 	},
 	{
 		id: "6",
 		icon: TimerIcon,
-		title: "Follow-up Limit",
-		description: "Do not exceed 3 follow-ups. Beyond that, you risk being perceived as pushy.",
+		title: "Limite claire",
+		description:
+			"Ne dépasse pas trois relances. Au-delà, il vaut mieux concentrer ton énergie sur d'autres opportunités.",
 	},
 ];

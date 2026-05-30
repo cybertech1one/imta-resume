@@ -68,13 +68,16 @@ function DeadlineTrackerPage() {
 	const deadlineFormSchema = useMemo(
 		() =>
 			z.object({
-				title: z.string().min(1, t`Title is required`).max(100, t`Title cannot exceed 100 characters`),
-				company: z.string().min(1, t`Company is required`).max(100, t`Company name cannot exceed 100 characters`),
-				position: z.string().max(100, t`Position cannot exceed 100 characters`).optional().or(z.literal("")),
-				deadlineDate: z.string().min(1, t`Deadline date is required`),
+				title: z.string().min(1, t`Le titre est obligatoire`).max(100, t`Le titre ne peut pas dépasser 100 caractères`),
+				company: z
+					.string()
+					.min(1, t`L'entreprise est obligatoire`)
+					.max(100, t`Le nom de l'entreprise ne peut pas dépasser 100 caractères`),
+				position: z.string().max(100, t`Le poste ne peut pas dépasser 100 caractères`).optional().or(z.literal("")),
+				deadlineDate: z.string().min(1, t`La date limite est obligatoire`),
 				deadlineTime: z.string().optional().or(z.literal("")),
 				priority: z.enum(["high", "medium", "low"]),
-				notes: z.string().max(1000, t`Notes cannot exceed 1000 characters`).optional().or(z.literal("")),
+				notes: z.string().max(1000, t`Les notes ne peuvent pas dépasser 1000 caractères`).optional().or(z.literal("")),
 				reminderEnabled: z.boolean(),
 				reminderDate: z.string().nullable().optional(),
 				reminderTime: z.string().nullable().optional(),
@@ -134,13 +137,13 @@ function DeadlineTrackerPage() {
 			return { previousDeadlines };
 		},
 		onSuccess: () => {
-			toast.success(t`Deadline added`);
+			toast.success(t`Échéance ajoutée`);
 		},
 		onError: (error, _newDeadline, context) => {
 			if (context?.previousDeadlines) {
 				queryClient.setQueryData(orpc.deadlines.list.key({ input: {} }), context.previousDeadlines);
 			}
-			toast.error(error.message || t`Error adding deadline`);
+			toast.error(error.message || t`Erreur lors de l'ajout de l'échéance`);
 		},
 		onSettled: () => {
 			queryClient.invalidateQueries({ queryKey: ["deadlines"] });
@@ -154,10 +157,10 @@ function DeadlineTrackerPage() {
 			queryClient.invalidateQueries({ queryKey: ["deadlines"] });
 			setEditingDeadline(null);
 			resetForm();
-			toast.success(t`Deadline updated`);
+			toast.success(t`Échéance mise à jour`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error during update`);
+			toast.error(error.message || t`Erreur lors de la mise à jour`);
 		},
 	});
 
@@ -167,10 +170,10 @@ function DeadlineTrackerPage() {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["deadlines"] });
 			setDeleteConfirmId(null);
-			toast.success(t`Deadline deleted`);
+			toast.success(t`Échéance supprimée`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error during deletion`);
+			toast.error(error.message || t`Erreur lors de la suppression`);
 		},
 	});
 
@@ -179,10 +182,10 @@ function DeadlineTrackerPage() {
 		...orpc.deadlines.toggleComplete.mutationOptions(),
 		onSuccess: (newCompleted) => {
 			queryClient.invalidateQueries({ queryKey: ["deadlines"] });
-			toast.success(newCompleted ? t`Marked as complete` : t`Marked as incomplete`);
+			toast.success(newCompleted ? t`Marquée comme terminée` : t`Marquée comme non terminée`);
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error`);
+			toast.error(error.message || t`Erreur`);
 		},
 	});
 
@@ -193,7 +196,7 @@ function DeadlineTrackerPage() {
 			queryClient.invalidateQueries({ queryKey: ["deadlines"] });
 		},
 		onError: (error) => {
-			toast.error(error.message || t`Error`);
+			toast.error(error.message || t`Erreur`);
 		},
 	});
 
@@ -383,7 +386,7 @@ function DeadlineTrackerPage() {
 
 	return (
 		<>
-			<DashboardHeader icon={CalendarIcon} title={t`Deadline Tracking`} />
+			<DashboardHeader icon={CalendarIcon} title={t`Suivi des échéances`} />
 
 			<HeroSection stats={stats} />
 			<StatsPanel stats={stats} />
@@ -397,7 +400,7 @@ function DeadlineTrackerPage() {
 							<div className="relative w-full min-w-[200px] sm:flex-1 lg:max-w-xs">
 								<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
 								<Input
-									placeholder={t`Search...`}
+									placeholder={t`Rechercher...`}
 									value={searchQuery}
 									onChange={(e) => setSearchQuery(e.target.value)}
 									className="pl-9"
@@ -408,20 +411,20 @@ function DeadlineTrackerPage() {
 							<Select value={statusFilter} onValueChange={(v) => setStatusFilter(v as DeadlineStatus | "all")}>
 								<SelectTrigger className="w-full sm:w-[160px]">
 									<FunnelIcon className="mr-2 size-4" />
-									<SelectValue placeholder={t`Status`} />
+									<SelectValue placeholder={t`Statut`} />
 								</SelectTrigger>
 								<SelectContent>
 									<SelectItem value="all">
-										<Trans>All</Trans>
+										<Trans>Tous</Trans>
 									</SelectItem>
 									<SelectItem value="upcoming">
-										<Trans>Upcoming</Trans>
+										<Trans>À venir</Trans>
 									</SelectItem>
 									<SelectItem value="past">
-										<Trans>Overdue</Trans>
+										<Trans>En retard</Trans>
 									</SelectItem>
 									<SelectItem value="completed">
-										<Trans>Completed</Trans>
+										<Trans>Terminées</Trans>
 									</SelectItem>
 								</SelectContent>
 							</Select>
@@ -429,11 +432,11 @@ function DeadlineTrackerPage() {
 							{/* Priority Filter */}
 							<Select value={priorityFilter} onValueChange={(v) => setPriorityFilter(v as Priority | "all")}>
 								<SelectTrigger className="w-full sm:w-[160px]">
-									<SelectValue placeholder={t`Priority`} />
+									<SelectValue placeholder={t`Priorité`} />
 								</SelectTrigger>
 								<SelectContent>
 									<SelectItem value="all">
-										<Trans>All</Trans>
+										<Trans>Toutes</Trans>
 									</SelectItem>
 									{(["high", "medium", "low"] as Priority[]).map((p) => {
 										const config = priorityConfig[p];
@@ -467,7 +470,7 @@ function DeadlineTrackerPage() {
 						{/* Add Button */}
 						<Button className="gap-2" onClick={() => setIsAddDialogOpen(true)}>
 							<PlusIcon className="size-4" />
-							<Trans>New deadline</Trans>
+							<Trans>Nouvelle échéance</Trans>
 						</Button>
 					</div>
 				</CardContent>
@@ -478,15 +481,15 @@ function DeadlineTrackerPage() {
 				<TabsList className="bg-card">
 					<TabsTrigger value="timeline" className="gap-2">
 						<ClockIcon className="size-4" />
-						<Trans>Timeline</Trans>
+						<Trans>Chronologie</Trans>
 					</TabsTrigger>
 					<TabsTrigger value="calendar" className="gap-2">
 						<CalendarIcon className="size-4" />
-						<Trans>Calendar</Trans>
+						<Trans>Calendrier</Trans>
 					</TabsTrigger>
 					<TabsTrigger value="list" className="gap-2">
 						<NoteIcon className="size-4" />
-						<Trans>List</Trans>
+						<Trans>Liste</Trans>
 					</TabsTrigger>
 				</TabsList>
 

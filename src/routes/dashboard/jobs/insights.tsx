@@ -182,7 +182,7 @@ function JobMarketInsightsPage() {
 
 	const regionalDistribution = useMemo(() => computeRegionalDistribution(regionalStats), [regionalStats]);
 
-	const salaryChartData = useMemo(() => computeSalaryChartData(salaryData as any), [salaryData]);
+	const salaryChartData = useMemo(() => computeSalaryChartData(salaryData), [salaryData]);
 
 	const industryPieData = useMemo(() => computeIndustryPieData(marketOverview?.fieldDistribution), [marketOverview]);
 
@@ -223,7 +223,7 @@ function JobMarketInsightsPage() {
 
 	return (
 		<div className="space-y-8">
-			<DashboardHeader icon={ChartLineUpIcon} title={t`Job Market Insights`} />
+			<DashboardHeader icon={ChartLineUpIcon} title={t`Analyse du marché de l'emploi`} />
 
 			{hasQueryError && <ErrorAlert />}
 
@@ -241,19 +241,19 @@ function JobMarketInsightsPage() {
 				<TabsList className="mb-4">
 					<TabsTrigger value="overview">
 						<ChartBarIcon className="mr-2 size-4" />
-						<Trans>Overview</Trans>
+						<Trans>Vue d'ensemble</Trans>
 					</TabsTrigger>
 					<TabsTrigger value="salaries">
 						<CurrencyCircleDollarIcon className="mr-2 size-4" />
-						<Trans>Salaries</Trans>
+						<Trans>Salaires</Trans>
 					</TabsTrigger>
 					<TabsTrigger value="skills">
 						<SparkleIcon className="mr-2 size-4" />
-						<Trans>Skills</Trans>
+						<Trans>Compétences</Trans>
 					</TabsTrigger>
 					<TabsTrigger value="employers">
 						<BuildingOfficeIcon className="mr-2 size-4" />
-						<Trans>Employers</Trans>
+						<Trans>Employeurs</Trans>
 					</TabsTrigger>
 				</TabsList>
 
@@ -311,7 +311,7 @@ function JobMarketInsightsPage() {
 				<TabsContent value="employers" className="space-y-6">
 					<EmployersCard
 						loadingEmployers={loadingEmployers}
-						filteredEmployers={filteredEmployers as any}
+						filteredEmployers={filteredEmployers}
 						onResetFilters={handleResetFilters}
 					/>
 				</TabsContent>

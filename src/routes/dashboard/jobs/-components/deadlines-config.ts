@@ -14,19 +14,19 @@ import type {
 // Priority configuration
 export const priorityConfig: Record<Priority, PriorityConfigEntry> = {
 	high: {
-		label: "High",
+		label: "Haute",
 		icon: WarningCircleIcon,
 		color: "text-red-600 dark:text-red-400",
 		bgColor: "bg-red-100 dark:bg-red-900/30",
 	},
 	medium: {
-		label: "Medium",
+		label: "Moyenne",
 		icon: HourglassMediumIcon,
 		color: "text-amber-600 dark:text-amber-400",
 		bgColor: "bg-amber-100 dark:bg-amber-900/30",
 	},
 	low: {
-		label: "Low",
+		label: "Basse",
 		icon: HourglassHighIcon,
 		color: "text-green-600 dark:text-green-400",
 		bgColor: "bg-green-100 dark:bg-green-900/30",
@@ -92,14 +92,14 @@ export function getUrgencyConfig(urgency: UrgencyLevel): UrgencyConfigEntry {
 				color: "text-amber-600 dark:text-amber-400",
 				bgColor: "bg-amber-100 dark:bg-amber-900/30",
 				borderColor: "border-amber-500/50",
-				label: "Soon",
+				label: "Bientôt",
 			};
 		case "plenty":
 			return {
 				color: "text-green-600 dark:text-green-400",
 				bgColor: "bg-green-100 dark:bg-green-900/30",
 				borderColor: "border-green-500/50",
-				label: "On Track",
+				label: "Dans les temps",
 			};
 	}
 }

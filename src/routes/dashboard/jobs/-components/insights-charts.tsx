@@ -34,10 +34,10 @@ export function MarketTrendsChart({
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<ChartLineUpIcon className="size-5" />
-					<Trans>Market Trends</Trans>
+					<Trans>Tendances du marché</Trans>
 				</CardTitle>
 				<CardDescription>
-					<Trans>Job market evolution over time</Trans>
+					<Trans>Évolution des opportunités et des salaires dans le temps</Trans>
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -69,7 +69,7 @@ export function MarketTrendsChart({
 									yAxisId="left"
 									type="monotone"
 									dataKey="jobs"
-									name={t`Job Openings`}
+									name={t`Postes ouverts`}
 									stroke="#6366f1"
 									strokeWidth={2}
 									dot={false}
@@ -78,7 +78,7 @@ export function MarketTrendsChart({
 									yAxisId="right"
 									type="monotone"
 									dataKey="salaries"
-									name={t`Avg Salary (MAD)`}
+									name={t`Salaire moyen (DH)`}
 									stroke="#10b981"
 									strokeWidth={2}
 									dot={false}
@@ -106,11 +106,11 @@ export function SalaryRangesChart({
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<CurrencyCircleDollarIcon className="size-5" />
-					<Trans>Salary Ranges by Role</Trans>
+					<Trans>Fourchettes de salaire par métier</Trans>
 				</CardTitle>
 				<CardDescription>
 					<Trans>
-						Median annual salaries in MAD
+						Salaires annuels médians en dirhams
 						{selectedSector !== "all" && ` - ${SECTORS.find((s) => s.id === selectedSector)?.name}`}
 					</Trans>
 				</CardDescription>
@@ -146,7 +146,7 @@ export function SalaryRangesChart({
 								/>
 								<Legend />
 								<Bar dataKey="min" name={t`Min`} fill="#94a3b8" radius={[0, 0, 0, 0]} />
-								<Bar dataKey="median" name={t`Median`} fill="#6366f1" radius={[0, 0, 0, 0]} />
+								<Bar dataKey="median" name={t`Médiane`} fill="#6366f1" radius={[0, 0, 0, 0]} />
 								<Bar dataKey="max" name={t`Max`} fill="#10b981" radius={[0, 4, 4, 0]} />
 							</BarChart>
 						</ResponsiveContainer>
@@ -155,7 +155,7 @@ export function SalaryRangesChart({
 					<div className="flex h-80 flex-col items-center justify-center gap-4">
 						<CurrencyCircleDollarIcon className="size-12 text-muted-foreground" />
 						<p className="text-muted-foreground">
-							<Trans>No salary data available for this sector</Trans>
+							<Trans>Aucune donnée salariale disponible pour ce secteur.</Trans>
 						</p>
 					</div>
 				)}
@@ -176,10 +176,10 @@ export function SkillsDemandChart({
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<SparkleIcon className="size-5" />
-					<Trans>In-Demand Skills</Trans>
+					<Trans>Compétences recherchées</Trans>
 				</CardTitle>
 				<CardDescription>
-					<Trans>Skills ranked by market demand score</Trans>
+					<Trans>Compétences classées selon la demande du marché</Trans>
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -205,7 +205,7 @@ export function SkillsDemandChart({
 										borderRadius: "8px",
 									}}
 								/>
-								<Bar dataKey="demandScore" name={t`Demand Score`} radius={[0, 4, 4, 0]}>
+								<Bar dataKey="demandScore" name={t`Score de demande`} radius={[0, 4, 4, 0]}>
 									{skillsDemandData.map((_, index) => (
 										<Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
 									))}
@@ -217,7 +217,7 @@ export function SkillsDemandChart({
 					<div className="flex h-72 flex-col items-center justify-center gap-4">
 						<SparkleIcon className="size-12 text-muted-foreground" />
 						<p className="text-muted-foreground">
-							<Trans>No skills data available</Trans>
+							<Trans>Aucune donnée de compétences disponible.</Trans>
 						</p>
 					</div>
 				)}

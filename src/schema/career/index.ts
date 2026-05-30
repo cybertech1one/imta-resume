@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // Career field schema
-export const careerFieldSchema = z.enum(["healthcare", "industrial", "hse"]);
+export const careerFieldSchema = z.enum(["healthcare", "industrial", "hse", "technology", "management"]);
 export type CareerField = z.infer<typeof careerFieldSchema>;
 
 // Career experience level schema

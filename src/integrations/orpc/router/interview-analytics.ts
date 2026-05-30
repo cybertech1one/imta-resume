@@ -17,7 +17,7 @@ const weaknessTypeSchema = z.enum([
 
 const weaknessSeveritySchema = z.enum(["critical", "major", "minor"]);
 
-const interviewFieldSchema = z.enum(["healthcare", "industrial", "hse", "general"]);
+const interviewFieldSchema = z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]);
 
 const templateIndustrySchema = z.enum([
 	"healthcare",

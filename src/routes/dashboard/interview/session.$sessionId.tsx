@@ -61,7 +61,7 @@ type InterviewQuestion = {
 	question: string;
 	questionFr?: string;
 	type: "behavioral" | "technical" | "situational" | "motivational" | "general";
-	field: "healthcare" | "industrial" | "hse" | "general";
+	field: "healthcare" | "industrial" | "hse" | "technology" | "management" | "general";
 	difficulty: "beginner" | "intermediate" | "advanced";
 	expectedPoints?: string[];
 	tips?: string;

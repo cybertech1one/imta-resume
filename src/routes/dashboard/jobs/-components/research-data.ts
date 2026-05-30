@@ -17,27 +17,27 @@ import { generateId } from "@/utils/string";
 // Industry config
 export const industryConfig: Record<CompanyIndustry, { label: string; icon: Icon; color: string }> = {
 	healthcare: {
-		label: "Healthcare",
+		label: "Santé",
 		icon: FirstAidKitIcon,
 		color: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
 	},
 	industrial: {
-		label: "Industrial",
+		label: "Industrie",
 		icon: GearIcon,
 		color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
 	},
 	manufacturing: {
-		label: "Manufacturing",
+		label: "Fabrication",
 		icon: GearIcon,
 		color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400",
 	},
 	mining: {
-		label: "Mining & Chemistry",
+		label: "Mines et chimie",
 		icon: HardHatIcon,
 		color: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 	},
 	automotive: {
-		label: "Automotive",
+		label: "Automobile",
 		icon: GearIcon,
 		color: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
 	},
@@ -47,12 +47,12 @@ export const industryConfig: Record<CompanyIndustry, { label: string; icon: Icon
 		color: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
 	},
 	energy: {
-		label: "Energy",
+		label: "Énergie",
 		icon: SparkleIcon,
 		color: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
 	},
 	tech: {
-		label: "Technology",
+		label: "Technologie",
 		icon: GlobeIcon,
 		color: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400",
 	},

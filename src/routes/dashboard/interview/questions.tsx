@@ -44,7 +44,10 @@ import { DashboardHeader } from "../-components/header";
 import { polishFrenchText } from "./-components/french-text";
 
 const searchSchema = z.object({
-	field: z.enum(["healthcare", "industrial", "hse", "general"]).optional().default("general"),
+	field: z
+		.enum(["healthcare", "industrial", "hse", "technology", "management", "general"])
+		.optional()
+		.default("general"),
 	type: z.enum(["behavioral", "technical", "situational", "motivational", "general"]).optional(),
 	difficulty: z.enum(["beginner", "intermediate", "advanced"]).optional(),
 });
@@ -217,7 +220,7 @@ type CommonQuestion = {
 	id: string;
 	question: string;
 	type: "behavioral" | "technical" | "situational" | "motivational" | "general";
-	field: "healthcare" | "industrial" | "hse" | "general";
+	field: "healthcare" | "industrial" | "hse" | "technology" | "management" | "general";
 	sampleAnswer: string;
 	tips: string[];
 };
@@ -421,7 +424,7 @@ const fallbackCommonQuestions: CommonQuestion[] = [
 ];
 
 function getFallbackQuestions(
-	field: "healthcare" | "industrial" | "hse" | "general",
+	field: "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 	type?: "behavioral" | "technical" | "situational" | "motivational" | "general",
 ) {
 	let filtered = fallbackCommonQuestions.filter((question) =>
@@ -468,7 +471,7 @@ function CommonQuestionsPage() {
 	const { data: questions = [], isLoading } = useQuery({
 		...orpc.interview.getCommonQuestions.queryOptions({
 			input: {
-				field: selectedField as "healthcare" | "industrial" | "hse" | "general",
+				field: selectedField as "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 				type: selectedType as "behavioral" | "technical" | "situational" | "motivational" | "general" | undefined,
 				language: "fr",
 			},
@@ -481,7 +484,7 @@ function CommonQuestionsPage() {
 		...orpc.interview.getQuestionsByProgram.queryOptions({
 			input: {
 				program: userProgram ?? undefined,
-				field: selectedField as "healthcare" | "industrial" | "hse" | "general",
+				field: selectedField as "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 			},
 		}),
 		enabled: !!session?.user && !!userProgram,
@@ -514,7 +517,7 @@ function CommonQuestionsPage() {
 	const fallbackQuestions = useMemo(
 		() =>
 			getFallbackQuestions(
-				selectedField as "healthcare" | "industrial" | "hse" | "general",
+				selectedField as "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 				selectedType as "behavioral" | "technical" | "situational" | "motivational" | "general" | undefined,
 			),
 		[selectedField, selectedType],
@@ -628,7 +631,7 @@ function CommonQuestionsPage() {
 			to: "/dashboard/interview/chatbot",
 			search: {
 				mode: "quick_practice",
-				field: selectedField as "healthcare" | "industrial" | "hse" | "general",
+				field: selectedField as "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 			},
 		});
 	};
@@ -639,7 +642,7 @@ function CommonQuestionsPage() {
 			to: "/dashboard/interview/chatbot",
 			search: {
 				mode: "topic_focus",
-				field: selectedField as "healthcare" | "industrial" | "hse" | "general",
+				field: selectedField as "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 			},
 		});
 	};
@@ -1100,7 +1103,7 @@ function CommonQuestionsPage() {
 							to="/dashboard/interview/chatbot"
 							search={{
 								mode: "quick_practice",
-								field: selectedField as "healthcare" | "industrial" | "hse" | "general",
+								field: selectedField as "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 							}}
 						>
 							<Button

@@ -29,7 +29,7 @@ export const Route = createFileRoute("/dashboard/tools/job-match" as any)({
 		<Suspense
 			fallback={
 				<div className="flex items-center justify-center p-8">
-					<Trans>Loading job match calculator...</Trans>
+					<Trans>Chargement du calculateur de compatibilité...</Trans>
 				</div>
 			}
 		>
@@ -76,10 +76,10 @@ function JobMatchCalculator() {
 			setMatchResult(data.result);
 			queryClient.invalidateQueries({ queryKey: orpc.jobMatch.listAnalysisHistory.key() });
 			queryClient.invalidateQueries({ queryKey: orpc.jobMatch.listSavedJobs.key() });
-			toast.success(t`Analysis completed successfully`);
+			toast.success(t`Analyse terminée`);
 		},
 		onError: () => {
-			toast.error(t`Error during analysis`);
+			toast.error(t`Erreur pendant l'analyse`);
 		},
 	});
 
@@ -87,10 +87,10 @@ function JobMatchCalculator() {
 		...orpc.jobMatch.createSavedJob.mutationOptions(),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: orpc.jobMatch.listSavedJobs.key() });
-			toast.success(t`Job description saved`);
+			toast.success(t`Offre enregistrée`);
 		},
 		onError: () => {
-			toast.error(t`Error during save`);
+			toast.error(t`Erreur pendant l'enregistrement`);
 		},
 	});
 
@@ -98,10 +98,10 @@ function JobMatchCalculator() {
 		...orpc.jobMatch.deleteSavedJob.mutationOptions(),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: orpc.jobMatch.listSavedJobs.key() });
-			toast.success(t`Description deleted`);
+			toast.success(t`Description supprimée`);
 		},
 		onError: () => {
-			toast.error(t`Error during deletion`);
+			toast.error(t`Erreur pendant la suppression`);
 		},
 	});
 
@@ -109,36 +109,36 @@ function JobMatchCalculator() {
 		...orpc.jobMatch.clearAnalysisHistory.mutationOptions(),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: orpc.jobMatch.listAnalysisHistory.key() });
-			toast.success(t`History cleared`);
+			toast.success(t`Historique effacé`);
 		},
 		onError: () => {
-			toast.error(t`Error clearing history`);
+			toast.error(t`Erreur pendant l'effacement de l'historique`);
 		},
 	});
 
 	const handleAnalyze = useCallback(async () => {
 		if (!jobDescription.trim() || !selectedResumeId || !fullResumeData) {
-			toast.error(t`Please fill in the job description and select a resume`);
+			toast.error(t`Ajoute la description du poste et sélectionne un CV`);
 			return;
 		}
 
 		analyzeMutation.mutate({
 			resumeId: selectedResumeId,
-			jobTitle: jobTitle || "Unspecified position",
-			company: company || "Unspecified company",
+			jobTitle: jobTitle || "Poste non précisé",
+			company: company || "Entreprise non précisée",
 			jobDescription,
 		});
 	}, [jobDescription, selectedResumeId, fullResumeData, jobTitle, company, analyzeMutation]);
 
 	const handleSaveJob = useCallback(() => {
 		if (!jobDescription.trim()) {
-			toast.error(t`Please enter a job description`);
+			toast.error(t`Ajoute une description de poste`);
 			return;
 		}
 
 		saveJobMutation.mutate({
-			title: jobTitle || "Untitled position",
-			company: company || "Unspecified company",
+			title: jobTitle || "Poste sans titre",
+			company: company || "Entreprise non précisée",
 			description: jobDescription,
 		});
 	}, [jobDescription, jobTitle, company, saveJobMutation]);
@@ -149,7 +149,7 @@ function JobMatchCalculator() {
 		setJobDescription(job.description);
 		setMatchResult(null);
 		setActiveTab("calculator");
-		toast.success(t`Job description loaded`);
+		toast.success(t`Description chargée`);
 	}, []);
 
 	const handleDeleteJob = useCallback(
@@ -187,23 +187,23 @@ function JobMatchCalculator() {
 
 	return (
 		<>
-			<DashboardHeader icon={TargetIcon} title={t`Compatibility Calculator`} />
+			<DashboardHeader icon={TargetIcon} title={t`Compatibilité offre-CV`} />
 
 			<JobMatchHeroSection />
 
 			<Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
 				<TabsList className="flex h-auto flex-wrap gap-2 bg-transparent p-0">
 					{[
-						{ value: "calculator", icon: TargetIcon, label: "Calculator" },
+						{ value: "calculator", icon: TargetIcon, label: t`Calculateur` },
 						{
 							value: "saved",
 							icon: BookmarkSimpleIcon,
-							label: `Saved (${isLoadingSavedJobs ? "..." : (savedJobs?.length ?? 0)})`,
+							label: t`Enregistrées (${isLoadingSavedJobs ? "..." : (savedJobs?.length ?? 0)})`,
 						},
 						{
 							value: "history",
 							icon: ClockIcon,
-							label: `History (${isLoadingHistory ? "..." : (analysisHistory?.length ?? 0)})`,
+							label: t`Historique (${isLoadingHistory ? "..." : (analysisHistory?.length ?? 0)})`,
 						},
 					].map((tab) => (
 						<TabsTrigger

@@ -7,7 +7,7 @@ export interface Job {
 	companyLogo?: string;
 	location: string;
 	region: string;
-	field: "healthcare" | "industrial" | "hse" | "general";
+	field: "healthcare" | "industrial" | "hse" | "technology" | "management" | "general";
 	experienceLevel: "entry" | "junior" | "mid" | "senior";
 	salaryMin?: number;
 	salaryMax?: number;

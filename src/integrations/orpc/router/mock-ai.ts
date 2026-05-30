@@ -3,7 +3,7 @@ import type { MockAiMessage } from "@/integrations/drizzle/schema";
 import { protectedProcedure } from "../context";
 import { mockAiService } from "../services/mock-ai";
 
-const fieldSchema = z.enum(["healthcare", "industrial", "hse"]);
+const fieldSchema = z.enum(["healthcare", "industrial", "hse", "technology", "management"]);
 const difficultySchema = z.enum(["debutant", "intermediaire", "avance"]);
 
 const messageFeedbackSchema = z.object({

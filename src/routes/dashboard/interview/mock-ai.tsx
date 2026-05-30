@@ -37,7 +37,7 @@ import type {
 
 // Search params schema
 const searchSchema = z.object({
-	field: z.enum(["healthcare", "industrial", "hse"]).optional(),
+	field: z.enum(["healthcare", "industrial", "hse", "technology", "management"]).optional(),
 	difficulty: z.enum(["debutant", "intermediaire", "avance"]).optional(),
 	program: z.string().optional(),
 });
@@ -206,6 +206,18 @@ function MockAIInterview() {
 				icon: HardHatIcon,
 				color: "text-amber-600",
 				bgColor: "bg-amber-100 dark:bg-amber-900/30",
+			},
+			management: {
+				label: t`Management / Gestion`,
+				icon: TargetIcon,
+				color: "text-violet-600",
+				bgColor: "bg-violet-100 dark:bg-violet-900/30",
+			},
+			technology: {
+				label: t`Technology / IT`,
+				icon: GearIcon,
+				color: "text-cyan-600",
+				bgColor: "bg-cyan-100 dark:bg-cyan-900/30",
 			},
 		};
 

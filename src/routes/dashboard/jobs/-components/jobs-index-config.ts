@@ -38,6 +38,18 @@ export const getFieldConfig = () => ({
 		color: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 		gradient: "from-amber-500/20 via-orange-500/10 to-transparent",
 	},
+	management: {
+		label: t`Management`,
+		icon: ChartLineUpIcon,
+		color: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400",
+		gradient: "from-violet-500/20 via-purple-500/10 to-transparent",
+	},
+	technology: {
+		label: t`Technologie`,
+		icon: SparkleIcon,
+		color: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400",
+		gradient: "from-cyan-500/20 via-sky-500/10 to-transparent",
+	},
 	general: {
 		label: t`Général`,
 		icon: BriefcaseIcon,

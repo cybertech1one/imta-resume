@@ -295,12 +295,12 @@ function FollowUpTrackerPage() {
 				await addActivityMutation.mutateAsync({
 					applicationId: appId,
 					activityType: "follow_up",
-					description: `Follow-up ${app.followUpCount + 1} sent`,
+					description: `Relance ${app.followUpCount + 1} envoyée`,
 				});
 
 				const newNotes = app.notes
-					? `${app.notes}\n\n[${new Date().toLocaleDateString(undefined)}] Follow-up ${app.followUpCount + 1} sent`
-					: `[${new Date().toLocaleDateString(undefined)}] Follow-up ${app.followUpCount + 1} sent`;
+					? `${app.notes}\n\n[${new Date().toLocaleDateString(undefined)}] Relance ${app.followUpCount + 1} envoyée`
+					: `[${new Date().toLocaleDateString(undefined)}] Relance ${app.followUpCount + 1} envoyée`;
 
 				await updateApplicationMutation.mutateAsync({
 					id: appId,
@@ -308,7 +308,7 @@ function FollowUpTrackerPage() {
 				});
 			}
 
-			toast.success(t`Status updated`);
+			toast.success(t`Statut mis à jour`);
 		},
 		[applications, addActivityMutation, updateApplicationMutation],
 	);
@@ -322,12 +322,12 @@ function FollowUpTrackerPage() {
 				await addActivityMutation.mutateAsync({
 					applicationId: appId,
 					activityType: "follow_up",
-					description: `Follow-up ${app.followUpCount + 1} sent`,
+					description: `Relance ${app.followUpCount + 1} envoyée`,
 				});
 
 				const newNotes = app.notes
-					? `${app.notes}\n\n[${new Date().toLocaleDateString(undefined)}] Follow-up ${app.followUpCount + 1} sent`
-					: `[${new Date().toLocaleDateString(undefined)}] Follow-up ${app.followUpCount + 1} sent`;
+					? `${app.notes}\n\n[${new Date().toLocaleDateString(undefined)}] Relance ${app.followUpCount + 1} envoyée`
+					: `[${new Date().toLocaleDateString(undefined)}] Relance ${app.followUpCount + 1} envoyée`;
 
 				await updateApplicationMutation.mutateAsync({
 					id: appId,
@@ -337,13 +337,13 @@ function FollowUpTrackerPage() {
 		}
 
 		setSelectedApplicationIds([]);
-		toast.success(t`${selectedApplicationIds.length} follow-ups marked as sent`);
+		toast.success(t`${selectedApplicationIds.length} relance(s) marquée(s) comme envoyée(s)`);
 	}, [selectedApplicationIds, applications, addActivityMutation, updateApplicationMutation]);
 
 	const handleCopyTemplate = useCallback((template: EmailTemplate) => {
 		const text = `Subject: ${template.subject}\n\n${template.body}`;
 		navigator.clipboard.writeText(text);
-		toast.success(t`Template copied to clipboard`);
+		toast.success(t`Modèle copié`);
 	}, []);
 
 	const toggleApplicationSelection = useCallback((appId: string) => {
@@ -363,7 +363,7 @@ function FollowUpTrackerPage() {
 
 	return (
 		<>
-			<DashboardHeader icon={EnvelopeIcon} title={t`Follow-up Tracking`} />
+			<DashboardHeader icon={EnvelopeIcon} title={t`Suivi des relances`} />
 
 			<HeroSection stats={stats} />
 
@@ -372,11 +372,11 @@ function FollowUpTrackerPage() {
 				<div className="flex flex-wrap items-center justify-between gap-4">
 					<TabsList className="flex h-auto flex-wrap gap-2 bg-transparent p-0">
 						{[
-							{ value: "timeline", icon: CalendarIcon, label: "Calendar" },
-							{ value: "applications", icon: ListChecksIcon, label: "Applications" },
-							{ value: "templates", icon: EnvelopeSimpleIcon, label: "Templates" },
-							{ value: "analytics", icon: ChartBarIcon, label: "Analytics" },
-							{ value: "tips", icon: LightbulbIcon, label: "Tips" },
+							{ value: "timeline", icon: CalendarIcon, label: "Calendrier" },
+							{ value: "applications", icon: ListChecksIcon, label: "Candidatures" },
+							{ value: "templates", icon: EnvelopeSimpleIcon, label: "Modèles" },
+							{ value: "analytics", icon: ChartBarIcon, label: "Analyse" },
+							{ value: "tips", icon: LightbulbIcon, label: "Conseils" },
 						].map((tab) => (
 							<TabsTrigger
 								key={tab.value}
@@ -391,7 +391,7 @@ function FollowUpTrackerPage() {
 
 					<Button variant="outline" className="gap-2" onClick={() => setIsSettingsDialogOpen(true)}>
 						<BellIcon className="size-4" />
-						<Trans>Reminders</Trans>
+						<Trans>Rappels</Trans>
 					</Button>
 				</div>
 

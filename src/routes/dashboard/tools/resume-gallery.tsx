@@ -34,11 +34,11 @@ export const Route = createFileRoute("/dashboard/tools/resume-gallery" as any)({
 // ---- Helpers ----
 
 function getExperienceLabel(years: number): string {
-	if (years === 0) return t`Entry Level`;
-	if (years <= 2) return t`Junior (1-2 years)`;
-	if (years <= 5) return t`Mid-Level (3-5 years)`;
-	if (years <= 10) return t`Senior (6-10 years)`;
-	return t`Expert (10+ years)`;
+	if (years === 0) return t`Débutant`;
+	if (years <= 2) return t`Junior (1-2 ans)`;
+	if (years <= 5) return t`Intermédiaire (3-5 ans)`;
+	if (years <= 10) return t`Senior (6-10 ans)`;
+	return t`Expert (10+ ans)`;
 }
 
 function getScoreColor(score: number | null): string {
@@ -57,9 +57,9 @@ function getScoreBadgeVariant(score: number | null): "default" | "secondary" | "
 
 const LANGUAGE_LABELS: Record<string, string> = {
 	fr: "Français",
-	en: "English",
+	en: "Anglais",
 	ar: "العربية",
-	es: "Español",
+	es: "Espagnol",
 	de: "Deutsch",
 };
 
@@ -72,7 +72,7 @@ const PROGRAM_LABELS: Record<string, string> = {
 	soudure: "Soudure",
 	cariste: "Cariste",
 	conducteur_engins: "Conducteur d'Engins",
-	mecanique_engins: "Mécanique d'Engins",
+	mecanique_engins: "Mécanique d'engins",
 	tourneur_industriel: "Tourneur Industriel",
 	electromecanique: "Électromécanique",
 	hse_specialist: "Technicien HSE",
@@ -80,6 +80,117 @@ const PROGRAM_LABELS: Record<string, string> = {
 
 function formatProgram(subField: string): string {
 	return PROGRAM_LABELS[subField] || formatFieldName(subField);
+}
+
+function getRecord(value: unknown): Record<string, unknown> {
+	return value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
+}
+
+function getString(value: unknown): string {
+	return typeof value === "string" ? value : "";
+}
+
+function getArray(value: unknown): Record<string, unknown>[] {
+	return Array.isArray(value) ? value.map(getRecord).filter((item) => Object.keys(item).length > 0) : [];
+}
+
+function getSectionItems(data: Record<string, unknown>, section: string): Record<string, unknown>[] {
+	const sections = getRecord(data.sections);
+	return getArray(getRecord(sections[section]).items);
+}
+
+function getPeriod(item: Record<string, unknown>): string {
+	const start = getString(item.startDate || item.start);
+	const end = getString(item.endDate || item.end);
+	if (start && end) return `${start} - ${end}`;
+	return start || end;
+}
+
+function ResumePreview({ data }: { data: Record<string, unknown> }) {
+	const basics = getRecord(data.basics);
+	const summary = getRecord(data.summary);
+	const experience = getSectionItems(data, "experience").slice(0, 3);
+	const education = getSectionItems(data, "education").slice(0, 2);
+	const skills = getSectionItems(data, "skills").slice(0, 8);
+
+	return (
+		<div className="mx-auto max-w-3xl rounded-lg border bg-white p-8 text-zinc-950 shadow-sm dark:bg-zinc-950 dark:text-zinc-50">
+			<header className="border-primary border-b-2 pb-4">
+				<h2 className="font-bold text-3xl tracking-tight">{getString(basics.name) || t`Nom du candidat`}</h2>
+				<p className="mt-1 text-primary text-sm">{getString(basics.headline) || t`Titre professionnel`}</p>
+				<div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-muted-foreground text-xs">
+					{[basics.location, basics.email, basics.phone].map((item) => {
+						const value = getString(item);
+						return value ? <span key={value}>{value}</span> : null;
+					})}
+				</div>
+			</header>
+
+			{getString(summary.content) && (
+				<section className="mt-5">
+					<h3 className="mb-2 font-semibold text-primary text-sm uppercase tracking-wide">
+						<Trans>Profil</Trans>
+					</h3>
+					<p className="text-sm leading-relaxed">{getString(summary.content)}</p>
+				</section>
+			)}
+
+			{experience.length > 0 && (
+				<section className="mt-5">
+					<h3 className="mb-3 font-semibold text-primary text-sm uppercase tracking-wide">
+						<Trans>Expérience</Trans>
+					</h3>
+					<div className="space-y-4">
+						{experience.map((item, index) => (
+							<div key={`${getString(item.company)}-${index}`}>
+								<div className="flex flex-wrap justify-between gap-2">
+									<p className="font-semibold text-sm">{getString(item.position) || getString(item.title)}</p>
+									<p className="text-muted-foreground text-xs">{getPeriod(item)}</p>
+								</div>
+								<p className="text-muted-foreground text-sm">{getString(item.company)}</p>
+								{getString(item.summary || item.description) && (
+									<p className="mt-1 line-clamp-3 text-sm">{getString(item.summary || item.description)}</p>
+								)}
+							</div>
+						))}
+					</div>
+				</section>
+			)}
+
+			<div className="mt-5 grid gap-5 md:grid-cols-2">
+				{education.length > 0 && (
+					<section>
+						<h3 className="mb-3 font-semibold text-primary text-sm uppercase tracking-wide">
+							<Trans>Formation</Trans>
+						</h3>
+						<div className="space-y-3">
+							{education.map((item, index) => (
+								<div key={`${getString(item.institution)}-${index}`}>
+									<p className="font-semibold text-sm">{getString(item.area || item.studyType)}</p>
+									<p className="text-muted-foreground text-xs">{getString(item.institution)}</p>
+								</div>
+							))}
+						</div>
+					</section>
+				)}
+
+				{skills.length > 0 && (
+					<section>
+						<h3 className="mb-3 font-semibold text-primary text-sm uppercase tracking-wide">
+							<Trans>Compétences</Trans>
+						</h3>
+						<div className="flex flex-wrap gap-2">
+							{skills.map((item, index) => (
+								<span key={`${getString(item.name)}-${index}`} className="rounded border px-2 py-1 text-xs">
+									{getString(item.name)}
+								</span>
+							))}
+						</div>
+					</section>
+				)}
+			</div>
+		</div>
+	);
 }
 
 // ---- Detail View ----
@@ -107,7 +218,8 @@ function GalleryDetailView({ itemId, onBack }: DetailViewProps) {
 	const handleUseAsTemplate = useCallback(() => {
 		if (!item) return;
 		useMutation_.mutate({ id: itemId });
-		toast.success(t`Resume template copied! Creating new resume...`);
+		toast.success(t`Modèle de CV copié. Création du nouveau CV...`);
+		// biome-ignore lint/suspicious/noExplicitAny: Route path not in generated route tree
 		navigate({ to: "/dashboard/resumes" as any });
 	}, [item, itemId, useMutation_, navigate]);
 
@@ -123,7 +235,7 @@ function GalleryDetailView({ itemId, onBack }: DetailViewProps) {
 	if (!item) {
 		return (
 			<div className="py-12 text-center text-muted-foreground">
-				<Trans>Resume not found</Trans>
+				<Trans>CV introuvable</Trans>
 			</div>
 		);
 	}
@@ -133,7 +245,7 @@ function GalleryDetailView({ itemId, onBack }: DetailViewProps) {
 			<div className="flex items-center gap-3">
 				<Button variant="ghost" size="sm" onClick={onBack}>
 					<ArrowLeftIcon className="mr-2 size-4" />
-					<Trans>Back to Gallery</Trans>
+					<Trans>Retour à la galerie</Trans>
 				</Button>
 			</div>
 
@@ -155,36 +267,36 @@ function GalleryDetailView({ itemId, onBack }: DetailViewProps) {
 							<div className="space-y-2 text-sm">
 								<div className="flex items-center justify-between">
 									<span className="text-muted-foreground">
-										<Trans>Experience</Trans>
+										<Trans>Expérience</Trans>
 									</span>
 									<span className="font-medium">{getExperienceLabel(item.experienceYears)}</span>
 								</div>
 								<div className="flex items-center justify-between">
 									<span className="text-muted-foreground">
-										<Trans>Template</Trans>
+										<Trans>Modèle</Trans>
 									</span>
 									<span className="font-medium">{item.templateName}</span>
 								</div>
 								{item.atsScore != null && (
 									<div className="flex items-center justify-between">
 										<span className="text-muted-foreground">
-											<Trans>ATS Score</Trans>
+											<Trans>Score ATS</Trans>
 										</span>
 										<span className={`font-bold ${getScoreColor(item.atsScore)}`}>{item.atsScore}/100</span>
 									</div>
 								)}
 								<div className="flex items-center justify-between">
 									<span className="text-muted-foreground">
-										<Trans>Views</Trans>
+										<Trans>Vues</Trans>
 									</span>
 									<span>{item.viewCount}</span>
 								</div>
 								<div className="flex items-center justify-between">
 									<span className="text-muted-foreground">
-										<Trans>Used</Trans>
+										<Trans>Utilisé</Trans>
 									</span>
 									<span>
-										{item.useCount} <Trans>times</Trans>
+										{item.useCount} <Trans>fois</Trans>
 									</span>
 								</div>
 							</div>
@@ -201,7 +313,7 @@ function GalleryDetailView({ itemId, onBack }: DetailViewProps) {
 
 							<Button className="w-full" onClick={handleUseAsTemplate}>
 								<CopyIcon className="mr-2 size-4" />
-								<Trans>Use as Template</Trans>
+								<Trans>Utiliser ce modèle</Trans>
 							</Button>
 						</CardContent>
 					</Card>
@@ -212,20 +324,16 @@ function GalleryDetailView({ itemId, onBack }: DetailViewProps) {
 					<Card>
 						<CardHeader>
 							<CardTitle>
-								<Trans>Resume Preview</Trans>
+								<Trans>Aperçu du CV</Trans>
 							</CardTitle>
 						</CardHeader>
 						<CardContent>
 							{item.resumeData ? (
-								<div className="rounded-lg border bg-white p-6 dark:bg-zinc-900">
-									<pre className="max-h-[600px] overflow-auto whitespace-pre-wrap text-xs">
-										{JSON.stringify(item.resumeData, null, 2)}
-									</pre>
-								</div>
+								<ResumePreview data={item.resumeData} />
 							) : (
 								<div className="flex h-64 items-center justify-center rounded-lg border bg-muted/50">
 									<p className="text-muted-foreground">
-										<Trans>No preview available</Trans>
+										<Trans>Aucun aperçu disponible</Trans>
 									</p>
 								</div>
 							)}
@@ -326,12 +434,12 @@ function ResumeGalleryPage() {
 
 	return (
 		<div className="min-h-full p-4 md:p-6">
-			<DashboardHeader title={t`Resume Gallery`} icon={BookOpenIcon} />
+			<DashboardHeader title={t`Galerie de modèles CV`} icon={BookOpenIcon} />
 
 			<p className="mb-6 text-muted-foreground">
 				<Trans>
-					Browse professional resume examples from various fields and experience levels. Use them as templates for your
-					own resume.
+					Explore des modèles de CV professionnels adaptés aux filières IMTA, aux stages et aux premiers emplois. Ouvre
+					un modèle pour voir sa structure avant de l'utiliser.
 				</Trans>
 			</p>
 
@@ -343,7 +451,7 @@ function ResumeGalleryPage() {
 							<div className="relative">
 								<MagnifyingGlassIcon className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
 								<Input
-									placeholder={t`Search resumes...`}
+									placeholder={t`Rechercher un modèle...`}
 									value={search}
 									onChange={(e) => {
 										setSearch(e.target.value);
@@ -363,11 +471,11 @@ function ResumeGalleryPage() {
 							}}
 						>
 							<SelectTrigger className="w-full md:w-[160px]">
-								<SelectValue placeholder={t`All Fields`} />
+								<SelectValue placeholder={t`Tous les domaines`} />
 							</SelectTrigger>
 							<SelectContent>
 								<SelectItem value="all">
-									<Trans>All Fields</Trans>
+									<Trans>Tous les domaines</Trans>
 								</SelectItem>
 								{fields?.map((f) => (
 									<SelectItem key={f} value={f}>
@@ -385,11 +493,11 @@ function ResumeGalleryPage() {
 							}}
 						>
 							<SelectTrigger className="w-full md:w-[200px]">
-								<SelectValue placeholder={t`All Programs`} />
+								<SelectValue placeholder={t`Tous les programmes`} />
 							</SelectTrigger>
 							<SelectContent>
 								<SelectItem value="all">
-									<Trans>All Programs</Trans>
+									<Trans>Tous les programmes</Trans>
 								</SelectItem>
 								{subFields?.map((sf) => (
 									<SelectItem key={sf} value={sf}>
@@ -407,26 +515,26 @@ function ResumeGalleryPage() {
 							}}
 						>
 							<SelectTrigger className="w-full md:w-[180px]">
-								<SelectValue placeholder={t`All Levels`} />
+								<SelectValue placeholder={t`Tous les niveaux`} />
 							</SelectTrigger>
 							<SelectContent>
 								<SelectItem value="all">
-									<Trans>All Levels</Trans>
+									<Trans>Tous les niveaux</Trans>
 								</SelectItem>
 								<SelectItem value="entry">
-									<Trans>Entry Level</Trans>
+									<Trans>Débutant</Trans>
 								</SelectItem>
 								<SelectItem value="junior">
-									<Trans>Junior (1-2 years)</Trans>
+									<Trans>Junior (1-2 ans)</Trans>
 								</SelectItem>
 								<SelectItem value="mid">
-									<Trans>Mid-Level (3-5 years)</Trans>
+									<Trans>Intermédiaire (3-5 ans)</Trans>
 								</SelectItem>
 								<SelectItem value="senior">
-									<Trans>Senior (6-10 years)</Trans>
+									<Trans>Senior (6-10 ans)</Trans>
 								</SelectItem>
 								<SelectItem value="expert">
-									<Trans>Expert (10+ years)</Trans>
+									<Trans>Expert (10+ ans)</Trans>
 								</SelectItem>
 							</SelectContent>
 						</Select>
@@ -439,11 +547,11 @@ function ResumeGalleryPage() {
 							}}
 						>
 							<SelectTrigger className="w-full md:w-[160px]">
-								<SelectValue placeholder={t`All Languages`} />
+								<SelectValue placeholder={t`Toutes les langues`} />
 							</SelectTrigger>
 							<SelectContent>
 								<SelectItem value="all">
-									<Trans>All Languages</Trans>
+									<Trans>Toutes les langues</Trans>
 								</SelectItem>
 								{languages?.map((lang) => (
 									<SelectItem key={lang} value={lang}>
@@ -461,11 +569,11 @@ function ResumeGalleryPage() {
 							}}
 						>
 							<SelectTrigger className="w-full md:w-[160px]">
-								<SelectValue placeholder={t`All Templates`} />
+								<SelectValue placeholder={t`Tous les modèles`} />
 							</SelectTrigger>
 							<SelectContent>
 								<SelectItem value="all">
-									<Trans>All Templates</Trans>
+									<Trans>Tous les modèles</Trans>
 								</SelectItem>
 								{templates?.map((tmpl) => (
 									<SelectItem key={tmpl} value={tmpl}>
@@ -478,7 +586,7 @@ function ResumeGalleryPage() {
 						{hasFilters && (
 							<Button variant="ghost" size="sm" onClick={clearFilters}>
 								<XIcon className="mr-1 size-4" />
-								<Trans>Clear</Trans>
+								<Trans>Effacer</Trans>
 							</Button>
 						)}
 					</div>
@@ -490,7 +598,7 @@ function ResumeGalleryPage() {
 				<div className="mb-8">
 					<h2 className="mb-4 flex items-center gap-2 font-semibold text-lg">
 						<StarIcon className="size-5 text-amber-500" weight="fill" />
-						<Trans>Featured Resumes</Trans>
+						<Trans>Modèles recommandés</Trans>
 					</h2>
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 						{featured.slice(0, 4).map((item) => (
@@ -521,7 +629,7 @@ function ResumeGalleryPage() {
 				<>
 					<div className="mb-4 flex items-center justify-between">
 						<p className="text-muted-foreground text-sm">
-							{data.pagination.total} <Trans>resumes found</Trans>
+							{data.pagination.total} <Trans>modèle(s) trouvé(s)</Trans>
 						</p>
 					</div>
 
@@ -535,7 +643,7 @@ function ResumeGalleryPage() {
 					{data.pagination.totalPages > 1 && (
 						<div className="mt-6 flex items-center justify-center gap-2">
 							<Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>
-								<Trans>Previous</Trans>
+								<Trans>Précédent</Trans>
 							</Button>
 							<span className="text-muted-foreground text-sm">
 								{page} / {data.pagination.totalPages}
@@ -546,7 +654,7 @@ function ResumeGalleryPage() {
 								disabled={page >= data.pagination.totalPages}
 								onClick={() => setPage((p) => p + 1)}
 							>
-								<Trans>Next</Trans>
+								<Trans>Suivant</Trans>
 							</Button>
 						</div>
 					)}
@@ -555,14 +663,14 @@ function ResumeGalleryPage() {
 				<div className="py-16 text-center">
 					<BookOpenIcon className="mx-auto mb-4 size-12 text-muted-foreground/50" />
 					<h3 className="mb-2 font-medium text-lg">
-						<Trans>No resumes found</Trans>
+						<Trans>Aucun modèle trouvé</Trans>
 					</h3>
 					<p className="text-muted-foreground">
-						<Trans>Try adjusting your filters or search term</Trans>
+						<Trans>Modifie tes filtres ou ton terme de recherche</Trans>
 					</p>
 					{hasFilters && (
 						<Button variant="outline" className="mt-4" onClick={clearFilters}>
-							<Trans>Clear all filters</Trans>
+							<Trans>Effacer tous les filtres</Trans>
 						</Button>
 					)}
 				</div>
@@ -596,51 +704,50 @@ interface GalleryCardProps {
 
 function GalleryCard({ item, onClick }: GalleryCardProps) {
 	return (
-		<Card
-			className="cursor-pointer transition-all hover:shadow-md hover:ring-1 hover:ring-primary/20"
-			onClick={onClick}
-		>
-			<CardContent className="space-y-3 pt-6">
-				<div className="flex items-start justify-between">
-					<h3 className="line-clamp-1 font-semibold text-sm">{item.nameFr || item.name}</h3>
-					{item.isFeatured && <StarIcon className="size-4 shrink-0 text-amber-500" weight="fill" />}
-				</div>
+		<Card className="transition-shadow hover:shadow-md">
+			<button type="button" className="block w-full text-left" onClick={onClick}>
+				<CardContent className="space-y-3 pt-6">
+					<div className="flex items-start justify-between">
+						<h3 className="line-clamp-1 font-semibold text-sm">{item.nameFr || item.name}</h3>
+						{item.isFeatured && <StarIcon className="size-4 shrink-0 text-amber-500" weight="fill" />}
+					</div>
 
-				<p className="line-clamp-2 text-muted-foreground text-xs">
-					{item.descriptionFr || item.description || item.field}
-				</p>
+					<p className="line-clamp-2 text-muted-foreground text-xs">
+						{item.descriptionFr || item.description || item.field}
+					</p>
 
-				<div className="flex flex-wrap gap-1.5">
-					<Badge variant="secondary" className="text-xs">
-						{formatFieldName(item.field)}
-					</Badge>
-					<Badge variant="outline" className="text-xs">
-						<GlobeIcon className="mr-1 size-3" />
-						{LANGUAGE_LABELS[item.language] || item.language}
-					</Badge>
-				</div>
-
-				<div className="flex items-center justify-between text-muted-foreground text-xs">
-					<span>{getExperienceLabel(item.experienceYears)}</span>
-					{item.atsScore != null && (
-						<Badge variant={getScoreBadgeVariant(item.atsScore)} className="text-xs">
-							ATS {item.atsScore}%
+					<div className="flex flex-wrap gap-1.5">
+						<Badge variant="secondary" className="text-xs">
+							{formatFieldName(item.field)}
 						</Badge>
-					)}
-				</div>
+						<Badge variant="outline" className="text-xs">
+							<GlobeIcon className="mr-1 size-3" />
+							{LANGUAGE_LABELS[item.language] || item.language}
+						</Badge>
+					</div>
 
-				<div className="flex items-center justify-between border-t pt-2 text-muted-foreground text-xs">
-					<span className="flex items-center gap-1">
-						<EyeIcon className="size-3" />
-						{item.viewCount}
-					</span>
-					<span className="flex items-center gap-1">
-						<CopyIcon className="size-3" />
-						{item.useCount}
-					</span>
-					<span className="capitalize">{item.templateName}</span>
-				</div>
-			</CardContent>
+					<div className="flex items-center justify-between text-muted-foreground text-xs">
+						<span>{getExperienceLabel(item.experienceYears)}</span>
+						{item.atsScore != null && (
+							<Badge variant={getScoreBadgeVariant(item.atsScore)} className="text-xs">
+								ATS {item.atsScore}%
+							</Badge>
+						)}
+					</div>
+
+					<div className="flex items-center justify-between border-t pt-2 text-muted-foreground text-xs">
+						<span className="flex items-center gap-1">
+							<EyeIcon className="size-3" />
+							{item.viewCount}
+						</span>
+						<span className="flex items-center gap-1">
+							<CopyIcon className="size-3" />
+							{item.useCount}
+						</span>
+						<span className="capitalize">{item.templateName}</span>
+					</div>
+				</CardContent>
+			</button>
 		</Card>
 	);
 }

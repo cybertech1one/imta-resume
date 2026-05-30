@@ -21,6 +21,8 @@ export const domainLabels: Record<DomainCategory, string> = {
 	healthcare: "Healthcare",
 	industrial: "Industrial",
 	hse: "HSE",
+	management: "Management",
+	technology: "Technology",
 	general: "General",
 };
 
@@ -28,6 +30,8 @@ export const domainColors: Record<DomainCategory, string> = {
 	healthcare: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
 	industrial: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
 	hse: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+	management: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400",
+	technology: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400",
 	general: "bg-gray-100 text-gray-700 dark:bg-gray-800/30 dark:text-gray-400",
 };
 
@@ -35,6 +39,8 @@ export const domainIcons: Record<DomainCategory, Icon> = {
 	healthcare: FirstAidKitIcon,
 	industrial: GearIcon,
 	hse: HardHatIcon,
+	management: BriefcaseIcon,
+	technology: GearIcon,
 	general: BriefcaseIcon,
 };
 
@@ -42,6 +48,8 @@ export const domainGradients: Record<DomainCategory, string> = {
 	healthcare: "from-red-500/20 via-rose-500/10 to-transparent",
 	industrial: "from-blue-500/20 via-indigo-500/10 to-transparent",
 	hse: "from-amber-500/20 via-orange-500/10 to-transparent",
+	management: "from-violet-500/20 via-purple-500/10 to-transparent",
+	technology: "from-cyan-500/20 via-sky-500/10 to-transparent",
 	general: "from-gray-500/20 via-slate-500/10 to-transparent",
 };
 

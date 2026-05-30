@@ -18,7 +18,7 @@ export const interviewSessionEndpoints = {
 			z.object({
 				title: z.string(),
 				description: z.string().optional(),
-				field: z.enum(["healthcare", "industrial", "hse", "general"]),
+				field: z.enum(["healthcare", "industrial", "hse", "technology", "management", "general"]),
 				types: z.array(z.enum(["behavioral", "technical", "situational", "motivational", "general"])),
 				difficulty: z.enum(["beginner", "intermediate", "advanced"]),
 				language: z.enum(["fr", "en", "ar"]).default("fr"),

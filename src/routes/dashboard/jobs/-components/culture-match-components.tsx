@@ -70,7 +70,7 @@ import type { PersonalCultureProfile } from "./culture-match-types";
 export function CultureMatchLoading() {
 	return (
 		<div className="space-y-6">
-			<Skeleton className="h-64 w-full rounded-3xl" />
+			<Skeleton className="h-64 w-full rounded-2xl" />
 			<div className="flex gap-2">
 				{Array.from({ length: 8 }).map((_, i) => (
 					<Skeleton key={i} className="h-10 w-32 rounded-full" />
@@ -95,13 +95,13 @@ export function CultureMatchError({ onRetry }: ErrorStateProps) {
 			<CardContent className="flex flex-col items-center justify-center py-16">
 				<WarningCircleIcon className="mb-4 size-16 text-destructive" weight="duotone" />
 				<h3 className="mb-2 font-semibold text-lg">
-					<Trans>Loading error</Trans>
+					<Trans>Erreur de chargement</Trans>
 				</h3>
 				<p className="mb-6 text-center text-muted-foreground">
-					<Trans>Unable to load your evaluation. Please try again.</Trans>
+					<Trans>Impossible de charger ton évaluation. Réessaie.</Trans>
 				</p>
 				<Button onClick={onRetry}>
-					<Trans>Retry</Trans>
+					<Trans>Réessayer</Trans>
 				</Button>
 			</CardContent>
 		</Card>
@@ -119,34 +119,11 @@ interface HeroSectionProps {
 export function HeroSection({ overallProgress }: HeroSectionProps) {
 	return (
 		<motion.div
-			className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 p-8 md:p-12"
-			style={{
-				background:
-					"linear-gradient(135deg, oklch(0.65 0.18 330 / 0.15) 0%, oklch(0.6 0.2 280 / 0.1) 50%, oklch(0.7 0.15 200 / 0.08) 100%)",
-			}}
+			className="relative mb-8 overflow-hidden rounded-2xl border bg-card p-6 shadow-sm md:p-8"
 			initial={false}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.6, ease: "easeOut" }}
 		>
-			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-pink-500/20 to-rose-500/10 blur-3xl"
-					animate={{
-						scale: [1, 1.2, 1],
-						opacity: [0.5, 0.3, 0.5],
-					}}
-					transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute -bottom-32 -left-32 size-96 rounded-full bg-gradient-to-tr from-purple-500/15 to-indigo-500/10 blur-3xl"
-					animate={{
-						scale: [1.2, 1, 1.2],
-						opacity: [0.3, 0.5, 0.3],
-					}}
-					transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-				/>
-			</div>
-
 			<div className="relative z-10">
 				<motion.div
 					className="mb-3 flex items-center gap-2"
@@ -156,17 +133,17 @@ export function HeroSection({ overallProgress }: HeroSectionProps) {
 				>
 					<HeartIcon className="size-5 text-primary" weight="fill" />
 					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>Compatibilite Culturelle</Trans>
+						<Trans>Compatibilité culturelle</Trans>
 					</span>
 				</motion.div>
 
 				<motion.h2
-					className="mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text font-bold text-3xl text-transparent tracking-tight md:text-4xl lg:text-5xl"
+					className="mb-4 max-w-4xl font-bold text-3xl tracking-tight md:text-4xl"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.3 }}
 				>
-					<Trans>Find Your Ideal Company</Trans>
+					<Trans>Trouve l'entreprise qui te correspond</Trans>
 				</motion.h2>
 
 				<motion.p
@@ -176,8 +153,8 @@ export function HeroSection({ overallProgress }: HeroSectionProps) {
 					transition={{ delay: 0.4 }}
 				>
 					<Trans>
-						Discover company cultures that match your values and work style. Evaluate potential employers and prepare
-						relevant questions.
+						Compare tes valeurs, ton style de travail et les attentes des employeurs pour cibler les environnements où
+						tu peux vraiment réussir.
 					</Trans>
 				</motion.p>
 
@@ -206,7 +183,7 @@ export function HeroSection({ overallProgress }: HeroSectionProps) {
 						<div>
 							<p className="font-bold text-xl">{COMPANY_PROFILES.length}</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Companies</Trans>
+								<Trans>Entreprises</Trans>
 							</p>
 						</div>
 					</div>
@@ -217,7 +194,7 @@ export function HeroSection({ overallProgress }: HeroSectionProps) {
 						<div>
 							<p className="font-bold text-xl">{CULTURE_QUESTIONS.length}</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Questions a poser</Trans>
+								<Trans>Questions à poser</Trans>
 							</p>
 						</div>
 					</div>
@@ -232,14 +209,14 @@ export function HeroSection({ overallProgress }: HeroSectionProps) {
 // =============================================================================
 
 export const TAB_ITEMS = [
-	{ value: "work-style", icon: BriefcaseIcon, label: "Work Style" },
-	{ value: "values", icon: StarIcon, label: "Values" },
-	{ value: "companies", icon: BuildingsIcon, label: "Companies" },
-	{ value: "compatibility", icon: ChartBarIcon, label: "Compatibility" },
-	{ value: "red-flags", icon: WarningCircleIcon, label: "Red Flags" },
+	{ value: "work-style", icon: BriefcaseIcon, label: "Style de travail" },
+	{ value: "values", icon: StarIcon, label: "Valeurs" },
+	{ value: "companies", icon: BuildingsIcon, label: "Entreprises" },
+	{ value: "compatibility", icon: ChartBarIcon, label: "Compatibilité" },
+	{ value: "red-flags", icon: WarningCircleIcon, label: "Alertes" },
 	{ value: "questions", icon: ChatCircleIcon, label: "Questions" },
-	{ value: "compare", icon: ScalesIcon, label: "Compare" },
-	{ value: "profile", icon: UserCircleIcon, label: "My Profile" },
+	{ value: "compare", icon: ScalesIcon, label: "Comparer" },
+	{ value: "profile", icon: UserCircleIcon, label: "Mon profil" },
 ] as const;
 
 // =============================================================================
@@ -412,7 +389,7 @@ export function ValuesTab({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<StarIcon className="size-5 text-amber-500" weight="fill" />
-						<Trans>Values Alignment</Trans>
+						<Trans>Alignement des valeurs</Trans>
 					</CardTitle>
 					<CardDescription>
 						<Trans>Rate each statement from 1 (strongly disagree) to 5 (strongly agree)</Trans>
@@ -525,7 +502,7 @@ export function CompaniesTab() {
 
 							<div>
 								<p className="mb-2 font-medium text-muted-foreground text-xs">
-									<Trans>Values</Trans>
+									<Trans>Valeurs</Trans>
 								</p>
 								<div className="flex flex-wrap gap-1">
 									{company.values.map((value) => (
@@ -597,19 +574,20 @@ export function CompatibilityTab({
 				<CardContent className="flex flex-col items-center justify-center py-16">
 					<ChartBarIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 					<h3 className="mb-2 font-semibold text-lg">
-						<Trans>Complete your assessment</Trans>
+						<Trans>Complète ton évaluation</Trans>
 					</h3>
 					<p className="mb-6 max-w-md text-center text-muted-foreground">
 						<Trans>
-							Answer the questions about your work style and values to see your compatibility with companies.
+							Réponds aux questions sur ton style de travail et tes valeurs pour voir les entreprises les plus
+							compatibles.
 						</Trans>
 					</p>
 					<div className="flex gap-4">
 						<Button onClick={() => onSwitchTab("work-style")} variant="outline">
-							<Trans>Work style</Trans>
+							<Trans>Style de travail</Trans>
 						</Button>
 						<Button onClick={() => onSwitchTab("values")}>
-							<Trans>Values</Trans>
+							<Trans>Valeurs</Trans>
 						</Button>
 					</div>
 				</CardContent>
@@ -624,7 +602,7 @@ export function CompatibilityTab({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<ChartBarIcon className="size-5 text-primary" />
-						<Trans>Your Cultural Profile</Trans>
+						<Trans>Ton profil culturel</Trans>
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
@@ -635,7 +613,7 @@ export function CompatibilityTab({
 								<PolarAngleAxis dataKey="dimension" tick={{ fontSize: 12 }} />
 								<PolarRadiusAxis angle={30} domain={[0, 100]} />
 								<Radar
-									name="Your profile"
+									name="Ton profil"
 									dataKey="value"
 									stroke="hsl(var(--primary))"
 									fill="hsl(var(--primary))"
@@ -654,10 +632,10 @@ export function CompatibilityTab({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<TrophyIcon className="size-5 text-amber-500" weight="fill" />
-						<Trans>Compatible Companies</Trans>
+						<Trans>Entreprises compatibles</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Ranked by compatibility with your profile</Trans>
+						<Trans>Classées selon leur compatibilité avec ton profil</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
@@ -700,7 +678,7 @@ export function CompatibilityTab({
 									{company.compatibility}%
 								</p>
 								<p className="text-muted-foreground text-xs">
-									<Trans>compatibility</Trans>
+									<Trans>compatibilité</Trans>
 								</p>
 							</div>
 						</motion.div>
@@ -727,10 +705,10 @@ export function RedFlagsTab({ redFlagsChecked, isPending, onToggle }: RedFlagsTa
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<WarningCircleIcon className="size-5 text-red-500" weight="fill" />
-					<Trans>Red Flag Detector</Trans>
+					<Trans>Détecteur d'alertes</Trans>
 				</CardTitle>
 				<CardDescription>
-					<Trans>Check the warning signs you observed during your interviews or research</Trans>
+					<Trans>Coche les signaux d'alerte observés pendant tes entretiens ou tes recherches</Trans>
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -773,9 +751,9 @@ export function RedFlagsTab({ redFlagsChecked, isPending, onToggle }: RedFlagsTa
 															flag.severity === "low" && "border-blue-500 text-blue-500",
 														)}
 													>
-														{flag.severity === "high" && "Critical"}
-														{flag.severity === "medium" && "Medium"}
-														{flag.severity === "low" && "Low"}
+														{flag.severity === "high" && "Critique"}
+														{flag.severity === "medium" && "Moyen"}
+														{flag.severity === "low" && "Faible"}
 													</Badge>
 												</label>
 												<p className="mt-1 text-muted-foreground text-sm">{flag.explanation}</p>
@@ -795,10 +773,10 @@ export function RedFlagsTab({ redFlagsChecked, isPending, onToggle }: RedFlagsTa
 							<XCircleIcon className="size-8 shrink-0 text-red-500" weight="fill" />
 							<div>
 								<h4 className="font-semibold text-red-700 dark:text-red-400">
-									{redFlagsChecked.length} red flag(s) detected
+									{redFlagsChecked.length} signal(aux) d'alerte détecté(s)
 								</h4>
 								<p className="text-muted-foreground text-sm">
-									<Trans>Be cautious and ask additional questions before making a decision.</Trans>
+									<Trans>Sois prudent et pose des questions supplémentaires avant de décider.</Trans>
 								</p>
 							</div>
 						</div>
@@ -824,10 +802,10 @@ export function QuestionsTab({ expandedQuestion, onToggleExpand }: QuestionsTabP
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<QuestionIcon className="size-5 text-primary" />
-					<Trans>Questions to Ask Employers</Trans>
+					<Trans>Questions à poser aux employeurs</Trans>
 				</CardTitle>
 				<CardDescription>
-					<Trans>Relevant questions to evaluate company culture during your interviews</Trans>
+					<Trans>Questions utiles pour évaluer la culture d'entreprise pendant tes entretiens</Trans>
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -870,7 +848,7 @@ export function QuestionsTab({ expandedQuestion, onToggleExpand }: QuestionsTabP
 											<div className="space-y-4 border-t bg-muted/30 p-4 pt-0">
 												<div>
 													<p className="mb-1 font-medium text-muted-foreground text-sm">
-														<Trans>Why ask this question?</Trans>
+														<Trans>Pourquoi poser cette question ?</Trans>
 													</p>
 													<p className="text-sm">{question.whyAsk}</p>
 												</div>
@@ -879,7 +857,7 @@ export function QuestionsTab({ expandedQuestion, onToggleExpand }: QuestionsTabP
 													<div className="rounded-lg border border-green-500/30 bg-green-500/10 p-3">
 														<p className="mb-2 flex items-center gap-1 font-medium text-green-700 text-sm dark:text-green-400">
 															<CheckCircleIcon className="size-4" weight="fill" />
-															<Trans>Green Flags</Trans>
+															<Trans>Bons signaux</Trans>
 														</p>
 														<ul className="space-y-1">
 															{question.greenFlags.map((flag) => (
@@ -894,7 +872,7 @@ export function QuestionsTab({ expandedQuestion, onToggleExpand }: QuestionsTabP
 													<div className="rounded-lg border border-red-500/30 bg-red-500/10 p-3">
 														<p className="mb-2 flex items-center gap-1 font-medium text-red-700 text-sm dark:text-red-400">
 															<XCircleIcon className="size-4" weight="fill" />
-															<Trans>Red Flags</Trans>
+															<Trans>Signaux d'alerte</Trans>
 														</p>
 														<ul className="space-y-1">
 															{question.redFlags.map((flag) => (
@@ -946,13 +924,13 @@ export function CompareTab({
 				<CardContent className="flex flex-col items-center justify-center py-16">
 					<ScalesIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 					<h3 className="mb-2 font-semibold text-lg">
-						<Trans>Profile required</Trans>
+						<Trans>Profil requis</Trans>
 					</h3>
 					<p className="mb-6 max-w-md text-center text-muted-foreground">
-						<Trans>Complete your evaluation first to compare companies.</Trans>
+						<Trans>Complète d'abord ton évaluation pour comparer les entreprises.</Trans>
 					</p>
 					<Button onClick={() => onSwitchTab("work-style")}>
-						<Trans>Start assessment</Trans>
+						<Trans>Commencer l'évaluation</Trans>
 					</Button>
 				</CardContent>
 			</Card>
@@ -966,10 +944,10 @@ export function CompareTab({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<ScalesIcon className="size-5 text-primary" />
-						<Trans>Compare Companies</Trans>
+						<Trans>Comparer les entreprises</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Select up to 2 companies to compare with your profile</Trans>
+						<Trans>Sélectionne jusqu'à 2 entreprises à comparer avec ton profil</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -1145,17 +1123,18 @@ export function ProfileTab({
 				<CardContent className="flex flex-col items-center justify-center py-16">
 					<UserCircleIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 					<h3 className="mb-2 font-semibold text-lg">
-						<Trans>Profile not completed</Trans>
+						<Trans>Profil non complété</Trans>
 					</h3>
 					<p className="mb-6 max-w-md text-center text-muted-foreground">
 						<Trans>
-							Complete the quizzes about your work style and values to generate your cultural profile personalized.
+							Complète les questionnaires sur ton style de travail et tes valeurs pour générer ton profil culturel
+							personnalisé.
 						</Trans>
 					</p>
 					<div className="mb-6 flex items-center gap-4">
 						<div className="text-center">
 							<p className="font-bold text-2xl">{Math.round(workStyleProgress)}%</p>
-							<p className="text-muted-foreground text-xs">Work style</p>
+							<p className="text-muted-foreground text-xs">Style de travail</p>
 						</div>
 						<div className="h-8 w-px bg-border" />
 						<div className="text-center">
@@ -1165,7 +1144,7 @@ export function ProfileTab({
 					</div>
 					<Button onClick={() => onSwitchTab("work-style")} className="gap-2">
 						<RocketLaunchIcon className="size-4" />
-						<Trans>Start assessment</Trans>
+						<Trans>Commencer l'évaluation</Trans>
 					</Button>
 				</CardContent>
 			</Card>
@@ -1179,10 +1158,10 @@ export function ProfileTab({
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2">
 						<UserCircleIcon className="size-6 text-primary" weight="duotone" />
-						<Trans>My Cultural Profile</Trans>
+						<Trans>Mon profil culturel</Trans>
 					</CardTitle>
 					<CardDescription>
-						<Trans>Summary of your professional preferences and values</Trans>
+						<Trans>Résumé de tes préférences professionnelles et de tes valeurs</Trans>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-6">
@@ -1283,7 +1262,7 @@ export function ProfileTab({
 			<div className="flex flex-wrap justify-center gap-4">
 				<Button variant="outline" onClick={onReset} disabled={isResetting} className="gap-2">
 					{isResetting ? <SpinnerGapIcon className="size-4 animate-spin" /> : <ArrowLeftIcon className="size-4" />}
-					<Trans>Restart evaluation</Trans>
+					<Trans>Recommencer l'évaluation</Trans>
 				</Button>
 				<Button onClick={() => onSwitchTab("compatibility")} className="gap-2">
 					<Trans>View compatible companies</Trans>
@@ -1361,7 +1340,7 @@ function ProfileInsights({ personalProfile, companyCompatibility }: ProfileInsig
 						<TrophyIcon className="mt-0.5 size-5 shrink-0 text-amber-500" weight="fill" />
 						<div>
 							<p className="font-medium text-amber-700 dark:text-amber-400">
-								<Trans>Best compatibility: {companyCompatibility[0].name}</Trans>
+								<Trans>Meilleure compatibilité : {companyCompatibility[0].name}</Trans>
 							</p>
 							<p className="text-muted-foreground text-sm">
 								<Trans>

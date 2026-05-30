@@ -1054,9 +1054,17 @@ export type RecordingListViewProps = {
 	setFilterField: Dispatch<SetStateAction<string>>;
 	isUploadDialogOpen: boolean;
 	setIsUploadDialogOpen: Dispatch<SetStateAction<boolean>>;
-	uploadForm: { title: string; field: "healthcare" | "industrial" | "hse" | "general"; program: string };
+	uploadForm: {
+		title: string;
+		field: "healthcare" | "industrial" | "hse" | "technology" | "management" | "general";
+		program: string;
+	};
 	setUploadForm: Dispatch<
-		SetStateAction<{ title: string; field: "healthcare" | "industrial" | "hse" | "general"; program: string }>
+		SetStateAction<{
+			title: string;
+			field: "healthcare" | "industrial" | "hse" | "technology" | "management" | "general";
+			program: string;
+		}>
 	>;
 	isUploading: boolean;
 	// biome-ignore lint/suspicious/noExplicitAny: mutation types vary
@@ -1303,7 +1311,7 @@ export function RecordingListView({
 											onValueChange={(v) =>
 												setUploadForm((prev) => ({
 													...prev,
-													field: v as "healthcare" | "industrial" | "hse" | "general",
+													field: v as "healthcare" | "industrial" | "hse" | "technology" | "management" | "general",
 												}))
 											}
 										>

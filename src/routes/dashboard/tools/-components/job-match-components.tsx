@@ -45,43 +45,11 @@ import { getScoreBgColor, getScoreColor, getScoreLabel } from "./job-match-confi
 export function JobMatchHeroSection() {
 	return (
 		<motion.div
-			className="relative mb-8 overflow-hidden rounded-3xl border border-primary/20 p-8 md:p-12"
-			style={{
-				background:
-					"linear-gradient(135deg, oklch(0.7 0.18 260 / 0.15) 0%, oklch(0.6 0.2 220 / 0.1) 50%, oklch(0.65 0.15 180 / 0.08) 100%)",
-			}}
+			className="relative mb-8 overflow-hidden rounded-2xl border bg-card p-6 shadow-sm md:p-8"
 			initial={false}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.6, ease: "easeOut" }}
 		>
-			<div className="pointer-events-none absolute inset-0 overflow-hidden">
-				<motion.div
-					className="absolute -top-32 -right-32 size-96 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/10 blur-3xl"
-					animate={{
-						scale: [1, 1.2, 1],
-						rotate: [0, 10, 0],
-						opacity: [0.5, 0.3, 0.5],
-					}}
-					transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute -bottom-32 -left-32 size-96 rounded-full bg-gradient-to-tr from-cyan-500/15 to-blue-500/10 blur-3xl"
-					animate={{
-						scale: [1.2, 1, 1.2],
-						rotate: [0, -10, 0],
-						opacity: [0.3, 0.5, 0.3],
-					}}
-					transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-				/>
-				<motion.div
-					className="absolute top-1/2 left-1/2 size-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-3xl"
-					animate={{
-						scale: [1, 1.3, 1],
-					}}
-					transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-				/>
-			</div>
-
 			<div className="relative z-10">
 				<motion.div
 					className="mb-3 flex items-center gap-2"
@@ -91,28 +59,28 @@ export function JobMatchHeroSection() {
 				>
 					<SparkleIcon className="size-5 text-primary" weight="fill" />
 					<span className="font-semibold text-primary text-sm uppercase tracking-wider">
-						<Trans>AI Analysis</Trans>
+						<Trans>Analyse intelligente</Trans>
 					</span>
 				</motion.div>
 
 				<motion.h2
-					className="mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text font-bold text-3xl text-transparent tracking-tight md:text-4xl lg:text-5xl"
+					className="mb-4 max-w-3xl font-bold text-2xl tracking-tight md:text-3xl"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.3 }}
 				>
-					<Trans>Job Match Score</Trans>
+					<Trans>Score de compatibilité entre ton CV et l'offre</Trans>
 				</motion.h2>
 
 				<motion.p
-					className="mb-8 max-w-2xl text-lg text-muted-foreground"
+					className="mb-8 max-w-2xl text-muted-foreground text-sm md:text-base"
 					initial={false}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 0.4 }}
 				>
 					<Trans>
-						Analyze the compatibility between your resume and a job listing. Get a detailed score, identify gaps, and
-						receive personalized suggestions to improve your chances.
+						Colle une offre, choisis ton CV et repère immédiatement les mots-clés, compétences et expériences à
+						renforcer avant de postuler.
 					</Trans>
 				</motion.p>
 
@@ -129,7 +97,7 @@ export function JobMatchHeroSection() {
 						<div>
 							<p className="font-bold text-xl">0-100</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Match score</Trans>
+								<Trans>Score</Trans>
 							</p>
 						</div>
 					</div>
@@ -140,7 +108,7 @@ export function JobMatchHeroSection() {
 						<div>
 							<p className="font-bold text-xl">100+</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>Keywords analyzed</Trans>
+								<Trans>Mots-clés analysés</Trans>
 							</p>
 						</div>
 					</div>
@@ -199,34 +167,34 @@ export function CalculatorInputForm({
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2 text-xl">
 					<FileTextIcon className="size-5 text-primary" weight="duotone" />
-					<Trans>Job Description</Trans>
+					<Trans>Description du poste</Trans>
 				</CardTitle>
 				<CardDescription>
-					<Trans>Paste the job description to analyze it</Trans>
+					<Trans>Colle l'offre pour comparer ses attentes avec ton CV</Trans>
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="space-y-6">
 				<div className="grid gap-4 sm:grid-cols-2">
 					<div className="space-y-2">
 						<Label>
-							<Trans>Job title</Trans>
+							<Trans>Intitulé du poste</Trans>
 						</Label>
 						<input
 							type="text"
 							className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none transition-[color,box-shadow] placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-							placeholder={t`E.g.: Full Stack Developer`}
+							placeholder={t`Ex. : Technicien maintenance, infirmier, assistant RH`}
 							value={jobTitle}
 							onChange={(e) => setJobTitle(e.target.value)}
 						/>
 					</div>
 					<div className="space-y-2">
 						<Label>
-							<Trans>Company</Trans>
+							<Trans>Entreprise</Trans>
 						</Label>
 						<input
 							type="text"
 							className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none transition-[color,box-shadow] placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-							placeholder={t`Ex: Google, Microsoft...`}
+							placeholder={t`Ex. : OCP, Renault Tanger, clinique privée...`}
 							value={company}
 							onChange={(e) => setCompany(e.target.value)}
 						/>
@@ -235,31 +203,31 @@ export function CalculatorInputForm({
 
 				<div className="space-y-2">
 					<Label>
-						<Trans>Job description *</Trans>
+						<Trans>Description du poste *</Trans>
 					</Label>
 					<Textarea
-						placeholder={t`Paste the complete job description here...`}
+						placeholder={t`Colle ici la description complète de l'offre...`}
 						className="min-h-48 resize-none"
 						value={jobDescription}
 						onChange={(e) => setJobDescription(e.target.value)}
 					/>
 					<p className="text-muted-foreground text-xs">
-						{jobDescription.length} <Trans>characters</Trans>
+						{jobDescription.length} <Trans>caractères</Trans>
 					</p>
 				</div>
 
 				<div className="space-y-2">
 					<Label>
-						<Trans>Select your resume *</Trans>
+						<Trans>Sélectionner ton CV *</Trans>
 					</Label>
 					<Select value={selectedResumeId} onValueChange={setSelectedResumeId}>
 						<SelectTrigger className="h-12">
-							<SelectValue placeholder={t`Choose a resume to compare`} />
+							<SelectValue placeholder={t`Choisir un CV à comparer`} />
 						</SelectTrigger>
 						<SelectContent>
 							{isLoadingResumes ? (
 								<SelectItem value="loading" disabled>
-									<Trans>Loading...</Trans>
+									<Trans>Chargement...</Trans>
 								</SelectItem>
 							) : resumes && resumes.length > 0 ? (
 								resumes.map((resume) => (
@@ -272,7 +240,7 @@ export function CalculatorInputForm({
 								))
 							) : (
 								<SelectItem value="none" disabled>
-									<Trans>No resume available</Trans>
+									<Trans>Aucun CV disponible</Trans>
 								</SelectItem>
 							)}
 						</SelectContent>
@@ -280,9 +248,9 @@ export function CalculatorInputForm({
 					{(!resumes || resumes.length === 0) && !isLoadingResumes && (
 						<p className="text-amber-600 text-xs">
 							<Trans>
-								You don't have a resume yet.{" "}
+								Tu n'as pas encore de CV.{" "}
 								<Link to="/dashboard/resumes" className="underline">
-									Create one
+									Créer un CV
 								</Link>
 							</Trans>
 						</p>
@@ -299,12 +267,12 @@ export function CalculatorInputForm({
 						{isAnalyzing ? (
 							<>
 								<SpinnerIcon className="size-5 animate-spin" />
-								<Trans>Analyzing...</Trans>
+								<Trans>Analyse en cours...</Trans>
 							</>
 						) : (
 							<>
 								<SparkleIcon className="size-5" weight="fill" />
-								<Trans>Analyze compatibility</Trans>
+								<Trans>Analyser la compatibilité</Trans>
 							</>
 						)}
 					</Button>
@@ -315,7 +283,7 @@ export function CalculatorInputForm({
 							</Button>
 						</TooltipTrigger>
 						<TooltipContent>
-							<Trans>Save this offer</Trans>
+							<Trans>Enregistrer cette offre</Trans>
 						</TooltipContent>
 					</Tooltip>
 					<Tooltip>
@@ -325,7 +293,7 @@ export function CalculatorInputForm({
 							</Button>
 						</TooltipTrigger>
 						<TooltipContent>
-							<Trans>Reset</Trans>
+							<Trans>Réinitialiser</Trans>
 						</TooltipContent>
 					</Tooltip>
 				</div>
@@ -351,7 +319,7 @@ export function ResultsDisplay({ matchResult }: { matchResult: JobMatchResult | 
 							<CardTitle className="flex items-center justify-between">
 								<span className="flex items-center gap-2 text-lg">
 									<StarIcon className="size-5 text-amber-500" weight="fill" />
-									<Trans>Compatibility Score</Trans>
+									<Trans>Score de compatibilité</Trans>
 								</span>
 								<Badge className={cn("text-white", getScoreBgColor(matchResult.overallScore))}>
 									{getScoreLabel(matchResult.overallScore)}
@@ -369,7 +337,7 @@ export function ResultsDisplay({ matchResult }: { matchResult: JobMatchResult | 
 									{matchResult.overallScore}
 								</motion.div>
 								<p className="text-muted-foreground">
-									<Trans>out of 100</Trans>
+									<Trans>sur 100</Trans>
 								</p>
 							</div>
 
@@ -378,7 +346,7 @@ export function ResultsDisplay({ matchResult }: { matchResult: JobMatchResult | 
 									<div className="flex items-center justify-between text-sm">
 										<span className="flex items-center gap-2">
 											<TagIcon className="size-4 text-blue-500" />
-											<Trans>Keywords</Trans>
+											<Trans>Mots-clés</Trans>
 										</span>
 										<span className="font-semibold">{matchResult.keywordMatch.score}%</span>
 									</div>
@@ -389,7 +357,7 @@ export function ResultsDisplay({ matchResult }: { matchResult: JobMatchResult | 
 									<div className="flex items-center justify-between text-sm">
 										<span className="flex items-center gap-2">
 											<GearIcon className="size-4 text-purple-500" />
-											<Trans>Skills</Trans>
+											<Trans>Compétences</Trans>
 										</span>
 										<span className="font-semibold">{matchResult.skillsAlignment.score}%</span>
 									</div>
@@ -400,7 +368,7 @@ export function ResultsDisplay({ matchResult }: { matchResult: JobMatchResult | 
 									<div className="flex items-center justify-between text-sm">
 										<span className="flex items-center gap-2">
 											<BriefcaseIcon className="size-4 text-green-500" />
-											<Trans>Experience</Trans>
+											<Trans>Expérience</Trans>
 										</span>
 										<span className="font-semibold">{matchResult.experienceComparison.score}%</span>
 									</div>
@@ -414,7 +382,7 @@ export function ResultsDisplay({ matchResult }: { matchResult: JobMatchResult | 
 										{matchResult.keywordMatch.matched.length}
 									</p>
 									<p className="text-muted-foreground text-xs">
-										<Trans>Matches</Trans>
+										<Trans>Correspondances</Trans>
 									</p>
 								</div>
 								<div className="rounded-lg border bg-amber-50/50 p-3 dark:bg-amber-950/20">
@@ -422,7 +390,7 @@ export function ResultsDisplay({ matchResult }: { matchResult: JobMatchResult | 
 										{matchResult.keywordMatch.partial.length}
 									</p>
 									<p className="text-muted-foreground text-xs">
-										<Trans>Partial</Trans>
+										<Trans>Partielles</Trans>
 									</p>
 								</div>
 								<div className="rounded-lg border bg-red-50/50 p-3 dark:bg-red-950/20">
@@ -430,7 +398,7 @@ export function ResultsDisplay({ matchResult }: { matchResult: JobMatchResult | 
 										{matchResult.missingRequirements.length}
 									</p>
 									<p className="text-muted-foreground text-xs">
-										<Trans>Missing</Trans>
+										<Trans>Manquants</Trans>
 									</p>
 								</div>
 							</div>
@@ -442,7 +410,7 @@ export function ResultsDisplay({ matchResult }: { matchResult: JobMatchResult | 
 							<CardHeader className="pb-3">
 								<CardTitle className="flex items-center gap-2 text-lg">
 									<WarningCircleIcon className="size-5 text-red-500" weight="fill" />
-									<Trans>Missing Elements</Trans>
+									<Trans>Éléments manquants</Trans>
 								</CardTitle>
 							</CardHeader>
 							<CardContent>
@@ -472,10 +440,10 @@ export function ResultsDisplay({ matchResult }: { matchResult: JobMatchResult | 
 				>
 					<TargetIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 					<h3 className="mb-2 font-semibold text-lg">
-						<Trans>Your results will appear here</Trans>
+						<Trans>Les résultats apparaîtront ici</Trans>
 					</h3>
 					<p className="text-muted-foreground text-sm">
-						<Trans>Paste a job description and select a resume to see the analysis</Trans>
+						<Trans>Colle une offre et sélectionne un CV pour lancer l'analyse</Trans>
 					</p>
 				</motion.div>
 			)}
@@ -516,7 +484,7 @@ function KeywordAnalysisSection({ matchResult }: { matchResult: JobMatchResult }
 		<section>
 			<h3 className="mb-6 flex items-center gap-2 font-semibold text-xl">
 				<TagIcon className="size-5 text-primary" weight="duotone" />
-				<Trans>Keyword Analysis</Trans>
+				<Trans>Analyse des mots-clés</Trans>
 			</h3>
 
 			<div className="grid gap-6 md:grid-cols-3">
@@ -524,7 +492,7 @@ function KeywordAnalysisSection({ matchResult }: { matchResult: JobMatchResult }
 					<CardHeader className="pb-3">
 						<CardTitle className="flex items-center gap-2 text-base">
 							<CheckCircleIcon className="size-4 text-green-500" weight="fill" />
-							<Trans>Matches</Trans>
+							<Trans>Correspondances</Trans>
 							<Badge className="ml-auto bg-green-500 text-white">{matchResult.keywordMatch.matched.length}</Badge>
 						</CardTitle>
 					</CardHeader>
@@ -542,7 +510,7 @@ function KeywordAnalysisSection({ matchResult }: { matchResult: JobMatchResult }
 								))
 							) : (
 								<p className="text-muted-foreground text-sm">
-									<Trans>No direct matches</Trans>
+									<Trans>Aucune correspondance directe</Trans>
 								</p>
 							)}
 						</div>
@@ -553,7 +521,7 @@ function KeywordAnalysisSection({ matchResult }: { matchResult: JobMatchResult }
 					<CardHeader className="pb-3">
 						<CardTitle className="flex items-center gap-2 text-base">
 							<WarningCircleIcon className="size-4 text-amber-500" weight="fill" />
-							<Trans>Partial Matches</Trans>
+							<Trans>Correspondances partielles</Trans>
 							<Badge className="ml-auto bg-amber-500 text-white">{matchResult.keywordMatch.partial.length}</Badge>
 						</CardTitle>
 					</CardHeader>
@@ -571,7 +539,7 @@ function KeywordAnalysisSection({ matchResult }: { matchResult: JobMatchResult }
 								))
 							) : (
 								<p className="text-muted-foreground text-sm">
-									<Trans>No partial matches</Trans>
+									<Trans>Aucune correspondance partielle</Trans>
 								</p>
 							)}
 						</div>
@@ -600,7 +568,7 @@ function KeywordAnalysisSection({ matchResult }: { matchResult: JobMatchResult }
 								))
 							) : (
 								<p className="text-muted-foreground text-sm">
-									<Trans>All keywords are present</Trans>
+									<Trans>Tous les mots-clés sont présents</Trans>
 								</p>
 							)}
 							{matchResult.keywordMatch.missing.length > 10 && (
@@ -619,7 +587,7 @@ function SkillsAlignmentSection({ matchResult }: { matchResult: JobMatchResult }
 		<section>
 			<h3 className="mb-6 flex items-center gap-2 font-semibold text-xl">
 				<GearIcon className="size-5 text-primary" weight="duotone" />
-				<Trans>Skills Alignment</Trans>
+				<Trans>Alignement des compétences</Trans>
 			</h3>
 
 			<div className="grid gap-6 md:grid-cols-2">
@@ -627,7 +595,7 @@ function SkillsAlignmentSection({ matchResult }: { matchResult: JobMatchResult }
 					<CardHeader className="pb-3">
 						<CardTitle className="flex items-center gap-2 text-base">
 							<CheckCircleIcon className="size-4 text-green-500" weight="fill" />
-							<Trans>Aligned skills</Trans>
+							<Trans>Compétences alignées</Trans>
 						</CardTitle>
 					</CardHeader>
 					<CardContent>
@@ -649,7 +617,7 @@ function SkillsAlignmentSection({ matchResult }: { matchResult: JobMatchResult }
 												))}
 											</div>
 											<Badge variant="outline" className="border-green-500/50 text-green-600">
-												<Trans>Match</Trans>
+												<Trans>Correspondance</Trans>
 											</Badge>
 										</div>
 									</div>
@@ -657,7 +625,7 @@ function SkillsAlignmentSection({ matchResult }: { matchResult: JobMatchResult }
 							</div>
 						) : (
 							<p className="text-muted-foreground text-sm">
-								<Trans>No directly aligned skills</Trans>
+								<Trans>Aucune compétence directement alignée</Trans>
 							</p>
 						)}
 					</CardContent>
@@ -667,7 +635,7 @@ function SkillsAlignmentSection({ matchResult }: { matchResult: JobMatchResult }
 					<CardHeader className="pb-3">
 						<CardTitle className="flex items-center gap-2 text-base">
 							<TrendUpIcon className="size-4 text-amber-500" weight="fill" />
-							<Trans>Skills to develop</Trans>
+							<Trans>Compétences à développer</Trans>
 						</CardTitle>
 					</CardHeader>
 					<CardContent>
@@ -680,14 +648,14 @@ function SkillsAlignmentSection({ matchResult }: { matchResult: JobMatchResult }
 									>
 										<span className="font-medium">{skill}</span>
 										<Badge variant="outline" className="border-amber-500/50 text-amber-600">
-											<Trans>To acquire</Trans>
+											<Trans>À acquérir</Trans>
 										</Badge>
 									</div>
 								))}
 							</div>
 						) : (
 							<p className="text-muted-foreground text-sm">
-								<Trans>All required skills are present</Trans>
+								<Trans>Toutes les compétences demandées sont présentes</Trans>
 							</p>
 						)}
 					</CardContent>
@@ -702,7 +670,7 @@ function ExperienceComparisonSection({ matchResult }: { matchResult: JobMatchRes
 		<section>
 			<h3 className="mb-6 flex items-center gap-2 font-semibold text-xl">
 				<BriefcaseIcon className="size-5 text-primary" weight="duotone" />
-				<Trans>Experience Comparison</Trans>
+				<Trans>Comparaison de l'expérience</Trans>
 			</h3>
 
 			<Card>
@@ -710,11 +678,11 @@ function ExperienceComparisonSection({ matchResult }: { matchResult: JobMatchRes
 					<div className="grid gap-6 md:grid-cols-3">
 						<div className="text-center">
 							<p className="mb-2 text-muted-foreground text-sm">
-								<Trans>Required experience</Trans>
+								<Trans>Expérience demandée</Trans>
 							</p>
 							<p className="font-bold text-3xl text-primary">{matchResult.experienceComparison.requiredYears}+</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>years</Trans>
+								<Trans>ans</Trans>
 							</p>
 						</div>
 						<div className="flex items-center justify-center">
@@ -735,11 +703,11 @@ function ExperienceComparisonSection({ matchResult }: { matchResult: JobMatchRes
 						</div>
 						<div className="text-center">
 							<p className="mb-2 text-muted-foreground text-sm">
-								<Trans>Your experience</Trans>
+								<Trans>Ton expérience</Trans>
 							</p>
 							<p className="font-bold text-3xl text-primary">~{matchResult.experienceComparison.candidateYears}</p>
 							<p className="text-muted-foreground text-sm">
-								<Trans>estimated years</Trans>
+								<Trans>ans estimés</Trans>
 							</p>
 						</div>
 					</div>
@@ -747,7 +715,7 @@ function ExperienceComparisonSection({ matchResult }: { matchResult: JobMatchRes
 					{matchResult.experienceComparison.relevantExperience.length > 0 && (
 						<div className="mt-6">
 							<p className="mb-3 font-medium text-sm">
-								<Trans>Relevant experience found:</Trans>
+								<Trans>Expérience pertinente trouvée :</Trans>
 							</p>
 							<div className="flex flex-wrap gap-2">
 								{matchResult.experienceComparison.relevantExperience.map((exp, index) => (
@@ -764,7 +732,7 @@ function ExperienceComparisonSection({ matchResult }: { matchResult: JobMatchRes
 						<div className="mt-4 rounded-lg border border-amber-500/30 bg-amber-50/50 p-4 dark:bg-amber-950/20">
 							<p className="mb-2 flex items-center gap-2 font-medium text-amber-800 text-sm dark:text-amber-300">
 								<WarningCircleIcon className="size-4" weight="fill" />
-								<Trans>Points of attention:</Trans>
+								<Trans>Points d'attention :</Trans>
 							</p>
 							<ul className="space-y-1 text-amber-700 text-sm dark:text-amber-400">
 								{matchResult.experienceComparison.gaps.map((gap, index) => (
@@ -792,7 +760,7 @@ function SuggestionsSection({
 		<section>
 			<h3 className="mb-6 flex items-center gap-2 font-semibold text-xl">
 				<LightbulbIcon className="size-5 text-amber-500" weight="fill" />
-				<Trans>Improvement Suggestions</Trans>
+				<Trans>Suggestions d'amélioration</Trans>
 			</h3>
 
 			<div className="space-y-4">
@@ -800,7 +768,7 @@ function SuggestionsSection({
 					<motion.div key={suggestion.id} initial={false} animate={{ opacity: 1, y: 0 }}>
 						<Card
 							className={cn(
-								"cursor-pointer transition-all hover:shadow-md",
+								"cursor-pointer transition-shadow hover:shadow-md",
 								suggestion.priority === "high" && "border-red-500/30",
 								suggestion.priority === "medium" && "border-amber-500/30",
 								suggestion.priority === "low" && "border-green-500/30",
@@ -834,9 +802,9 @@ function SuggestionsSection({
 													suggestion.priority === "low" && "border-green-500 text-green-600",
 												)}
 											>
-												{suggestion.priority === "high" && <Trans>Priority</Trans>}
-												{suggestion.priority === "medium" && <Trans>Recommended</Trans>}
-												{suggestion.priority === "low" && <Trans>Optional</Trans>}
+												{suggestion.priority === "high" && <Trans>Prioritaire</Trans>}
+												{suggestion.priority === "medium" && <Trans>Recommandé</Trans>}
+												{suggestion.priority === "low" && <Trans>Optionnel</Trans>}
 											</Badge>
 										</div>
 										<AnimatePresence>
@@ -871,23 +839,23 @@ function SuggestionsSection({
 
 function ActionCTA({ selectedResumeId }: { selectedResumeId: string }) {
 	return (
-		<Card className="border-2 border-primary/30 bg-gradient-to-br from-primary/10 to-transparent">
+		<Card className="border-2 border-primary/20 bg-card">
 			<CardContent className="flex flex-col items-center gap-4 p-8 text-center md:flex-row md:text-left">
 				<div className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary/20">
 					<PencilSimpleIcon className="size-8 text-primary" weight="duotone" />
 				</div>
 				<div className="flex-1">
 					<h3 className="mb-1 font-bold text-xl">
-						<Trans>Improve your resume now</Trans>
+						<Trans>Améliore ton CV maintenant</Trans>
 					</h3>
 					<p className="text-muted-foreground">
-						<Trans>Use these insights to optimize your resume and increase your chances of being selected.</Trans>
+						<Trans>Utilise ces pistes pour adapter ton CV et augmenter tes chances d'être sélectionné.</Trans>
 					</p>
 				</div>
 				{selectedResumeId && (
 					<Link to="/builder/$resumeId" params={{ resumeId: selectedResumeId }}>
 						<Button size="lg" className="gap-2">
-							<Trans>Edit my resume</Trans>
+							<Trans>Modifier mon CV</Trans>
 							<ArrowRightIcon className="size-4" />
 						</Button>
 					</Link>
@@ -935,7 +903,7 @@ export function SavedJobsTab({
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 				{savedJobs.map((job, index) => (
 					<motion.div key={job.id} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}>
-						<Card className="h-full transition-all hover:shadow-md">
+						<Card className="h-full transition-shadow hover:shadow-md">
 							<CardHeader className="pb-3">
 								<div className="flex items-start justify-between gap-2">
 									<div className="min-w-0 flex-1">
@@ -964,7 +932,7 @@ export function SavedJobsTab({
 									</span>
 									{job.lastAnalyzedAt && (
 										<span>
-											<Trans>Analyzed:</Trans>{" "}
+											<Trans>Analysée :</Trans>{" "}
 											{formatDate(job.lastAnalyzedAt, {
 												day: "numeric",
 												month: "short",
@@ -978,7 +946,7 @@ export function SavedJobsTab({
 								<div className="flex gap-2">
 									<Button variant="outline" size="sm" className="flex-1 gap-1" onClick={() => handleLoadJob(job)}>
 										<MagnifyingGlassIcon className="size-4" />
-										<Trans>Analyze</Trans>
+										<Trans>Analyser</Trans>
 									</Button>
 									<Tooltip>
 										<TooltipTrigger asChild>
@@ -991,7 +959,7 @@ export function SavedJobsTab({
 											</Button>
 										</TooltipTrigger>
 										<TooltipContent>
-											<Trans>Delete</Trans>
+											<Trans>Supprimer</Trans>
 										</TooltipContent>
 									</Tooltip>
 								</div>
@@ -1008,14 +976,14 @@ export function SavedJobsTab({
 			<CardContent className="flex flex-col items-center justify-center py-16">
 				<BookmarkSimpleIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 				<h3 className="mb-2 font-semibold text-lg">
-					<Trans>No saved offers</Trans>
+					<Trans>Aucune offre enregistrée</Trans>
 				</h3>
 				<p className="mb-4 text-center text-muted-foreground">
-					<Trans>Save job descriptions to analyze them later</Trans>
+					<Trans>Enregistre des descriptions de poste pour les analyser plus tard.</Trans>
 				</p>
 				<Button onClick={() => setActiveTab("calculator")}>
 					<ArrowRightIcon className="mr-2 size-4" />
-					<Trans>Go to calculator</Trans>
+					<Trans>Aller au calculateur</Trans>
 				</Button>
 			</CardContent>
 		</Card>
@@ -1057,11 +1025,11 @@ export function HistoryTab({
 			<>
 				<div className="flex items-center justify-between">
 					<h3 className="font-semibold text-lg">
-						<Trans>Analysis history</Trans>
+						<Trans>Historique des analyses</Trans>
 					</h3>
 					<Button variant="outline" size="sm" onClick={handleClearHistory} disabled={isClearing}>
 						{isClearing ? <SpinnerIcon className="mr-2 size-4 animate-spin" /> : <TrashIcon className="mr-2 size-4" />}
-						<Trans>Clear history</Trans>
+						<Trans>Effacer l'historique</Trans>
 					</Button>
 				</div>
 
@@ -1073,7 +1041,7 @@ export function HistoryTab({
 							animate={{ opacity: 1, x: 0 }}
 							transition={{ delay: index * 0.05 }}
 						>
-							<Card className="transition-all hover:shadow-md">
+							<Card className="transition-shadow hover:shadow-md">
 								<CardContent className="flex items-center gap-4 p-4">
 									<div
 										className={cn(
@@ -1124,14 +1092,14 @@ export function HistoryTab({
 			<CardContent className="flex flex-col items-center justify-center py-16">
 				<ClockIcon className="mb-4 size-16 text-muted-foreground/50" weight="duotone" />
 				<h3 className="mb-2 font-semibold text-lg">
-					<Trans>No history</Trans>
+					<Trans>Aucun historique</Trans>
 				</h3>
 				<p className="mb-4 text-center text-muted-foreground">
-					<Trans>Your previous analyses will appear here</Trans>
+					<Trans>Tes analyses précédentes apparaîtront ici.</Trans>
 				</p>
 				<Button onClick={() => setActiveTab("calculator")}>
 					<ArrowRightIcon className="mr-2 size-4" />
-					<Trans>Run an analysis</Trans>
+					<Trans>Lancer une analyse</Trans>
 				</Button>
 			</CardContent>
 		</Card>
@@ -1141,20 +1109,20 @@ export function HistoryTab({
 export function JobMatchTipsSection() {
 	return (
 		<motion.div className="mt-8" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
-			<Card className="border-primary/30 border-dashed bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5">
+			<Card className="border-primary/30 border-dashed bg-card">
 				<CardContent className="flex flex-col items-center gap-4 p-6 md:flex-row">
 					<div className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-primary/20">
 						<LightbulbIcon className="size-7 text-primary" weight="fill" />
 					</div>
 					<div className="flex-1 text-center md:text-left">
 						<h3 className="mb-1 font-semibold text-lg">
-							<Trans>Tips for a better score</Trans>
+							<Trans>Conseils pour améliorer le score</Trans>
 						</h3>
 						<p className="text-muted-foreground text-sm">
 							<Trans>
-								Use the same terms as the job listing in your resume. Quantify your achievements with concrete numbers.
-								Adapt your professional summary for each application. A score of 70%+ significantly increases your
-								chances of being contacted.
+								Reprends les mêmes termes que l'offre dans ton CV. Chiffre tes réalisations avec des résultats concrets.
+								Adapte ton résumé professionnel à chaque candidature. Un score de 70% ou plus augmente nettement tes
+								chances d'être contacté.
 							</Trans>
 						</p>
 					</div>

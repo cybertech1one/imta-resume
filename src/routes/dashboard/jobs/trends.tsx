@@ -116,25 +116,25 @@ function MarketTrendsPage() {
 		const summary = rawOverview.summary;
 		return [
 			{
-				label: t`Active Job Listings`,
+				label: t`Offres actives`,
 				value: summary.totalJobs,
 				change: Math.round(summary.avgJobGrowth),
 				trend: summary.avgJobGrowth > 0 ? ("up" as const) : ("down" as const),
 			},
 			{
-				label: t`Hiring Companies`,
+				label: t`Entreprises qui recrutent`,
 				value: summary.totalEmployers,
 				change: 0,
 				trend: "up" as const,
 			},
 			{
-				label: t`Median Salary (MAD)`,
+				label: t`Salaire médian (MAD)`,
 				value: summary.avgSalary,
 				change: 0,
 				trend: "up" as const,
 			},
 			{
-				label: t`Skills Tracked`,
+				label: t`Compétences suivies`,
 				value: summary.totalSkillsTracked,
 				change: 0,
 				trend: "up" as const,
@@ -156,7 +156,7 @@ function MarketTrendsPage() {
 
 	return (
 		<>
-			<DashboardHeader icon={ChartLineUpIcon} title={t`Market Trends`} />
+			<DashboardHeader icon={ChartLineUpIcon} title={t`Tendances du marché`} />
 
 			<HeroSection marketOverview={marketOverview} />
 
