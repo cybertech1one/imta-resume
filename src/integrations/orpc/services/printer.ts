@@ -124,7 +124,12 @@ export const printerService = {
 			// Wait for the page to fully load (network idle + custom loaded attribute)
 			await page.setViewport(pageDimensionsAsPixels[format]);
 			await page.goto(url, { waitUntil: "networkidle0" });
-			await page.waitForFunction(() => document.body.getAttribute("data-wf-loaded") === "true", { timeout: 5_000 });
+			// Best-effort: wait for fonts to settle, but DON'T fail the whole export if the
+			// flag never appears (e.g. a font CDN is slow/unreachable). The page is already
+			// rendered (networkidle0); generate the PDF with fallback fonts rather than 500.
+			await page
+				.waitForFunction(() => document.body.getAttribute("data-wf-loaded") === "true", { timeout: 8_000 })
+				.catch(() => undefined);
 
 			// Step 5: Adjust the DOM for proper PDF pagination
 			// This runs in the browser context to modify CSS before PDF generation
@@ -298,7 +303,10 @@ export const printerService = {
 
 			await page.setViewport(pageDimensionsAsPixels.a4);
 			await page.goto(url, { waitUntil: "networkidle0" });
-			await page.waitForFunction(() => document.body.getAttribute("data-wf-loaded") === "true", { timeout: 5_000 });
+			// Best-effort wait (see PDF export above) — never block preview on font loading.
+			await page
+				.waitForFunction(() => document.body.getAttribute("data-wf-loaded") === "true", { timeout: 8_000 })
+				.catch(() => undefined);
 
 			const screenshotBuffer = await page.screenshot({ type: "webp", quality: 80 });
 

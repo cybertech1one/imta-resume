@@ -34,14 +34,23 @@ export function useWebfonts(typography: z.infer<typeof typographySchema>) {
 
 			for (const { url, weight, style } of fontUrls) {
 				const fontFace = new FontFace(family, `url("${url}")`, { style, weight, display: "swap" });
-				if (!document.fonts.has(fontFace)) document.fonts.add(await fontFace.load());
+				// A single font that fails to load (CDN unreachable from the print container,
+				// CSP block, 404…) must NOT abort the whole batch — otherwise the printer's
+				// `data-wf-loaded` flag never flips and PDF/print export hangs and times out.
+				try {
+					if (!document.fonts.has(fontFace)) document.fonts.add(await fontFace.load());
+				} catch {
+					// Fall back to a system font for this face; rendering still proceeds.
+				}
 			}
 		}
 
 		const bodyTypography = typography.body;
 		const headingTypography = typography.heading;
 
-		Promise.all([
+		// allSettled + always flip the flag: even if every font fails, the resume still
+		// renders (with fallback fonts) and the printer can capture it instead of hanging.
+		Promise.allSettled([
 			loadFont(bodyTypography.fontFamily, bodyTypography.fontWeights),
 			loadFont(headingTypography.fontFamily, headingTypography.fontWeights),
 		]).then(() => {
