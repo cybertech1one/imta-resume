@@ -1239,6 +1239,8 @@ export function RecordingListView({
 							<SelectItem value="healthcare">{fieldLabels.healthcare}</SelectItem>
 							<SelectItem value="industrial">{fieldLabels.industrial}</SelectItem>
 							<SelectItem value="hse">{fieldLabels.hse}</SelectItem>
+							<SelectItem value="management">{fieldLabels.management}</SelectItem>
+							<SelectItem value="technology">{fieldLabels.technology}</SelectItem>
 							<SelectItem value="general">{fieldLabels.general}</SelectItem>
 						</SelectContent>
 					</Select>
@@ -1322,6 +1324,8 @@ export function RecordingListView({
 												<SelectItem value="healthcare">{fieldLabels.healthcare}</SelectItem>
 												<SelectItem value="industrial">{fieldLabels.industrial}</SelectItem>
 												<SelectItem value="hse">{fieldLabels.hse}</SelectItem>
+												<SelectItem value="management">{fieldLabels.management}</SelectItem>
+												<SelectItem value="technology">{fieldLabels.technology}</SelectItem>
 												<SelectItem value="general">{fieldLabels.general}</SelectItem>
 											</SelectContent>
 										</Select>

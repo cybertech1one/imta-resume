@@ -9,6 +9,8 @@ function getFieldLabels() {
 		healthcare: t`Healthcare / Nursing`,
 		industrial: t`Industrial Maintenance`,
 		hse: t`HSE / Safety`,
+		management: t`Management`,
+		technology: t`Technology / IT`,
 		general: t`General`,
 	};
 }

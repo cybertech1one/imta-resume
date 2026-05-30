@@ -2,11 +2,13 @@ import type { Icon } from "@phosphor-icons/react";
 import {
 	BookOpenIcon,
 	BriefcaseIcon,
+	ChartLineUpIcon,
 	CheckCircleIcon,
 	FirstAidKitIcon,
 	GearIcon,
 	GraduationCapIcon,
 	HardHatIcon,
+	LaptopIcon,
 	LightbulbIcon,
 	TargetIcon,
 	UserIcon,
@@ -26,6 +28,8 @@ export function getFieldLabels() {
 		healthcare: "Santé / Soins infirmiers",
 		industrial: "Maintenance industrielle",
 		hse: "HSE / Sécurité",
+		management: "Management / Gestion",
+		technology: "Technologie / Informatique",
 		general: "Général",
 	};
 }
@@ -42,6 +46,8 @@ export function getFieldDescriptions() {
 		healthcare: "Questions pour soins infirmiers, aide-soignant et sage-femme",
 		industrial: "Maintenance, électromécanique, soudure et conduite d'engins",
 		hse: "Hygiène, sécurité et environnement industriel",
+		management: "Finance, RH, commerce, supply chain et gestion de projets",
+		technology: "Informatique, réseaux, data/IA, cybersécurité et télécoms",
 		general: "Questions générales pour tous les domaines",
 	};
 }
@@ -56,6 +62,8 @@ export const fieldIcons: Record<string, Icon> = {
 	healthcare: FirstAidKitIcon,
 	industrial: GearIcon,
 	hse: HardHatIcon,
+	management: ChartLineUpIcon,
+	technology: LaptopIcon,
 	general: BriefcaseIcon,
 };
 
@@ -63,6 +71,8 @@ export const fieldColors = {
 	healthcare: "from-red-500/20 via-rose-500/10 to-transparent",
 	industrial: "from-blue-500/20 via-indigo-500/10 to-transparent",
 	hse: "from-amber-500/20 via-orange-500/10 to-transparent",
+	management: "from-violet-500/20 via-purple-500/10 to-transparent",
+	technology: "from-cyan-500/20 via-sky-500/10 to-transparent",
 	general: "from-gray-500/20 via-slate-500/10 to-transparent",
 };
 
@@ -70,6 +80,8 @@ export const fieldBadgeColors = {
 	healthcare: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
 	industrial: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
 	hse: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+	management: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400",
+	technology: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400",
 	general: "bg-gray-100 text-gray-700 dark:bg-gray-800/30 dark:text-gray-400",
 };
 
@@ -126,4 +138,4 @@ export const categoryLabels = new Proxy({} as Record<string, string>, {
 	},
 });
 
-export const INTERVIEW_FIELDS = ["healthcare", "industrial", "hse", "general"] as const;
+export const INTERVIEW_FIELDS = ["healthcare", "industrial", "hse", "management", "technology", "general"] as const;

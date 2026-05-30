@@ -33,6 +33,23 @@ import { getCommonQuestions, getInterviewTips } from "./interview-helpers";
 import { interviewSessionEndpoints } from "./interview-sessions";
 
 /**
+ * Human-readable role context for AI prompts, keyed by the canonical interview
+ * field taxonomy. Keeps technology/management students from being lumped into
+ * the "general professional" bucket, which degrades AI question/feedback quality.
+ */
+const FIELD_ROLE_LABELS: Record<string, string> = {
+	healthcare: "healthcare/nursing",
+	industrial: "industrial maintenance and mechanics",
+	hse: "hygiene, safety and environment (HSE)",
+	management: "management, finance, HR, commerce and supply chain",
+	technology: "IT, networks, data/AI, cybersecurity and telecoms",
+};
+
+function fieldRoleLabel(field: string): string {
+	return FIELD_ROLE_LABELS[field] ?? "general professional";
+}
+
+/**
  * Safely extracts a loggable error message without leaking sensitive details.
  * Strips API keys, model config, and provider internals from error messages
  * before they are written to server logs or the database.
@@ -1269,7 +1286,7 @@ ${messages.map((m) => `${m.role === "user" ? "Candidate" : "Interviewer"}: ${m.r
 							role: "system",
 							content: `You are an expert interview coach for IMTA Morocco engineering graduates. Evaluate the candidate's answer and provide actionable feedback in ${languageLabel}.
 
-You specialize in coaching students from the Institut Marocain des Techniciens en Administration (IMTA) who are preparing for job interviews in ${input.field === "healthcare" ? "healthcare/nursing" : input.field === "industrial" ? "industrial maintenance and mechanics" : input.field === "hse" ? "hygiene, safety and environment (HSE)" : "general professional"} roles.
+You specialize in coaching students from the Institut Marocain des Techniciens en Administration (IMTA) who are preparing for job interviews in ${fieldRoleLabel(input.field)} roles.
 ${domainContext}
 Field context: ${input.field}
 Difficulty level: ${input.difficulty}
@@ -1429,7 +1446,7 @@ Your approach:
 - For situational questions: Use a hybrid approach combining structured reasoning with technical knowledge
 - For motivational questions: Enhance authenticity and connection to the candidate's background
 ${domainContext}
-Field context: ${input.field === "healthcare" ? "Healthcare / Nursing" : input.field === "industrial" ? "Industrial Maintenance" : input.field === "hse" ? "HSE / Safety" : "General"}
+Field context: ${input.field === "healthcare" ? "Healthcare / Nursing" : input.field === "industrial" ? "Industrial Maintenance" : input.field === "hse" ? "HSE / Safety" : input.field === "management" ? "Management / Business" : input.field === "technology" ? "Technology / IT" : "General"}
 ${input.targetRole ? `Target role: ${input.targetRole}` : ""}
 
 Return a JSON object with:
@@ -1738,7 +1755,7 @@ Please improve this answer while keeping it natural and authentic.`,
 
 		// Build field-specific breakdown
 		const fieldBreakdown: Record<string, { sessions: number; avgScore: number; lastPracticed: string | null }> = {};
-		for (const field of ["healthcare", "industrial", "hse", "general"]) {
+		for (const field of ["healthcare", "industrial", "hse", "management", "technology", "general"]) {
 			const fieldSessions = sessions.filter((s) => s.field === field);
 			const fieldCompleted = fieldSessions.filter((s) => s.status === "completed" && s.overallScore !== null);
 			const fieldAvg =
@@ -1772,7 +1789,7 @@ Please improve this answer while keeping it natural and authentic.`,
 			suggestions.push("Concentrez-vous sur ameliorer vos reponses - visez un score moyen superieur a 60%.");
 		}
 		if (fieldsSet.size < 3) {
-			const allFields: string[] = ["healthcare", "industrial", "hse", "general"];
+			const allFields: string[] = ["healthcare", "industrial", "hse", "management", "technology", "general"];
 			const missingFields = allFields.filter((f) => !fieldsSet.has(f));
 			suggestions.push(`Pratiquez dans de nouveaux domaines: ${missingFields.join(", ")}.`);
 		}
