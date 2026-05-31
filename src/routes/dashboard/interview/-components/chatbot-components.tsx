@@ -185,7 +185,7 @@ const ChatMessage = memo(function ChatMessage({
 						</span>
 					)}
 					<span>
-						{message.timestamp.toLocaleTimeString(undefined, {
+						{message.timestamp.toLocaleTimeString("fr-FR", {
 							hour: "2-digit",
 							minute: "2-digit",
 						})}

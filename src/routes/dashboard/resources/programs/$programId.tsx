@@ -221,8 +221,8 @@ function ProgramDetailPage() {
 								<div className="flex items-center gap-2 rounded-full bg-background/80 px-4 py-2 backdrop-blur-sm">
 									<CurrencyCircleDollarIcon className="size-5 text-green-500" />
 									<span className="font-medium">
-										{program.salaryRange.min.toLocaleString()} - {program.salaryRange.max.toLocaleString()}{" "}
-										{program.salaryRange.currency}
+										{program.salaryRange.min.toLocaleString("fr-FR")} -{" "}
+										{program.salaryRange.max.toLocaleString("fr-FR")} {program.salaryRange.currency}
 									</span>
 								</div>
 								<div className="flex items-center gap-2 rounded-full bg-green-100 px-4 py-2 dark:bg-green-900/30">

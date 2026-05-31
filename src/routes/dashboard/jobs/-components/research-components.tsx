@@ -62,7 +62,7 @@ import type { Company } from "./research-types";
 
 // --- Utility functions ---
 
-const formatCurrency = (amount: number) => `${amount.toLocaleString()} DH`;
+const formatCurrency = (amount: number) => `${amount.toLocaleString("fr-FR")} DH`;
 
 const getCategoryColor = (category: string) => {
 	switch (category) {

@@ -97,7 +97,7 @@ export function HeroSection({ marketOverview }: { marketOverview: TrendData[] })
 												? formatCurrency(stat.value)
 												: stat.label.includes("Taux")
 													? `${stat.value}%`
-													: stat.value.toLocaleString()}
+													: stat.value.toLocaleString("fr-FR")}
 										</p>
 										<Badge
 											className={cn(

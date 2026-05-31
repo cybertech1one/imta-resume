@@ -761,7 +761,9 @@ export const jobMatchService = {
 			const salaryDiff = Math.abs(userMid - jobMid) / jobMid;
 			salaryScore = salaryDiff < 0.1 ? 15 : salaryDiff < 0.25 ? 10 : 5;
 			if (salaryScore >= 10) {
-				matchDetails.push(`Salary range: ${job.salaryMin.toLocaleString()} - ${job.salaryMax.toLocaleString()} MAD`);
+				matchDetails.push(
+					`Salary range: ${job.salaryMin.toLocaleString("fr-FR")} - ${job.salaryMax.toLocaleString("fr-FR")} MAD`,
+				);
 			}
 		}
 		breakdown.salary = salaryScore;
@@ -1023,17 +1025,17 @@ export const marketAnalyticsService = {
 		if (insights.skillGaps.length > 0) {
 			const topGapSkill = insights.skillGaps[0];
 			insights.careerAdvice.push(
-				`Consider learning ${topGapSkill.skill} - it's in high demand and could boost your salary by ${topGapSkill.salaryBoost.toLocaleString()} MAD`,
+				`Consider learning ${topGapSkill.skill} - it's in high demand and could boost your salary by ${topGapSkill.salaryBoost.toLocaleString("fr-FR")} MAD`,
 			);
 		}
 
 		if (insights.salaryPosition.position === "below") {
 			insights.careerAdvice.push(
-				`Your target salary is ${Math.abs(insights.salaryPosition.difference).toLocaleString()} MAD below market median. Consider negotiating higher or building in-demand skills.`,
+				`Your target salary is ${Math.abs(insights.salaryPosition.difference).toLocaleString("fr-FR")} MAD below market median. Consider negotiating higher or building in-demand skills.`,
 			);
 		} else if (insights.salaryPosition.position === "above") {
 			insights.careerAdvice.push(
-				`Your target salary is ${insights.salaryPosition.difference.toLocaleString()} MAD above market median. Ensure your skills and experience justify this premium.`,
+				`Your target salary is ${insights.salaryPosition.difference.toLocaleString("fr-FR")} MAD above market median. Ensure your skills and experience justify this premium.`,
 			);
 		}
 

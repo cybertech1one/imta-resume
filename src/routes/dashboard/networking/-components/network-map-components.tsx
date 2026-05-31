@@ -444,7 +444,7 @@ export function RemindersTabContent({
 														</span>
 														<span className="flex items-center gap-1">
 															<CalendarIcon className="size-4" />
-															{new Date(reminder.dueDate).toLocaleDateString()}
+															{new Date(reminder.dueDate).toLocaleDateString("fr-FR")}
 														</span>
 													</div>
 												</div>
@@ -515,7 +515,9 @@ export function RemindersTabContent({
 												<p className="font-medium">{node.name}</p>
 												<p className="text-muted-foreground text-xs">
 													Last contact:{" "}
-													{node.lastInteractionAt ? new Date(node.lastInteractionAt).toLocaleDateString() : "Never"}
+													{node.lastInteractionAt
+														? new Date(node.lastInteractionAt).toLocaleDateString("fr-FR")
+														: "Never"}
 												</p>
 											</div>
 										</div>

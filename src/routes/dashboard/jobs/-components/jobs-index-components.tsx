@@ -224,7 +224,7 @@ export function FeaturedJobsSection({
 									{job.salaryMin && job.salaryMax && (
 										<div className="flex items-center gap-2 font-medium text-green-600 text-sm dark:text-green-400">
 											<CurrencyCircleDollarIcon className="size-4" />
-											{job.salaryMin.toLocaleString()} - {job.salaryMax.toLocaleString()} {job.currency}
+											{job.salaryMin.toLocaleString("fr-FR")} - {job.salaryMax.toLocaleString("fr-FR")} {job.currency}
 										</div>
 									)}
 									<div className="flex items-center gap-2 text-muted-foreground text-xs">
@@ -479,7 +479,8 @@ export function JobListingsGrid({
 													{job.salaryMin && job.salaryMax && (
 														<span className="flex items-center gap-1 font-medium text-green-600 dark:text-green-400">
 															<CurrencyCircleDollarIcon className="size-4" />
-															{job.salaryMin.toLocaleString()} - {job.salaryMax.toLocaleString()} {job.currency}
+															{job.salaryMin.toLocaleString("fr-FR")} - {job.salaryMax.toLocaleString("fr-FR")}{" "}
+															{job.currency}
 														</span>
 													)}
 												</div>
@@ -1102,7 +1103,7 @@ export function JobDetailDialog({
 								{selectedJob.salaryMin && selectedJob.salaryMax && (
 									<Badge className="gap-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
 										<CurrencyCircleDollarIcon className="size-3" />
-										{selectedJob.salaryMin.toLocaleString()} - {selectedJob.salaryMax.toLocaleString()}{" "}
+										{selectedJob.salaryMin.toLocaleString("fr-FR")} - {selectedJob.salaryMax.toLocaleString("fr-FR")}{" "}
 										{selectedJob.currency}
 									</Badge>
 								)}

@@ -665,7 +665,7 @@ export function ActivityTab({ recentActivities }: { recentActivities: ActivityIt
 														<p className="font-medium">{activity.title}</p>
 														<p className="text-muted-foreground text-sm">{activity.details}</p>
 													</div>
-													<span className="shrink-0 text-muted-foreground text-xs">
+													<span suppressHydrationWarning className="shrink-0 text-muted-foreground text-xs">
 														{formatRelativeTime(activity.timestamp)}
 													</span>
 												</div>

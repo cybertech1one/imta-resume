@@ -398,7 +398,7 @@ function RouteComponent() {
 									</TableCell>
 									<TableCell>
 										<p suppressHydrationWarning className="text-sm">
-											{new Date(resume.createdAt).toLocaleDateString()}
+											{new Date(resume.createdAt).toLocaleDateString("fr-FR")}
 										</p>
 									</TableCell>
 									<TableCell className="text-right">

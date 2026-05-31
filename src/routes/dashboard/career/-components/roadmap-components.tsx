@@ -296,7 +296,8 @@ function RoadmapStepCard({
 							<div className="flex items-center gap-1 text-green-600">
 								<CurrencyCircleDollarIcon className="size-4" />
 								<span>
-									{step.estimatedSalary.min.toLocaleString()} - {step.estimatedSalary.max.toLocaleString()} DH
+									{step.estimatedSalary.min.toLocaleString("fr-FR")} -{" "}
+									{step.estimatedSalary.max.toLocaleString("fr-FR")} DH
 								</span>
 							</div>
 						)}
@@ -603,12 +604,12 @@ function ProgressOverview({ progress, roadmap }: { progress: RoadmapProgress; ro
 					<div className="flex justify-between text-muted-foreground text-sm">
 						<span>
 							<Trans>
-								Started: {formatDate(progress.startDate, { day: "numeric", month: "short", year: "numeric" })}
+								Début : {formatDate(progress.startDate, { day: "numeric", month: "short", year: "numeric" })}
 							</Trans>
 						</span>
 						<span>
 							<Trans>
-								Target:{" "}
+								Objectif :{" "}
 								{formatDate(progress.estimatedCompletionDate, { day: "numeric", month: "short", year: "numeric" })}
 							</Trans>
 						</span>

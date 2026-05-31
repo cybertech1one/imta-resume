@@ -22,4 +22,9 @@ const dedupedManifest = manifest.filter((entry) => {
 
 precacheAndRoute(dedupedManifest);
 
+// Match the previous generateSW behaviour: activate immediately and take control
+// of open clients so updates apply without requiring a second navigation.
 self.skipWaiting();
+self.addEventListener("activate", (event) => {
+	event.waitUntil(self.clients.claim());
+});

@@ -1203,7 +1203,7 @@ export function ProgressTabContent({
 												<Badge variant="outline">{LEVEL_CONFIG[result.level as keyof typeof LEVEL_CONFIG].label}</Badge>
 											</div>
 											<p className="mt-1 text-muted-foreground text-sm">
-												{new Date(result.date).toLocaleDateString(undefined, {
+												{new Date(result.date).toLocaleDateString("fr-FR", {
 													day: "numeric",
 													month: "long",
 													year: "numeric",

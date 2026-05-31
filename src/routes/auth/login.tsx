@@ -37,8 +37,8 @@ function getFormSchema() {
 		password: z
 			.string()
 			.trim()
-			.min(6, { message: t`Password must be at least 6 characters` })
-			.max(64, { message: t`Password cannot exceed 64 characters` }),
+			.min(6, { message: t`Le mot de passe doit contenir au moins 6 caractères` })
+			.max(64, { message: t`Le mot de passe ne peut pas dépasser 64 caractères` }),
 	});
 }
 
@@ -72,12 +72,21 @@ function RouteComponent() {
 				window.location.href = "/dashboard";
 			},
 			onError: ({ error }) => {
-				// French fallback for IP-based throttling (Better Auth returns 429
-				// with an English message); per-email lockout already returns French.
-				const message =
-					error.status === 429
-						? t`Trop de tentatives. Veuillez patienter quelques instants avant de réessayer.`
-						: error.message;
+				// Map Better Auth errors to clear French messages. The raw error.message
+				// is English (and sometimes empty), which left users with a blank/invisible
+				// toast on a wrong password. Localise the common cases and keep the original
+				// message only as a last resort.
+				let message: string;
+				if (error.status === 429) {
+					// IP-based throttling — Better Auth returns 429 with an English message.
+					message = t`Trop de tentatives. Veuillez patienter quelques instants avant de réessayer.`;
+				} else if (error.status === 401 || error.code === "INVALID_EMAIL_OR_PASSWORD") {
+					message = t`E-mail ou mot de passe incorrect.`;
+				} else if (error.code === "EMAIL_NOT_VERIFIED" || error.status === 403) {
+					message = t`Veuillez vérifier votre adresse e-mail avant de vous connecter. Consultez votre boîte de réception.`;
+				} else {
+					message = error.message || t`Échec de la connexion. Veuillez réessayer.`;
+				}
 				toast.error(message, { id: toastId });
 			},
 		};

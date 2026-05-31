@@ -170,7 +170,9 @@ function calculateMatchScore(userProfile: UserProfile, job: JobData): MatchScore
 			salaryMatchScore = Math.round(8 + overlapRatio * 7); // 8-15 points
 
 			if (job.salaryMax >= userProfile.salaryExpectation.min) {
-				matchedReasons.push(`Salaire: ${job.salaryMin.toLocaleString()} - ${job.salaryMax.toLocaleString()} MAD/an`);
+				matchedReasons.push(
+					`Salaire: ${job.salaryMin.toLocaleString("fr-FR")} - ${job.salaryMax.toLocaleString("fr-FR")} MAD/an`,
+				);
 			}
 		} else if (job.salaryMax < userProfile.salaryExpectation.min) {
 			// Job pays less than expected

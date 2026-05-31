@@ -383,7 +383,7 @@ export function MarketDemandCard({ skill }: { skill: MarketDemandSkill }) {
 							<span className="text-muted-foreground">
 								<Trans>Listings:</Trans>
 							</span>{" "}
-							<span className="font-medium">{skill.totalJobs.toLocaleString()}</span>
+							<span className="font-medium">{skill.totalJobs.toLocaleString("fr-FR")}</span>
 						</div>
 						<div className="col-span-2">
 							<span className="text-muted-foreground">
@@ -429,7 +429,7 @@ export function IndustryBenchmarkCard({
 						</div>
 						<div>
 							<CardTitle className="text-base">{benchmark.industryFr || benchmark.industry}</CardTitle>
-							<CardDescription>{benchmark.totalPositions.toLocaleString()} positions</CardDescription>
+							<CardDescription>{benchmark.totalPositions.toLocaleString("fr-FR")} positions</CardDescription>
 						</div>
 					</div>
 					<Badge className={competitionColors[benchmark.competitionLevel]}>

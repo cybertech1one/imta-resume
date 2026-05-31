@@ -33,10 +33,10 @@ const experiencePresets = {
 				company: "",
 				position: "Stagiaire Infirmier(e)",
 				description: `<ul>
-<li>Assiste l'equipe soignante dans la prise en charge des patients</li>
-<li>Participe aux soins d'hygiene et de confort</li>
+<li>Assiste l'équipe soignante dans la prise en charge des patients</li>
+<li>Participe aux soins d'hygiène et de confort</li>
 <li>Effectue la surveillance des constantes vitales</li>
-<li>Contribue a la documentation des dossiers patients</li>
+<li>Contribue à la documentation des dossiers patients</li>
 </ul>`,
 			},
 			{
@@ -44,19 +44,19 @@ const experiencePresets = {
 				position: "Aide-Soignant(e)",
 				description: `<ul>
 <li>Accompagne les patients dans les actes de la vie quotidienne</li>
-<li>Participe aux soins de confort et d'hygiene</li>
-<li>Transmet les observations a l'equipe soignante</li>
+<li>Participe aux soins de confort et d'hygiène</li>
+<li>Transmet les observations à l'équipe soignante</li>
 <li>Entretient l'environnement du patient</li>
 </ul>`,
 			},
 			{
 				company: "",
-				position: "Auxiliaire de Puericulture",
+				position: "Auxiliaire de Puériculture",
 				description: `<ul>
-<li>Assure les soins et l'hygiene des nourrissons et enfants</li>
-<li>Participe a l'eveil et au developpement de l'enfant</li>
-<li>Collabore avec l'equipe pluridisciplinaire</li>
-<li>Veille a la securite et au bien-etre des enfants</li>
+<li>Assure les soins et l'hygiène des nourrissons et enfants</li>
+<li>Participe à l'éveil et au développement de l'enfant</li>
+<li>Collabore avec l'équipe pluridisciplinaire</li>
+<li>Veille à la sécurité et au bien-être des enfants</li>
 </ul>`,
 			},
 		],
@@ -69,29 +69,29 @@ const experiencePresets = {
 				company: "",
 				position: "Stagiaire Technicien de Maintenance",
 				description: `<ul>
-<li>Participe aux operations de maintenance preventive et corrective</li>
-<li>Assiste au diagnostic et a la reparation des equipements</li>
-<li>Applique les procedures de securite et les consignes de travail</li>
-<li>Redige des rapports d'intervention</li>
+<li>Participe aux opérations de maintenance préventive et corrective</li>
+<li>Assiste au diagnostic et à la réparation des équipements</li>
+<li>Applique les procédures de sécurité et les consignes de travail</li>
+<li>Rédige des rapports d'intervention</li>
 </ul>`,
 			},
 			{
 				company: "",
-				position: "Operateur de Production",
+				position: "Opérateur de Production",
 				description: `<ul>
-<li>Assure le bon fonctionnement des equipements de production</li>
-<li>Controle la qualite des produits fabriques</li>
-<li>Respecte les normes de securite et d'hygiene</li>
-<li>Participe a l'amelioration continue des processus</li>
+<li>Assure le bon fonctionnement des équipements de production</li>
+<li>Contrôle la qualité des produits fabriqués</li>
+<li>Respecte les normes de sécurité et d'hygiène</li>
+<li>Participe à l'amélioration continue des processus</li>
 </ul>`,
 			},
 			{
 				company: "",
-				position: "Technicien Electromecanicien",
+				position: "Technicien Électromécanicien",
 				description: `<ul>
-<li>Installe et met en service les equipements electromecaniques</li>
-<li>Realise la maintenance des systemes automatises</li>
-<li>Diagnostique les pannes et effectue les reparations</li>
+<li>Installe et met en service les équipements électromécaniques</li>
+<li>Réalise la maintenance des systèmes automatisés</li>
+<li>Diagnostique les pannes et effectue les réparations</li>
 <li>Assure le suivi technique et la documentation</li>
 </ul>`,
 			},
@@ -105,20 +105,20 @@ const experiencePresets = {
 				company: "",
 				position: "Stagiaire HSE",
 				description: `<ul>
-<li>Participe aux inspections de securite sur le terrain</li>
-<li>Contribue a l'evaluation des risques professionnels</li>
-<li>Assiste a la redaction des procedures de securite</li>
-<li>Participe aux reunions et formations securite</li>
+<li>Participe aux inspections de sécurité sur le terrain</li>
+<li>Contribue à l'évaluation des risques professionnels</li>
+<li>Assiste à la rédaction des procédures de sécurité</li>
+<li>Participe aux réunions et formations sécurité</li>
 </ul>`,
 			},
 			{
 				company: "",
-				position: "Assistant(e) Qualite",
+				position: "Assistant(e) Qualité",
 				description: `<ul>
-<li>Participe au suivi du systeme de management de la qualite</li>
+<li>Participe au suivi du système de management de la qualité</li>
 <li>Assiste aux audits internes et externes</li>
-<li>Contribue a la gestion documentaire</li>
-<li>Aide a l'analyse des non-conformites</li>
+<li>Contribue à la gestion documentaire</li>
+<li>Aide à l'analyse des non-conformités</li>
 </ul>`,
 			},
 		],
@@ -129,22 +129,22 @@ const experiencePresets = {
 		items: [
 			{
 				company: "",
-				position: "Employe(e) Polyvalent(e)",
+				position: "Employé(e) Polyvalent(e)",
 				description: `<ul>
-<li>Effectue diverses taches selon les besoins de l'entreprise</li>
+<li>Effectue diverses tâches selon les besoins de l'entreprise</li>
 <li>Accueille et oriente les clients/visiteurs</li>
-<li>Participe aux operations logistiques</li>
-<li>Maintient la proprete et l'organisation des espaces de travail</li>
+<li>Participe aux opérations logistiques</li>
+<li>Maintient la propreté et l'organisation des espaces de travail</li>
 </ul>`,
 			},
 			{
 				company: "",
 				position: "Agent Administratif",
 				description: `<ul>
-<li>Assure la gestion du courrier et des appels telephoniques</li>
-<li>Saisit et met a jour les donnees dans le systeme</li>
+<li>Assure la gestion du courrier et des appels téléphoniques</li>
+<li>Saisit et met à jour les données dans le système</li>
 <li>Classe et archive les documents</li>
-<li>Prepare les reunions et redige les comptes-rendus</li>
+<li>Prépare les réunions et rédige les comptes-rendus</li>
 </ul>`,
 			},
 		],

@@ -115,7 +115,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 		description:
 			"Support women through the most precious moments of their lives. A noble vocation with exceptional employment rates.",
 		descriptionFr:
-			"Accompagnez les femmes dans les moments les plus precieux de leur vie. Une vocation noble avec un taux d'emploi exceptionnel.",
+			"Accompagnez les femmes dans les moments les plus précieux de leur vie. Une vocation noble avec un taux d'emploi exceptionnel.",
 		successRate: 98,
 		avgSalary: "6000+ DH/Mois",
 		employmentRate: 100,
@@ -141,7 +141,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 		description:
 			"The pillar of hospital care. Excellent versatile training that opens doors to all healthcare facilities.",
 		descriptionFr:
-			"Le pilier des soins hospitaliers. Formation polyvalente d'excellence qui ouvre les portes de tous les etablissements de sante.",
+			"Le pilier des soins hospitaliers. Formation polyvalente d'excellence qui ouvre les portes de tous les établissements de santé.",
 		successRate: 97,
 		avgSalary: "5500+ DH/Mois",
 		employmentRate: 100,
@@ -167,7 +167,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 		description:
 			"Accelerated training for rapid entry into the medical sector. Ideal for starting a career in healthcare.",
 		descriptionFr:
-			"Formation acceleree pour une insertion rapide dans le secteur medical. Ideal pour commencer une carriere dans la sante.",
+			"Formation accélérée pour une insertion rapide dans le secteur médical. Idéal pour commencer une carrière dans la santé.",
 		successRate: 95,
 		avgSalary: "3500+ DH/Mois",
 		employmentRate: 98,
@@ -193,7 +193,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 		description:
 			"The guardian of patient comfort and well-being. Hygiene care, vital signs monitoring, and medical technical assistance.",
 		descriptionFr:
-			"Le garant du confort et du bien-etre du patient. Soins d'hygiene, surveillance des constantes et assistance technique medicale.",
+			"Le garant du confort et du bien-être du patient. Soins d'hygiène, surveillance des constantes et assistance technique médicale.",
 		successRate: 70,
 		avgSalary: "4500+ DH/Mois",
 		employmentRate: 95,
@@ -210,7 +210,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 	{
 		id: "hse_specialist",
 		name: "HSE Specialist",
-		nameFr: "Specialiste HSE",
+		nameFr: "Spécialiste HSE",
 		field: "hse",
 		duration: "2 Years",
 		durationFr: "2 Ans",
@@ -219,7 +219,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 		description:
 			"Become the safety guardian in strategic industries. An essential profession with attractive salaries.",
 		descriptionFr:
-			"Devenez le garant de la securite dans les industries strategiques. Un metier indispensable avec des salaires attractifs.",
+			"Devenez le garant de la sécurité dans les industries stratégiques. Un métier indispensable avec des salaires attractifs.",
 		successRate: 96,
 		avgSalary: "7000+ DH/Mois",
 		employmentRate: 95,
@@ -245,7 +245,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 		description:
 			"Master the power of heavy machinery on construction sites. Intensive practical training on real equipment.",
 		descriptionFr:
-			"Dominez la puissance des machines lourdes sur les chantiers. Formation pratique intensive sur engins reels.",
+			"Dominez la puissance des machines lourdes sur les chantiers. Formation pratique intensive sur engins réels.",
 		successRate: 100,
 		avgSalary: "8000+ DH/Mois",
 		employmentRate: 92,
@@ -262,7 +262,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 	{
 		id: "mecanique_engins",
 		name: "Heavy Equipment Mechanic",
-		nameFr: "Mecanique d'Engins",
+		nameFr: "Mécanique d'Engins",
 		field: "industrial",
 		duration: "2 Years",
 		durationFr: "2 Ans",
@@ -271,7 +271,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 		description:
 			"Maintain the giants of mining and construction industries. Rare and highly sought-after technical expertise.",
 		descriptionFr:
-			"Maintenez les geants de l'industrie miniere et du BTP. Expertise technique rare et tres recherchee sur le marche.",
+			"Maintenez les géants de l'industrie minière et du BTP. Expertise technique rare et très recherchée sur le marché.",
 		successRate: 94,
 		avgSalary: "7500+ DH/Mois",
 		employmentRate: 93,
@@ -296,7 +296,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 		requirementsFr: "9AF",
 		description: "The elite of precision mechanics and machining. Technical expertise valued in all industries.",
 		descriptionFr:
-			"L'elite de la mecanique de precision et de l'usinage. Un savoir-faire technique valorise dans toutes les industries.",
+			"L'élite de la mécanique de précision et de l'usinage. Un savoir-faire technique valorisé dans toutes les industries.",
 		successRate: 92,
 		avgSalary: "5000+ DH/Mois",
 		employmentRate: 90,
@@ -321,7 +321,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 		requirementsFr: "Court",
 		description: "Master forklift driving for logistics. Intensive practical training with professional certification.",
 		descriptionFr:
-			"Maitrisez la conduite de chariots pour la logistique. Formation pratique intensive avec certification professionnelle.",
+			"Maîtrisez la conduite de chariots pour la logistique. Formation pratique intensive avec certification professionnelle.",
 		successRate: 100,
 		avgSalary: "4500+ DH/Mois",
 		employmentRate: 95,
@@ -338,7 +338,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 	{
 		id: "electromecanique",
 		name: "Electromechanical Technician",
-		nameFr: "Technicien Electromecanique",
+		nameFr: "Technicien Électromécanique",
 		field: "industrial",
 		duration: "2 Years",
 		durationFr: "2 Ans",
@@ -346,7 +346,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 		requirementsFr: "Bac Requis",
 		description: "Master both electrical and mechanical systems. Essential for modern automated industries.",
 		descriptionFr:
-			"Maitrisez les systemes electriques et mecaniques. Essentiel pour les industries automatisees modernes.",
+			"Maîtrisez les systèmes électriques et mécaniques. Essentiel pour les industries automatisées modernes.",
 		successRate: 93,
 		avgSalary: "6000+ DH/Mois",
 		employmentRate: 94,
@@ -371,7 +371,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 		requirementsFr: "9AF",
 		description: "Master welding techniques for construction and industry. High demand skill across multiple sectors.",
 		descriptionFr:
-			"Maitrisez les techniques de soudure pour le BTP et l'industrie. Competence tres demandee dans plusieurs secteurs.",
+			"Maîtrisez les techniques de soudure pour le BTP et l'industrie. Compétence très demandée dans plusieurs secteurs.",
 		successRate: 91,
 		avgSalary: "5500+ DH/Mois",
 		employmentRate: 92,
@@ -395,7 +395,7 @@ export const IMTA_PROGRAMS: ProgramMetadata[] = [
 		requirements: "Varies",
 		requirementsFr: "Variable",
 		description: "Custom or external training program not listed above.",
-		descriptionFr: "Programme de formation personnalise ou externe non liste ci-dessus.",
+		descriptionFr: "Programme de formation personnalisé ou externe non listé ci-dessus.",
 		skills: [],
 	},
 ];

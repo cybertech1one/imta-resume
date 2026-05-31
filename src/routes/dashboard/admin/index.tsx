@@ -100,7 +100,7 @@ function StatCard({ title, value, icon, color }: StatCardProps) {
 			<div className="flex items-center justify-between">
 				<div>
 					<p className="font-medium text-muted-foreground text-sm">{title}</p>
-					<p className="mt-2 font-bold text-3xl tracking-tight">{value.toLocaleString()}</p>
+					<p className="mt-2 font-bold text-3xl tracking-tight">{value.toLocaleString("fr-FR")}</p>
 				</div>
 				<div className={cn("flex size-12 items-center justify-center rounded-xl ring-1", colorClasses[color])}>
 					{icon}
@@ -119,7 +119,7 @@ type GrowthChartProps = {
 function GrowthChart({ title, data, color }: GrowthChartProps) {
 	// Format data for the chart
 	const chartData = data.map((item) => ({
-		date: new Date(item.date).toLocaleDateString(undefined, { month: "short", day: "numeric" }),
+		date: new Date(item.date).toLocaleDateString("fr-FR", { month: "short", day: "numeric" }),
 		count: item.count,
 	}));
 
@@ -375,7 +375,9 @@ function RouteComponent() {
 										<p className="font-medium text-sm">{user.name}</p>
 										<p className="text-muted-foreground text-xs">{user.email}</p>
 									</div>
-									<p className="text-muted-foreground text-xs">{new Date(user.createdAt).toLocaleDateString()}</p>
+									<p className="text-muted-foreground text-xs">
+										{new Date(user.createdAt).toLocaleDateString("fr-FR")}
+									</p>
 								</div>
 							))}
 							{recentActivity.recentUsers.length === 0 && (
@@ -425,7 +427,9 @@ function RouteComponent() {
 									<p className="font-medium text-sm">{resume.name}</p>
 									<p className="text-muted-foreground text-xs">by {resume.userName}</p>
 								</div>
-								<p className="text-muted-foreground text-xs">{new Date(resume.createdAt).toLocaleDateString()}</p>
+								<p className="text-muted-foreground text-xs">
+									{new Date(resume.createdAt).toLocaleDateString("fr-FR")}
+								</p>
 							</div>
 						))}
 						{recentActivity.recentResumes.length === 0 && (

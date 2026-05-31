@@ -117,7 +117,7 @@ function RouteComponent() {
 								<div className="flex-1 space-y-1">
 									<p className="font-mono text-xs">{key.start}...</p>
 									<div className="text-muted-foreground text-xs">
-										<Trans>Expires on {key.expiresAt?.toLocaleDateString()}</Trans>
+										<Trans>Expires on {key.expiresAt?.toLocaleDateString("fr-FR")}</Trans>
 									</div>
 								</div>
 

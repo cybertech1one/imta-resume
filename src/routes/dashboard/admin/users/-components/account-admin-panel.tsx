@@ -209,7 +209,7 @@ export function AccountAdminPanel({ user, isSelf }: Props) {
 					{user.banReason}
 					{user.banExpiresAt && (
 						<span className="block text-muted-foreground text-xs">
-							<Trans>Expire le</Trans> {new Date(user.banExpiresAt).toLocaleString()}
+							<Trans>Expire le</Trans> {new Date(user.banExpiresAt).toLocaleString("fr-FR")}
 						</span>
 					)}
 				</p>
@@ -313,8 +313,8 @@ export function AccountAdminPanel({ user, isSelf }: Props) {
 										>
 											{s.userAgent ?? "—"}
 										</TableCell>
-										<TableCell className="text-sm">{new Date(s.createdAt).toLocaleString()}</TableCell>
-										<TableCell className="text-sm">{new Date(s.expiresAt).toLocaleString()}</TableCell>
+										<TableCell className="text-sm">{new Date(s.createdAt).toLocaleString("fr-FR")}</TableCell>
+										<TableCell className="text-sm">{new Date(s.expiresAt).toLocaleString("fr-FR")}</TableCell>
 									</TableRow>
 								))}
 							</TableBody>

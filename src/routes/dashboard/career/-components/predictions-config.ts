@@ -42,7 +42,7 @@ export const EDUCATION_LEVELS = new Proxy([] as ReturnType<typeof getEducationLe
 });
 
 export function formatSalary(amount: number, currency = "MAD"): string {
-	return `${amount.toLocaleString()} ${currency}`;
+	return `${amount.toLocaleString("fr-FR")} ${currency}`;
 }
 
 export function formatMonths(months: number): string {

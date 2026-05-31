@@ -69,7 +69,7 @@ export function EventsTab({ events, handleToggleEventAttendance, onAddEvent }: E
 													<div className="flex flex-wrap gap-3 text-muted-foreground text-sm">
 														<span className="flex items-center gap-1">
 															<CalendarIcon className="size-4" />
-															{new Date(event.date).toLocaleDateString()}
+															{new Date(event.date).toLocaleDateString("fr-FR")}
 														</span>
 														<span className="flex items-center gap-1">
 															<MapPinIcon className="size-4" />
@@ -158,7 +158,7 @@ export function EventsTab({ events, handleToggleEventAttendance, onAddEvent }: E
 													<span className="font-medium">{event.name}</span>
 												</div>
 												<p className="text-muted-foreground text-xs">
-													{new Date(event.date).toLocaleDateString()} - {event.location}
+													{new Date(event.date).toLocaleDateString("fr-FR")} - {event.location}
 												</p>
 											</div>
 											{event.contactsMet.length > 0 && (

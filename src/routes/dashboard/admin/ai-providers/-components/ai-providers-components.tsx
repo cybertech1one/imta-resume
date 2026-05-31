@@ -393,7 +393,7 @@ export function PerformanceMetricsTab() {
 						<ChartLineUpIcon className="size-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
-						<div className="font-bold text-2xl">{totalRequests.toLocaleString()}</div>
+						<div className="font-bold text-2xl">{totalRequests.toLocaleString("fr-FR")}</div>
 						<p className="text-muted-foreground text-xs">
 							<Trans>Last 30 days</Trans>
 						</p>
@@ -569,7 +569,7 @@ export function PerformanceMetricsTab() {
 													<p className="text-muted-foreground text-xs">{model.provider}</p>
 												</div>
 											</TableCell>
-											<TableCell className="text-right">{model.totalRequests.toLocaleString()}</TableCell>
+											<TableCell className="text-right">{model.totalRequests.toLocaleString("fr-FR")}</TableCell>
 											<TableCell className="text-right">
 												<span
 													className={cn(
@@ -648,7 +648,7 @@ export function PerformanceMetricsTab() {
 									{featurePerformance.map((feature) => (
 										<TableRow key={feature.feature}>
 											<TableCell className="font-medium">{feature.feature.replace(/_/g, " ")}</TableCell>
-											<TableCell className="text-right">{feature.totalRequests.toLocaleString()}</TableCell>
+											<TableCell className="text-right">{feature.totalRequests.toLocaleString("fr-FR")}</TableCell>
 											<TableCell className="text-right">
 												<span
 													className={cn(
@@ -936,7 +936,7 @@ export function PerformanceMetricsTab() {
 											<TableCell>{row.feature.replace(/_/g, " ")}</TableCell>
 											<TableCell className="text-right">{row.totalRequests}</TableCell>
 											<TableCell className="text-right">
-												{(row.totalInputTokens + row.totalOutputTokens).toLocaleString()}
+												{(row.totalInputTokens + row.totalOutputTokens).toLocaleString("fr-FR")}
 											</TableCell>
 											<TableCell className="text-right">${row.costPerRequest.toFixed(4)}</TableCell>
 											<TableCell className="text-right">

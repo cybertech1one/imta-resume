@@ -109,4 +109,4 @@ export const EMERGING_JOBS_EDITORIAL = [
 	},
 ];
 
-export const formatCurrency = (amount: number) => `${amount.toLocaleString()} DH`;
+export const formatCurrency = (amount: number) => `${amount.toLocaleString("fr-FR")} DH`;

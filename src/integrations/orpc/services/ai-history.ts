@@ -72,7 +72,7 @@ const SOURCE_LABELS: Record<AiContentSource, string> = {
 };
 
 function generateDefaultName(source: AiContentSource): string {
-	const date = new Date().toLocaleDateString();
+	const date = new Date().toLocaleDateString("fr-FR");
 	return `${SOURCE_LABELS[source] || source} - ${date}`;
 }
 

@@ -698,7 +698,7 @@ export function SavedLettersTab({
 							)}
 
 							<p className="text-muted-foreground text-xs">
-								{new Date(letter.updatedAt).toLocaleDateString(undefined, {
+								{new Date(letter.updatedAt).toLocaleDateString("fr-FR", {
 									year: "numeric",
 									month: "long",
 									day: "numeric",

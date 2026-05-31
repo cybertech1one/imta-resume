@@ -169,7 +169,7 @@ function RegionalJobCard({ region, jobs, growth, salary }: RegionalJobCardProps)
 				<div>
 					<p className="font-semibold">{region}</p>
 					<p className="text-muted-foreground text-xs">
-						{jobs.toLocaleString()} <Trans>jobs</Trans>
+						{jobs.toLocaleString("fr-FR")} <Trans>jobs</Trans>
 					</p>
 				</div>
 			</div>
@@ -769,7 +769,7 @@ export function RegionsTabContent({ regions, regionsLoading, itemVariants }: Reg
 												className="border-b last:border-0"
 											>
 												<td className="py-3 font-medium">{region.regionFr || region.region}</td>
-												<td className="py-3 text-right">{(region.totalJobs || 0).toLocaleString()}</td>
+												<td className="py-3 text-right">{(region.totalJobs || 0).toLocaleString("fr-FR")}</td>
 												<td className="py-3 text-right">
 													<Badge
 														variant="secondary"

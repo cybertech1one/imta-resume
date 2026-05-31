@@ -534,7 +534,7 @@ function ResultsPage() {
 							<span>|</span>
 							<span className="flex items-center gap-1">
 								<ClockIcon className="size-4" />
-								{new Date(session.createdAt).toLocaleDateString()}
+								{new Date(session.createdAt).toLocaleDateString("fr-FR")}
 							</span>
 						</motion.div>
 					</div>

@@ -170,7 +170,7 @@ function formatRelativeTime(date: Date): string {
 	if (diffDays < 7) {
 		return t`${diffDays}d ago`;
 	}
-	return date.toLocaleDateString(undefined, { day: "numeric", month: "short" });
+	return date.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
 }
 
 // Get today's tip based on day of year
@@ -585,7 +585,7 @@ export function NotificationCenter() {
 															{notification.description}
 														</p>
 													</div>
-													<span className="shrink-0 text-[10px] text-muted-foreground">
+													<span suppressHydrationWarning className="shrink-0 text-[10px] text-muted-foreground">
 														{formatRelativeTime(new Date(notification.createdAt))}
 													</span>
 												</div>

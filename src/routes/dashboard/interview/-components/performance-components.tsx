@@ -274,10 +274,10 @@ function TrendChart({ data }: { data: PerformanceTrend[] }) {
 			<div className="absolute right-0 bottom-0 left-0 flex justify-between px-2 text-muted-foreground text-xs">
 				{data.length > 0 && (
 					<>
-						<span>{new Date(data[0].date).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>
+						<span>{new Date(data[0].date).toLocaleDateString("fr-FR", { month: "short", day: "numeric" })}</span>
 						{data.length > 1 && (
 							<span>
-								{new Date(data[data.length - 1].date).toLocaleDateString(undefined, {
+								{new Date(data[data.length - 1].date).toLocaleDateString("fr-FR", {
 									month: "short",
 									day: "numeric",
 								})}
@@ -336,7 +336,7 @@ function GoalCard({
 				<div className="mb-3 flex items-center gap-2 text-sm">
 					<CalendarIcon className="size-4 text-muted-foreground" />
 					<span>
-						{new Date(goal.interviewDate).toLocaleDateString(undefined, {
+						{new Date(goal.interviewDate).toLocaleDateString("fr-FR", {
 							weekday: "long",
 							day: "numeric",
 							month: "long",
@@ -922,7 +922,7 @@ export function GoalsTab({
 										<span>{goal.practiceCount ?? 0} practices</span>
 										{goal.interviewDate && (
 											<span>
-												{new Date(goal.interviewDate).toLocaleDateString(undefined, {
+												{new Date(goal.interviewDate).toLocaleDateString("fr-FR", {
 													month: "short",
 													day: "numeric",
 												})}

@@ -394,13 +394,18 @@ const config = defineConfig({
 			injectRegister: false,
 			includeAssets: ["**/*"],
 			registerType: "autoUpdate",
-			workbox: {
-				skipWaiting: true,
-				clientsClaim: true,
+			// injectManifest strategy: use our custom src/sw.ts, which dedupes the
+			// precache manifest by URL. The build can emit the same asset (notably
+			// manifest.webmanifest, also committed under public/) more than once with
+			// different __WB_REVISION__ values; generateSW threw
+			// `add-to-cache-list-conflicting-entries` and broke SW install in prod.
+			strategies: "injectManifest",
+			srcDir: "src",
+			filename: "sw.ts",
+			injectManifest: {
 				globPatterns: ["**/*.{js,css,html,woff2,woff,ico,svg}"],
 				globIgnores: ["**/templates/**/*.{jpg,png,pdf}", "**/uploads/**"],
 				maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-				navigateFallback: null,
 			},
 			manifest: {
 				name: "IMTA Resume",

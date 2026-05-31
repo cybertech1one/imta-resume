@@ -316,8 +316,17 @@ function normalizeDifficulty(d) {
 	return DIFFICULTIES.includes(v) ? v : "medium";
 }
 
+function resolveConnection() {
+	// Prefer an explicit target; fall back to prod PG_PUBLIC_URL. For local
+	// connections (localhost/127.0.0.1) disable SSL — local Postgres has none.
+	const conn = process.env.PG_TARGET_URL || process.env.PG_PUBLIC_URL;
+	if (!conn) throw new Error("Set PG_TARGET_URL (local) or PG_PUBLIC_URL (prod)");
+	const isLocal = /localhost|127\.0\.0\.1/.test(conn);
+	return { connectionString: conn, ssl: isLocal ? false : { rejectUnauthorized: false } };
+}
+
 async function main() {
-	const c = new Client({ connectionString: process.env.PG_PUBLIC_URL, ssl: { rejectUnauthorized: false } });
+	const c = new Client(resolveConnection());
 	await c.connect();
 
 	const provRes = await c.query(

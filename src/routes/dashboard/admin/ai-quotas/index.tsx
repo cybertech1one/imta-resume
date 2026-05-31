@@ -591,7 +591,7 @@ function RouteComponent() {
 
 								{/* Created Date */}
 								<div className="mt-auto border-t pt-3 text-muted-foreground text-xs">
-									<Trans>Created</Trans>: {new Date(plan.createdAt).toLocaleDateString()}
+									<Trans>Created</Trans>: {new Date(plan.createdAt).toLocaleDateString("fr-FR")}
 								</div>
 							</div>
 						))}

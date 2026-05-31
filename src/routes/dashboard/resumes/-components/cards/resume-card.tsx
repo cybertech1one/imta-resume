@@ -39,7 +39,7 @@ const ResumeCard = memo(function ResumeCard({ resume }: ResumeCardProps) {
 		if (diffHours < 1) return t`Just now`;
 		if (diffHours < 24) return t`${diffHours}h ago`;
 		if (diffDays < 7) return t`${diffDays}d ago`;
-		return updated.toLocaleDateString(undefined, { day: "numeric", month: "short" });
+		return updated.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
 	}, [resume.updatedAt]);
 
 	return (

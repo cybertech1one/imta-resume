@@ -132,4 +132,4 @@ export function getRegionalComparison(
 	}));
 }
 
-export const formatCurrency = (amount: number) => `${amount.toLocaleString()} DH`;
+export const formatCurrency = (amount: number) => `${amount.toLocaleString("fr-FR")} DH`;

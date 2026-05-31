@@ -187,7 +187,7 @@ export function TimelineEventCard({
 						{event.salary && (
 							<div className="flex items-center gap-1 font-medium text-green-600 dark:text-green-400">
 								<CurrencyCircleDollarIcon className="size-4" />
-								<span>{event.salary.toLocaleString()} DH</span>
+								<span>{event.salary.toLocaleString("fr-FR")} DH</span>
 							</div>
 						)}
 					</div>
@@ -301,13 +301,13 @@ export function SalaryChart({ data }: { data: { date: string; salary: number; ti
 						<p className="text-muted-foreground text-xs">
 							<Trans>First</Trans>
 						</p>
-						<p className="font-bold text-lg">{firstSalary.toLocaleString()} DH</p>
+						<p className="font-bold text-lg">{firstSalary.toLocaleString("fr-FR")} DH</p>
 					</div>
 					<div className="rounded-lg bg-muted/50 p-3 text-center">
 						<p className="text-muted-foreground text-xs">
 							<Trans>Current</Trans>
 						</p>
-						<p className="font-bold text-lg">{lastSalary.toLocaleString()} DH</p>
+						<p className="font-bold text-lg">{lastSalary.toLocaleString("fr-FR")} DH</p>
 					</div>
 					<div className="rounded-lg bg-green-50 p-3 text-center dark:bg-green-900/20">
 						<p className="text-muted-foreground text-xs">
@@ -344,13 +344,13 @@ export function SalaryChart({ data }: { data: { date: string; salary: number; ti
 
 						{/* Y-axis labels */}
 						<text x="35" y="25" textAnchor="end" className="fill-muted-foreground text-[8px]">
-							{maxSalary.toLocaleString()}
+							{maxSalary.toLocaleString("fr-FR")}
 						</text>
 						<text x="35" y="75" textAnchor="end" className="fill-muted-foreground text-[8px]">
-							{Math.round((maxSalary + minSalary) / 2).toLocaleString()}
+							{Math.round((maxSalary + minSalary) / 2).toLocaleString("fr-FR")}
 						</text>
 						<text x="35" y="120" textAnchor="end" className="fill-muted-foreground text-[8px]">
-							{minSalary.toLocaleString()}
+							{minSalary.toLocaleString("fr-FR")}
 						</text>
 
 						{/* Line chart */}
@@ -404,7 +404,7 @@ export function SalaryChart({ data }: { data: { date: string; salary: number; ti
 						<Tooltip key={i}>
 							<TooltipTrigger asChild>
 								<Badge variant="outline" className="cursor-default">
-									{point.title}: {point.salary.toLocaleString()} DH
+									{point.title}: {point.salary.toLocaleString("fr-FR")} DH
 								</Badge>
 							</TooltipTrigger>
 							<TooltipContent>{formatDateFull(point.date)}</TooltipContent>
@@ -622,7 +622,8 @@ export function GoalsTracker({
 															<Trans>Progress</Trans>
 														</span>
 														<span className="font-medium">
-															{goal.currentValue?.toLocaleString() || 0} / {goal.targetValue.toLocaleString()}
+															{goal.currentValue?.toLocaleString("fr-FR") || 0} /{" "}
+															{goal.targetValue.toLocaleString("fr-FR")}
 														</span>
 													</div>
 													<Progress value={progress} className="h-2" />
@@ -722,7 +723,7 @@ export function BenchmarkComparison({ currentSalary, experience }: { currentSala
 							<p className="text-muted-foreground text-sm">
 								<Trans>Your current salary</Trans>
 							</p>
-							<p className="font-bold text-2xl text-primary">{currentSalary.toLocaleString()} DH</p>
+							<p className="font-bold text-2xl text-primary">{currentSalary.toLocaleString("fr-FR")} DH</p>
 						</div>
 						<div className="text-right">
 							<p className="text-muted-foreground text-sm">
@@ -758,9 +759,9 @@ export function BenchmarkComparison({ currentSalary, experience }: { currentSala
 									<Badge variant="outline">{benchmark.experienceYears} years exp.</Badge>
 								</div>
 								<div className="mb-2 flex items-center justify-between text-muted-foreground text-sm">
-									<span>{benchmark.salaryMin.toLocaleString()} DH</span>
-									<span className="font-medium">{benchmark.salaryMedian.toLocaleString()} DH</span>
-									<span>{benchmark.salaryMax.toLocaleString()} DH</span>
+									<span>{benchmark.salaryMin.toLocaleString("fr-FR")} DH</span>
+									<span className="font-medium">{benchmark.salaryMedian.toLocaleString("fr-FR")} DH</span>
+									<span>{benchmark.salaryMax.toLocaleString("fr-FR")} DH</span>
 								</div>
 								<div className="relative h-3 overflow-hidden rounded-full bg-muted">
 									<div

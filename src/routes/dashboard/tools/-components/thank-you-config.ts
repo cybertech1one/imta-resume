@@ -96,7 +96,7 @@ export function generateThankYouLetter(
 	jobPosition: string,
 	template: TemplateStyle,
 ): string {
-	const formattedDate = new Date(interviewDate).toLocaleDateString(undefined, {
+	const formattedDate = new Date(interviewDate).toLocaleDateString("fr-FR", {
 		weekday: "long",
 		day: "numeric",
 		month: "long",

@@ -910,7 +910,7 @@ export function ActionsTabContent({
 												</Badge>
 												<span className="text-muted-foreground text-xs">
 													<ClockIcon className="mr-1 inline size-3" />
-													{new Date(action.deadline).toLocaleDateString()}
+													{new Date(action.deadline).toLocaleDateString("fr-FR")}
 												</span>
 												<span className="text-muted-foreground text-xs">{action.estimatedHours}h</span>
 											</div>

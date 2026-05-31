@@ -222,7 +222,7 @@ export function AnalyticsTabContent() {
 				{[
 					{
 						title: t`Total Views`,
-						value: SAMPLE_ANALYTICS.totalViews.toLocaleString(),
+						value: SAMPLE_ANALYTICS.totalViews.toLocaleString("fr-FR"),
 						change: "+12%",
 						icon: EyeIcon,
 						color: "text-blue-500",
@@ -230,7 +230,7 @@ export function AnalyticsTabContent() {
 					},
 					{
 						title: t`Unique Visitors`,
-						value: SAMPLE_ANALYTICS.uniqueVisitors.toLocaleString(),
+						value: SAMPLE_ANALYTICS.uniqueVisitors.toLocaleString("fr-FR"),
 						change: "+8%",
 						icon: UsersIcon,
 						color: "text-green-500",
@@ -380,7 +380,7 @@ export function AnalyticsTabContent() {
 								</div>
 								<div className="flex-1">
 									<p className="font-medium">{project.title}</p>
-									<p className="text-muted-foreground text-sm">{project.views.toLocaleString()} views</p>
+									<p className="text-muted-foreground text-sm">{project.views.toLocaleString("fr-FR")} views</p>
 								</div>
 								<Progress value={(project.views / SAMPLE_ANALYTICS.totalViews) * 100} className="h-2 w-32" />
 							</div>

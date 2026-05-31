@@ -438,7 +438,7 @@ export function TemplatePreviewDialog({
 
 									<div className="flex gap-6">
 										<div>
-											<p className="font-bold text-2xl">{template.downloadCount.toLocaleString()}</p>
+											<p className="font-bold text-2xl">{template.downloadCount.toLocaleString("fr-FR")}</p>
 											<p className="text-muted-foreground text-sm">
 												<Trans>Utilisations</Trans>
 											</p>
@@ -609,7 +609,7 @@ export function CompareDialog({
 									<p className="mb-2 font-medium text-muted-foreground text-sm">
 										<Trans>Utilisations</Trans>
 									</p>
-									<p className="font-semibold">{template.downloadCount.toLocaleString()}</p>
+									<p className="font-semibold">{template.downloadCount.toLocaleString("fr-FR")}</p>
 								</div>
 
 								<div className="rounded-lg border p-4">
@@ -785,7 +785,7 @@ export function TemplateCard({
 						</div>
 						<div className="flex items-center gap-1 text-muted-foreground text-xs">
 							<DownloadSimpleIcon className="size-3" />
-							{template.downloadCount.toLocaleString()}
+							{template.downloadCount.toLocaleString("fr-FR")}
 						</div>
 					</div>
 

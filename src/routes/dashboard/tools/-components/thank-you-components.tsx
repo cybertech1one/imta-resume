@@ -771,7 +771,7 @@ export function SavedLettersTabContent({
 							<p className="line-clamp-3 text-muted-foreground text-sm">{letter.content.substring(0, 150)}...</p>
 
 							<p className="text-muted-foreground text-xs">
-								{letter.createdAt.toLocaleDateString(undefined, {
+								{letter.createdAt.toLocaleDateString("fr-FR", {
 									year: "numeric",
 									month: "long",
 									day: "numeric",
@@ -1158,12 +1158,12 @@ export function TrackingHistorySection({
 											{entry.tracking.notes && <p className="text-muted-foreground text-sm">{entry.tracking.notes}</p>}
 											<div className="mt-1 flex items-center gap-4 text-muted-foreground text-xs">
 												<span>
-													<Trans>Sent:</Trans> {new Date(entry.tracking.sentDate).toLocaleDateString(undefined)}
+													<Trans>Sent:</Trans> {new Date(entry.tracking.sentDate).toLocaleDateString("fr-FR")}
 												</span>
 												{entry.tracking.followUpDate && (
 													<span>
 														<Trans>Follow-up:</Trans>{" "}
-														{new Date(entry.tracking.followUpDate).toLocaleDateString(undefined)}
+														{new Date(entry.tracking.followUpDate).toLocaleDateString("fr-FR")}
 													</span>
 												)}
 											</div>

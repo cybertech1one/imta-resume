@@ -481,7 +481,7 @@ export function ContactDetailDialog({
 														<div className="flex items-center gap-2">
 															<span className="font-medium text-sm">{typeConf.label}</span>
 															<span className="text-muted-foreground text-xs">
-																{new Date(interaction.date).toLocaleDateString()}
+																{new Date(interaction.date).toLocaleDateString("fr-FR")}
 															</span>
 															{interaction.followUpNeeded && (
 																<Badge className="bg-amber-100 text-amber-700 text-xs dark:bg-amber-900/30 dark:text-amber-400">
@@ -524,7 +524,7 @@ export function ContactDetailDialog({
 												<div>
 													<p className="font-medium text-sm">{reminder.title}</p>
 													<p className="text-muted-foreground text-xs">
-														Due: {new Date(reminder.dueDate).toLocaleDateString()}
+														Due: {new Date(reminder.dueDate).toLocaleDateString("fr-FR")}
 													</p>
 												</div>
 												<Button size="sm" onClick={() => handleCompleteReminder(reminder.id)}>

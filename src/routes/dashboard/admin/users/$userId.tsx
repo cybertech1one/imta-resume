@@ -209,14 +209,14 @@ function RouteComponent() {
 							<div className="flex items-center gap-3">
 								<CalendarIcon size={16} className="text-muted-foreground" />
 								<span className="text-sm">
-									<Trans>Joined</Trans> {new Date(user.createdAt).toLocaleDateString()}
+									<Trans>Joined</Trans> {new Date(user.createdAt).toLocaleDateString("fr-FR")}
 								</span>
 							</div>
 							<div className="flex items-center gap-3">
 								<ClockIcon size={16} className="text-muted-foreground" />
 								<span className="text-sm">
 									<Trans>Last active</Trans>{" "}
-									{user.lastActiveAt ? new Date(user.lastActiveAt).toLocaleDateString() : t`Never`}
+									{user.lastActiveAt ? new Date(user.lastActiveAt).toLocaleDateString("fr-FR") : t`Never`}
 								</span>
 							</div>
 						</div>
@@ -350,10 +350,10 @@ function RouteComponent() {
 												</div>
 											</TableCell>
 											<TableCell>
-												<p className="text-sm">{new Date(resume.updatedAt).toLocaleDateString()}</p>
+												<p className="text-sm">{new Date(resume.updatedAt).toLocaleDateString("fr-FR")}</p>
 											</TableCell>
 											<TableCell>
-												<p className="text-sm">{new Date(resume.createdAt).toLocaleDateString()}</p>
+												<p className="text-sm">{new Date(resume.createdAt).toLocaleDateString("fr-FR")}</p>
 											</TableCell>
 										</TableRow>
 									))}

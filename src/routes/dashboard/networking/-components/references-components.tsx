@@ -299,7 +299,7 @@ function ReferenceCard({
 					<div className="mb-3 flex items-center gap-2 text-sm">
 						<CalendarIcon className="size-4 text-muted-foreground" />
 						<span>
-							{t`Last contact:`} {new Date(reference.lastContactDate).toLocaleDateString()}
+							{t`Last contact:`} {new Date(reference.lastContactDate).toLocaleDateString("fr-FR")}
 						</span>
 						<span className={cn("text-xs", reminder.color)}>
 							({days} {t`days`})

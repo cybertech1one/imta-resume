@@ -18,17 +18,17 @@ const formSchema = z
 	.object({
 		currentPassword: z
 			.string()
-			.min(1, { message: "Current password is required" })
-			.min(6, { message: "Password must be at least 6 characters" })
-			.max(64, { message: "Password cannot exceed 64 characters" }),
+			.min(1, { message: "Le mot de passe actuel est requis" })
+			.min(6, { message: "Le mot de passe doit contenir au moins 6 caractères" })
+			.max(64, { message: "Le mot de passe ne peut pas dépasser 64 caractères" }),
 		newPassword: z
 			.string()
-			.min(1, { message: "New password is required" })
-			.min(6, { message: "Password must be at least 6 characters" })
-			.max(64, { message: "Password cannot exceed 64 characters" }),
+			.min(1, { message: "Le nouveau mot de passe est requis" })
+			.min(6, { message: "Le mot de passe doit contenir au moins 6 caractères" })
+			.max(64, { message: "Le mot de passe ne peut pas dépasser 64 caractères" }),
 	})
 	.refine((data) => data.newPassword !== data.currentPassword, {
-		message: "New password cannot be the same as the current password.",
+		message: "Le nouveau mot de passe ne peut pas être identique au mot de passe actuel",
 		path: ["newPassword"],
 	});
 

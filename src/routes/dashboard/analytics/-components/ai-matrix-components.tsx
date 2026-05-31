@@ -1111,7 +1111,9 @@ function AtRiskStudentsCard({ users }: { users: PredictiveInsightsData["engageme
 								<p className="text-muted-foreground text-xs">
 									<Trans>Last active</Trans>
 								</p>
-								<p className="text-sm">{u.lastActivity ? new Date(u.lastActivity).toLocaleDateString() : "N/A"}</p>
+								<p className="text-sm">
+									{u.lastActivity ? new Date(u.lastActivity).toLocaleDateString("fr-FR") : "N/A"}
+								</p>
 							</div>
 						</div>
 					))}

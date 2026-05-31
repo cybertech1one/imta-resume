@@ -320,13 +320,13 @@ function RouteComponent() {
 									<span className="text-sm">
 										<Trans>Total Views</Trans>
 									</span>
-									<span className="font-semibold">{advanced.engagement.totalViews.toLocaleString()}</span>
+									<span className="font-semibold">{advanced.engagement.totalViews.toLocaleString("fr-FR")}</span>
 								</div>
 								<div className="flex items-center justify-between rounded-lg bg-muted/50 p-3">
 									<span className="text-sm">
 										<Trans>Total Downloads</Trans>
 									</span>
-									<span className="font-semibold">{advanced.engagement.totalDownloads.toLocaleString()}</span>
+									<span className="font-semibold">{advanced.engagement.totalDownloads.toLocaleString("fr-FR")}</span>
 								</div>
 								<div className="flex items-center justify-between rounded-lg bg-muted/50 p-3">
 									<span className="text-sm">

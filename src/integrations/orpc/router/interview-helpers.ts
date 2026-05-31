@@ -400,7 +400,7 @@ export function getInterviewTips(
 			title: "Emphasize Patient Care",
 			titleFr: "Mettez l'accent sur les soins aux patients",
 			content: "Show your commitment to patient well-being and safety in your answers.",
-			contentFr: "Montrez votre engagement pour le bien-etre et la securite des patients.",
+			contentFr: "Montrez votre engagement pour le bien-être et la sécurité des patients.",
 			category: "field_specific" as const,
 			field: "healthcare" as const,
 			tags: ["healthcare", "patient_care"],
@@ -874,6 +874,120 @@ export function getCommonQuestions(
 				"Associez EPI aux risques",
 				"Mentionnez l'utilisation correcte",
 			],
+		},
+		// ── Technology / Informatique & Réseaux ──────────────────────────────
+		{
+			id: "tech-1",
+			question: "Describe your technical skills.",
+			questionFr: "Décrivez vos compétences techniques.",
+			type: "technical" as const,
+			field: "technology" as const,
+			sampleAnswerFr:
+				"Pendant ma formation à l'IMTA, j'ai travaillé sur l'administration réseau (TCP/IP, VLAN, routage), la configuration de serveurs et le support utilisateur. Je maîtrise aussi les bases du scripting et de la sécurité réseau, mises en pratique lors de mes stages...",
+			tips: [
+				"List concrete tools/technologies",
+				"Tie skills to projects or internships",
+				"Stay honest about your level",
+			],
+			tipsFr: [
+				"Citez des outils et technologies concrets",
+				"Reliez vos compétences à des projets ou stages",
+				"Restez honnête sur votre niveau réel",
+			],
+		},
+		{
+			id: "tech-2",
+			question: "How do you troubleshoot a network or system problem?",
+			questionFr: "Comment diagnostiquez-vous un problème réseau ou système ?",
+			type: "situational" as const,
+			field: "technology" as const,
+			sampleAnswerFr:
+				"Je procède par étapes: je reproduis et délimite le problème, je vérifie la connectivité (ping, câblage, configuration IP), je consulte les journaux, j'isole la couche concernée, puis j'applique et teste une solution avant de documenter l'incident...",
+			tips: ["Show a methodical approach", "Mention real tools (ping, logs)", "End with documentation"],
+			tipsFr: [
+				"Montrez une démarche méthodique",
+				"Mentionnez des outils réels (ping, journaux)",
+				"Terminez par la documentation de l'incident",
+			],
+		},
+		{
+			id: "tech-3",
+			question: "How do you keep your technical knowledge up to date?",
+			questionFr: "Comment maintenez-vous vos connaissances techniques à jour ?",
+			type: "motivational" as const,
+			field: "technology" as const,
+			sampleAnswerFr:
+				"Le domaine évolue vite, donc je suis des tutoriels et documentations officielles, je pratique sur des projets personnels et un laboratoire virtuel, et je m'intéresse aux certifications reconnues (Cisco, réseau, cybersécurité) pour structurer mon apprentissage...",
+			tips: ["Show curiosity and autonomy", "Mention concrete sources", "Reference certifications"],
+			tipsFr: [
+				"Montrez votre curiosité et votre autonomie",
+				"Mentionnez des sources concrètes",
+				"Évoquez des certifications du métier",
+			],
+		},
+		{
+			id: "tech-4",
+			question: "How do you handle data security and confidentiality?",
+			questionFr: "Comment gérez-vous la sécurité et la confidentialité des données ?",
+			type: "technical" as const,
+			field: "technology" as const,
+			sampleAnswerFr:
+				"J'applique les bonnes pratiques: gestion des accès et des mots de passe, sauvegardes régulières, mises à jour de sécurité, sensibilisation des utilisateurs au phishing, et respect des règles de confidentialité de l'entreprise et du RGPD...",
+			tips: ["Mention access control and backups", "Show user-awareness", "Reference compliance"],
+			tipsFr: [
+				"Mentionnez la gestion des accès et les sauvegardes",
+				"Montrez la sensibilisation des utilisateurs",
+				"Évoquez la conformité (RGPD)",
+			],
+		},
+		// ── Management / Gestion & Commerce ──────────────────────────────────
+		{
+			id: "mgmt-1",
+			question: "How do you organize and prioritize your work?",
+			questionFr: "Comment organisez-vous et priorisez-vous votre travail ?",
+			type: "behavioral" as const,
+			field: "management" as const,
+			sampleAnswerFr:
+				"Je commence par lister les tâches et leurs échéances, je distingue l'urgent de l'important, et je planifie ma journée en conséquence. J'utilise des outils de suivi et je communique régulièrement sur l'avancement pour respecter les délais...",
+			tips: ["Show a clear method", "Distinguish urgent vs important", "Mention follow-up tools"],
+			tipsFr: ["Montrez une méthode claire", "Distinguez l'urgent de l'important", "Mentionnez des outils de suivi"],
+		},
+		{
+			id: "mgmt-2",
+			question: "How do you handle a difficult client or supplier?",
+			questionFr: "Comment gérez-vous un client ou un fournisseur difficile ?",
+			type: "situational" as const,
+			field: "management" as const,
+			sampleAnswerFr:
+				"J'écoute d'abord pour comprendre le besoin réel, je garde un ton professionnel, je propose des solutions concrètes dans le cadre de l'entreprise, et je fais un suivi pour m'assurer de la satisfaction. Si nécessaire, je remonte le dossier à mon responsable...",
+			tips: ["Show active listening", "Stay professional", "Propose concrete solutions"],
+			tipsFr: ["Montrez votre écoute active", "Restez professionnel", "Proposez des solutions concrètes"],
+		},
+		{
+			id: "mgmt-3",
+			question: "What management or office tools do you master?",
+			questionFr: "Quels outils de gestion ou bureautiques maîtrisez-vous ?",
+			type: "technical" as const,
+			field: "management" as const,
+			sampleAnswerFr:
+				"Je maîtrise Excel (tableaux, formules, tableaux croisés dynamiques), les logiciels de gestion comme Sage, les outils CRM et ERP vus en formation, ainsi que les outils collaboratifs. J'apprends rapidement les logiciels propres à chaque entreprise...",
+			tips: ["List concrete tools (Excel, Sage, CRM)", "Show adaptability", "Tie to internships"],
+			tipsFr: [
+				"Citez des outils concrets (Excel, Sage, CRM)",
+				"Montrez votre capacité d'adaptation",
+				"Reliez aux stages effectués",
+			],
+		},
+		{
+			id: "mgmt-4",
+			question: "Why did you choose this field and this company?",
+			questionFr: "Pourquoi avez-vous choisi ce domaine et cette entreprise ?",
+			type: "motivational" as const,
+			field: "management" as const,
+			sampleAnswerFr:
+				"Le domaine de la gestion m'attire car il est au cœur du fonctionnement de toute entreprise et offre de réelles perspectives d'évolution. Votre entreprise m'intéresse pour sa réputation et ses valeurs, et je souhaite y contribuer avec mes compétences...",
+			tips: ["Connect motivation to the field", "Research the company", "Show ambition"],
+			tipsFr: ["Reliez votre motivation au domaine", "Renseignez-vous sur l'entreprise", "Montrez votre ambition"],
 		},
 	];
 

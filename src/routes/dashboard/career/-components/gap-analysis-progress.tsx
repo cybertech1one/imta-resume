@@ -55,7 +55,7 @@ export function ProgressTabContent({ gapData }: ProgressTabContentProps) {
 										<div className="min-w-0 flex-1">
 											<p className="font-medium">{record.skillName}</p>
 											<p className="text-muted-foreground text-sm">
-												{new Date(record.date).toLocaleDateString(undefined, {
+												{new Date(record.date).toLocaleDateString("fr-FR", {
 													day: "numeric",
 													month: "long",
 													year: "numeric",

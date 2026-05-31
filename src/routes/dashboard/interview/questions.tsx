@@ -8,12 +8,14 @@ import {
 	BriefcaseIcon,
 	CaretDownIcon,
 	CaretUpIcon,
+	ChartBarIcon,
 	ChatCircleDotsIcon,
 	CheckCircleIcon,
 	FirstAidKitIcon,
 	GearIcon,
 	GraduationCapIcon,
 	HardHatIcon,
+	LaptopIcon,
 	LightbulbIcon,
 	ListIcon,
 	MagnifyingGlassIcon,
@@ -68,6 +70,8 @@ function getFieldConfigLabels() {
 		healthcare: { label: t`Santé`, description: t`Questions pour soins infirmiers, aide-soignant et sage-femme` },
 		industrial: { label: t`Industrie`, description: t`Maintenance, electromecanique, soudure et production` },
 		hse: { label: t`HSE`, description: t`Hygiène, sécurité et environnement industriel` },
+		technology: { label: t`Technologie`, description: t`Informatique, réseaux, data, cybersécurité et télécoms` },
+		management: { label: t`Gestion`, description: t`Commerce, finance, RH, logistique et management` },
 	};
 }
 
@@ -103,6 +107,18 @@ const fieldConfigStatic: Record<
 		color: "text-amber-600 dark:text-amber-400",
 		bgColor: "bg-amber-100 dark:bg-amber-900/30",
 		gradient: "from-amber-500/20 to-orange-500/10",
+	},
+	technology: {
+		icon: LaptopIcon,
+		color: "text-cyan-600 dark:text-cyan-400",
+		bgColor: "bg-cyan-100 dark:bg-cyan-900/30",
+		gradient: "from-cyan-500/20 to-teal-500/10",
+	},
+	management: {
+		icon: ChartBarIcon,
+		color: "text-emerald-600 dark:text-emerald-400",
+		bgColor: "bg-emerald-100 dark:bg-emerald-900/30",
+		gradient: "from-emerald-500/20 to-green-500/10",
 	},
 };
 
@@ -342,12 +358,12 @@ const fallbackCommonQuestions: CommonQuestion[] = [
 	},
 	{
 		id: "fallback-health-1",
-		question: "Pourquoi avez-vous choisi le domaine de la sante ?",
+		question: "Pourquoi avez-vous choisi le domaine de la santé ?",
 		type: "motivational",
 		field: "healthcare",
 		sampleAnswer:
 			"J'ai choisi la santé parce que le contact humain et l'aide aux patients ont du sens pour moi. Mes stages m'ont confirmé que je peux rester attentif, respecter les protocoles et travailler avec empathie même dans les moments exigeants.",
-		tips: ["Montrez une motivation sincere", "Parlez du patient", "Evitez les phrases apprises par coeur"],
+		tips: ["Montrez une motivation sincère", "Parlez du patient", "Évitez les phrases apprises par cœur"],
 	},
 	{
 		id: "fallback-health-2",
@@ -355,12 +371,12 @@ const fallbackCommonQuestions: CommonQuestion[] = [
 		type: "technical",
 		field: "healthcare",
 		sampleAnswer:
-			"Je commence par l'hygiene des mains, je prepare le materiel, je verifie l'identite du patient et j'explique le soin. Je respecte les protocoles, je porte les protections adaptees et je note les informations importantes dans le dossier.",
-		tips: ["Mentionnez l'hygiene des mains", "Parlez de verification de l'identite", "Ajoutez la tracabilite"],
+			"Je commence par l'hygiène des mains, je prépare le matériel, je vérifie l'identité du patient et j'explique le soin. Je respecte les protocoles, je porte les protections adaptées et je note les informations importantes dans le dossier.",
+		tips: ["Mentionnez l'hygiène des mains", "Parlez de vérification de l'identité", "Ajoutez la traçabilité"],
 	},
 	{
 		id: "fallback-health-3",
-		question: "Comment reagissez-vous face a un patient anxieux ou difficile ?",
+		question: "Comment réagissez-vous face à un patient anxieux ou difficile ?",
 		type: "situational",
 		field: "healthcare",
 		sampleAnswer:

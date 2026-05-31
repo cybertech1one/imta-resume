@@ -455,7 +455,7 @@ function RouteComponent() {
 										)}
 									</TableCell>
 									<TableCell>{user.resumeCount}</TableCell>
-									<TableCell suppressHydrationWarning>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
+									<TableCell suppressHydrationWarning>{new Date(user.createdAt).toLocaleDateString("fr-FR")}</TableCell>
 									<TableCell className="text-right">
 										<div className="flex items-center justify-end gap-2">
 											<Link

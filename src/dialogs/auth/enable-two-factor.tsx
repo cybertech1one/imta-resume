@@ -22,9 +22,9 @@ import { type DialogProps, useDialogStore } from "../store";
 const enableFormSchema = z.object({
 	password: z
 		.string()
-		.min(1, { message: "Password is required" })
-		.min(6, { message: "Password must be at least 6 characters" })
-		.max(64, { message: "Password cannot exceed 64 characters" }),
+		.min(1, { message: "Le mot de passe est requis" })
+		.min(6, { message: "Le mot de passe doit contenir au moins 6 caractères" })
+		.max(64, { message: "Le mot de passe ne peut pas dépasser 64 caractères" }),
 });
 
 type EnableFormValues = z.infer<typeof enableFormSchema>;

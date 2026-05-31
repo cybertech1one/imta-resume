@@ -203,7 +203,7 @@ export function HeroSection() {
 							<UsersIcon className="size-5 text-amber-600 dark:text-amber-400" weight="duotone" />
 						</div>
 						<div>
-							<p className="font-bold text-xl">{alumniStats.totalEmployed.toLocaleString()}+</p>
+							<p className="font-bold text-xl">{alumniStats.totalEmployed.toLocaleString("fr-FR")}+</p>
 							<p className="text-muted-foreground text-sm">
 								<Trans>Employed graduates</Trans>
 							</p>
@@ -660,7 +660,7 @@ export function StatisticsSection() {
 							<div className="mx-auto mb-3 flex size-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
 								<UsersIcon className="size-6 text-green-600 dark:text-green-400" weight="duotone" />
 							</div>
-							<p className="font-bold text-3xl text-green-600">{alumniStats.totalEmployed.toLocaleString()}</p>
+							<p className="font-bold text-3xl text-green-600">{alumniStats.totalEmployed.toLocaleString("fr-FR")}</p>
 							<p className="text-muted-foreground text-sm">
 								<Trans>Employed alumni</Trans>
 							</p>
@@ -737,7 +737,7 @@ export function StatisticsSection() {
 										<Progress value={(employer.count / alumniStats.topEmployers[0].count) * 100} className="h-2" />
 									</div>
 									<span className="w-16 text-right text-muted-foreground text-sm">
-										{employer.count.toLocaleString()}
+										{employer.count.toLocaleString("fr-FR")}
 									</span>
 								</motion.div>
 							))}

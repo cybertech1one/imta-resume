@@ -40,7 +40,7 @@ const sampleTasks = {
 		icon: FirstAidKitIcon,
 		content: `<ul>
 <li>Assists the healthcare team in daily patient care</li>
-<li>Performs comfort and hygiene care under supervision</li>
+<li>Effectue des soins de confort et d'hygiène sous supervision</li>
 <li>Participates in monitoring vital signs (pulse, blood pressure, temperature)</li>
 <li>Assists in the preparation and distribution of medications</li>
 <li>Contributes to patient record documentation</li>

@@ -8,7 +8,7 @@ export function formatDate(date: Date): string {
 		month: "long",
 		day: "numeric",
 	};
-	return date.toLocaleDateString(undefined, options);
+	return date.toLocaleDateString("fr-FR", options);
 }
 
 export function formatRelativeTime(date: Date): string {
@@ -30,7 +30,7 @@ export function formatRelativeTime(date: Date): string {
 	if (diffDays < 7) {
 		return t`${diffDays} days ago`;
 	}
-	return date.toLocaleDateString(undefined);
+	return date.toLocaleDateString("fr-FR");
 }
 
 export function deriveActivities(

@@ -53,7 +53,7 @@ function formatRelativeTime(date: Date): string {
 	if (minutes < 60) return t`${minutes} min ago`;
 	if (hours < 24) return t`${hours}h ago`;
 	if (days < 7) return t`${days}d ago`;
-	return date.toLocaleDateString();
+	return date.toLocaleDateString("fr-FR");
 }
 
 // biome-ignore lint/suspicious/noExplicitAny: Route path not in generated route tree
@@ -211,7 +211,7 @@ function ActivityTracking() {
 		const groups: Record<string, typeof filteredActivities> = {};
 		for (const activity of filteredActivities.slice(0, limit)) {
 			const date = new Date(activity.createdAt);
-			const dateKey = date.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
+			const dateKey = date.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
 			if (!groups[dateKey]) groups[dateKey] = [];
 			groups[dateKey].push(activity);
 		}
@@ -413,7 +413,7 @@ function ActivityTracking() {
 																<Badge variant="outline" className="mb-1">
 																	{config.label}
 																</Badge>
-																<p className="text-muted-foreground text-xs">
+																<p suppressHydrationWarning className="text-muted-foreground text-xs">
 																	{formatRelativeTime(new Date(activity.createdAt))}
 																</p>
 															</div>
@@ -542,7 +542,7 @@ function ActivityTracking() {
 							</CardHeader>
 							<CardContent>
 								<p className="font-semibold text-2xl">
-									{new Date(stats.mostActiveDay).toLocaleDateString(undefined, {
+									{new Date(stats.mostActiveDay).toLocaleDateString("fr-FR", {
 										weekday: "long",
 										day: "numeric",
 										month: "long",
@@ -588,7 +588,7 @@ function ActivityTracking() {
 												<div
 													key={day.date}
 													className="group relative flex-1"
-													title={`${date.toLocaleDateString()}: ${day.count} activities`}
+													title={`${date.toLocaleDateString("fr-FR")}: ${day.count} activities`}
 												>
 													<div
 														className="w-full rounded-t bg-primary/80 transition-colors hover:bg-primary"
@@ -596,7 +596,7 @@ function ActivityTracking() {
 													/>
 													{/* Tooltip on hover */}
 													<div className="invisible absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 whitespace-nowrap rounded bg-popover px-2 py-1 text-popover-foreground text-xs shadow-md group-hover:visible">
-														{date.toLocaleDateString(undefined, { day: "numeric", month: "short" })}: {day.count}
+														{date.toLocaleDateString("fr-FR", { day: "numeric", month: "short" })}: {day.count}
 													</div>
 												</div>
 											);
@@ -609,7 +609,7 @@ function ActivityTracking() {
 											.filter((_, i) => i % 5 === 0 || i === dailyActivity.length - 1)
 											.map((day) => (
 												<span key={day.date}>
-													{new Date(day.date).toLocaleDateString(undefined, { day: "numeric", month: "short" })}
+													{new Date(day.date).toLocaleDateString("fr-FR", { day: "numeric", month: "short" })}
 												</span>
 											))}
 									</div>

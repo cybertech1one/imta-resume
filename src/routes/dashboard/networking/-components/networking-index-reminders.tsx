@@ -76,7 +76,7 @@ export function RemindersTab({ reminders, handleCompleteReminder, handleSnoozeRe
 															</span>
 															<span className="flex items-center gap-1">
 																<CalendarIcon className="size-4" />
-																{new Date(reminder.dueDate).toLocaleDateString()}
+																{new Date(reminder.dueDate).toLocaleDateString("fr-FR")}
 															</span>
 														</div>
 													</div>

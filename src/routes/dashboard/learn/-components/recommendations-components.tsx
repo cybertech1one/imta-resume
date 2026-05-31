@@ -683,7 +683,7 @@ export function ProgressTabContent({
 												<h4 className="truncate font-medium">{item.resource.title}</h4>
 												<p className="text-muted-foreground text-sm">
 													{item.completion.completedAt
-														? new Date(item.completion.completedAt).toLocaleDateString()
+														? new Date(item.completion.completedAt).toLocaleDateString("fr-FR")
 														: ""}
 													{item.completion.timeSpentMinutes > 0 &&
 														` - ${formatDuration(item.completion.timeSpentMinutes)}`}
@@ -774,7 +774,7 @@ export function GoalsTabContent({
 											{goal.endDate && (
 												<p className="mt-1 flex items-center gap-1 text-muted-foreground text-xs">
 													<CalendarIcon className="size-3" />
-													{new Date(goal.endDate).toLocaleDateString()}
+													{new Date(goal.endDate).toLocaleDateString("fr-FR")}
 												</p>
 											)}
 										</div>

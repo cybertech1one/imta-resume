@@ -32,9 +32,9 @@ const IMTA_PROGRAMS = [
 	{ id: "aide_soignant", label: "Aide-Soignant(e)", emoji: "💊" },
 	{ id: "soudure", label: "Soudure Industrielle", emoji: "🔥" },
 	{ id: "cariste", label: "Cariste / Magasinier", emoji: "🏗️" },
-	{ id: "electromecanique", label: "Electromecanique", emoji: "⚡" },
-	{ id: "mecanique_engins", label: "Mecanique d'Engins", emoji: "⚙️" },
-	{ id: "hse_specialist", label: "HSE - Securite", emoji: "🦺" },
+	{ id: "electromecanique", label: "Électromécanique", emoji: "⚡" },
+	{ id: "mecanique_engins", label: "Mécanique d'Engins", emoji: "⚙️" },
+	{ id: "hse_specialist", label: "HSE - Sécurité", emoji: "🦺" },
 	{ id: "conducteur_engins", label: "Conducteur d'Engins", emoji: "🚜" },
 	{ id: "tourneur_industriel", label: "Tourneur Industriel", emoji: "🔧" },
 ] as const;
@@ -134,7 +134,7 @@ function WelcomeStep() {
 					transition={{ delay: 0.15, duration: 0.4 }}
 					className="font-bold text-2xl tracking-tight"
 				>
-					<Trans>Bienvenue sur votre plateforme carriere !</Trans>
+					<Trans>Bienvenue sur votre plateforme carrière !</Trans>
 				</motion.h2>
 
 				<motion.p
@@ -144,8 +144,8 @@ function WelcomeStep() {
 					className="mx-auto max-w-md text-muted-foreground leading-relaxed"
 				>
 					<Trans>
-						En tant qu'etudiant IMTA, cette plateforme vous aide a preparer votre avenir professionnel. Creez votre CV,
-						entrainez-vous aux entretiens et explorez les opportunites de carriere.
+						En tant qu'étudiant IMTA, cette plateforme vous aide à préparer votre avenir professionnel. Créez votre CV,
+						entraînez-vous aux entretiens et explorez les opportunités de carrière.
 					</Trans>
 				</motion.p>
 			</div>
@@ -157,7 +157,7 @@ function WelcomeStep() {
 				className="flex items-center gap-2 rounded-full border bg-muted/50 px-4 py-2 text-muted-foreground text-sm"
 			>
 				<RocketLaunchIcon className="size-4" weight="fill" style={{ color: "var(--imta-teal)" }} />
-				<Trans>Pret a booster votre carriere ?</Trans>
+				<Trans>Prêt à booster votre carrière ?</Trans>
 			</motion.div>
 		</div>
 	);
@@ -165,17 +165,17 @@ function WelcomeStep() {
 
 function FeaturesStep() {
 	const featureTitles: Record<string, React.ReactNode> = {
-		"create-cv": <Trans>Creer votre CV</Trans>,
-		"practice-interviews": <Trans>S'entrainer aux entretiens</Trans>,
-		"career-assessment": <Trans>Bilan de competences</Trans>,
+		"create-cv": <Trans>Créer votre CV</Trans>,
+		"practice-interviews": <Trans>S'entraîner aux entretiens</Trans>,
+		"career-assessment": <Trans>Bilan de compétences</Trans>,
 		"job-resources": <Trans>Ressources emploi</Trans>,
 	};
 
 	const featureDescs: Record<string, React.ReactNode> = {
-		"create-cv-desc": <Trans>Concevez des CV professionnels avec des modeles adaptes a votre domaine.</Trans>,
-		"practice-interviews-desc": <Trans>Simulez des entretiens avec l'IA et recevez des retours personnalises.</Trans>,
-		"career-assessment-desc": <Trans>Evaluez vos competences et decouvrez les metiers qui vous correspondent.</Trans>,
-		"job-resources-desc": <Trans>Accedez aux offres d'emploi, aux employeurs et aux tendances du marche.</Trans>,
+		"create-cv-desc": <Trans>Concevez des CV professionnels avec des modèles adaptés à votre domaine.</Trans>,
+		"practice-interviews-desc": <Trans>Simulez des entretiens avec l'IA et recevez des retours personnalisés.</Trans>,
+		"career-assessment-desc": <Trans>Évaluez vos compétences et découvrez les métiers qui vous correspondent.</Trans>,
+		"job-resources-desc": <Trans>Accédez aux offres d'emploi, aux employeurs et aux tendances du marché.</Trans>,
 	};
 
 	return (
@@ -185,7 +185,7 @@ function FeaturesStep() {
 					<Trans>Tout ce dont vous avez besoin</Trans>
 				</h2>
 				<p className="mt-1 text-muted-foreground text-sm">
-					<Trans>Des outils puissants pour preparer votre avenir professionnel</Trans>
+					<Trans>Des outils puissants pour préparer votre avenir professionnel</Trans>
 				</p>
 			</div>
 
@@ -234,10 +234,10 @@ function FieldSelectionStep({
 		<div className="space-y-5 py-2">
 			<div className="text-center">
 				<h2 className="font-bold text-xl tracking-tight">
-					<Trans>Choisissez votre filiere</Trans>
+					<Trans>Choisissez votre filière</Trans>
 				</h2>
 				<p className="mt-1 text-muted-foreground text-sm">
-					<Trans>Nous adapterons les recommandations a votre domaine d'expertise</Trans>
+					<Trans>Nous adapterons les recommandations à votre domaine d'expertise</Trans>
 				</p>
 			</div>
 
@@ -281,13 +281,13 @@ function GetStartedStep() {
 			icon: ReadCvLogoIcon,
 			color: "var(--imta-emerald)",
 			href: "/dashboard/resumes",
-			labelNode: <Trans>Creer mon premier CV</Trans>,
+			labelNode: <Trans>Créer mon premier CV</Trans>,
 		},
 		{
 			icon: CompassIcon,
 			color: "var(--imta-teal)",
 			href: "/dashboard/career/assessment",
-			labelNode: <Trans>Passer le bilan carriere</Trans>,
+			labelNode: <Trans>Passer le bilan carrière</Trans>,
 		},
 		{
 			icon: BriefcaseIcon,
@@ -316,7 +316,7 @@ function GetStartedStep() {
 					transition={{ delay: 0.15, duration: 0.4 }}
 					className="font-bold text-2xl tracking-tight"
 				>
-					<Trans>Vous etes pret !</Trans>
+					<Trans>Vous êtes prêt !</Trans>
 				</motion.h2>
 				<motion.p
 					initial={false}
@@ -411,7 +411,7 @@ export function OnboardingDialog({ open, onOpenChange, onComplete }: OnboardingD
 						<Trans>Bienvenue</Trans>
 					</DialogTitle>
 					<DialogDescription>
-						<Trans>Decouvrez votre plateforme carriere</Trans>
+						<Trans>Découvrez votre plateforme carrière</Trans>
 					</DialogDescription>
 				</DialogHeader>
 

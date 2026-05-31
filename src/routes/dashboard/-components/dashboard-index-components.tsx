@@ -394,7 +394,9 @@ export const WelcomeBanner = memo(
 								aria-hidden="true"
 							/>
 						</div>
-						<p className="max-w-lg text-lg text-muted-foreground italic leading-relaxed">{dailyMotivation}</p>
+						<p suppressHydrationWarning className="max-w-lg text-lg text-muted-foreground italic leading-relaxed">
+							{dailyMotivation}
+						</p>
 					</motion.div>
 
 					<motion.div
@@ -621,7 +623,7 @@ export const RecentActivitySection = memo(
 													{formatActivityCategory(activity.category) || formatActivityCategory(activity.resourceType)}
 												</p>
 											</div>
-											<time className="shrink-0 text-muted-foreground text-xs">
+											<time suppressHydrationWarning className="shrink-0 text-muted-foreground text-xs">
 												{formatRelativeTime(new Date(activity.createdAt))}
 											</time>
 										</motion.li>
@@ -716,6 +718,7 @@ export const UpcomingItemsSection = memo(
 										</div>
 										<div className="flex flex-col items-end gap-1">
 											<Badge
+												suppressHydrationWarning
 												variant="outline"
 												className={cn("text-xs", item.priority && priorityColors[item.priority])}
 											>

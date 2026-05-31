@@ -130,9 +130,11 @@ export function CohortCard({
 				{cohort.criteria.program && <Badge variant="secondary">{cohort.criteria.program}</Badge>}
 				{cohort.criteria.year && <Badge variant="outline">{cohort.criteria.year}</Badge>}
 				{cohort.criteria.field && <Badge variant="outline">{cohort.criteria.field}</Badge>}
-				{!cohort.isActive && <Badge variant="destructive">Inactive</Badge>}
+				{!cohort.isActive && <Badge variant="destructive">{t`Inactif`}</Badge>}
 			</div>
-			<p className="mt-3 text-muted-foreground text-xs">Created {new Date(cohort.createdAt).toLocaleDateString()}</p>
+			<p className="mt-3 text-muted-foreground text-xs">
+				<Trans>Créé le</Trans> {new Date(cohort.createdAt).toLocaleDateString("fr-FR")}
+			</p>
 		</div>
 	);
 }
@@ -395,7 +397,7 @@ export function CohortDetailView({ cohortId, onBack }: { cohortId: string; onBac
 									<div className="text-right">
 										<Badge variant="secondary">{member.status}</Badge>
 										<p className="mt-1 text-muted-foreground text-xs">
-											Joined {new Date(member.joinedAt).toLocaleDateString()}
+											<Trans>Rejoint le</Trans> {new Date(member.joinedAt).toLocaleDateString("fr-FR")}
 										</p>
 									</div>
 								</div>
@@ -489,8 +491,8 @@ export function CohortDetailView({ cohortId, onBack }: { cohortId: string; onBac
 									<div className="flex items-center gap-4 text-right">
 										<div>
 											<p className="text-muted-foreground text-xs">
-												Last active:{" "}
-												{student.lastActivity ? new Date(student.lastActivity).toLocaleDateString() : "Never"}
+												Actif le :{" "}
+												{student.lastActivity ? new Date(student.lastActivity).toLocaleDateString("fr-FR") : t`Jamais`}
 											</p>
 											<p className="text-muted-foreground text-xs">
 												Skills: {Math.round(student.avgSkillsScore)}% | Interview:{" "}

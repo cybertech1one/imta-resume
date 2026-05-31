@@ -164,7 +164,7 @@ function WeeklyReports() {
 				<div className="flex items-center gap-2">
 					<CalendarIcon className="size-5 text-muted-foreground" />
 					<span className="font-medium">
-						{periodDates.start.toLocaleDateString()} - {periodDates.end.toLocaleDateString()}
+						{periodDates.start.toLocaleDateString("fr-FR")} - {periodDates.end.toLocaleDateString("fr-FR")}
 					</span>
 				</div>
 				<Select value={period} onValueChange={(v) => setPeriod(v as ReportPeriod)}>

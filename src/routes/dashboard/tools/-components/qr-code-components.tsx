@@ -259,7 +259,7 @@ export function HeroSection({ savedQRCodesCount, totalScans }: { savedQRCodesCou
 							<EyeIcon className="size-5 text-green-500" weight="duotone" />
 						</div>
 						<div>
-							<p className="font-bold text-xl">{totalScans.toLocaleString()}</p>
+							<p className="font-bold text-xl">{totalScans.toLocaleString("fr-FR")}</p>
 							<p className="text-muted-foreground text-sm">
 								<Trans>Total scans</Trans>
 							</p>
@@ -727,7 +727,7 @@ export function MyCodesTab({
 								</div>
 								<Badge variant="outline" className="gap-1">
 									<EyeIcon className="size-3" />
-									{qr.scans.toLocaleString()}
+									{qr.scans.toLocaleString("fr-FR")}
 								</Badge>
 							</div>
 						</CardHeader>
@@ -875,7 +875,7 @@ export function StatisticsTab({
 								</div>
 								<div>
 									<p className="font-bold text-2xl">
-										{typeof stat.value === "number" ? stat.value.toLocaleString() : stat.value}
+										{typeof stat.value === "number" ? stat.value.toLocaleString("fr-FR") : stat.value}
 									</p>
 									<p className="text-muted-foreground text-sm">{stat.label}</p>
 								</div>
@@ -982,7 +982,7 @@ export function StatisticsTab({
 											<span className="font-medium text-sm">{device.device}</span>
 										</div>
 										<div className="flex items-center gap-2">
-											<span className="text-muted-foreground text-sm">{device.count.toLocaleString()}</span>
+											<span className="text-muted-foreground text-sm">{device.count.toLocaleString("fr-FR")}</span>
 											<Badge variant="outline">{device.percentage}%</Badge>
 										</div>
 									</div>

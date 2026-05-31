@@ -86,7 +86,7 @@ export function ResumePreviewCard({
 							<CardTitle className="truncate text-base">{resume.name}</CardTitle>
 							<CardDescription className="flex items-center gap-1 text-xs">
 								<ClockIcon className="size-3" />
-								{new Date(resume.updatedAt).toLocaleDateString()}
+								{new Date(resume.updatedAt).toLocaleDateString("fr-FR")}
 							</CardDescription>
 						</div>
 						<div className="flex items-center gap-1">
@@ -426,7 +426,7 @@ export function VersionTimeline({ resumes }: { resumes: Resume[] }) {
 											</Badge>
 										)}
 									</div>
-									<p className="text-muted-foreground text-sm">{new Date(resume.updatedAt).toLocaleString()}</p>
+									<p className="text-muted-foreground text-sm">{new Date(resume.updatedAt).toLocaleString("fr-FR")}</p>
 									{resume.tags && resume.tags.length > 0 && (
 										<div className="mt-1 flex flex-wrap gap-1">
 											{resume.tags.map((tag) => (

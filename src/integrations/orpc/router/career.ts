@@ -142,15 +142,15 @@ export const careerRouter = {
 					},
 					{
 						criterion: isFr ? "Cout de formation" : "Training Cost",
-						values: programs.map((p) => `${p.cost.toLocaleString()} MAD`),
+						values: programs.map((p) => `${p.cost.toLocaleString("fr-FR")} MAD`),
 					},
 					{
 						criterion: isFr ? "Salaire minimum" : "Minimum Salary",
-						values: programs.map((p) => `${p.salaryRange.min.toLocaleString()} ${p.salaryRange.currency}`),
+						values: programs.map((p) => `${p.salaryRange.min.toLocaleString("fr-FR")} ${p.salaryRange.currency}`),
 					},
 					{
 						criterion: isFr ? "Salaire maximum" : "Maximum Salary",
-						values: programs.map((p) => `${p.salaryRange.max.toLocaleString()} ${p.salaryRange.currency}`),
+						values: programs.map((p) => `${p.salaryRange.max.toLocaleString("fr-FR")} ${p.salaryRange.currency}`),
 					},
 					{
 						criterion: isFr ? "Taux d'emploi" : "Employment Rate",

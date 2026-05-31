@@ -200,7 +200,8 @@ function RouteComponent() {
 										<div className="flex items-center gap-2 text-sm">
 											<ClockIcon size={14} className="text-muted-foreground" />
 											<span>
-												{new Date(log.createdAt).toLocaleDateString()} {new Date(log.createdAt).toLocaleTimeString()}
+												{new Date(log.createdAt).toLocaleDateString("fr-FR")}{" "}
+												{new Date(log.createdAt).toLocaleTimeString("fr-FR")}
 											</span>
 										</div>
 									</TableCell>

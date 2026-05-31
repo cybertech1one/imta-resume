@@ -115,7 +115,9 @@ function ScoreBar({ score, label }: { score: number; label: string }) {
 
 export function AssessmentCard({ assessment }: { assessment: Assessment }) {
 	const [expanded, setExpanded] = useState(false);
-	const assessedDate = assessment.assessedAt ? new Date(assessment.assessedAt as string).toLocaleDateString() : null;
+	const assessedDate = assessment.assessedAt
+		? new Date(assessment.assessedAt as string).toLocaleDateString("fr-FR")
+		: null;
 
 	return (
 		<motion.div initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}>

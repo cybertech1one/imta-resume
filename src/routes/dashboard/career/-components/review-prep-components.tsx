@@ -203,7 +203,7 @@ export function AccomplishmentsTab({ accomplishmentsByMonth }: AccomplishmentsTa
 						<div key={monthKey}>
 							<h4 className="mb-4 flex items-center gap-2 font-medium text-lg">
 								<CalendarIcon className="size-5 text-primary" />
-								{new Date(`${monthKey}-01`).toLocaleDateString(undefined, {
+								{new Date(`${monthKey}-01`).toLocaleDateString("fr-FR", {
 									month: "long",
 									year: "numeric",
 								})}
@@ -382,7 +382,7 @@ export function GoalsTab({ goals, goalsProgress, expandedGoal, toggleGoalExpand 
 									<div className="flex items-center gap-2 text-muted-foreground text-sm">
 										<CalendarIcon className="size-4" />
 										<span>
-											<Trans>Deadline:</Trans> {formatDate(goal.targetDate)}
+											<Trans>Échéance :</Trans> {formatDate(goal.targetDate)}
 										</span>
 									</div>
 

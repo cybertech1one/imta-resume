@@ -47,7 +47,7 @@ export const DAYS_OF_WEEK: DayOfWeek[] = [
 // Helper functions
 
 export function formatShortDate(dateString: string): string {
-	return new Date(dateString).toLocaleDateString(undefined, {
+	return new Date(dateString).toLocaleDateString("fr-FR", {
 		day: "numeric",
 		month: "short",
 	});

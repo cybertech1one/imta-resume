@@ -378,7 +378,8 @@ export function SetupPhase({
 													<div>
 														<p className="font-medium text-sm">{programName}</p>
 														<p className="text-muted-foreground text-xs">
-															{difficultyConfigMap[entry.difficulty].label} - {entry.completedAt.toLocaleDateString()}
+															{difficultyConfigMap[entry.difficulty].label} -{" "}
+															{entry.completedAt.toLocaleDateString("fr-FR")}
 														</p>
 													</div>
 												</div>
@@ -550,7 +551,7 @@ export function InterviewPhase({
 													message.role === "user" ? "text-white/60" : "text-muted-foreground",
 												)}
 											>
-												{message.timestamp.toLocaleTimeString(undefined, {
+												{message.timestamp.toLocaleTimeString("fr-FR", {
 													hour: "2-digit",
 													minute: "2-digit",
 												})}

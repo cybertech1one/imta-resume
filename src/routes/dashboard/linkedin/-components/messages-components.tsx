@@ -443,7 +443,7 @@ export function DraftsTab({
 										</div>
 										<p className="whitespace-pre-wrap text-sm">{message.content}</p>
 										<p className="mt-2 text-muted-foreground text-xs">
-											<Trans>Created on</Trans> {new Date(message.createdAt).toLocaleDateString()}
+											<Trans>Created on</Trans> {new Date(message.createdAt).toLocaleDateString("fr-FR")}
 										</p>
 									</div>
 									<div className="flex gap-2">
@@ -556,8 +556,8 @@ export function SentTab({
 										<p className="mt-2 text-muted-foreground text-xs">
 											<Trans>Sent on</Trans>{" "}
 											{message.sentAt
-												? new Date(message.sentAt).toLocaleDateString()
-												: new Date(message.createdAt).toLocaleDateString()}
+												? new Date(message.sentAt).toLocaleDateString("fr-FR")
+												: new Date(message.createdAt).toLocaleDateString("fr-FR")}
 										</p>
 									</div>
 									<div className="flex gap-2">

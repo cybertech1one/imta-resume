@@ -40,8 +40,8 @@ function getFormSchema() {
 	return z.object({
 		password: z
 			.string()
-			.min(6, { message: t`Password must be at least 6 characters` })
-			.max(64, { message: t`Password cannot exceed 64 characters` }),
+			.min(6, { message: t`Le mot de passe doit contenir au moins 6 caractères` })
+			.max(64, { message: t`Le mot de passe ne peut pas dépasser 64 caractères` }),
 	});
 }
 

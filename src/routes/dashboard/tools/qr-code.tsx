@@ -134,7 +134,7 @@ function QRCodeGenerator() {
 	const scanStatistics = useMemo(() => {
 		if (!statistics?.scansByDate) return [];
 		return statistics.scansByDate.map((s) => ({
-			date: new Date(s.date).toLocaleDateString(undefined, { day: "numeric", month: "short" }),
+			date: new Date(s.date).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }),
 			scans: s.scans,
 		}));
 	}, [statistics]);

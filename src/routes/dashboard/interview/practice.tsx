@@ -194,8 +194,8 @@ function PracticeSession() {
 	const createSessionMutation = useMutation({
 		mutationFn: async (qs: InterviewQuestion[]) => {
 			const sessionTitle = selectedProgram
-				? `Interview ${selectedProgram.name} - ${new Date().toLocaleDateString()}`
-				: `Interview ${fieldLabels[field as keyof typeof fieldLabels]} - ${new Date().toLocaleDateString()}`;
+				? `Interview ${selectedProgram.name} - ${new Date().toLocaleDateString("fr-FR")}`
+				: `Interview ${fieldLabels[field as keyof typeof fieldLabels]} - ${new Date().toLocaleDateString("fr-FR")}`;
 
 			return await client.interview.createSession({
 				title: sessionTitle,

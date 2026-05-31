@@ -331,7 +331,7 @@ export function ContactsTab({
 											{contact.lastContactedAt && (
 												<p className="text-muted-foreground text-xs">
 													<ClockIcon className="mr-1 inline size-3" />
-													Last contact: {new Date(contact.lastContactedAt).toLocaleDateString()}
+													Last contact: {new Date(contact.lastContactedAt).toLocaleDateString("fr-FR")}
 												</p>
 											)}
 										</div>

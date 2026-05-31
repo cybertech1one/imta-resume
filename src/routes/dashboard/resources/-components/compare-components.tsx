@@ -345,7 +345,8 @@ export function ComparisonTable({ programs, recommendations, maxSalary }: Compar
 										<div className="space-y-2">
 											<div className="flex items-center justify-between text-sm">
 												<span>
-													{program.salaryRange.min.toLocaleString()} - {program.salaryRange.max.toLocaleString()} MAD
+													{program.salaryRange.min.toLocaleString("fr-FR")} -{" "}
+													{program.salaryRange.max.toLocaleString("fr-FR")} MAD
 												</span>
 												{isBest && (
 													<Badge className="bg-green-500 text-white text-xs">
@@ -550,7 +551,8 @@ export function SalaryComparisonCard({ programs, recommendations, maxSalary }: S
 										className="absolute top-1/2 -translate-y-1/2 font-medium text-white text-xs"
 										style={{ left: `${(minPercent + maxPercent) / 2}%`, transform: "translate(-50%, -50%)" }}
 									>
-										{program.salaryRange.min.toLocaleString()} - {program.salaryRange.max.toLocaleString()}
+										{program.salaryRange.min.toLocaleString("fr-FR")} -{" "}
+										{program.salaryRange.max.toLocaleString("fr-FR")}
 									</div>
 								</div>
 							</motion.div>
@@ -560,8 +562,8 @@ export function SalaryComparisonCard({ programs, recommendations, maxSalary }: S
 
 				<div className="mt-4 flex justify-between text-muted-foreground text-xs">
 					<span>0 MAD</span>
-					<span>{(maxSalary / 2).toLocaleString()} MAD</span>
-					<span>{maxSalary.toLocaleString()} MAD</span>
+					<span>{(maxSalary / 2).toLocaleString("fr-FR")} MAD</span>
+					<span>{maxSalary.toLocaleString("fr-FR")} MAD</span>
 				</div>
 			</CardContent>
 		</Card>
@@ -748,7 +750,7 @@ export function RecommendationsCard({ recommendations }: RecommendationsCardProp
 									<Badge className="bg-green-500 text-white">Best salary</Badge>
 									<span className="font-semibold">{recommendations.bestSalary.name}</span>
 									<span className="text-muted-foreground text-sm">
-										up to {recommendations.bestSalary.salaryRange.max.toLocaleString()} MAD
+										up to {recommendations.bestSalary.salaryRange.max.toLocaleString("fr-FR")} MAD
 									</span>
 								</motion.div>
 							</TooltipTrigger>

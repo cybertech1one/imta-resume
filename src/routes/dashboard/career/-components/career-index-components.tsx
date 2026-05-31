@@ -844,7 +844,7 @@ export function SalaryComparisonCard() {
 										<span className="font-medium">{sector.field}</span>
 									</div>
 									<span className="font-bold">
-										{sector.min.toLocaleString()} - {sector.max.toLocaleString()} DH
+										{sector.min.toLocaleString("fr-FR")} - {sector.max.toLocaleString("fr-FR")} DH
 									</span>
 								</div>
 								<div className="relative h-3 overflow-hidden rounded-full bg-muted">
@@ -859,7 +859,7 @@ export function SalaryComparisonCard() {
 								<p className="text-muted-foreground text-sm">
 									<Trans>Average:</Trans>{" "}
 									<span className="font-medium">
-										{sector.avg.toLocaleString()} DH/<Trans>month</Trans>
+										{sector.avg.toLocaleString("fr-FR")} DH/<Trans>month</Trans>
 									</span>
 								</p>
 							</motion.div>

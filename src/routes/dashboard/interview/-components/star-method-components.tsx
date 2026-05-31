@@ -143,7 +143,7 @@ export function StarHistoryTab({ history, onStartExercise }: StarHistoryTabProps
 											</Badge>
 										)}
 										<span className="text-muted-foreground text-xs">
-											{new Date(entry.completedAt).toLocaleDateString()}
+											{new Date(entry.completedAt).toLocaleDateString("fr-FR")}
 										</span>
 									</div>
 								</div>

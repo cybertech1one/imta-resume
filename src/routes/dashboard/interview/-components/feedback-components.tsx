@@ -167,7 +167,7 @@ function ProgressChart({ data, category }: { data: TrendData[]; category?: Feedb
 			<div className="absolute right-0 bottom-0 left-0 flex justify-between text-muted-foreground text-xs">
 				{data.map((d, i) => (
 					<span key={i} className={i === 0 || i === data.length - 1 ? "" : "hidden md:block"}>
-						{new Date(d.date).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+						{new Date(d.date).toLocaleDateString("fr-FR", { month: "short", day: "numeric" })}
 					</span>
 				))}
 			</div>
@@ -226,7 +226,7 @@ export function FeedbackCard({
 										<Badge className={categoryColors[feedback.category]}>{categoryLabels[feedback.category]}</Badge>
 										<Badge variant="outline" className="text-xs">
 											<CalendarIcon className="mr-1 size-3" />
-											{new Date(feedback.date).toLocaleDateString()}
+											{new Date(feedback.date).toLocaleDateString("fr-FR")}
 										</Badge>
 										{feedback.priority === "high" && (
 											<Badge className={priorityColors.high}>
@@ -457,7 +457,7 @@ function GoalCard({
 			<div className="flex items-center justify-between border-t pt-3">
 				<div className="flex items-center gap-1 text-muted-foreground text-xs">
 					<CalendarIcon className="size-3" />
-					<Trans>Target:</Trans> {new Date(goal.targetDate).toLocaleDateString()}
+					<Trans>Target:</Trans> {new Date(goal.targetDate).toLocaleDateString("fr-FR")}
 				</div>
 			</div>
 		</motion.div>

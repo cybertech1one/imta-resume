@@ -210,7 +210,7 @@ function VoiceInterviewPage() {
 	// Download transcript
 	const downloadTranscript = useCallback(() => {
 		const content = transcript
-			.map((entry) => `[${new Date(entry.timestamp).toLocaleTimeString()}] ${entry.speaker}: ${entry.text}`)
+			.map((entry) => `[${new Date(entry.timestamp).toLocaleTimeString("fr-FR")}] ${entry.speaker}: ${entry.text}`)
 			.join("\n\n");
 
 		const blob = new Blob([content], { type: "text/plain" });

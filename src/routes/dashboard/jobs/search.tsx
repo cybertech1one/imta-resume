@@ -319,16 +319,16 @@ function JobSearchPage() {
 									{(job.salaryMin || job.salaryMax) && (
 										<p className="mt-2 font-medium text-primary text-sm">
 											{job.salaryMin && job.salaryMax
-												? `${job.salaryMin.toLocaleString()} - ${job.salaryMax.toLocaleString()} ${job.currency}`
+												? `${job.salaryMin.toLocaleString("fr-FR")} - ${job.salaryMax.toLocaleString("fr-FR")} ${job.currency}`
 												: job.salaryMin
-													? `${job.salaryMin.toLocaleString()}+ ${job.currency}`
-													: `${job.salaryMax?.toLocaleString()} ${job.currency}`}
+													? `${job.salaryMin.toLocaleString("fr-FR")}+ ${job.currency}`
+													: `${job.salaryMax?.toLocaleString("fr-FR")} ${job.currency}`}
 										</p>
 									)}
 									{job.postedDate && (
 										<p className="mt-1 text-muted-foreground text-xs">
 											<ClockIcon className="mr-1 inline size-3" />
-											{new Date(job.postedDate).toLocaleDateString()}
+											{new Date(job.postedDate).toLocaleDateString("fr-FR")}
 										</p>
 									)}
 								</CardContent>

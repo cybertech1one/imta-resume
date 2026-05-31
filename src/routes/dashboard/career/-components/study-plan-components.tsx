@@ -930,7 +930,7 @@ export function ScheduleTab({ data, handleToggleTask }: ScheduleTabProps) {
 								const dayTasks = data.tasks.filter((t) => t.scheduledDate.split("T")[0] === date);
 								const isTodays = isToday(date);
 								const isPast = isOverdue(date);
-								const dayName = new Date(date).toLocaleDateString(undefined, { weekday: "long" });
+								const dayName = new Date(date).toLocaleDateString("fr-FR", { weekday: "long" });
 
 								return (
 									<div key={date} className={cn("rounded-lg border p-4", isTodays && "border-primary bg-primary/5")}>

@@ -59,12 +59,12 @@ const IMTA_PROGRAM_OPTIONS = [
 	{ value: "aide_soignant", label: "Aide-Soignant" },
 	{ value: "infirmier_auxiliaire", label: "Infirmier Auxiliaire" },
 	{ value: "conducteur_engins", label: "Conducteur d'Engins" },
-	{ value: "mecanique_engins", label: "Mecanique d'Engins" },
+	{ value: "mecanique_engins", label: "Mécanique d'Engins" },
 	{ value: "tourneur_industriel", label: "Tourneur Industriel" },
 	{ value: "cariste", label: "Cariste" },
-	{ value: "electromecanique", label: "Electromecanique" },
+	{ value: "electromecanique", label: "Électromécanique" },
 	{ value: "soudure", label: "Soudure" },
-	{ value: "hse_specialist", label: "Specialiste HSE" },
+	{ value: "hse_specialist", label: "Spécialiste HSE" },
 	{ value: "other", label: "Autre" },
 ] as const;
 

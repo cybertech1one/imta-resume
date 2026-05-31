@@ -223,13 +223,13 @@ function FollowUpTrackerPage() {
 
 		for (let i = 4; i >= 0; i--) {
 			const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
-			const key = date.toLocaleDateString(undefined, { month: "short" });
+			const key = date.toLocaleDateString("fr-FR", { month: "short" });
 			monthlyData[key] = { sent: 0, responded: 0 };
 		}
 
 		for (const app of applications) {
 			const appDate = new Date(app.appliedDate);
-			const key = appDate.toLocaleDateString(undefined, { month: "short" });
+			const key = appDate.toLocaleDateString("fr-FR", { month: "short" });
 			if (monthlyData[key]) {
 				if (app.followUpCount > 0) {
 					monthlyData[key].sent += app.followUpCount;
@@ -299,8 +299,8 @@ function FollowUpTrackerPage() {
 				});
 
 				const newNotes = app.notes
-					? `${app.notes}\n\n[${new Date().toLocaleDateString(undefined)}] Relance ${app.followUpCount + 1} envoyée`
-					: `[${new Date().toLocaleDateString(undefined)}] Relance ${app.followUpCount + 1} envoyée`;
+					? `${app.notes}\n\n[${new Date().toLocaleDateString("fr-FR")}] Relance ${app.followUpCount + 1} envoyée`
+					: `[${new Date().toLocaleDateString("fr-FR")}] Relance ${app.followUpCount + 1} envoyée`;
 
 				await updateApplicationMutation.mutateAsync({
 					id: appId,
@@ -326,8 +326,8 @@ function FollowUpTrackerPage() {
 				});
 
 				const newNotes = app.notes
-					? `${app.notes}\n\n[${new Date().toLocaleDateString(undefined)}] Relance ${app.followUpCount + 1} envoyée`
-					: `[${new Date().toLocaleDateString(undefined)}] Relance ${app.followUpCount + 1} envoyée`;
+					? `${app.notes}\n\n[${new Date().toLocaleDateString("fr-FR")}] Relance ${app.followUpCount + 1} envoyée`
+					: `[${new Date().toLocaleDateString("fr-FR")}] Relance ${app.followUpCount + 1} envoyée`;
 
 				await updateApplicationMutation.mutateAsync({
 					id: appId,

@@ -250,7 +250,8 @@ function ProgramCard({
 					<div className="flex items-center gap-1 text-muted-foreground text-sm">
 						<CurrencyCircleDollarIcon className="size-4" />
 						<span>
-							{program.salaryMin.toLocaleString()} - {program.salaryMax.toLocaleString()} {program.salaryCurrency}
+							{program.salaryMin.toLocaleString("fr-FR")} - {program.salaryMax.toLocaleString("fr-FR")}{" "}
+							{program.salaryCurrency}
 						</span>
 					</div>
 
@@ -637,7 +638,7 @@ function ComparisonTable({ programsToCompare, isInInterests, onQuickAddToInteres
 										<TableCell key={program.id} className="text-center">
 											<div className="space-y-2">
 												<span className={cn("font-medium", isBest && "text-green-600")}>
-													{program.salaryMin.toLocaleString()} - {program.salaryMax.toLocaleString()}{" "}
+													{program.salaryMin.toLocaleString("fr-FR")} - {program.salaryMax.toLocaleString("fr-FR")}{" "}
 													{program.salaryCurrency}
 												</span>
 												{isBest && (
@@ -1194,7 +1195,8 @@ function InterestCard({ interest, index, onRemove }: InterestCardProps) {
 							<div className="flex items-center gap-1 text-muted-foreground text-sm">
 								<CurrencyCircleDollarIcon className="size-4" />
 								<span>
-									{program.salaryMin.toLocaleString()} - {program.salaryMax.toLocaleString()} {program.salaryCurrency}
+									{program.salaryMin.toLocaleString("fr-FR")} - {program.salaryMax.toLocaleString("fr-FR")}{" "}
+									{program.salaryCurrency}
 								</span>
 							</div>
 						</>
@@ -1232,7 +1234,7 @@ function InterestCard({ interest, index, onRemove }: InterestCardProps) {
 
 					<div className="flex items-center gap-1 text-muted-foreground text-xs">
 						<CalendarIcon className="size-3" />
-						<Trans>Added on</Trans> {new Date(interest.addedAt).toLocaleDateString()}
+						<Trans>Added on</Trans> {new Date(interest.addedAt).toLocaleDateString("fr-FR")}
 					</div>
 				</CardContent>
 				{!interest.isCustom && program && (

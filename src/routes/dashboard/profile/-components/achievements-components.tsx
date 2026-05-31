@@ -92,7 +92,7 @@ function XpProgressBar({ currentXp, className }: { currentXp: number; className?
 			</div>
 			<p className="text-muted-foreground text-xs">
 				<Trans>
-					{Math.max(0, nextLevelXp - currentXp).toLocaleString()} XP to Level {nextLevel}
+					{Math.max(0, nextLevelXp - currentXp).toLocaleString("fr-FR")} XP to Level {nextLevel}
 				</Trans>
 			</p>
 		</div>
@@ -418,7 +418,7 @@ function LeaderboardRow({ entry, index }: { entry: LeaderboardEntry; index: numb
 			</div>
 
 			<div className="text-right">
-				<p className="font-bold">{entry.totalXp.toLocaleString()}</p>
+				<p className="font-bold">{entry.totalXp.toLocaleString("fr-FR")}</p>
 				<p className="text-muted-foreground text-xs">XP</p>
 			</div>
 		</motion.div>
@@ -610,7 +610,9 @@ function NotificationItem({
 						</Button>
 					)}
 				</div>
-				<p className="mt-1 text-muted-foreground text-xs">{formatRelativeTime(notification.createdAt)}</p>
+				<p suppressHydrationWarning className="mt-1 text-muted-foreground text-xs">
+					{formatRelativeTime(notification.createdAt)}
+				</p>
 			</div>
 		</motion.div>
 	);
@@ -780,7 +782,7 @@ export function HeroSection({
 									<Trans>Level</Trans> {currentLevel}
 								</h2>
 								<p className="text-muted-foreground">
-									{userXp.toLocaleString()} <Trans>Total XP</Trans>
+									{userXp.toLocaleString("fr-FR")} <Trans>Total XP</Trans>
 								</p>
 							</div>
 						</div>

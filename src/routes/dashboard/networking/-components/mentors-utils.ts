@@ -56,7 +56,7 @@ export { formatDate } from "@/utils/format-date";
 
 export function formatDateTime(dateString: string | Date): string {
 	const date = typeof dateString === "string" ? new Date(dateString) : dateString;
-	return date.toLocaleString(undefined, {
+	return date.toLocaleString("fr-FR", {
 		year: "numeric",
 		month: "short",
 		day: "numeric",

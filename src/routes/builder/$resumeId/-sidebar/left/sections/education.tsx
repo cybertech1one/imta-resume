@@ -31,33 +31,33 @@ const educationPresets = {
 		items: [
 			{
 				school: "Institut Medi Technology Avicenne (IMTA)",
-				degree: "Diplome de Technicien Specialise",
+				degree: "Diplôme de Technicien Spécialisé",
 				area: "Soins Infirmiers",
 			},
 			{
 				school: "Institut Medi Technology Avicenne (IMTA)",
-				degree: "Diplome de Technicien Specialise",
+				degree: "Diplôme de Technicien Spécialisé",
 				area: "Maintenance Industrielle",
 			},
 			{
 				school: "Institut Medi Technology Avicenne (IMTA)",
-				degree: "Diplome de Technicien Specialise",
-				area: "Hygiene, Securite et Environnement (HSE)",
+				degree: "Diplôme de Technicien Spécialisé",
+				area: "Hygiène, Sécurité et Environnement (HSE)",
 			},
 			{
 				school: "Institut Medi Technology Avicenne (IMTA)",
-				degree: "Diplome de Technicien",
+				degree: "Diplôme de Technicien",
 				area: "Aide-Soignant",
 			},
 		],
 	},
 	healthcare: {
-		label: "Healthcare Education",
+		label: "Healthcare Éducation",
 		icon: FirstAidKitIcon,
 		items: [
 			{
 				school: "Institut de Formation aux Carrieres de Sante (IFCS)",
-				degree: "Diplome d'Etat d'Infirmier",
+				degree: "Diplôme d'État d'Infirmier",
 				area: "Soins Infirmiers Polyvalents",
 			},
 			{
@@ -68,28 +68,28 @@ const educationPresets = {
 		],
 	},
 	industrial: {
-		label: "Industrial Education",
+		label: "Industrial Éducation",
 		icon: GearIcon,
 		items: [
 			{
 				school: "OFPPT - Office de la Formation Professionnelle",
-				degree: "Diplome de Technicien Specialise",
-				area: "Electromecanique des Systemes Automatises",
+				degree: "Diplôme de Technicien Spécialisé",
+				area: "Electromecanique des Systèmes Automatises",
 			},
 			{
 				school: "OFPPT - Office de la Formation Professionnelle",
-				degree: "Diplome de Technicien",
+				degree: "Diplôme de Technicien",
 				area: "Maintenance Industrielle",
 			},
 			{
 				school: "Ecole Superieure de Technologie (EST)",
-				degree: "DUT (Diplome Universitaire de Technologie)",
-				area: "Genie Mecanique",
+				degree: "DUT (Diplôme Universitaire de Technologie)",
+				area: "Genie Mécanique",
 			},
 		],
 	},
 	general: {
-		label: "General Education",
+		label: "General Éducation",
 		icon: GraduationCapIcon,
 		items: [
 			{

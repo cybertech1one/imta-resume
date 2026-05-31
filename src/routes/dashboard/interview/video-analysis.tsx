@@ -110,7 +110,7 @@ function VideoAnalysisPage() {
 			analyzeTimeoutRef.current = setTimeout(() => {
 				const result = generateAnalysisResult(duration);
 				createAnalysisMutation.mutate({
-					title: `Analysis of ${new Date().toLocaleDateString()}`,
+					title: `Analysis of ${new Date().toLocaleDateString("fr-FR")}`,
 					...result,
 				});
 				setIsAnalyzing(false);

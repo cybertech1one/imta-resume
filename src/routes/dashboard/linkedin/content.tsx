@@ -499,7 +499,7 @@ function LinkedInContentGenerator() {
 														))}
 													</div>
 													<p className="mt-2 text-muted-foreground text-xs">
-														<Trans>Created on</Trans> {new Date(post.createdAt).toLocaleDateString()}
+														<Trans>Created on</Trans> {new Date(post.createdAt).toLocaleDateString("fr-FR")}
 													</p>
 												</div>
 												<div className="flex gap-2">

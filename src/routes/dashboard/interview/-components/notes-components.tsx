@@ -91,9 +91,7 @@ function RichTextEditor({
 					variant="outline"
 					size="sm"
 					onClick={() =>
-						onChange(
-							`${value}\n\n[${new Date().toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}] `,
-						)
+						onChange(`${value}\n\n[${new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}] `)
 					}
 				>
 					<ClockIcon className="mr-1 size-3" />
@@ -136,7 +134,7 @@ export function NoteCard({
 						</div>
 						<span className="flex items-center gap-1 text-muted-foreground text-xs">
 							<CalendarIcon className="size-3" />
-							{new Date(note.date).toLocaleDateString(undefined, {
+							{new Date(note.date).toLocaleDateString("fr-FR", {
 								day: "numeric",
 								month: "short",
 								year: "numeric",
@@ -183,7 +181,7 @@ export function NoteCard({
 					<div className="flex items-center justify-between border-t pt-3">
 						<span className="text-muted-foreground text-xs">
 							<Trans>Modifié le</Trans>{" "}
-							{new Date(note.updatedAt).toLocaleDateString(undefined, {
+							{new Date(note.updatedAt).toLocaleDateString("fr-FR", {
 								day: "numeric",
 								month: "short",
 								hour: "2-digit",
@@ -326,7 +324,7 @@ export function NoteDetail({ note, onClose }: { note: InterviewNote; onClose: ()
 							<div className="flex items-center gap-2">
 								<CalendarIcon className="size-4 text-muted-foreground" />
 								<span>
-									{new Date(note.date).toLocaleDateString(undefined, {
+									{new Date(note.date).toLocaleDateString("fr-FR", {
 										weekday: "long",
 										day: "numeric",
 										month: "long",
@@ -605,7 +603,7 @@ export function NoteDetail({ note, onClose }: { note: InterviewNote; onClose: ()
 												{action.dueDate && (
 													<p className="mt-1 flex items-center gap-1 text-muted-foreground text-xs">
 														<CalendarIcon className="size-3" />
-														<Trans>Échéance :</Trans> {new Date(action.dueDate).toLocaleDateString(undefined)}
+														<Trans>Échéance :</Trans> {new Date(action.dueDate).toLocaleDateString("fr-FR")}
 													</p>
 												)}
 											</div>

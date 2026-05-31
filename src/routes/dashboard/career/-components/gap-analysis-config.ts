@@ -453,5 +453,5 @@ export function getResourcesForSkill(skillName: string): LearningResource[] {
 }
 
 export function formatSalary(amount: number): string {
-	return `${amount.toLocaleString()} DH`;
+	return `${amount.toLocaleString("fr-FR")} DH`;
 }

@@ -116,7 +116,7 @@ export function PortfolioHero({ projectCount }: { projectCount: number }) {
 							<EyeIcon className="size-5 text-green-500" weight="duotone" />
 						</div>
 						<div>
-							<p className="font-bold text-xl">{SAMPLE_ANALYTICS.totalViews.toLocaleString()}</p>
+							<p className="font-bold text-xl">{SAMPLE_ANALYTICS.totalViews.toLocaleString("fr-FR")}</p>
 							<p className="text-muted-foreground text-sm">
 								<Trans>Total Views</Trans>
 							</p>

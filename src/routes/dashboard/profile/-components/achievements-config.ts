@@ -239,7 +239,7 @@ export function formatRelativeTime(date: Date): string {
 	if (diffDays < 7) {
 		return t`${diffDays}d ago`;
 	}
-	return dateObj.toLocaleDateString();
+	return dateObj.toLocaleDateString("fr-FR");
 }
 
 export function getNextTier(unlockedTiers: string[]): AchievementTier | null {

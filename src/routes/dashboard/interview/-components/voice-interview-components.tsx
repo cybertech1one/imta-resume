@@ -723,7 +723,9 @@ function TranscriptPanel({
 											>
 												<p className="text-sm">{entry.text}</p>
 											</div>
-											<p className="text-muted-foreground text-xs">{new Date(entry.timestamp).toLocaleTimeString()}</p>
+											<p className="text-muted-foreground text-xs">
+												{new Date(entry.timestamp).toLocaleTimeString("fr-FR")}
+											</p>
 										</div>
 									</motion.div>
 								);

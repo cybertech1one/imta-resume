@@ -65,7 +65,7 @@ export function InteractionTimeline({ interactions, nodes, selectedNode }: Inter
 								<div className="mb-1 flex items-center justify-between">
 									<span className="font-medium text-sm">{config.label}</span>
 									<span className="text-muted-foreground text-xs">
-										{new Date(interaction.date).toLocaleDateString()}
+										{new Date(interaction.date).toLocaleDateString("fr-FR")}
 									</span>
 								</div>
 								{!selectedNode && <p className="mb-1 text-primary text-sm">with {getNodeName(interaction.nodeId)}</p>}
@@ -79,7 +79,7 @@ export function InteractionTimeline({ interactions, nodes, selectedNode }: Inter
 								{interaction.followUpDate && (
 									<p className="mt-1 text-amber-600 text-xs dark:text-amber-400">
 										<CalendarIcon className="mr-1 inline size-3" />
-										Follow-up: {new Date(interaction.followUpDate).toLocaleDateString()}
+										Follow-up: {new Date(interaction.followUpDate).toLocaleDateString("fr-FR")}
 									</p>
 								)}
 							</CardContent>

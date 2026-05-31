@@ -818,7 +818,7 @@ export function HistoryTab({ quizResults, historyRadarData, onSetActiveTab }: Hi
 												<Badge variant="outline">{LEVEL_CONFIG[result.level].label}</Badge>
 											</div>
 											<p className="text-muted-foreground text-sm">
-												{new Date(result.date).toLocaleDateString(undefined, {
+												{new Date(result.date).toLocaleDateString("fr-FR", {
 													day: "numeric",
 													month: "long",
 													year: "numeric",

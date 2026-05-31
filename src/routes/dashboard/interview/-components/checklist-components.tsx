@@ -494,7 +494,7 @@ export function ReminderSection({
 							<div className="flex flex-wrap items-center gap-4">
 								<Badge variant="secondary" className="gap-1.5 px-3 py-1.5">
 									<CalendarIcon className="size-4" />
-									{new Date(`${reminder.date}T${reminder.time}`).toLocaleDateString(undefined, {
+									{new Date(`${reminder.date}T${reminder.time}`).toLocaleDateString("fr-FR", {
 										weekday: "long",
 										year: "numeric",
 										month: "long",

@@ -767,7 +767,7 @@ export function RecentSessionsSection({
 												<span>{difficultyLabels[session.difficulty as keyof typeof difficultyLabels]}</span>
 												<span aria-hidden="true">-</span>
 												<time dateTime={new Date(session.createdAt).toISOString()}>
-													{new Date(session.createdAt).toLocaleDateString()}
+													{new Date(session.createdAt).toLocaleDateString("fr-FR")}
 												</time>
 											</div>
 										</div>

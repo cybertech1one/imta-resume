@@ -476,7 +476,7 @@ function MyPrograms() {
 												<div>
 													<CardTitle className="text-lg">{training.programName}</CardTitle>
 													<CardDescription>
-														<Trans>Added on</Trans> {new Date(training.createdAt).toLocaleDateString()}
+														<Trans>Added on</Trans> {new Date(training.createdAt).toLocaleDateString("fr-FR")}
 													</CardDescription>
 												</div>
 											</div>

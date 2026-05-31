@@ -327,7 +327,7 @@ export function DashboardTabContent({
 													<div>
 														<p className="font-medium text-sm">{entry.title}</p>
 														<p className="text-muted-foreground text-xs">
-															{new Date(entry.entryDate).toLocaleDateString()}
+															{new Date(entry.entryDate).toLocaleDateString("fr-FR")}
 														</p>
 													</div>
 												</div>
@@ -498,7 +498,7 @@ export function JournalTabContent({
 												<div>
 													<h4 className="font-medium">{entry.title}</h4>
 													<p className="text-muted-foreground text-xs">
-														{new Date(entry.entryDate).toLocaleDateString()}
+														{new Date(entry.entryDate).toLocaleDateString("fr-FR")}
 													</p>
 												</div>
 												{entry.mood && <span className="text-2xl">{MOOD_EMOJIS[entry.mood - 1]}</span>}

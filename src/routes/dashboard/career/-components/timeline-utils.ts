@@ -2,7 +2,7 @@ export { formatDate } from "@/utils/format-date";
 
 export function formatDateFull(dateStr: string): string {
 	const date = new Date(dateStr);
-	return date.toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" });
+	return date.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
 }
 
 export function getDateDiff(start: string, end: string | null): string {

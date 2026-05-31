@@ -226,7 +226,7 @@ function ProgressChart({ data }: { data: ProgressData[] }) {
 			<div className="absolute right-0 bottom-0 left-0 flex justify-between text-muted-foreground text-xs">
 				{data.map((d, i) => (
 					<span key={i} className={i === 0 || i === data.length - 1 ? "" : "hidden md:block"}>
-						{new Date(d.date).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+						{new Date(d.date).toLocaleDateString("fr-FR", { month: "short", day: "numeric" })}
 					</span>
 				))}
 			</div>
@@ -537,7 +537,7 @@ function RecordingCard({
 				<h4 className="mb-1 line-clamp-1 font-semibold">{recording.title}</h4>
 				<div className="mb-3 flex items-center gap-2 text-muted-foreground text-sm">
 					<CalendarIcon className="size-4" />
-					{new Date(recording.date).toLocaleDateString(undefined)}
+					{new Date(recording.date).toLocaleDateString("fr-FR")}
 					<span className="text-muted-foreground/50">|</span>
 					<Badge variant="outline" className="text-xs">
 						{fieldLabels[recording.field] || recording.field}
@@ -630,7 +630,7 @@ export function RecordingDetailView({
 				<div>
 					<h2 className="font-semibold text-xl">{selectedRecording.title}</h2>
 					<p className="text-muted-foreground text-sm">
-						{new Date(selectedRecording.date).toLocaleDateString(undefined)} - {fieldLabels[selectedRecording.field]}
+						{new Date(selectedRecording.date).toLocaleDateString("fr-FR")} - {fieldLabels[selectedRecording.field]}
 					</p>
 				</div>
 			</div>

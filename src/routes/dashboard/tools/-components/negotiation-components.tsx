@@ -67,7 +67,7 @@ import type {
 } from "./negotiation-types";
 
 // Shared currency formatter
-const formatCurrency = (amount: number) => `${amount.toLocaleString()} DH`;
+const formatCurrency = (amount: number) => `${amount.toLocaleString("fr-FR")} DH`;
 
 // ─── Hero Section ──────────────────────────────────────────────────────────────
 

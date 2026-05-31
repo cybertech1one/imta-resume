@@ -750,7 +750,7 @@ function Milestones({ milestones }: { milestones: any[] }) {
 								<h4 className="font-medium">{milestone.milestone}</h4>
 								<p className="text-muted-foreground text-sm">{milestone.criteria}</p>
 								<Badge variant="outline" className="mt-2 text-xs">
-									{new Date(milestone.targetDate).toLocaleDateString(undefined)}
+									{new Date(milestone.targetDate).toLocaleDateString("fr-FR")}
 								</Badge>
 							</div>
 						</div>

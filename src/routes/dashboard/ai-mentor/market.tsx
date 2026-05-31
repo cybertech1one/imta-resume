@@ -161,7 +161,7 @@ function MarketIntelligencePage() {
 										<Trans>Offres actives</Trans>
 									</CardDescription>
 									<CardTitle className="text-2xl">
-										{regions?.reduce((sum, r) => sum + (r.totalJobs || 0), 0)?.toLocaleString() || "—"}
+										{regions?.reduce((sum, r) => sum + (r.totalJobs || 0), 0)?.toLocaleString("fr-FR") || "—"}
 									</CardTitle>
 								</CardHeader>
 								<CardContent>
@@ -244,7 +244,7 @@ function MarketIntelligencePage() {
 													<span className="font-medium">{region.regionFr || region.region}</span>
 													<div className="flex items-center gap-4">
 														<span className="text-muted-foreground">
-															{region.totalJobs?.toLocaleString()} <Trans>emplois</Trans>
+															{region.totalJobs?.toLocaleString("fr-FR")} <Trans>emplois</Trans>
 														</span>
 														<Badge
 															variant={Number(region.jobGrowth) > 0 ? "default" : "secondary"}

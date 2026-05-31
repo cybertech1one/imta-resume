@@ -534,12 +534,12 @@ export function TimelineView({
 									>
 										<span className="font-bold text-xl">{new Date(date).getDate()}</span>
 										<span className="text-muted-foreground text-xs uppercase">
-											{new Date(date).toLocaleDateString(undefined, { month: "short" })}
+											{new Date(date).toLocaleDateString("fr-FR", { month: "short" })}
 										</span>
 									</div>
 									<div>
 										<h3 className="font-semibold text-lg">
-											{new Date(date).toLocaleDateString(undefined, { weekday: "long" })}
+											{new Date(date).toLocaleDateString("fr-FR", { weekday: "long" })}
 										</h3>
 										<p className="text-muted-foreground text-sm">
 											{isTodayDate ? (
@@ -611,7 +611,7 @@ export function CalendarView({
 					<div className="flex items-center justify-between">
 						<CardTitle className="flex items-center gap-2">
 							<CalendarIcon className="size-5" weight="duotone" />
-							{currentMonth.toLocaleDateString(undefined, { month: "long", year: "numeric" })}
+							{currentMonth.toLocaleDateString("fr-FR", { month: "long", year: "numeric" })}
 						</CardTitle>
 						<div className="flex items-center gap-2">
 							<Button variant="outline" size="icon" onClick={() => onNavigateMonth("prev")}>

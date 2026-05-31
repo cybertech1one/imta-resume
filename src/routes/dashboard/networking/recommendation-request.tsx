@@ -331,7 +331,7 @@ function RecommendationRequestPage() {
 		if (request) {
 			body = body
 				.replace("[OBJECTIF]", request.purpose)
-				.replace("[DATE]", new Date(request.deadline).toLocaleDateString())
+				.replace("[DATE]", new Date(request.deadline).toLocaleDateString("fr-FR"))
 				.replace("[POINTS_CLES]", request.talkingPoints.map((p) => `- ${p}`).join("\n"));
 		}
 		navigator.clipboard.writeText(body);

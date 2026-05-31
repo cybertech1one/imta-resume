@@ -148,7 +148,7 @@ const ResumeListItem = memo(function ResumeListItem({ resume }: { resume: Resume
 		if (diffHours < 24) return t`${diffHours}h ago`;
 		if (diffDays === 1) return t`Yesterday`;
 		if (diffDays < 7) return t`${diffDays}d ago`;
-		return updated.toLocaleDateString(undefined, { day: "numeric", month: "short" });
+		return updated.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
 	}, [resume.updatedAt]);
 
 	return (

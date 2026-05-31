@@ -415,8 +415,8 @@ export function OverviewTab({
 													<div className="flex items-center gap-1 text-muted-foreground text-sm">
 														<CurrencyCircleDollarIcon className="size-4" />
 														<span>
-															{program.salaryRange.min.toLocaleString()} - {program.salaryRange.max.toLocaleString()}{" "}
-															{program.salaryRange.currency}
+															{program.salaryRange.min.toLocaleString("fr-FR")} -{" "}
+															{program.salaryRange.max.toLocaleString("fr-FR")} {program.salaryRange.currency}
 														</span>
 													</div>
 													<ArrowRightIcon className="size-5 text-primary opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100" />
@@ -882,8 +882,8 @@ export function ProgramsTab({ programs, filteredPrograms, programCategory, setPr
 														<div className="flex items-center gap-1 text-muted-foreground">
 															<CurrencyCircleDollarIcon className="size-5" />
 															<span className="font-medium">
-																{program.salaryRange.min.toLocaleString()} - {program.salaryRange.max.toLocaleString()}{" "}
-																{program.salaryRange.currency}
+																{program.salaryRange.min.toLocaleString("fr-FR")} -{" "}
+																{program.salaryRange.max.toLocaleString("fr-FR")} {program.salaryRange.currency}
 															</span>
 														</div>
 														<Button size="sm" variant="ghost" className="gap-1 text-primary">
@@ -1553,7 +1553,7 @@ export function MyTrainingsTab({
 												<div>
 													<CardTitle className="text-lg">{training.programName}</CardTitle>
 													<CardDescription>
-														<Trans>Added on</Trans> {new Date(training.addedAt).toLocaleDateString()}
+														<Trans>Added on</Trans> {new Date(training.addedAt).toLocaleDateString("fr-FR")}
 													</CardDescription>
 												</div>
 											</div>

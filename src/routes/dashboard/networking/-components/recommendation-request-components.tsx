@@ -411,7 +411,7 @@ function RequestCard({
 					<div className="mb-3 flex items-center gap-2 text-sm">
 						<CalendarIcon className="size-4 text-muted-foreground" />
 						<span>
-							{t`Deadline:`} {new Date(request.deadline).toLocaleDateString()}
+							{t`Deadline:`} {new Date(request.deadline).toLocaleDateString("fr-FR")}
 						</span>
 						<span className={cn("font-medium text-xs", deadlineInfo.color)}>({deadlineInfo.text})</span>
 					</div>

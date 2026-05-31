@@ -476,8 +476,8 @@ function JobRecommendationsPage() {
 																		{(rec.job?.salaryMin || rec.job?.salaryMax) && (
 																			<span className="flex items-center gap-1 text-muted-foreground">
 																				<CurrencyCircleDollarIcon className="size-3" />
-																				{rec.job.salaryMin?.toLocaleString()} - {rec.job.salaryMax?.toLocaleString()}{" "}
-																				MAD
+																				{rec.job.salaryMin?.toLocaleString("fr-FR")} -{" "}
+																				{rec.job.salaryMax?.toLocaleString("fr-FR")} MAD
 																			</span>
 																		)}
 																	</div>
